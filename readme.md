@@ -12,6 +12,6 @@ Link to site: https://gduron-react-expensify.herokuapp.com/
 	* jwt
 
 ## Install
-`git clone https://github.com/gaeduron/Matcha.git  
-npm install  
-npm start`
+`git clone https://github.com/gaeduron/Matcha.git`  
+`npm install`  
+`npm start`
