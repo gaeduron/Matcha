@@ -8,8 +8,8 @@ Link to site: https://gduron-react-expensify.herokuapp.com/
 	* React
 	* Redux
 	* PostgreSQL
-	* socket.io
-	* jwt
+	* Socket.io
+	* Jwt
 
 ## Install
 `git clone https://github.com/gaeduron/Matcha.git`  
