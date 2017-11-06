@@ -7,7 +7,7 @@ export const LoginPage = ({ startLogin }) => (
     <div className="box-layout__box">
       <h1 className="box-layout__title">Matcha</h1>
 	  <h3>Create Account</h3>
-      <button className="button" onClick={}>Create</button>
+      <button className="button">Create</button>
     </div>
   </div>
 );
