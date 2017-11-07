@@ -10,7 +10,8 @@
     "dev-server": "webpack-dev-server",
     "test": "cross-env NODE_ENV=test jest --config=jest.config.json",
     "start": "node server/server.js",
-    "heroku-postbuild": "yarn run build:prod"
+    "heroku-postbuild": "yarn run build:prod",
+	"pg": "heroku pg:psql postgresql-parallel-87111 --app matcha-gduron"
   },
   "dependencies": {
     "babel-cli": "6.24.1",
