@@ -28,6 +28,7 @@
     "extract-text-webpack-plugin": "3.0.0",
     "firebase": "4.2.0",
     "history": "4.7.2",
+    "logform": "^1.2.1",
     "moment": "2.18.1",
     "node-sass": "4.5.3",
     "nodemon": "^1.12.1",
@@ -50,7 +51,8 @@
     "style-loader": "0.18.2",
     "uuid": "3.1.0",
     "validator": "8.0.0",
-    "webpack": "3.1.0"
+    "webpack": "3.1.0",
+    "winston": "^3.0.0-rc1"
   },
   "devDependencies": {
     "cross-env": "5.0.5",
