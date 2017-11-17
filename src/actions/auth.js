@@ -1,22 +1,29 @@
-//import { firebase, googleAuthProvider } from '../firebase/firebase';
+import { socket } from '../socket/socket';
+
+export const createAccount = ({ email, firstname, lastname, login, password }) => {
+	socket.emit('createUser', {
+		email: email,
+		firstname: firstname,
+		lastname: lastname,
+		login: login,
+		password: password
+	});
+};
 
 export const login = (uid) => ({
-  type: 'LOGIN',
-  uid
+	type: 'LOGIN',
+	uid
 });
 
 export const startLogin = () => {
-  return () => {
-	  //    return firebase.auth().signInWithPopup(googleAuthProvider);
-  };
 };
 
 export const logout = () => ({
-  type: 'LOGOUT'
+	type: 'LOGOUT'
 });
 
 export const startLogout = () => {
-  return () => {
-	  //    return firebase.auth().signOut();
-  };
+	return () => {
+		//    return firebase.auth().signOut();
+	};
 };
