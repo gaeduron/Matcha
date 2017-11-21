@@ -1,5 +1,21 @@
+const bcrypt = require('bcryptjs');
 const database = require('../postgresql/postgresql');
 const logger = require('../logs/logger');
+
+
+const verifyPassword = async function (password, hash) {
+	let result = await bcrypt.compare(password, hash);
+	
+	return result;
+}; 
+
+// Non asynchrone - on le rend async ? 
+const hashPassword = (password) => {
+	let salt = bcrypt.genSaltSync(10);
+	let hash = bcrypt.hashSync(password, salt);
+
+	return hash;
+};
 
 const createUser = async ({ email, firstname, lastname, login, password }) => {
 	const query = `
