@@ -58,7 +58,6 @@ const emailValidation = async (email) => {
 		return 'INVALIDE INPUT: this email is already registered';
 	}
 
-	console.log('by');
 	return null;
 };
 
@@ -72,13 +71,23 @@ const nameValidation = (name) => {
 	return null;
 };
 
-const loginValidation = (login) => {
+const loginValidation = async (login) => {
 	const regex = /^[A-Za-z0-9.-_]+$/
 
 	if (login.length > 254)
 		return 'INVALIDE INPUT: your login is too long, 254 characteres max';
 	if (!regex.test(login))
 		return 'INVALIDE INPUT: login should only contain letters, numbers, dots, dashs, underscores';
+	
+	const query = `SELECT login FROM users WHERE login = $1;`;
+	const loginAlreadyTaken = await database.query(query, [login]);
+	if (loginAlreadyTaken.rowCount > 0)
+	{
+		console.log(loginAlreadyTaken.rowCount);
+		return 'INVALIDE INPUT: this login is already registered';
+	}
+	
+	console.log('by');
 	return null;
 };
 
@@ -107,11 +116,12 @@ const clean = (messages) => {
 const validateUser = async ({ email, firstname, lastname, login, password }) => {
 	const messages = [];
 	const emailValidationRes = await emailValidation(email);
+	const loginValidationRes = await loginValidation(login);
 
 	messages.push(emailValidationRes);
+	messages.push(loginValidationRes);
 	messages.push(nameValidation(firstname));
 	messages.push(nameValidation(lastname));
-	messages.push(loginValidation(login));
 	messages.push(passwordValidation(password));
 	clean(messages);
 
