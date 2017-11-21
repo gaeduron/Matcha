@@ -1,7 +1,7 @@
 # Matcha
 
 Un site de rencontres fait avec __amour__.  
-Link to site: https://gduron-react-expensify.herokuapp.com/
+Link to site: https://matcha-gduron.herokuapp.com/
 
 ## Stack
 	* Node
