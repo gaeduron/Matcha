@@ -27,6 +27,7 @@ const createUser = async ({ email, firstname, lastname, login, password }) => {
 		    password
 		) VALUES ($1, $2, $3, $4, $5);`;
 
+	password = hashPassword(password);
 	try {
 		await database.query(query, [email, firstname, lastname, login, password]);
 		logger.info(`User Creation succesful !`);
