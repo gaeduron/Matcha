@@ -2,9 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { createAccount } from '../actions/auth';
 
-export default class LoginPage extends React.Component {
-	constructor() {
-		super();
+export class LoginPage extends React.Component {
+	constructor(props) {
+		super(props);
 
 		this.state = {
 			email: "",
@@ -64,6 +64,7 @@ export default class LoginPage extends React.Component {
 				<div className="box-layout__box">
 					<h1 className="box-layout__title">Matcha</h1>
 					<h3>Create Account</h3>
+					<p>{this.props.notif}</p>
 					<form action="" onSubmit={this.onSubmit}>
 						<input
 							className="text-input"
@@ -107,3 +108,12 @@ export default class LoginPage extends React.Component {
 		)
 	};
 };
+
+const mapStateToProps = (state) => {
+	return {
+		notif: state.notif.notification	
+	}
+};
+
+export default connect(mapStateToProps, undefined)(LoginPage);
+

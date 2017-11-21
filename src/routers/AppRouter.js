@@ -12,7 +12,6 @@ export const history = createHistory();
 
 const AppRouterComponent = (props) => (
 	<div>
-		<h1>{props.notif}</h1>
 		<Router history={history}>
 			<div>
 				<Switch>
