@@ -4,13 +4,13 @@ const defaultListeners = (socket) => {
 	console.log('New user connected', socket.id);
 
 	socket.emit('newMessage', {
-		    from: 'John',
-		    text: 'See you then',
-		    createdAt: 123123
+		from: 'John',
+		text: 'See you then',
+		createdAt: 123123
 	});
 
 	socket.on('disconnect', () => {
-		    console.log('User was disconnected');
+		console.log('User was disconnected');
 	});
 };
 
