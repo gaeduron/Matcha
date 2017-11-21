@@ -1,10 +1,15 @@
-const notificationListener = (socket) => {
+
+const notificationListener = (dispatch, socket) => {
 	socket.on('newMessage', function (message) {
 		  console.log('newMessage', message);
 	});
 	
 	socket.on('createdUser', (res) => {
-		  console.log('response: ', res);
+		console.log('response: ', res);
+		dispatch({
+			type: 'ADD_NOTIFICATION',
+			notification: res.messages
+		});
 	});
 };
 

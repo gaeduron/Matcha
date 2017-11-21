@@ -1,6 +1,6 @@
 import notificationListener from './notification';
 
-const defaultListener = (socket) => {
+const defaultListener = (dispatch, socket) => {
 	socket.on('connect', function () {
 		console.log('Connected to server');
 	});
@@ -10,9 +10,9 @@ const defaultListener = (socket) => {
 	});
 };
 
-const initListeners = (socket) => {
-	defaultListener(socket);
-	notificationListener(socket);
+const initListeners = (dispatch, socket) => {
+	defaultListener(dispatch, socket);
+	notificationListener(dispatch, socket);
 };
 
 export default initListeners;

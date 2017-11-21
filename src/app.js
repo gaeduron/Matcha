@@ -7,10 +7,11 @@ import { login, logout } from './actions/auth';
 import 'normalize.css/normalize.css';
 import './styles/styles.scss';
 import 'react-dates/lib/css/_datepicker.css';
-import { socket } from './socket/socket';
+import { socket, socketInit} from './socket/socket';
 import LoadingPage from './components/LoadingPage';
 
 const store = configureStore();
+socketInit(store.dispatch, socket);
 const jsx = (
   <Provider store={store}>
 	  <AppRouter />
