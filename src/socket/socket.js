@@ -5,6 +5,5 @@ const socket = io();
 const socketInit = initListeners;
 
 socket.open();
-//initListeners(socket);
 
 export { socket, socketInit };

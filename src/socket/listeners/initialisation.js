@@ -6,7 +6,7 @@ const defaultListener = (dispatch, socket) => {
 	});
 
 	socket.on('disconnect', function () {
-		  console.log('Disconnected from server');
+		console.log('Disconnected from server');
 	});
 };
 

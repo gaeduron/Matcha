@@ -1,4 +1,3 @@
-
 const notificationListener = (dispatch, socket) => {
 	socket.on('newMessage', function (message) {
 		  console.log('newMessage', message);

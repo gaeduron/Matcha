@@ -10,7 +10,7 @@ import PublicRoute from './PublicRoute';
 
 export const history = createHistory();
 
-const AppRouterComponent = (props) => (
+const AppRouter = () => (
 	<div>
 		<Router history={history}>
 			<div>
@@ -23,13 +23,5 @@ const AppRouterComponent = (props) => (
 		</Router>
 	</div>
 );
-
-const mapStateToProps = state => {
-	return {
-		notif: state.notif.notification
-	}
-}
-
-const AppRouter = connect( mapStateToProps, undefined )(AppRouterComponent)
 
 export default AppRouter;
