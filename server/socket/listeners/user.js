@@ -10,7 +10,7 @@ const userListeners = (socket) => {
 		logger.info('Create User Listener running...');
 		const response = await users.startUserCreation(user);
 		if (response.result) {
-			socket.emit('createdUser', response.message);
+			socket.emit('createdUser', response);
 		} else {
 			socket.emit('Error', response.message);
 		};
