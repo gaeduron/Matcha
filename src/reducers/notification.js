@@ -2,7 +2,7 @@ export default (state = {}, action) => {
 	switch (action.type) {
 		case 'ADD_NOTIFICATION':
 			return {
-				state,
+				...state,
 				notification: action.notification
 			};
 		default:
