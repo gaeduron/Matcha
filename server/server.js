@@ -1,15 +1,25 @@
+require('dotenv').config({ path: '.env.development' });
 const path = require('path');
+const http = require('http');
 const express = require('express');
-const app = express();
+const socketIO = require('socket.io');
+const socketInit = require('./socket/socket');
+const database = require('./postgresql/postgresql');
+
 const publicPath = path.join(__dirname, '..', 'public');
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8080;
+var app = express();
+var server = http.createServer(app);
+var io = socketIO(server);
 
 app.use(express.static(publicPath));
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(publicPath, 'index.html'));
+	res.sendFile(path.join(publicPath, 'index.html'));
 });
 
-app.listen(port, () => {
-  console.log('Server is up!');
+io.on('connection', socketInit);
+
+server.listen(port, () => {
+	console.log(`Server is up on ${port}`);
 });
