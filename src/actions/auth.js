@@ -10,6 +10,11 @@ export const createAccount = ({ email, firstname, lastname, login, password }) =
 	});
 };
 
+export const createAccountNotif = (notification) => ({
+	type: 'ADD_NOTIFICATION',
+	notification: notification
+});
+
 export const login = (uid) => ({
 	type: 'LOGIN',
 	uid
