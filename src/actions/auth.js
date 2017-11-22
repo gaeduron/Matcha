@@ -1,4 +1,5 @@
 import { socket } from '../socket/socket';
+import cookie from 'js-cookie';
 
 export const createAccount = ({ email, firstname, lastname, login, password }) => {
 	socket.emit('createUser', {
@@ -20,7 +21,12 @@ export const login = (uid) => ({
 	uid
 });
 
-export const startLogin = () => {
+export const startLogin = ({ email, password }) => {
+	socket.emit('login', {
+		email: email,
+		password: password,
+		socketID: socket.id
+	});
 };
 
 export const logout = () => ({
@@ -28,4 +34,5 @@ export const logout = () => ({
 });
 
 export const startLogout = () => {
+	cookie.remove('uid');
 };

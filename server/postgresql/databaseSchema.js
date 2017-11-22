@@ -1,7 +1,7 @@
 const userSchema = `
 CREATE TABLE users (
 	  id SERIAL,
-	  connected INTEGER NULL DEFAULT NULL,
+	  connected VARCHAR(64) NULL DEFAULT NULL,
 	  age INTEGER NULL DEFAULT NULL,
 	  score INTEGER DEFAULT 0,
 	  reported INTEGER NULL DEFAULT NULL,

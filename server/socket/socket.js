@@ -1,4 +1,5 @@
 const userListeners = require("./listeners/user");
+const authListeners = require("./listeners/auth");
 
 const defaultListeners = (socket) => {
 	console.log('New user connected', socket.id);
@@ -16,6 +17,7 @@ const defaultListeners = (socket) => {
 
 const initListeners = (socket) => {
 	defaultListeners(socket);
+	authListeners(socket);
 	userListeners(socket);
 };
 
