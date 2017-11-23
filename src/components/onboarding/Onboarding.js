@@ -10,6 +10,7 @@ export default class Onboarding extends React.Component {
 		super(props);
 
 		// Pass facebook data if available (lname, fname, birthdate, photo)
+		// Or redux data if the user goes back to the previous steps during onboarding
 		this.state = {
 			step: 1,
 			profile: {
@@ -25,7 +26,16 @@ export default class Onboarding extends React.Component {
 	};
 
 	getProfile = (formState) => {
-		console.log('from getProfile', formState);
+		//console.log('from getProfile', formState);
+		this.setState({
+			profile: {
+				fname: formState.fname.trim(),
+				lname: formState.lname.trim(),
+				nickname: formState.nickname.trim(),
+				birthDate: formState.birthDate
+			}	
+		});
+
 		this.onNextStep();
 	};
 
@@ -44,6 +54,7 @@ export default class Onboarding extends React.Component {
 							fname={this.state.profile.fname}
 							lname={this.state.profile.lname}
 							getProfile={this.getProfile}
+							minAge={18}
 				/>}
 				{this.state.step == 2 && 
 						<OnboardingGender 

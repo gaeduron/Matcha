@@ -1,4 +1,6 @@
 import React from 'react';
+import moment from 'moment';
+import BirthdatePicker from '../utils/BirthdatePicker';
 
 export default class OnboardingProfile extends React.Component {
 
@@ -6,109 +8,137 @@ export default class OnboardingProfile extends React.Component {
 		super(props);
 
 		this.state = {
-			month: '0',
 			fname: props.fname ? props.fname : '',
-			lname: props.lname ? props.lname : ''
+			lname: props.lname ? props.lname : '',
+			nickname: '',
+			birthDate: '',
+			touched: {
+				fname: false,
+				lname: false,
+				nickname: false,
+				birthDate: false,
+				form: false
+			}
 		};
 	}
-	// VALIDATE YEAR
-	handleYear = (e) => {
-		const year = Number(e.target.value);
-		if (!year || year < 2020 && year > 1920) {
-			this.setState({errors: ''});
-			this.setState({year});
+
+	handleOnChange = (e, name) => {
+		const input = e.target.value;
+
+		if (!input || input.match(/^[a-z][a-z \-]*$/i)) {
+			this.setState({ 
+				[name]: input, 
+				touched: { 
+					...this.state.touched,
+					[name]: true
+				}	
+			});	
 		}
-		else 
-			this.setState({errors: 'Wrong year'});
 	};
 
-	handleDay = (e) => {
-		const day = e.target.value;
-		this.setState({day});
+	getTimestamp = (timestamp) => {
+		let birthDate = timestamp;
+		this.setState({ 
+			birthDate,
+			touched: {
+				...this.state.touched,
+				birthDate: true
+			}
+		});
+	};	
+
+	findAge = (birthDate) => {
+		let now = new Date(Date.now());
+		let timeDiff = Math.abs(now.getTime() - birthDate.getTime());
+		let age = Math.floor(timeDiff / (1000 * 3600 * 24 * 365)); 
+	
+		return age;
 	};
 
-	handleMonth = (e) => {
-		const month = e.target.value;
-		this.setState({month});
+	isAgeAllowed = () => {
+		if (!this.state.touched.birthDate || !this.state.birthDate)
+			return true;
+
+		let minAge = this.props.minAge ? this.props.minAge : 18;
+		let age = this.findAge(this.state.birthDate);	
+	
+		return (age < minAge) ? false : true;
+	};
+	
+	validate = (state) => {
+		const { lname, fname, nickname, birthDate, touched} = state;
+
+		return {
+			lname: lname.trim() || !touched.lname ? '' : 'Please provide your lastname', 
+			fname: fname || !touched.fname ? '' : 'Please provide your firstname', 
+			nickname: nickname || !touched.nickname ? '' : 'Please provide your nickname', 
+			minAge:	this.isAgeAllowed() || !touched.birthDate ? '' : 'You must be at least 18',
+			birthDate: touched.form && !birthDate ? 'Please provide your birthdate' : ''
+		};		
 	};
 
-	handleNickname = (e) => {
-		const nickname = e.target.value;
-		this.setState({nickname});
+	hasError = (errors) => {
+		for (let error in errors) {
+			if (errors[error])
+			 	return true;
+		}
+		return false;
 	};
 
-	handleFname = (e) => {
-		const fname = e.target.value;
-		//if (fname.length < 7)
-		this.setState({fname});
-	};
-
-	handleLname = (e) => {
-		const lname = e.target.value;
-		this.setState({lname});
-	};
-
-	// VALIDE INPUTS 
-	onSubmit = (e, props) => {
+	onSubmit = (e, error) => {
 		e.preventDefault();
+		
+		this.setState({ touched: {
+				...this.state.touched,
+				form: true
+			}
+		});
+		if (!this.state.birthDate || this.hasError(error))	
+			return ;
 		this.props.getProfile(this.state);
 	};
 
+
 	render () {
+	
+		let error = this.validate(this.state);
+		//	console.log('error',error);			
+		//	console.log('has error ? ', this.hasError(error)); 
+
 		return (
 			<div>
-				<form onSubmit={this.onSubmit} onChange={this.log}>
-					<p>Let's know each other</p>
+				<form onSubmit={(e) => this.onSubmit(e, error)} onChange={this.log}>
+					<p><b>Let's know each other</b></p>
 					<input
-						onChange={this.handleFname}
+						onChange={(e) => this.handleOnChange(e, 'fname')}
 						type="text"
 						placeholder="Firstname"
 						autoFocus
 						value={this.state.fname}
 					/>
+					<p>{error.fname}</p>
+
 					<input
-						onChange={this.handleLname}
+						onChange={(e) => this.handleOnChange(e, 'lname')}
 						type="text"
 						placeholder="Lastname"
 						value={this.state.lname}
 					/>
+					<p>{error.lname}</p>
+
 					<input 
-						onChange={this.handleNickname}
+						onChange={(e) => this.handleOnChange(e, 'nickname')}
 						type="text"
 						placeholder="Nickname"
+						value={this.state.nickname}
 					/>
-					<p>Birthdate</p>
-					<select value={this.state.month} onChange={this.handleMonth}>
-						<option value='0'>Month</option>
-						<option value='1'>Jan</option>
-						<option value='2'>Feb</option>
-						<option value='3'>Mar</option>
-						<option value='4'>Apr</option>
-						<option value='5'>May</option>
-						<option value='6'>Jun</option>
-						<option value='7'>Jul</option>
-						<option value='8'>Aug</option>
-						<option value='9'>Sep</option>
-						<option value='10'>Oct</option>
-						<option value='11'>Nov</option>
-						<option value='12'>Dec</option>
-					</select> 
-					<input
-						onChange={this.handleDay}
-						type="text"
-						type="number"
-						name="day"
-						placeholder="Day"
-					/>
-					<input
-						onChange={this.handleYear}
-						type="text"
-						type="number"
-						name="year"
-						placeholder="Year"
-					/>
+					<p>{error.nickname}</p>
+
+					<p><b>Birthdate</b></p>
+					<BirthdatePicker getTimestamp={this.getTimestamp} />
+					<p>{error.birthDate}</p>
+					<p>{error.minAge}</p>
 					<input type="submit" value="Continue"/>
-					<p>{this.state.errors}</p>
 				</form>
 
 			</div>
