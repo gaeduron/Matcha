@@ -39,11 +39,29 @@ export default class Onboarding extends React.Component {
 		this.onNextStep();
 	};
 
-	getGender = (e) => {
-		e.preventDefault();	
-		console.log('from getGender', e.target);
+	getGender = (state) => {
+		const { gender, orientation } = state;
+	
+		this.setState({
+			profile: {
+				...this.state.profile,
+				gender,
+				orientation
+			}
+		});
 		this.onNextStep();
 	};
+
+	getTags = (tags) => {
+		this.setState({ 
+			profile: {
+				...this.state.profile,	
+				tags 
+			}
+		});
+		this.onNextStep();
+	};
+	
 
 	render () {
 		return (
@@ -61,7 +79,10 @@ export default class Onboarding extends React.Component {
 							getGender={this.getGender}		
 				/>}
 				{this.state.step == 3 && <OnboardingPhoto />}
-				{this.state.step == 4 && <OnboardingTags />}
+				{this.state.step == 4 && 
+						<OnboardingTags
+							getTags={this.getTags}
+				/>}
 				{this.state.step == 5 && <OnboardingLocation />}
 
 				{this.state.step == 6 && <button>Discover people</button>}

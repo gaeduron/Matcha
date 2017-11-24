@@ -38,7 +38,11 @@ export default class BirthdatePicker extends React.Component {
 
 	getDaysRange = () => {
 		let daysInMonth = this.months[this.state.month].ndays;
-		if (this.state.month == 2 && this.state.year % 4 == 0 && this.state.year != 0) 
+		if (this.state.month == 2 
+			&& this.state.year % 4 == 0 
+			&& this.state.year != 0
+			&& this.state.year % 100 != 0
+		) 
 			daysInMonth = 29;
 		return range(1, daysInMonth + 1);
 	};
