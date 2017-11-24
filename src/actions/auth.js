@@ -1,6 +1,13 @@
 import { socket } from '../socket/socket';
 import cookie from 'js-cookie';
 
+export const passwordReset = ({ email}) => {
+	socket.emit('passwordReset', {
+		email: email,
+		socketID: socket.id
+	});
+};
+
 export const createAccount = ({ email, firstname, lastname, login, password }) => {
 	socket.emit('createUser', {
 		email: email,
@@ -34,5 +41,6 @@ export const logout = () => ({
 });
 
 export const startLogout = () => {
+	socket.emit('logout', cookie.get('uid'));
 	cookie.remove('uid');
 };

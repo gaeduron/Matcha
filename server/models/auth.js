@@ -96,4 +96,40 @@ const startLoginWithCookie = async (cookie) => {
 	return cookie;
 };
 
-module.exports = { startLogin, startLoginWithCookie };
+const saveSocket = async (id) => {
+	const query = `UPDATE users SET connected = null WHERE id = $1`;
+
+	try {
+		await database.query(query, [ id ]);
+		return error.none;
+	} catch (e) {
+		return error.database(e);
+	};
+};
+
+const startLogout = async (cookie) => {
+	let response = await getUser(cookie);
+	if (response.error) { return response };
+	logger.info(`User is valide`);
+	
+	response = await deleteSocket(response.id);
+	if (response.error) { return response };
+	logger.info(`Socket is saved`);
+
+	return {};
+};
+
+const logoutSocket = async (socketID) => {
+//	let response = await getUser(cookie);
+//	if (response.error) { return response };
+//	logger.info(`User is valide`);
+//	
+//	response = await deleteSocket(response.id);
+//	if (response.error) { return response };
+//	logger.info(`Socket is saved`);
+
+	return {};
+};
+
+
+module.exports = { startLogin, startLoginWithCookie, startLogout, logoutSocket };

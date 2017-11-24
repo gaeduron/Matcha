@@ -23,6 +23,13 @@ const authListener = (dispatch, socket) => {
 			uid: res.uid
 		});
 	});
+
+	socket.on('logout', (res) => {
+		console.log('response: ', res);
+		dispatch({
+			type: 'LOGOUT'
+		});	
+	});
 };
 
 export default authListener;

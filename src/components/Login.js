@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { startLogin } from '../actions/auth';
+import { startLogin, passwordReset } from '../actions/auth';
 
 export class Login extends React.Component {
 	constructor(props) {
@@ -30,6 +30,14 @@ export class Login extends React.Component {
 			password: this.state.password,
 		})
 	};
+	
+	onSubmitPasswordReset = (e) => {
+		e.preventDefault();
+
+		passwordReset({
+			email: this.state.email,
+		});
+	};
 
 	render() {
 		return (
@@ -52,6 +60,9 @@ export class Login extends React.Component {
 						value={this.state.password}
 						onChange={this.onPasswordChange}
 					/>
+					<button className="button">Login</button>
+				</form>
+				<form action="" onSubmit={this.onSubmitPasswordReset}>
 					<button className="button">Login</button>
 				</form>
 			</div>

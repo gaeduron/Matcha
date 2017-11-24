@@ -21,6 +21,16 @@ const authListeners = (socket) => {
 			socket.emit('loginWithCookie', response);
 		};
 	});
+	
+	socket.on('logout', async (cookie) => {
+		logger.info(`Logout user with cookie: ${JSON.stringify(cookie)}`);
+		const response = await auth.startLogout(cookie);
+		if (response.error) {
+			socket.emit('error', response);
+		} else {
+			socket.emit('logout', response);
+		};
+	});
 };
 
 module.exports = authListeners;
