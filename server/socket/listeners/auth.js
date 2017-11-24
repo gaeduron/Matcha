@@ -6,7 +6,7 @@ const authListeners = (socket) => {
 		logger.info(`Login user with: ${JSON.stringify(user)}`);
 		const response = await auth.startLogin(user);
 		if (response.error) {
-			socket.emit('error', response);
+			socket.emit('notify_error', response);
 		} else {
 			socket.emit('login', response);
 		};
@@ -16,7 +16,7 @@ const authListeners = (socket) => {
 		logger.info(`Login user with cookie: ${JSON.stringify(cookie)}`);
 		const response = await auth.startLoginWithCookie(cookie);
 		if (response.error) {
-			socket.emit('error', response);
+			socket.emit('notify_error', response);
 		} else {
 			socket.emit('loginWithCookie', response);
 		};
