@@ -80,8 +80,9 @@ const getUser = ({uid, email, login}) => {
 	if (email) { identifier = email };
 	if (login) { identifier = login };
 	if (uid) { identifier = parseInt(uid) };
+	if (!identifier) { return error.noCookie };
 	
-	return findUserByID(id);
+	return findUserByID(identifier);
 };
 
 const startLoginWithCookie = async (cookie) => {
