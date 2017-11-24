@@ -2,11 +2,20 @@ const logger = require('../../logs/logger');
 
 const none = { error: false };
 
-const noCookie = { error: 'You have no session cookie, please login', type: 'hidden' };
+const noCookie = () => {
+	logger.failure(`User have no valid cookie`);
+	return { error: 'You have no session cookie, please login', type: 'hidden' }
+};
 
-const invalidePassword = { error: ['Invalide password'] };
+const invalidePassword = () => {
+	logger.failure(`Invalide password`);
+	return { error: ['Invalide password'] }
+};
 
-const userNotFound = { error: ['Incorrect login or e-mail'] };
+const userNotFound = () => {
+	logger.failure(`Incorrect login or e-mail`);
+	return { error: ['Incorrect login or e-mail'] }
+};
 
 const database = (e) => {
 	logger.error(`Database error in models/auth.js => ${e}`);

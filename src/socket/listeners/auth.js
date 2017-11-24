@@ -16,14 +16,6 @@ const authListener = (dispatch, socket) => {
 		});
 	});
 	
-	socket.on('loginWithCookie', (res) => {
-		console.log('response: ', res);
-		dispatch({
-			type: 'LOGIN',
-			uid: res.uid
-		});
-	});
-
 	socket.on('logout', (res) => {
 		console.log('response: ', res);
 		dispatch({

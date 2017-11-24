@@ -9,7 +9,7 @@ const findUserByEmailOrLogin = async ({ email, password }) => {
 	try {
 		const res = await database.query(query, [email]);	
 
-		if (!res.rows[0]) { return error.userNotFound };
+		if (!res.rows[0]) { return error.userNotFound() };
 
 		return {
 			hash: res.rows[0].password,
@@ -29,7 +29,7 @@ const identifyUser = async (user) => {
 	if ( await bcrypt.compare(response.password, response.hash) ) {
 		return response;
 	} else {
-		return error.invalidePassword;
+		return error.invalidePassword();
 	};
 };
 
@@ -80,7 +80,7 @@ const getUser = ({uid, email, login}) => {
 	if (email) { identifier = email };
 	if (login) { identifier = login };
 	if (uid) { identifier = parseInt(uid) };
-	if (!identifier) { return error.noCookie };
+	if (!identifier) { return error.noCookie() };
 	
 	return findUserByID(identifier);
 };
@@ -97,7 +97,7 @@ const startLoginWithCookie = async (cookie) => {
 	return cookie;
 };
 
-const saveSocket = async (id) => {
+const unsetSocket = async (id) => {
 	const query = `UPDATE users SET connected = null WHERE id = $1`;
 
 	try {
@@ -109,25 +109,39 @@ const saveSocket = async (id) => {
 };
 
 const startLogout = async (cookie) => {
-	let response = await getUser(cookie);
+	let response = await getUser({ uid: cookie });
 	if (response.error) { return response };
-	logger.info(`User is valide`);
+	logger.info(`User is authenticated`);
 	
-	response = await deleteSocket(response.id);
+	response = await unsetSocket(response.id);
 	if (response.error) { return response };
-	logger.info(`Socket is saved`);
+	logger.info(`Socket is unset`);
 
 	return {};
 };
 
+const findUserBySocketID = async (id) => {
+	const query = `SELECT id FROM users WHERE id = $1;`;
+
+	try {
+		const res = await database.query(query, [id]);	
+
+		if (!res.rows[0]) { return error.userNotFound };
+
+		return res;
+	} catch (e) {
+		return error.database(e);
+	};
+}
+
 const logoutSocket = async (socketID) => {
-//	let response = await getUser(cookie);
-//	if (response.error) { return response };
-//	logger.info(`User is valide`);
-//	
-//	response = await deleteSocket(response.id);
-//	if (response.error) { return response };
-//	logger.info(`Socket is saved`);
+	let response = await findUserBySocketID(socketID);
+	if (response.error) { return response };
+	logger.info(`User is auth`);
+
+	response = await deleteSocket(response.id);
+	if (response.error) { return response };
+	logger.info(`Socket is unset`);
 
 	return {};
 };

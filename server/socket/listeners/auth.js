@@ -9,6 +9,7 @@ const authListeners = (socket) => {
 			socket.emit('notify_error', response);
 		} else {
 			socket.emit('login', response);
+			logger.succes('Login user');
 		};
 	});
 	
@@ -17,8 +18,10 @@ const authListeners = (socket) => {
 		const response = await auth.startLoginWithCookie(cookie);
 		if (response.error) {
 			socket.emit('notify_error', response);
+			socket.emit('loginWithCookie', { uid: false });
 		} else {
 			socket.emit('loginWithCookie', response);
+			logger.succes('Login user with cookie');
 		};
 	});
 	
@@ -26,9 +29,10 @@ const authListeners = (socket) => {
 		logger.info(`Logout user with cookie: ${JSON.stringify(cookie)}`);
 		const response = await auth.startLogout(cookie);
 		if (response.error) {
-			socket.emit('error', response);
+			socket.emit('notify_error', response);
 		} else {
 			socket.emit('logout', response);
+			logger.succes('Logout user');
 		};
 	});
 };
