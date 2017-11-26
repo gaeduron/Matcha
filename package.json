@@ -15,6 +15,7 @@
     "pg": "heroku pg:psql postgresql-parallel-87111 --app matcha-gduron"
   },
   "dependencies": {
+    "axios": "^0.17.1",
     "babel-cli": "6.24.1",
     "babel-core": "6.25.0",
     "babel-loader": "7.1.1",
