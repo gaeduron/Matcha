@@ -1,8 +1,7 @@
-const database = require('../../../postgresql/postgresql.js');
-const logger = require('../../../logs/logger');
+const database = require('../../../postgresql/postgresql');
 const error = require('../../../errors/models/auth');
 
-const findUserByID = ({ id }) => {
+const findUserByID = async ({ id }) => {
 	const query = 'SELECT * FROM users WHERE id = $1;';
 
 	try {
@@ -14,7 +13,6 @@ const findUserByID = ({ id }) => {
 	} catch (e) {
 		return error.database(e);
 	}
-	
 };
 
-module.exports = { findUserByID }
+module.exports = findUserByID;

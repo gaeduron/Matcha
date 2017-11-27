@@ -1,6 +1,6 @@
 const userListeners = require('./listeners/user');
 const authListeners = require('./listeners/auth');
-const { logoutSocket } = require('../models/auth');
+const socketLogout = require('../actions/authentication/socketLogout.js');
 const logger = require('../logs/logger');
 
 
@@ -15,7 +15,7 @@ const defaultListeners = (socket) => {
 
 	socket.on('disconnect', () => {
 		logger.info('disconnecting user socket');
-		logoutSocket(socket.id);
+		socketLogout({ socketID: socket.id });
 	});
 };
 

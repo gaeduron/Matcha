@@ -1,21 +1,22 @@
-const database = require('../../postgresql/postgresql.js');
-const logger = require('../../logs/logger');
-const error = require('../../errors/models/auth');
+const database = require('../../../postgresql/postgresql.js');
+const logger = require('../../../logs/logger');
+const error = require('../../../errors/models/auth');
 
 const findUserByUniqueIdentifier = async (
 	{
 		email,
 		socketID,
+		sessionToken,
 		login,
 		id,
 	},
 ) => {
-	const query = 'SELECT * FROM users WHERE login = $1 OR email = $2 OR connected = $3 OR id = $4;';
+	const query = 'SELECT * FROM users WHERE login = $1 OR email = $2 OR connected = $3 OR id = $4 OR session_token = $5;';
 
 	try {
 		const res = await database.query(
 			query,
-			[login, email, socketID, id],
+			[login, email, socketID, id, sessionToken],
 		);
 
 		if (!res.rows[0]) { return error.userNotFound(); }
@@ -28,12 +29,13 @@ const findUserByUniqueIdentifier = async (
 
 const formatUser = (user) => {
 	const formatedUser = { ...user };
-	if (!formatUser.login) { formatUser.login = ''; }
-	if (!formatUser.email) { formatUser.email = ''; }
-	if (!formatUser.socketID) { formatUser.socketID = ''; }
-	if (!formatUser.id) { formatUser.id = 0; }
+	if (!formatedUser.login) { formatedUser.login = ''; }
+	if (!formatedUser.email) { formatedUser.email = ''; }
+	if (!formatedUser.socketID) { formatedUser.socketID = ''; }
+	if (!formatedUser.sessionToken) { formatedUser.sessionToken = ''; }
+	if (!formatedUser.id) { formatedUser.id = 0; }
 
-	return formatUser;
+	return formatedUser;
 };
 
 const find = async (user) => {
@@ -45,4 +47,4 @@ const find = async (user) => {
 	return response;
 };
 
-module.exports = { find };
+module.exports = find;
