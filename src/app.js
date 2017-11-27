@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
+import cookie from 'js-cookie';
 import AppRouter, { history } from './routers/AppRouter';
 import configureStore from './store/configureStore';
 import { login, logout } from './actions/auth';
@@ -26,9 +27,10 @@ const renderApp = () => {
 };
 socket.on('loginWithCookie', (res) => {
 	console.log('response: ', res);
+	cookie.set('sessionToken', res);
 	store.dispatch({
 		type: 'LOGIN',
-		uid: res.uid
+		uid: res
 	});
 	renderApp();
 	history.push('/');

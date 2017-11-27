@@ -1,8 +1,8 @@
 import cookie from 'js-cookie';
 
-const saveCookie = (uid) => {
-	cookie.set('uid', uid);
-	console.log(cookie.get('uid'));
+const saveCookie = (sessionToken) => {
+	cookie.set('sessionToken', sessionToken);
+	console.log(cookie.get('sessionToken'));
 };
 
 const authListener = (dispatch, socket) => {

@@ -5,7 +5,7 @@ import authListener from './auth';
 const defaultListener = (dispatch, socket) => {
 	socket.on('connect', function () {
 		socket.emit('loginWithCookie', {
-			uid: cookie.get('uid'),
+			sessionToken: cookie.get('sessionToken'),
 			socketID: socket.id
 		});
 		console.log('Connected to server');

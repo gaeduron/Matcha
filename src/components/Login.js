@@ -26,7 +26,7 @@ export class Login extends React.Component {
 		e.preventDefault();
 
 		startLogin({
-			email: this.state.email,
+			emailOrLogin: this.state.email,
 			password: this.state.password,
 		})
 	};
