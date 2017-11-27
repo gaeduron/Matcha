@@ -1,4 +1,7 @@
 import React from 'react';
+import { Progress, Button } from 'element-react';
+import 'element-theme-default';
+
 import OnboardingProfile from './OnboardingProfile'
 import OnboardingGender from './OnboardingGender'
 import OnboardingPhoto from './OnboardingPhoto'
@@ -12,7 +15,7 @@ export default class Onboarding extends React.Component {
 		// Pass facebook data if available (lname, fname, birthdate, photo)
 		// Or redux data if the user goes back to the previous steps during onboarding
 		this.state = {
-			step: 5,
+			step: 0,
 			profile: {
 				fname: 'john',
 				lname: 'doe'
@@ -23,6 +26,10 @@ export default class Onboarding extends React.Component {
 
 	onNextStep = () => {
 		this.setState(() => ({step: this.state.step + 1}));
+	};
+
+	onBackStep = () => {
+		this.setState(() => ({step: this.state.step - 1}));
 	};
 
 	getProfile = (formState) => {
@@ -61,33 +68,69 @@ export default class Onboarding extends React.Component {
 		});
 		this.onNextStep();
 	};
+
+	getLocation = (location) => {
+		this.setState({
+			profile: {
+				...this.state.profile,	
+				location 
+			}
+		});		
+		this.onNextStep();
+	};
 	
 
 	render () {
+
+		const { step } = this.state; 
+
+		const { 
+			fname, 
+			lname, 
+			nickname,
+			location,
+			gender,
+			orientation,
+			birthDate,
+			tags
+		} = this.state.profile; 
+
 		return (
-			<div>
+			<div className="page-header">
+				<div className="content-container">
+					{step != 0 &&  <Button onClick={this.onBackStep} plain={true} type="info" icon="arrow-left"></Button>}
 
-				{this.state.step == 1 && 
-						<OnboardingProfile 
-							fname={this.state.profile.fname}
-							lname={this.state.profile.lname}
-							getProfile={this.getProfile}
-							minAge={18}
-				/>}
-				{this.state.step == 2 && 
-						<OnboardingGender 
-							getGender={this.getGender}		
-				/>}
-				{this.state.step == 3 && <OnboardingPhoto />}
-				{this.state.step == 4 && 
-						<OnboardingTags
-							getTags={this.getTags}
-				/>}
-				{this.state.step == 5 && <OnboardingLocation />}
+					{step == 0 && 
+							<OnboardingProfile 
+								fname={fname}
+								lname={lname}
+								nickname={nickname}
+								month={birthDate}
+								getProfile={this.getProfile}
+								minAge={18}
+					/>}
+					{step == 1 && 
+							<OnboardingGender 
+								getGender={this.getGender}		
+					/>}
+					{step == 2 && <OnboardingPhoto />}
+					{step == 3 && 
+							<OnboardingTags
+								getTags={this.getTags}
+					/>}
+					{step == 4 && 
+							<OnboardingLocation 
+								getLocation={this.getLocation}
+					/>}
 
-				{this.state.step == 6 && <button>Discover people</button>}
-				<p>{this.state.step / 5.0 * 100}%</p>
+					{step == 5 && <button>Discover people</button>}
+					<br />
+					<br />
 
+					<Progress percentage={step / 5.0 * 100} status={step == 5 ? "success" : undefined }/> 
+
+
+				</div>
 			</div>
 		);
 	}

@@ -10,8 +10,8 @@ export default class OnboardingProfile extends React.Component {
 		this.state = {
 			fname: props.fname ? props.fname : '',
 			lname: props.lname ? props.lname : '',
-			nickname: '',
-			birthDate: '',
+			nickname: props.nickname ? props.nickname : '',
+			birthDate: props.birthDate ? props.birthDate : '',
 			touched: {
 				fname: false,
 				lname: false,

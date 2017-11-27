@@ -1,6 +1,6 @@
 const fs = require('fs');
 const fname = 'origin.json';
-
+		
 var originalNote = {
 	title: 'title',
 	body: 'body'

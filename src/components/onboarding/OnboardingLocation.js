@@ -1,11 +1,11 @@
 import React from 'react';
 import axios from 'axios';
+import { Button } from 'element-react';
+import 'element-theme-default';
+
 
 const GOOGLE_GEOLOCATION_API_KEY = 'AIzaSyC3VByoAFwfYTsXvC5GgS0F6mEiJuoku2Y';
 
-//HANDLE ERRORS PROPERLY 
-//HANDLE USER NEXT STEP 
-//HANDLE LOADING TIMES 
 
 export default class OnboardingLocation extends React.Component {
 	
@@ -13,59 +13,80 @@ export default class OnboardingLocation extends React.Component {
 		super(props);
 
 		this.state = {
-			located: false
+			latitude: 0,
+			longitude: 0,
+			located: false,
+			loading: false
 		};
 	}
 
-	
-	
 	geolocationFailure = () => {
-		//do something better
-		alert('geoloc failure');
+		this.setState({ 
+			loading: false,
+			error: 'Please enable browser geolocation and retry, or skip to the last step'
+		});
+		
 	}; 
 
 	geolocationSuccess = (position) => {
 		let { latitude, longitude } = position.coords;			
-		this.setState({
-			latitude, 
-			longitude,
-			located: true
-		});
+		setTimeout(() => {
+			this.setState({
+				latitude, 
+				longitude,
+				located: true,
+				loading: false
+			});
+		}, 1000);
 	}; 
 
 	getLocation = () => {
+		this.props.getLocation({ 
+			latitude: this.state.latitude, 
+			longitude: this.state.longitude 
+		});
+	};
+
+	findLocation = () => {
+		this.setState({loading: true});
+
 		if ("geolocation" in navigator) {
 			navigator.geolocation.getCurrentPosition(this.geolocationSuccess, this.geolocationFailure);
 		} else {
 			alert('geolocation failed');
 			this.setState({
-				error: 'Your browser doesn\'t allow geolocation'
+				error: 'Your browser doesn\'t support geolocation'
 			});
 		}
-			
 	};
-		
 
 	componentDidMount() {
 		axios.post(`https://www.googleapis.com/geolocation/v1/geolocate?key=${GOOGLE_GEOLOCATION_API_KEY}`)
 			.then((response) => {
-				let latitude = response.data.location.lat;	
-				let longitude = response.data.location.lng;	
+				let { lat: latitude, lng: longitude } = response.data.location;	
 				this.setState({latitude, longitude});
 		});
 		// HANDLE ERRORS
 	}
 
 	render () {
-		const located = this.state.located;
+		const { located, loading, error } = this.state;
 			
 		return (
 			<div>
 				<p>Location</p>
 
-				{ !located && <button onClick={this.getLocation}>Find my location</button> }
-				{ located && <button >Continue</button> }
-				<button>Skip</button>
+				<Button 
+					type="primary" 
+					loading={loading} 
+					onClick={located ? this.getLocation : this.findLocation}
+				>
+					{ located ? 'We\'re all set, continue !' : 'Find my location' }
+				</Button> 
+				<p>{error}</p>
+				<div>
+					<Button type="text" onClick={this.getLocation}>Skip</Button>
+				</div>
 
 			</div>
 		);
