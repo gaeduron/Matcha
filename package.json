@@ -33,6 +33,7 @@
     "firebase": "4.2.0",
     "history": "4.7.2",
     "js-cookie": "^2.2.0",
+    "jsonwebtoken": "^8.1.0",
     "logform": "^1.2.1",
     "moment": "2.18.1",
     "node-sass": "4.5.3",
