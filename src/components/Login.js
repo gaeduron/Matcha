@@ -63,7 +63,7 @@ export class Login extends React.Component {
 					<button className="button">Login</button>
 				</form>
 				<form action="" onSubmit={this.onSubmitPasswordReset}>
-					<button className="button">Login</button>
+					<button className="button">forgot password ?</button>
 				</form>
 			</div>
 		)

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { createAccount } from '../actions/auth';
-import Login from './login';
+import Login from './Login';
 
 export class LoginPage extends React.Component {
 	constructor(props) {

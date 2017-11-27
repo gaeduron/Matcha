@@ -4,7 +4,7 @@ const logger = require('../logs/logger');
 const error = require('../errors/models/auth');
 
 const findUserByEmailOrLogin = async ({ email, password }) => {
-	const query = `SELECT password, id FROM users WHERE login = $1 OR email = $1;`;
+	const query = 'SELECT password, id FROM users WHERE login = $1 OR email = $1;';
 
 	try {
 		const res = await database.query(query, [email]);	
@@ -120,28 +120,28 @@ const startLogout = async (cookie) => {
 	return {};
 };
 
-const findUserBySocketID = async (id) => {
-	const query = `SELECT id FROM users WHERE id = $1;`;
+const findUserBySocketID = async (socketID) => {
+	const query = `SELECT id FROM users WHERE connected = $1;`;
 
 	try {
-		const res = await database.query(query, [id]);	
+		const res = await database.query(query, [socketID]);	
 
-		if (!res.rows[0]) { return error.userNotFound };
+		if (!res.rows[0]) { return error.socketNotAuth() };
 
 		return res;
 	} catch (e) {
 		return error.database(e);
-	};
-}
+	}
+};
 
 const logoutSocket = async (socketID) => {
 	let response = await findUserBySocketID(socketID);
-	if (response.error) { return response };
-	logger.info(`User is auth`);
+	if (response.error) { return response }
+	logger.info('User was authenticated');
 
-	response = await deleteSocket(response.id);
-	if (response.error) { return response };
-	logger.info(`Socket is unset`);
+	response = await unsetSocket(response.id);
+	if (response.error) { return response }
+	logger.succes('Socket is unset');
 
 	return {};
 };
