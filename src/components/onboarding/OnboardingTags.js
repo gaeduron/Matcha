@@ -8,10 +8,7 @@ export default class OnboardingTags extends React.Component {
 		super(props);
 
 		this.state = {
-			tags: [
-				'harry potter',
-				'LOTR'
-			]			
+			tags: this.props.tags ? this.props.tags : []
 		};	
 	}
 

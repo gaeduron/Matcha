@@ -6,8 +6,8 @@ export default class OnboardingGender extends React.Component {
 		super(props);
 
 		this.state = {
-			gender: 'woman',
-			orientation: 'bisexual'
+			gender: this.props.gender ? this.props.gender : 'woman',
+			orientation: this.props.orientation ? this.props.orientation : 'bisexual'
 		};
 	}
 	

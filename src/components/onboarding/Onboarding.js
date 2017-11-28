@@ -14,11 +14,16 @@ export default class Onboarding extends React.Component {
 
 		// Pass facebook data if available (lname, fname, birthdate, photo)
 		// Or redux data if the user goes back to the previous steps during onboarding
+		const { firstname, lastname, photos, likes, gender} = props.FBData;	
+
 		this.state = {
 			step: 0,
 			profile: {
-				fname: 'john',
-				lname: 'doe'
+				fname: firstname ? firstname : '',
+				lname: lastname ? lastname : '',
+				gender: gender ? gender : '',
+				photos: photos ? photos : [],
+				tags: likes ? likes : []
 			},
 			errors: ''
 		};
@@ -33,9 +38,9 @@ export default class Onboarding extends React.Component {
 	};
 
 	getProfile = (formState) => {
-		//console.log('from getProfile', formState);
 		this.setState({
 			profile: {
+				...this.state.profile,
 				fname: formState.fname.trim(),
 				lname: formState.lname.trim(),
 				nickname: formState.nickname.trim(),
@@ -105,28 +110,34 @@ export default class Onboarding extends React.Component {
 								fname={fname}
 								lname={lname}
 								nickname={nickname}
-								month={birthDate}
+								birthDate={birthDate}
 								getProfile={this.getProfile}
 								minAge={18}
 					/>}
 					{step == 1 && 
 							<OnboardingGender 
 								getGender={this.getGender}		
+								gender={gender}
+								orientation={orientation}
 					/>}
-					{step == 2 && <OnboardingPhoto />}
+					{step == 2 && 
+							<OnboardingPhoto 
+					/>}
 					{step == 3 && 
 							<OnboardingTags
 								getTags={this.getTags}
+								tags={tags}
 					/>}
 					{step == 4 && 
 							<OnboardingLocation 
 								getLocation={this.getLocation}
+								latitude={location ? location.latitude : 0}
+								longitude={location ? location.longitude : 0}
 					/>}
 
 					{step == 5 && <button>Discover people</button>}
-					<br />
-					<br />
 
+					<br />
 					<Progress percentage={step / 5.0 * 100} status={step == 5 ? "success" : undefined }/> 
 
 

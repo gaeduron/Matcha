@@ -67,17 +67,26 @@ export default class OnboardingProfile extends React.Component {
 	
 	validate = (state) => {
 		const { lname, fname, nickname, birthDate, touched} = state;
+		const NICKNAME_ERR = 'Please provide your nickname';
+		const FNAME_ERR = 'Please provide your firstname';
+		const LNAME_ERR = 'Please provide your lastname';
+		const MIN_AGE_ERR = 'You must be at least 18';
+		const BIRTHDATE_ERR = 'Please provide your birthdate';
 
 		return {
-			lname: lname.trim() || !touched.lname ? '' : 'Please provide your lastname', 
-			fname: fname || !touched.fname ? '' : 'Please provide your firstname', 
-			nickname: nickname || !touched.nickname ? '' : 'Please provide your nickname', 
-			minAge:	this.isAgeAllowed() || !touched.birthDate ? '' : 'You must be at least 18',
-			birthDate: touched.form && !birthDate ? 'Please provide your birthdate' : ''
+			nickname: (!nickname && (touched.form || touched.nickname)) ? NICKNAME_ERR : '', 
+			fname: (!fname && (touched.form || touched.fname)) ? FNAME_ERR : '', 
+			lname: (!lname && (touched.form || touched.lname)) ? LNAME_ERR : '', 
+			minAge:	!this.isAgeAllowed() && touched.birthDate ? MIN_AGE_ERR : '',
+			birthDate: touched.form && !birthDate ? BIRTHDATE_ERR : ''
 		};		
 	};
 
 	hasError = (errors) => {
+		const { fname, lname, nickname, birthDate } = this.state;
+	
+		if (!fname || !lname || !nickname || !birthDate)	
+			return true;
 		for (let error in errors) {
 			if (errors[error])
 			 	return true;
@@ -87,13 +96,12 @@ export default class OnboardingProfile extends React.Component {
 
 	onSubmit = (e, error) => {
 		e.preventDefault();
-		
 		this.setState({ touched: {
 				...this.state.touched,
 				form: true
 			}
 		});
-		if (!this.state.birthDate || this.hasError(error))	
+		if (this.hasError(error))	
 			return ;
 		this.props.getProfile(this.state);
 	};
@@ -102,8 +110,6 @@ export default class OnboardingProfile extends React.Component {
 	render () {
 	
 		let error = this.validate(this.state);
-		//	console.log('error',error);			
-		//	console.log('has error ? ', this.hasError(error)); 
 
 		return (
 			<div>
@@ -135,7 +141,10 @@ export default class OnboardingProfile extends React.Component {
 					<p>{error.nickname}</p>
 
 					<p><b>Birthdate</b></p>
-					<BirthdatePicker getTimestamp={this.getTimestamp} />
+					<BirthdatePicker 
+						getTimestamp={this.getTimestamp} 
+						birthDate={this.props.birthDate}
+					/>
 					<p>{error.birthDate}</p>
 					<p>{error.minAge}</p>
 					<input type="submit" value="Continue"/>

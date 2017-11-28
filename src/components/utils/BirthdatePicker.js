@@ -30,9 +30,9 @@ export default class BirthdatePicker extends React.Component {
 		],
 
 		this.state = {
-			month: 0,
-			year: 0,
-			day: 0,
+			month: this.props.birthDate ? this.props.birthDate.getMonth() + 1 : 0,
+			year: this.props.birthDate ? this.props.birthDate.getFullYear() : 0,
+			day: this.props.birthDate ? this.props.birthDate.getDate() : 0
 		};
 	}
 
@@ -69,7 +69,6 @@ export default class BirthdatePicker extends React.Component {
 		}
 		else 
 			this.props.getTimestamp('');
-
 	};
 
 	componentDidUpdate(prevProps, prevState) {
@@ -84,16 +83,27 @@ export default class BirthdatePicker extends React.Component {
 		let days = this.getDaysRange();
 		let years = Array.from({length: startYear - endYear}, (v, k) => k + endYear).reverse();
 
+		let { day, year, month } = this.state;
+
 		return (
 			<div>
-				<select onChange={this.handleMonth}>
+				<select 
+					onChange={this.handleMonth}
+					defaultValue={month}
+				>
 					{months.map(({ value, name }, idx) => (<option key={idx} value={value} >{name}</option>))}	
 				</select> 
-				<select onChange={this.handleDay}>
+				<select 
+					onChange={this.handleDay}
+					defaultValue={day}
+				>
 					<option key="0" value="0">DD</option>
 					{days.map((day) => (<option key={day} value={day}>{day}</option>))}	
 				</select> 
-				<select onChange={this.handleYear}>
+				<select 
+					onChange={this.handleYear}
+					defaultValue={year}
+				>
 					<option key="0" value="0">YYYY</option>
 					{years.map((year) => (<option key={year} value={year}>{year}</option>))}	
 				</select> 

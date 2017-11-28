@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Button } from 'element-react';
 import 'element-theme-default';
 
-
+// FOR TEST PURPOSE ONLY, TO MOVE IN ENV
 const GOOGLE_GEOLOCATION_API_KEY = 'AIzaSyC3VByoAFwfYTsXvC5GgS0F6mEiJuoku2Y';
 
 
@@ -13,9 +13,9 @@ export default class OnboardingLocation extends React.Component {
 		super(props);
 
 		this.state = {
-			latitude: 0,
-			longitude: 0,
-			located: false,
+			latitude: this.props.latitude,
+			longitude: this.props.longitude,
+			located: this.props.latitude ? true : false,
 			loading: false
 		};
 	}
