@@ -7,7 +7,7 @@ const notificationListener = (dispatch, socket) => {
 		console.log('response: ', res);
 		dispatch({
 			type: 'ADD_NOTIFICATION',
-			notification: res.messages
+			notification: res.message
 		});
 	});
 

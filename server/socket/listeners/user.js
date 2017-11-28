@@ -1,19 +1,20 @@
-const users = require('../../models/users');
+const registration = require('../../actions/user/registration');
 const logger = require('../../logs/logger');
 
 const userListeners = (socket) => {
 	socket.on('createMessage', (message) => {
-		console.log('createMessage', message);
+		logger.info('createMessage', message);
 	});
 
 	socket.on('createUser', async (user) => {
 		logger.info('Create User Listener running...');
-		const response = await users.startUserCreation(user);
-		if (response) {
-			socket.emit('createdUser', response);
+		const response = await registration(user);
+		if (response.error) {
+			socket.emit('notify_error', response);
 		} else {
-			socket.emit('Error', response);
-		};
+			socket.emit('createdUser', response);
+			logger.succes('User registration');
+		}
 	});
 };
 
