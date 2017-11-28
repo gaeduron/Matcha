@@ -43,7 +43,9 @@ const find = async (user) => {
 	const response = await findUserByUniqueIdentifier(formatedUser);
 	if (response.error) { return response; }
 
-	logger.info(`A User has been found: ${JSON.stringify(response.user)}`);
+	logger.info(`A User has been found: ${
+		JSON.stringify(response.user, null, 2)
+	}`);
 	return response;
 };
 

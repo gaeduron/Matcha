@@ -4,7 +4,7 @@ const logger = require('../../logs/logger');
 const cookieLogin = async ({ sessionToken, socketID }) => {
 	const user = {
 		sessionToken,
-		socketID,
+		connected: socketID,
 	};
 	let response = await Users.find(user);
 	if (response.error) { return response; }

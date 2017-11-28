@@ -6,7 +6,6 @@ const socketLogout = async ({ socketID }) => {
 		socketID,
 	};
 
-	logger.warn(`user on socketLogout: ${JSON.stringify(user)}`);
 	let response = await Users.find(user);
 	if (response.error) { return response; }
 	user.id = response.user.id;
@@ -15,7 +14,7 @@ const socketLogout = async ({ socketID }) => {
 
 	response = await Users.updateConnection(user);
 	if (response.error) { return response; }
-	logger.info('Socket is unset');
+	logger.succes('Socket is unset');
 
 	return {};
 };
