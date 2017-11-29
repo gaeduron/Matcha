@@ -1,6 +1,6 @@
 # Matcha
 
-Un site de rencontres fait avec __amour__.  
+A dating WebApp made with __love__.  
 Link to site: https://matcha-gduron.herokuapp.com/.   
 Checkout our [wiki](https://github.com/gaeduron/Matcha/wiki) for information about the implementation.
 
