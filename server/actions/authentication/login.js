@@ -1,7 +1,14 @@
 const Users = require('../../models/user');
 const logger = require('../../logs/logger');
-const error = require('../../errors/models/auth');
+const myErrors = require('../../errors');
 const bcrypt = require('bcryptjs');
+
+const error = {
+	invalidePassword: myErrors.newFailure({
+		log: 'Invalide password',
+		message: 'Invalide password',
+	}),
+};
 
 const Login = async ({ socketID, emailOrLogin, password }) => {
 	const user = {

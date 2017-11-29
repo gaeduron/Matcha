@@ -1,6 +1,17 @@
 const database = require('../../../postgresql/postgresql.js');
 const logger = require('../../../logs/logger');
-const error = require('../../../errors/models/auth');
+const myErrors = require('../../../errors');
+
+const error = {
+	database: myErrors.newFailure({
+		log: e => `Database error: models/user/paths/find.js => ${e}`,
+		message: 'Error, please try again later.',
+	}),
+	userNotFound: myErrors.newFailure({
+		log: 'User not found',
+		message: 'User not found',
+	}),
+};
 
 const findUserByUniqueIdentifier = async (
 	{
