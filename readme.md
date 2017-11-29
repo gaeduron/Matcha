@@ -1,3 +1,4 @@
+![matcha-logo](https://image.ibb.co/duxasw/Screen_Shot_2017_11_29_at_2_36_39_PM.png)
 # Matcha
 
 A dating WebApp made with __love__.  
