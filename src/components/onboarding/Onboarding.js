@@ -17,7 +17,7 @@ export default class Onboarding extends React.Component {
 		const { firstname, lastname, photos, likes, gender} = props.FBData;	
 
 		this.state = {
-			step: 0,
+			step: 2,
 			profile: {
 				fname: firstname ? firstname : '',
 				lname: lastname ? lastname : '',
@@ -74,6 +74,10 @@ export default class Onboarding extends React.Component {
 		this.onNextStep();
 	};
 
+	getPhoto = () => {
+		this.onNextStep();
+	};
+
 	getLocation = (location) => {
 		this.setState({
 			profile: {
@@ -122,6 +126,7 @@ export default class Onboarding extends React.Component {
 					/>}
 					{step == 2 && 
 							<OnboardingPhoto 
+								getPhoto={this.getPhoto}
 					/>}
 					{step == 3 && 
 							<OnboardingTags
