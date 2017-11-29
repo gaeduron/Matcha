@@ -11,7 +11,6 @@ Checkout our [wiki](https://github.com/gaeduron/Matcha/wiki) for information abo
 	* Redux
 	* PostgreSQL
 	* Socket.io
-	* Jwt
 
 ## Install
 `git clone https://github.com/gaeduron/Matcha.git`  
