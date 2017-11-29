@@ -43,7 +43,7 @@
     "numeral": "2.0.6",
     "pg": "^7.4.0",
     "ramda": "^0.25.0",
-    "react": "15.6.1",
+    "react": "^16.2.0",
     "react-addons-shallow-compare": "15.6.0",
     "react-dates": "12.3.0",
     "react-dom": "15.6.1",

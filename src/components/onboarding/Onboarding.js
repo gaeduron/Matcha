@@ -101,7 +101,8 @@ export default class Onboarding extends React.Component {
 			gender,
 			orientation,
 			birthDate,
-			tags
+			tags,
+			photos
 		} = this.state.profile; 
 
 		return (
@@ -127,6 +128,7 @@ export default class Onboarding extends React.Component {
 					{step == 2 && 
 							<OnboardingPhoto 
 								getPhoto={this.getPhoto}
+								photos={photos}
 					/>}
 					{step == 3 && 
 							<OnboardingTags

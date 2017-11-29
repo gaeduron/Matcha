@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, Upload, Message } from 'element-react';
-import 'element-theme-default';
+import { range } from 'ramda';
+import 'element-theme-default/lib/upload.css';
 
 export default class OnboardingPhoto extends React.Component {
 
@@ -8,12 +9,23 @@ export default class OnboardingPhoto extends React.Component {
 		super(props);
 
 		this.state = {
-			imageUrl: '',
+			//photosUrl: this.props.photos ? this.props.photos : ''
+			photosUrl: [
+				'https://s3.amazonaws.com/uifaces/faces/twitter/jsa/128.jpg', 
+				'https://s3.amazonaws.com/uifaces/faces/twitter/kastov_yury/128.jpg', 
+				undefined,
+				undefined,
+				undefined
+			]
 		};
 	}
 
-	handleAvatarScucess = (res, file) => {
-		this.setState({ imageUrl: URL.createObjectURL(file.raw) });
+	handleAvatarScucess = (res, file, idx) => {
+		let photosUrl = this.state.photosUrl.slice();
+		photosUrl[idx] = URL.createObjectURL(file.raw);
+		photosUrl.sort((a, b) => a == undefined);
+
+		this.setState({ photosUrl });
 	}
 	
 	beforeAvatarUpload = (file) => {
@@ -29,28 +41,32 @@ export default class OnboardingPhoto extends React.Component {
 		return isJPG && isLt2M;
 	}
 
+
 	getPhoto = () => {
 		this.props.getPhoto();
 	};
 
 	render () {
-		const { imageUrl } = this.state;
+		const { photosUrl } = this.state;
 
 		return (
 			<div>
 				<p>Photo</p>
 
-				<Upload
-					className="avatar-uploader"
-					action="//jsonplaceholder.typicode.com/posts/"
-					showFileList={false}
-					onSuccess={(res, file) => this.handleAvatarScucess(res, file)}
-					beforeUpload={file => this.beforeAvatarUpload(file)}
-				>
-					{ imageUrl 
-							? <img src={imageUrl} className="avatar" /> 
-							: <i className="el-icon-plus avatar-uploader-icon"></i> }
-				</Upload>
+				{ photosUrl.map((photo, idx) => (
+					<Upload
+						className="avatar-uploader"
+						action="//jsonplaceholder.typicode.com/posts/"
+						showFileList={false}
+						onSuccess={(res, file) => this.handleAvatarScucess(res, file, idx)}
+						beforeUpload={file => this.beforeAvatarUpload(file)}
+						key={idx}
+					>
+						{ photo 
+								? <img src={photo} className="avatar" /> 
+								: <i className="el-icon-plus avatar-uploader-icon"></i> }
+					</Upload>
+				)) }
 
 				<button onClick={this.getPhoto}>Continue</button>
 			</div>
