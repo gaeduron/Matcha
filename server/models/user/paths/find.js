@@ -1,4 +1,4 @@
-const database = require('../../../postgresql/postgresql.js');
+const database = require('../../../postgresql');
 const logger = require('../../../logs/logger');
 const myErrors = require('../../../errors');
 

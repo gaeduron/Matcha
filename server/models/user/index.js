@@ -1,6 +1,4 @@
 // STEPS //
-const findUserByID = require('./steps/findUserByID');
-const findBySessionToken = require('./steps/findBySessionToken');
 const updateConnection = require('./steps/updateConnection');
 const updateSessionToken = require('./steps/updateSessionToken');
 const validateEmail = require('./steps/validateEmail');
@@ -17,8 +15,6 @@ const newSession = require('./paths/newSession');
 
 module.exports = {
 	// STEPS //
-	findUserByID,
-	findBySessionToken,
 	updateConnection,
 	updateSessionToken,
 	validateEmail,
