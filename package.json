@@ -16,6 +16,7 @@
     "lint": "eslint ./src ./server"
   },
   "dependencies": {
+    "@sendgrid/mail": "^6.1.4",
     "babel-cli": "6.24.1",
     "babel-core": "6.25.0",
     "babel-loader": "7.1.1",
@@ -35,8 +36,9 @@
     "js-cookie": "^2.2.0",
     "jsonwebtoken": "^8.1.0",
     "logform": "^1.2.1",
-    "moment": "2.18.1",
+    "moment": "^2.19.3",
     "node-sass": "4.5.3",
+    "nodemailer": "^4.4.0",
     "nodemon": "^1.12.1",
     "normalize.css": "7.0.0",
     "numeral": "2.0.6",

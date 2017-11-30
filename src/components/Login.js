@@ -35,7 +35,7 @@ export class Login extends React.Component {
 		e.preventDefault();
 
 		passwordReset({
-			email: this.state.email,
+			emailOrLogin: this.state.email,
 		});
 	};
 

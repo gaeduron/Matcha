@@ -1,9 +1,9 @@
 import cookie from 'js-cookie';
 import { socket } from '../socket/socket';
 
-export const passwordReset = ({ email }) => {
-	socket.emit('passwordReset', {
-		email,
+export const passwordReset = ({ emailOrLogin }) => {
+	socket.emit('passwordResetEmail', {
+		emailOrLogin,
 		socketID: socket.id,
 	});
 };

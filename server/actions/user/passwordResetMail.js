@@ -1,5 +1,7 @@
 const uuid = require('uuid/v4');
-// NEED INSTALL const moment = require('moment');
+const moment = require('moment');
+const Email = require('../../email');
+const html = require('../../email/passwordReset');
 const Users = require('../../models/user');
 const logger = require('../../logs/logger');
 
@@ -13,30 +15,33 @@ const passwordResetEmail = async ({ emailOrLogin }) => {
 	let response = await Users.find(user);
 	if (response.error) { return response; }
 	user.email = response.user.email;
+	user.id = response.user.id;
 
 	logger.info('Generating password reset Token...');
 	user.passwordResetToken = uuid();
-
 	logger.info('getting current timestamp...');
-	// user.passwordResetExpireAt = moment() + (1 heure);
+	user.passwordResetExpireAt = moment().add(5, 'minutes').valueOf();
 
 	logger.info('Updating passwordResetToken in db...');
 	response = await Users.updatePasswordResetToken(user);
 	if (response.error) { return response; }
-
 	logger.info('Updating passwordResetExpireAt in db...');
 	response = await Users.updatePasswordResetExpireAt(user);
 	if (response.error) { return response; }
 
-	// generate reset email content (text + email + Token
-	user.emailTitle = 'Matcha: password reset';
-	user.emailBody = `Hello ${user.firstname}, you can reset your password by clicking this link: _some link_`;
+	const text = `Hello ${user.firstname}, you can reset your password by clicking this link: _some link_`;
 
 	logger.info('Sending email...');
-	response = await Users.sendEmail(user);
-	if (response.error) { return response; }
+	const msg = {
+		to: user.email,
+		from: 'Matcha <noreply@matcha.com>',
+		subject: 'Password Reset Request',
+		text,
+		html: html(),
+	};
+	Email.send(msg);
 
-	return Users.newSession(user);
+	return { message: 'An email has been sent to your inbox.' };
 };
 
 module.exports = passwordResetEmail;
