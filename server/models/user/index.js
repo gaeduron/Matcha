@@ -1,6 +1,8 @@
 // STEPS //
 const updateConnection = require('./steps/updateConnection');
 const updateSessionToken = require('./steps/updateSessionToken');
+const updatePasswordResetToken = require('./steps/updatePasswordResetToken');
+const updatePasswordResetExpireAt = require('./steps/updatePasswordResetExpireAt');
 const validateEmail = require('./steps/validateEmail');
 const validateFirstname = require('./steps/validateFirstname');
 const validateLastname = require('./steps/validateLastname');
@@ -17,6 +19,8 @@ module.exports = {
 	// STEPS //
 	updateConnection,
 	updateSessionToken,
+	updatePasswordResetToken,
+	updatePasswordResetExpireAt,
 	validateEmail,
 	validateFirstname,
 	validateLastname,
