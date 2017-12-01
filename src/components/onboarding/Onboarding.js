@@ -22,7 +22,7 @@ export default class Onboarding extends React.Component {
 				fname: firstname ? firstname : '',
 				lname: lastname ? lastname : '',
 				gender: gender ? gender : '',
-				photos: photos ? photos : [],
+				photos: photos ? photos.slice(0, 5) : [],
 				tags: likes ? likes : []
 			},
 			errors: ''
@@ -74,7 +74,14 @@ export default class Onboarding extends React.Component {
 		this.onNextStep();
 	};
 
-	getPhoto = () => {
+	getPhoto = (photos) => {
+		this.setState({ 
+			profile: {
+				...this.state.profile,	
+				photos 
+			}
+		});
+
 		this.onNextStep();
 	};
 

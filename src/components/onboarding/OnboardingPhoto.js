@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Upload, Message } from 'element-react';
-import { range } from 'ramda';
+import { range, sort } from 'ramda';
 import 'element-theme-default/lib/upload.css';
 
 export default class OnboardingPhoto extends React.Component {
@@ -8,17 +8,31 @@ export default class OnboardingPhoto extends React.Component {
 	constructor(props) {
 		super(props);
 
+		const photosUrl = this.preparePhotosUrl(props.photos);
+		
 		this.state = {
-			//photosUrl: this.props.photos ? this.props.photos : ''
-			photosUrl: [
-				'https://s3.amazonaws.com/uifaces/faces/twitter/jsa/128.jpg', 
-				'https://s3.amazonaws.com/uifaces/faces/twitter/kastov_yury/128.jpg', 
-				undefined,
-				undefined,
-				undefined
-			]
+			photosUrl
 		};
 	}
+
+	preparePhotosUrl = (photos) => {
+		let photosUrl = Array(5).fill(undefined);
+				
+		if (photos.length == 0)
+			return photosUrl;
+		for (let i = 0; i < photos.length && i < 5; i++)
+			photosUrl[i] = photos[i];
+
+		return photosUrl;
+	};
+
+	setAsProfile = (id) => {
+		let photosUrl = this.state.photosUrl.slice(); 
+		const profile = photosUrl.splice(id, 1)[0];
+		photosUrl.unshift(profile);
+
+		this.setState({ photosUrl });
+	};
 
 	handleAvatarScucess = (res, file, idx) => {
 		let photosUrl = this.state.photosUrl.slice();
@@ -28,6 +42,7 @@ export default class OnboardingPhoto extends React.Component {
 		this.setState({ photosUrl });
 	}
 	
+	// TO DEFINE 
 	beforeAvatarUpload = (file) => {
 		const isJPG = file.type === 'image/jpeg';
 		const isLt2M = file.size / 1024 / 1024 < 2;
@@ -41,9 +56,16 @@ export default class OnboardingPhoto extends React.Component {
 		return isJPG && isLt2M;
 	}
 
+	handleRemove = (id) => {
+		let photosUrl = this.state.photosUrl.slice(); 
+		photosUrl.splice(id, 1);
+		photosUrl.push(undefined);
+
+		this.setState({ photosUrl });
+	};
 
 	getPhoto = () => {
-		this.props.getPhoto();
+		this.props.getPhoto(this.state.photosUrl);
 	};
 
 	render () {
@@ -54,18 +76,23 @@ export default class OnboardingPhoto extends React.Component {
 				<p>Photo</p>
 
 				{ photosUrl.map((photo, idx) => (
-					<Upload
-						className="avatar-uploader"
-						action="//jsonplaceholder.typicode.com/posts/"
-						showFileList={false}
-						onSuccess={(res, file) => this.handleAvatarScucess(res, file, idx)}
-						beforeUpload={file => this.beforeAvatarUpload(file)}
-						key={idx}
-					>
-						{ photo 
-								? <img src={photo} className="avatar" /> 
-								: <i className="el-icon-plus avatar-uploader-icon"></i> }
-					</Upload>
+					<div key={idx}>
+						<Upload
+							className="avatar-uploader"
+							action="//jsonplaceholder.typicode.com/posts/"
+							showFileList={false}
+							onSuccess={(res, file) => this.handleAvatarScucess(res, file, idx)}
+							beforeUpload={file => this.beforeAvatarUpload(file)}
+							onClick={(file) => this.handleOnRemove(file)}
+							key={idx}
+						>
+							{ photo 
+									? <img src={photo} className="avatar" /> 
+									: <i className="el-icon-plus avatar-uploader-icon"></i> }
+						</Upload>
+						{ photo && <button onClick={() => this.handleRemove(idx)}>x</button> }
+						{ (photo && idx > 0) && <button onClick={() => this.setAsProfile(idx)}>set as profile</button> }
+					</div>
 				)) }
 
 				<button onClick={this.getPhoto}>Continue</button>

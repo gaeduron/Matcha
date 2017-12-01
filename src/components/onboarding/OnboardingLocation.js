@@ -5,6 +5,7 @@ import 'element-theme-default';
 
 // FOR TEST PURPOSE ONLY, TO MOVE IN ENV
 const GOOGLE_GEOLOCATION_API_KEY = 'AIzaSyC3VByoAFwfYTsXvC5GgS0F6mEiJuoku2Y';
+//AIzaSyC2Z8zLwy0uT8hd8qyBgfMmoqpKJRZwRkI
 
 
 export default class OnboardingLocation extends React.Component {
