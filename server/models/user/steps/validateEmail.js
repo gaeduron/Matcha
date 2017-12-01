@@ -17,7 +17,7 @@ const validateEmail = ({ email }) => {
 
 	if (email.length > 254) { return error.tooLong(email.length); }
 	if (!regex.test(email)) { return error.format(); }
-	return null;
+	return { error: false };
 };
 
 module.exports = validateEmail;

@@ -37,7 +37,7 @@ const userListeners = (socket) => {
 			socket.emit('notify_error', response);
 		} else {
 			socket.emit('passwordReset', response);
-			logger.succes('Password Reset email on his way...');
+			logger.succes('Password reset');
 		}
 	});
 };

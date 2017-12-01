@@ -18,16 +18,17 @@ const findUserByUniqueIdentifier = async (
 		email,
 		socketID,
 		sessionToken,
+		passwordResetToken,
 		login,
 		id,
 	},
 ) => {
-	const query = 'SELECT * FROM users WHERE login = $1 OR email = $2 OR connected = $3 OR id = $4 OR session_token = $5;';
+	const query = 'SELECT * FROM users WHERE login = $1 OR email = $2 OR connected = $3 OR id = $4 OR session_token = $5 OR password_reset_token = $6;';
 
 	try {
 		const res = await database.query(
 			query,
-			[login, email, socketID, id, sessionToken],
+			[login, email, socketID, id, sessionToken, passwordResetToken],
 		);
 
 		if (!res.rows[0]) { return error.userNotFound(); }
@@ -44,6 +45,7 @@ const formatUser = (user) => {
 	if (!formatedUser.email) { formatedUser.email = ''; }
 	if (!formatedUser.socketID) { formatedUser.socketID = ''; }
 	if (!formatedUser.sessionToken) { formatedUser.sessionToken = ''; }
+	if (!formatedUser.passwordResetToken) { formatedUser.passwordResetToken = ''; }
 	if (!formatedUser.id) { formatedUser.id = 0; }
 
 	return formatedUser;

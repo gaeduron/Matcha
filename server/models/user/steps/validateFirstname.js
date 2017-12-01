@@ -17,7 +17,7 @@ const validateFirstname = ({ firstname }) => {
 
 	if (firstname.length > 254) { return error.tooLong(firstname.length); }
 	if (!regex.test(firstname)) { return error.format(); }
-	return null;
+	return { error: false };
 };
 
 module.exports = validateFirstname;

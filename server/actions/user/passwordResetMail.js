@@ -20,7 +20,7 @@ const passwordResetEmail = async ({ emailOrLogin }) => {
 	logger.info('Generating password reset Token...');
 	user.passwordResetToken = uuid();
 	logger.info('getting current timestamp...');
-	user.passwordResetExpireAt = moment().add(5, 'minutes').valueOf();
+	user.passwordResetExpireAt = moment().add(10, 'minutes').valueOf();
 
 	logger.info('Updating passwordResetToken in db...');
 	response = await Users.updatePasswordResetToken(user);
@@ -37,7 +37,7 @@ const passwordResetEmail = async ({ emailOrLogin }) => {
 		from: 'Matcha <noreply@matcha.com>',
 		subject: 'Password Reset Request',
 		text,
-		html: html(),
+		html: html(`http://localhost:8080/password-reset/${user.passwordResetToken}`),
 	};
 	Email.send(msg);
 

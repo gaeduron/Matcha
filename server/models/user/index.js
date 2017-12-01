@@ -1,5 +1,6 @@
 // STEPS //
 const updateConnection = require('./steps/updateConnection');
+const updatePassword = require('./steps/updatePassword');
 const updateSessionToken = require('./steps/updateSessionToken');
 const updatePasswordResetToken = require('./steps/updatePasswordResetToken');
 const updatePasswordResetExpireAt = require('./steps/updatePasswordResetExpireAt');
@@ -18,6 +19,7 @@ const newSession = require('./paths/newSession');
 module.exports = {
 	// STEPS //
 	updateConnection,
+	updatePassword,
 	updateSessionToken,
 	updatePasswordResetToken,
 	updatePasswordResetExpireAt,

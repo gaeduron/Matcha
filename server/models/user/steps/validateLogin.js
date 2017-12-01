@@ -17,7 +17,7 @@ const validateLogin = ({ login }) => {
 
 	if (login.length > 254) { return error.tooLong(login.length); }
 	if (!regex.test(login)) { return error.format(); }
-	return null;
+	return { error: false };
 };
 
 module.exports = validateLogin;

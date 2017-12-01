@@ -33,12 +33,8 @@ socket.on('loginWithCookie', (res) => {
 		uid: res
 	});
 	renderApp();
-	history.push('/');
 });
 
 socketInit(store.dispatch, socket);
 
 ReactDOM.render(<LoadingPage />, document.getElementById('app'));
-
-//renderApp();
-//history.push('/');

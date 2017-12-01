@@ -1,42 +1,60 @@
-const uuid = require('uuid/v4');
-// NEED INSTALL const moment = require('moment');
+const moment = require('moment');
 const Users = require('../../models/user');
 const logger = require('../../logs/logger');
+const myErrors = require('../../errors');
 
-const passwordReset = async ({ password, passwordConfirmation, token }) => {
+const error = {
+	tokenTooOld: myErrors.newFailure({
+		log: 'Password reset token too old',
+		message: 'Your token has expired, please ask for another password reset email',
+	}),
+	fieldsNotEqual: myErrors.newFailure({
+		log: 'Both password field are not equal',
+		message: 'Both password field should be equal',
+	}),
+};
+
+const passwordReset = async ({ password, passwordConfirmation, passwordResetToken }) => {
 	const user = {
-		email: emailOrLogin,
-		login: emailOrLogin,
+		password,
+		passwordConfirmation,
+		passwordResetToken,
 	};
 
-	logger.info('Searching a matching user...');
+	logger.info(`Searching a matching user for token:${passwordResetToken} ...`);
 	let response = await Users.find(user);
 	if (response.error) { return response; }
-	user.email = response.user.email;
+	user.id = response.user.id;
+	user.passwordResetExpireAt = response.user.passwordResetExpireAt;
 
-	logger.info('Generating password reset Token...');
-	user.passwordResetToken = uuid();
+	logger.info('Veryfing Token date...');
+	if (moment().isBefore(user.passwordResetExpireAt)) { return error.tokenTooOld(); }
 
-	logger.info('getting current timestamp...');
-	// user.passwordResetExpireAt = moment() + (1 heure);
+	logger.info('Veryfing if password and passwordConfirmation are equal');
+	if (password !== passwordConfirmation) { return error.fieldsNotEqual(); }
+
+	logger.info('Veryfing new password');
+	response = await Users.validatePassword(user);
+	if (response.error) { return response; }
+
+	logger.info('hashing password...');
+	user.password = await Users.hashPassword(user);
+
+	logger.info('Updating user password in db...');
+	response = await Users.updatePassword(user);
+	if (response.error) { return response; }
 
 	logger.info('Updating passwordResetToken in db...');
+	user.passwordResetToken = null;
 	response = await Users.updatePasswordResetToken(user);
 	if (response.error) { return response; }
 
 	logger.info('Updating passwordResetExpireAt in db...');
+	user.passwordResetExpireAt = null;
 	response = await Users.updatePasswordResetExpireAt(user);
 	if (response.error) { return response; }
 
-	// generate reset email content (text + email + Token
-	user.emailTitle = 'Matcha: password reset';
-	user.emailBody = `Hello ${user.firstname}, you can reset your password by clicking this link: _some link_`;
-
-	logger.info('Sending email...');
-	response = await Users.sendEmail(user);
-	if (response.error) { return response; }
-
-	return Users.newSession(user);
+	return { message: 'Your new password has been successfully saved !' };
 };
 
 module.exports = passwordReset;

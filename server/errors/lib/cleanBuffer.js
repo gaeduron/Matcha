@@ -1,7 +1,7 @@
 const cleanBuffer = (buffer) => {
 	let i = 0;
 	while (i < buffer.length) {
-		if (buffer[i] === null) {
+		if (buffer[i].error === false) {
 			buffer.splice(i, 1);
 			i = 0;
 		} else {

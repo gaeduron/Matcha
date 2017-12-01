@@ -1,4 +1,4 @@
-const passwordReset = () => (`
+const passwordReset = url => (`
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8">
@@ -54,7 +54,7 @@ a, a:hover {
 			<!-- LOGO -->
 			<a target="_blank" style="text-decoration: none;"
 				href="https://github.com/gaeduron/Matcha"><img border="0" vspace="0" hspace="0"
-				src="https://image.ibb.co/duxasw/Screen_Shot_2017_11_29_at_2_36_39_PM.png"
+				src="https://lh3.googleusercontent.com/prJEQhsLoHvLCxkCp5NNDoWfXj73jGczZLJlk3SjuzunR_9szTSqO9M9QEz-2kklTJYGM-zYUgvGT0Fm2EiZuk4yp6aArQxle251XOnarbXPAwSpuxH4J0TklcFFLahnDQdqmzoc3K3Luam20q37fNyr6MBCluvcIPuRww3glhBYHMaC4OPlNzE2cSl_JqHTi5kvke2nwRWGlRQFnnQRPGeoVMN0GPe9AwCjRuZL-LWjcoiiUnuWnZLUbY0B1l9cQx6DMRrLN8WKfU0L1vNKOsL0vqrFG26jRtmcLMFP8p8iKtV1TErxDohrV_SO9Ay1HxdBSANXw3jTvYN4dopnQz2dYjjYlFlRntdacVcE8Iqh4djpMvCK2ILzuzxSmj_ujPM49ckLqw_YrPf5HW7SE85ok_EQFhp5NN1Jkh65IaPsdBAIhiKnbssCLLkun4TCX6AzriIj6n_dJWLsKpuK1lHrCSOZR1A-hRCZyA5_tkWjcY2PaQF1VXuFHNmcq-EdonGyf3vb-a8Si9U5FyjIgIl5IngZOcNMFaRg-UElSnUm9RQJkckKTuu47xMw-eDj=w1239-h1366"
 				width="100"
 				alt="Logo" title="Logo" style="
 				color: #000000;
@@ -95,11 +95,11 @@ a, a:hover {
 		<td align="center" valign="top" style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0; padding-left: 6.25%; padding-right: 6.25%; width: 87.5%;
 			padding-top: 25px;
 			padding-bottom: 5px;" class="button"><a
-			href="https://github.com/gaeduron/Matcha/" target="_blank" style="text-decoration: none;">
+			href="${url}" target="_blank" style="text-decoration: none;">
 				<table border="0" cellpadding="0" cellspacing="0" align="center" style="max-width: 240px; min-width: 120px; border-collapse: collapse; border-spacing: 0; padding: 0;"><tr><td align="center" valign="middle" style="padding: 12px 24px; margin: 0; text-decoration: none; border-collapse: collapse; border-spacing: 0; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px;"
 					bgcolor="#E7136F"><a target="_blank" style="text-decoration: none;
 					color: #FFFFFF; font-family: sans-serif; font-size: 17px; font-weight: 400; line-height: 120%;"
-					href="https://github.com/gaeduron/Matcha/">
+					href="${url}">
 						Reset Password
 					</a>
 			</td></tr></table></a>

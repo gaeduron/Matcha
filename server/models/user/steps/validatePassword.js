@@ -19,7 +19,7 @@ const validatePassword = ({ password }) => {
 		return error.Length(password.length);
 	}
 	if (!regex.test(password)) { return error.format(); }
-	return null;
+	return { error: false };
 };
 
 module.exports = validatePassword;
