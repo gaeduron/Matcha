@@ -20,6 +20,15 @@ const notificationListener = (dispatch, socket) => {
 			});
 		};
 	});
+	
+	socket.on('notify', (res) => {
+		if (res.type != 'hidden') {
+			dispatch({
+				type: 'ADD_NOTIFICATION',
+				notification: res
+			});
+		};
+	});
 };
 
 export default notificationListener;

@@ -26,6 +26,7 @@ const userListeners = (socket) => {
 			socket.emit('notify_error', response);
 		} else {
 			socket.emit('passwordResetEmail', response);
+			socket.emit('notify', { info: ['Please check your in-box'] });
 			logger.succes('Password Reset email on his way...');
 		}
 	});

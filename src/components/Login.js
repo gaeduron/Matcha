@@ -72,7 +72,7 @@ export class Login extends React.Component {
 
 const mapStateToProps = (state) => {
 	return {
-		notif: state.notif.notification	
+		notif: state.notif.notification,
 	}
 };
 

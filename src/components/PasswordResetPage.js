@@ -34,7 +34,7 @@ export class PasswordResetPage extends React.Component {
 
 	render() {
 		return (
-			redirect ? (<Redirect to={this.props.redirect} />) :
+			this.props.redirect ? (<Redirect to={this.props.redirect} />) :
 			(<div className="box-layout">
 				<div className="box-layout__box">
 					<h1 className="box-layout__title">Password Reset</h1>
