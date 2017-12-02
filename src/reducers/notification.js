@@ -3,7 +3,12 @@ export default (state = {}, action) => {
 		case 'ADD_NOTIFICATION':
 			return {
 				...state,
-				notification: action.notification
+				notification: action.notification,
+			};
+		case 'REDIRECT':
+			return {
+				...state,
+				redirect: action.redirect,
 			};
 		default:
 			return state;
