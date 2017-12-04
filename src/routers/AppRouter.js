@@ -1,11 +1,12 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { Router, Route, Switch, Link, NavLink } from 'react-router-dom';
+import { Router, Route, Switch} from 'react-router-dom';
 import createHistory from 'history/createBrowserHistory';
 import DashboardPage from '../components/DashboardPage';
 import NotFoundPage from '../components/NotFoundPage';
 import LoginPage from '../components/LoginPage';
 import Onboarding from '../components/onboarding/Onboarding';
+import PasswordResetPage from '../components/PasswordResetPage';
+import Notifications from '../components/Notification';
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
 
@@ -18,9 +19,11 @@ const AppRouter = () => (
 	<div>
 		<Router history={history}>
 			<div>
+				<Notifications />
 				<Switch>
-					{/* Put back \ = LoginPage --> */}
-					<PublicRoute path="/" component={() => <Onboarding FBData={FBData} />} exact={true} />
+					<PublicRoute path="/onboarding" component={() => <Onboarding FBData={FBData} />} exact={true} />
+					<PublicRoute path="/" component={LoginPage} exact={true} />
+					<PublicRoute path="/password-reset/:token" component={PasswordResetPage} />
 					<PrivateRoute path="/dashboard" component={DashboardPage} />
 					<Route component={NotFoundPage} />
 				</Switch>

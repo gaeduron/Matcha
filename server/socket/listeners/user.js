@@ -1,19 +1,45 @@
-const users = require('../../models/users');
+const registration = require('../../actions/user/registration');
+const passwordResetEmail = require('../../actions/user/passwordResetMail');
+const passwordReset = require('../../actions/user/passwordReset');
 const logger = require('../../logs/logger');
 
 const userListeners = (socket) => {
 	socket.on('createMessage', (message) => {
-		console.log('createMessage', message);
+		logger.info('createMessage', message);
 	});
 
 	socket.on('createUser', async (user) => {
 		logger.info('Create User Listener running...');
-		const response = await users.startUserCreation(user);
-		if (response) {
-			socket.emit('createdUser', response);
+		const response = await registration(user);
+		if (response.error) {
+			socket.emit('notify_error', response);
 		} else {
-			socket.emit('Error', response);
-		};
+			socket.emit('createdUser', response);
+			logger.succes('User registration');
+		}
+	});
+
+	socket.on('passwordResetEmail', async (user) => {
+		logger.info('Password Reset Email Listener running...');
+		const response = await passwordResetEmail(user);
+		if (response.error) {
+			socket.emit('notify_error', response);
+		} else {
+			socket.emit('passwordResetEmail', response);
+			socket.emit('notify', { info: ['Please check your in-box'] });
+			logger.succes('Password Reset email on his way...');
+		}
+	});
+
+	socket.on('passwordReset', async (user) => {
+		logger.info('Password Reset Listener running...');
+		const response = await passwordReset(user);
+		if (response.error) {
+			socket.emit('notify_error', response);
+		} else {
+			socket.emit('passwordReset', response);
+			logger.succes('Password reset');
+		}
 	});
 };
 
