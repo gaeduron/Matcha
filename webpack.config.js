@@ -42,8 +42,12 @@ module.exports = (env) => {
               }
             }
           ]
-        })
-      }]
+		})
+	  },
+	  {
+		test: /\.(ttf|eot|svg|woff|woff2)(\?.+)?$/,
+		loader: 'file-loader?name=[hash:12].[ext]'
+	  }]
     },
     plugins: [
       CSSExtract,
