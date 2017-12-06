@@ -6,7 +6,6 @@ import NotFoundPage from '../components/NotFoundPage';
 import LoginPage from '../components/LoginPage';
 import Onboarding from '../components/onboarding/Onboarding';
 import PasswordResetPage from '../components/PasswordResetPage';
-import Notifications from '../components/Notification';
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
 
@@ -19,7 +18,6 @@ const AppRouter = () => (
 	<div>
 		<Router history={history}>
 			<div>
-				<Notifications />
 				<Switch>
 					<PublicRoute path="/onboarding" component={() => <Onboarding FBData={FBData} />} exact={true} />
 					<PublicRoute path="/" component={LoginPage} exact={true} />

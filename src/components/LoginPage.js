@@ -65,7 +65,6 @@ export class LoginPage extends React.Component {
 				<div className="box-layout__box">
 					<h1 className="box-layout__title">Matcha</h1>
 					<h3>Create Account</h3>
-					<p>{this.props.notif}</p>
 					<form action="" onSubmit={this.onSubmit}>
 						<input
 							className="text-input"

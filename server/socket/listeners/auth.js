@@ -8,7 +8,9 @@ const authListeners = (socket) => {
 		logger.info(`Login user with: ${JSON.stringify(user)}`);
 		const response = await login(user);
 		if (response.error) {
-			socket.emit('notify_error', response);
+			response.error.forEach((error) => {
+				socket.emit('notificationError', error);
+			});
 		} else {
 			socket.emit('login', response);
 			logger.succes('Login user');
@@ -19,7 +21,6 @@ const authListeners = (socket) => {
 		logger.info(`Login user with cookie: ${JSON.stringify(cookie)}`);
 		const response = await cookieLogin(cookie);
 		if (response.error) {
-			socket.emit('notify_error', response);
 			socket.emit('loginWithCookie', false);
 		} else {
 			socket.emit('loginWithCookie', response);
@@ -31,7 +32,9 @@ const authListeners = (socket) => {
 		logger.info(`Logout user with cookie: ${JSON.stringify(cookie)}`);
 		const response = await logout(cookie);
 		if (response.error) {
-			socket.emit('notify_error', response);
+			response.error.forEach((error) => {
+				socket.emit('notificationError', error);
+			});
 		} else {
 			socket.emit('logout', response);
 			logger.succes('Logout user');

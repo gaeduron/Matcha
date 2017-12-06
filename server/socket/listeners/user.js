@@ -4,17 +4,15 @@ const passwordReset = require('../../actions/user/passwordReset');
 const logger = require('../../logs/logger');
 
 const userListeners = (socket) => {
-	socket.on('createMessage', (message) => {
-		logger.info('createMessage', message);
-	});
-
 	socket.on('createUser', async (user) => {
 		logger.info('Create User Listener running...');
 		const response = await registration(user);
 		if (response.error) {
-			socket.emit('notify_error', response);
+			response.error.forEach((error) => {
+				socket.emit('notificationError', error);
+			});
 		} else {
-			socket.emit('createdUser', response);
+			socket.emit('notificationSuccess', 'Account successfully created, you can now login !');
 			logger.succes('User registration');
 		}
 	});
@@ -23,10 +21,12 @@ const userListeners = (socket) => {
 		logger.info('Password Reset Email Listener running...');
 		const response = await passwordResetEmail(user);
 		if (response.error) {
-			socket.emit('notify_error', response);
+			response.error.forEach((error) => {
+				socket.emit('notificationError', error);
+			});
 		} else {
 			socket.emit('passwordResetEmail', response);
-			socket.emit('notify', { info: ['Please check your in-box'] });
+			socket.emit('notificationInfo', 'Please check your inbox.');
 			logger.succes('Password Reset email on his way...');
 		}
 	});
@@ -35,9 +35,12 @@ const userListeners = (socket) => {
 		logger.info('Password Reset Listener running...');
 		const response = await passwordReset(user);
 		if (response.error) {
-			socket.emit('notify_error', response);
+			response.error.forEach((error) => {
+				socket.emit('notificationError', error);
+			});
 		} else {
-			socket.emit('passwordReset', response);
+			socket.emit('passwordReset', {});
+			socket.emit('notification_success', 'Password reset successful, you can now login !');
 			logger.succes('Password reset');
 		}
 	});

@@ -9,7 +9,7 @@ export default () => {
   const store = createStore(
     combineReducers({
 		auth: authReducer,
-		notif: notifReducer
+		notif: notifReducer,
     }),
     composeEnhancers(applyMiddleware(thunk))
   );

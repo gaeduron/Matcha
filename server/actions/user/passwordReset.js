@@ -4,6 +4,10 @@ const logger = require('../../logs/logger');
 const myErrors = require('../../errors');
 
 const error = {
+	tokenInvalide: myErrors.newFailure({
+		log: 'Password reset token invalide',
+		message: 'Your token is invalide, please ask for another password reset email',
+	}),
 	tokenTooOld: myErrors.newFailure({
 		log: 'Password reset token too old',
 		message: 'Your token has expired, please ask for another password reset email',
@@ -23,7 +27,7 @@ const passwordReset = async ({ password, passwordConfirmation, passwordResetToke
 
 	logger.info(`Searching a matching user for token:${passwordResetToken} ...`);
 	let response = await Users.find(user);
-	if (response.error) { return response; }
+	if (response.error) { return error.tokenInvalide(); }
 	user.id = response.user.id;
 	user.passwordResetExpireAt = response.user.passwordResetExpireAt;
 
