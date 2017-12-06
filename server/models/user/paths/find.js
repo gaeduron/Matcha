@@ -1,3 +1,4 @@
+const changeCase = require('change-object-case');
 const database = require('../../../postgresql');
 const logger = require('../../../logs/logger');
 const myErrors = require('../../../errors');
@@ -53,8 +54,10 @@ const formatUser = (user) => {
 
 const find = async (user) => {
 	const formatedUser = formatUser(user);
-	const response = await findUserByUniqueIdentifier(formatedUser);
+	let response = await findUserByUniqueIdentifier(formatedUser);
 	if (response.error) { return response; }
+
+	response.user = changeCase.camelKeys(response.user);
 
 	logger.info(`A User has been found: ${
 		JSON.stringify(response.user, null, 2)
