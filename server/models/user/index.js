@@ -9,12 +9,14 @@ const validateFirstname = require('./steps/validateFirstname');
 const validateLastname = require('./steps/validateLastname');
 const validateLogin = require('./steps/validateLogin');
 const validatePassword = require('./steps/validatePassword');
+const validateBirthdate = require('./steps/validateBirthdate');
 const hashPassword = require('./steps/hashPassword');
 const create = require('./steps/create');
 
 // PATHS //
 const find = require('./paths/find');
 const newSession = require('./paths/newSession');
+const update = require('./paths/update');
 
 module.exports = {
 	// STEPS //
@@ -28,9 +30,11 @@ module.exports = {
 	validateLastname,
 	validateLogin,
 	validatePassword,
+	validateBirthdate,
 	hashPassword,
 	create,
 	// PATHS //
 	find,
 	newSession,
+	update
 };

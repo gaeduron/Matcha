@@ -11,7 +11,7 @@ import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
 
 // dummy data
-import FBData from '../components/Onboarding/FBData.js'; 
+import FBData from '../components/onboarding/FBData.js'; 
 
 export const history = createHistory();
 
@@ -21,7 +21,7 @@ const AppRouter = () => (
 			<div>
 				<Notifications />
 				<Switch>
-					<PublicRoute path="/onboarding" component={() => <Onboarding FBData={FBData} />} exact={true} />
+					<PrivateRoute path="/onboarding" component={() => <Onboarding FBData={FBData} />} exact={true} />
 					<PublicRoute path="/" component={LoginPage} exact={true} />
 					<PublicRoute path="/password-reset/:token" component={PasswordResetPage} />
 					<PrivateRoute path="/dashboard" component={DashboardPage} />

@@ -1,54 +1,55 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { pick } from 'ramda';
 import { Progress, Button } from 'element-react';
 import 'element-theme-default';
 
-import OnboardingProfile from './OnboardingProfile'
-import OnboardingGender from './OnboardingGender'
-import OnboardingPhoto from './OnboardingPhoto'
-import OnboardingTags from './OnboardingTags'
-import OnboardingLocation from './OnboardingLocation'
+import OnboardingProfile from './OnboardingProfile';
+import OnboardingGender from './OnboardingGender';
+import OnboardingPhoto from './OnboardingPhoto';
+import OnboardingTags from './OnboardingTags';
+import OnboardingLocation from './OnboardingLocation';
 
-export default class Onboarding extends React.Component {
-	constructor(props) {
-		super(props);
+import { startGetProfile, step, stepBack, saveProfile } from '../../actions/onboarding';
 
-		// Pass facebook data if available (lname, fname, birthdate, photo)
-		// Or redux data if the user goes back to the previous steps during onboarding
-		const { firstname, lastname, photos, likes, gender} = props.FBData;	
-
-		this.state = {
-			step: 2,
-			profile: {
-				fname: firstname ? firstname : '',
-				lname: lastname ? lastname : '',
-				gender: gender ? gender : '',
-				photos: photos ? photos.slice(0, 5) : [],
-				tags: likes ? likes : []
-			},
-			errors: ''
-		};
-	}
-
-	onNextStep = () => {
-		this.setState(() => ({step: this.state.step + 1}));
-	};
-
-	onBackStep = () => {
-		this.setState(() => ({step: this.state.step - 1}));
-	};
+export class Onboarding extends React.Component {
+	//	constructor(props) {
+	//		super(props);
+	//
+	//		// Pass facebook data if available (lname, fname, birthdate, photo)
+	//		// Or redux data if the user goes back to the previous steps during onboarding
+	//		const { firstname, lastname, photos, likes, gender} = props.FBData;	
+	//
+	//		this.state = {
+	//			step: 0,
+	//			profile: {
+	//				fname: firstname ? firstname : '',
+	//				lname: lastname ? lastname : '',
+	//				gender: gender ? gender : '',
+	//				photos: photos ? photos.slice(0, 5) : [],
+	//				tags: likes ? likes : []
+	//			},
+	//			errors: ''
+	//		};
+	//	}
 
 	getProfile = (formState) => {
-		this.setState({
-			profile: {
-				...this.state.profile,
-				fname: formState.fname.trim(),
-				lname: formState.lname.trim(),
-				nickname: formState.nickname.trim(),
-				birthDate: formState.birthDate
-			}	
-		});
+		//startGetProfile(pick(['fname', 'lname', 'nickname', 'birthDate', 'sessionToken'], formState)); 
+		this.props.saveProfile(pick(['fname', 'lname', 'nickname', 'birthDate', 'sessionToken'], formState));
+	
+		
 
-		this.onNextStep();
+		//		this.setState({
+		//			profile: {
+		//				...this.state.profile,
+		//				fname: formState.fname.trim(),
+		//				lname: formState.lname.trim(),
+		//				nickname: formState.nickname.trim(),
+		//				birthDate: formState.birthDate
+		//			}	
+		//		});
+
+		this.props.stepInc();
 	};
 
 	getGender = (state) => {
@@ -61,7 +62,7 @@ export default class Onboarding extends React.Component {
 				orientation
 			}
 		});
-		this.onNextStep();
+		this.props.stepInc();
 	};
 
 	getTags = (tags) => {
@@ -71,7 +72,7 @@ export default class Onboarding extends React.Component {
 				tags 
 			}
 		});
-		this.onNextStep();
+		this.props.stepInc();
 	};
 
 	getPhoto = (photos) => {
@@ -82,7 +83,7 @@ export default class Onboarding extends React.Component {
 			}
 		});
 
-		this.onNextStep();
+		this.props.stepInc();
 	};
 
 	getLocation = (location) => {
@@ -92,13 +93,13 @@ export default class Onboarding extends React.Component {
 				location 
 			}
 		});		
-		this.onNextStep();
+		this.props.stepInc();
 	};
 	
 
 	render () {
 
-		const { step } = this.state; 
+		const step = this.props.step; 
 
 		const { 
 			fname, 
@@ -110,12 +111,12 @@ export default class Onboarding extends React.Component {
 			birthDate,
 			tags,
 			photos
-		} = this.state.profile; 
+		} = this.props.profile; 
 
 		return (
 			<div className="page-header">
 				<div className="content-container">
-					{step != 0 &&  <Button onClick={this.onBackStep} plain={true} type="info" icon="arrow-left"></Button>}
+					{step != 0 &&  <Button onClick={this.props.stepBack} plain={true} type="info" icon="arrow-left"></Button>}
 
 					{step == 0 && 
 							<OnboardingProfile 
@@ -160,3 +161,16 @@ export default class Onboarding extends React.Component {
 		);
 	}
 }
+
+const mapDispatchToProps = (dispatch) => ({
+	stepInc: () => dispatch(step()),
+	stepBack: () => dispatch(stepBack()),
+	saveProfile: (profile) => dispatch(saveProfile(profile)) 
+});
+
+const mapStateToProps = (state, props) => ({
+	profile: state.user,
+	step: state.onboarding.step
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Onboarding);
