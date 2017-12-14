@@ -24,6 +24,7 @@ const actionListeners = (socket) => {
 				break; 
 			case 'SERVER/SAVE_GENDER':
 				startAction(action, socket, getGender, 'Onboarding: user gender data saved to DB');
+				break; 
 
 			default: 
 				return;

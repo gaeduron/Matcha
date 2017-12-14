@@ -22,6 +22,14 @@ const onboardingListener = (dispatch, socket) => {
 			step()
 		]);
 	});
+
+	socket.on('SERVER/SAVE_GENDER', ({ gender, orientation }) => {
+		dispatch([
+			updateGender(gender),	
+			updateOrientation(orientation),	
+			step()
+		]);
+	});
 };
 
 export default onboardingListener;

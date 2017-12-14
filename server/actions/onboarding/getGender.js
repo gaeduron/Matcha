@@ -1,31 +1,23 @@
-// Validate data
-// Save in pgsql
-// throw error 
-
 const Users = require('../../models/user');
 const logger = require('../../logs/logger');
 const myError = require('../../errors');
 
 const error = {
-	loginNotUnique: myError.newFailure({
-		log: 'Login already registered',
-		message: 'This Login is already registered.',
-	}),
+	missingField: myError.newFailure({
+		log: 'User gender or orientation missing',
+		message: 'Your gender or orientation is missing'
+	})
 };
 
-const profileValidation = async (profile) => {
+
+const validation = async ({ gender, orientation }) => {
 	let errors = [];
 
-	errors.push(Users.validateFirstname({ firstname: profile.fname }));
-	errors.push(Users.validateLastname({ lastname: profile.lname }));
-	errors.push(Users.validateBirthdate({ birthdate: profile.birthDate }));
+	if (!gender || !orientation)
+		errors.push(error.missingField);
 
-	const userWithSession = await Users.find({ sessionToken: profile.sessionToken });
-	const userWithNickname = await Users.find({ login: profile.nickname }); 
-
-	if (userWithNickname.user && userWithSession.user.id !== userWithNickname.user.id) {
-		errors.push(error.loginNotUnique());
-	}
+	errors.push(Users.validateGender({ gender }));
+	errors.push(Users.validateOrientation({ orientation }));
 
 	myError.cleanBuffer(errors);
 	errors = myError.mergeBuffer(errors);
@@ -33,24 +25,22 @@ const profileValidation = async (profile) => {
 	return errors;
 };
 
-const getProfile = async (profile) => {
-	logger.info('validating profile data...');
-	const response = await profileValidation(profile);
+const getGender = async (genderData) => {
+	logger.info('validating gender data...');
+	const response = await validation(genderData);
 
 	if (response.error.length) 
 		return response;
 	
-	logger.info('updating profile data in db...');
+	logger.info('updating gender data in db...');
 
 	const updateResponse = await Users.update({
-		sessionToken: profile.sessionToken,
-		login: profile.nickname,
-		firstname: profile.fname,
-		lastname: profile.lname,
-		birthdate: JSON.stringify(profile.birthDate)
+		sessionToken: genderData.sessionToken,
+		sex: genderData.gender,
+		sexualOrientation: genderData.orientation
 	});
 	
-	return (updateResponse.error ? updateResponse : profile);
+	return (updateResponse.error ? updateResponse : genderData);
 };
 
-module.exports = getProfile;
+module.exports = getGender;
