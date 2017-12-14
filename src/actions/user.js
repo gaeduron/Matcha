@@ -10,6 +10,11 @@ export const updateLname = lname => ({
 	lname
 });
 
+export const updateNickname = nickname => ({
+	type: 'UPDATE_NICKNAME',
+	nickname
+});
+
 export const updateGender = gender => ({
 	type: 'UPDATE_GENDER',
 	gender
@@ -30,7 +35,7 @@ export const updateOrientation = orientation => ({
 	orientation
 });
 
-export const updateBirthdate = birthDate => ({
+export const updateBirthDate = birthDate => ({
 	type: 'UPDATE_BIRTHDATE',
 	birthDate
 });

@@ -20,3 +20,8 @@
 	
 }
 
+
+## Todo 
+
+[ ] StepInc conditionnel et async, que si la data a bien ete saved dans la DB
+[ ] BirthDate format to correct redux - > component props

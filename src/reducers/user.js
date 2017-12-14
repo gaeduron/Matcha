@@ -26,6 +26,11 @@ export default (state = defaultState, action) => {
 				...state,
 				lname: action.lname	
 			};
+		case 'UPDATE_NICKNAME':
+			return {
+				...state,
+				nickname: action.nickname	
+			};
 		case 'UPDATE_GENDER':
 			return {
 				...state,

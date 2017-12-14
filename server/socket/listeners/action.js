@@ -10,12 +10,12 @@ const actionListeners = (socket) => {
 			case 'SERVER/SAVE_PROFILE':
 				console.log('SERVER/SAVE_PROFILE received', action.data);
 				const response = await getProfile(action.data);
-				//	if (response.error) {
-				//	if 	socket.emit('notify_error', response);
-				//	if } else {
-				//	if 	socket.emit('getProfile', action.data);
-				//	if 	logger.succes('Onboarding: user profile data saved to DB');
-				//	if }
+				if (response.error) {
+					socket.emit('notify_error', response);
+				} else {
+					socket.emit('getProfile', action.data);
+					logger.succes('Onboarding: user profile data saved to DB');
+				}
 
 			default: 
 				return;
