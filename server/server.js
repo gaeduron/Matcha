@@ -12,6 +12,9 @@ var app = express();
 var server = http.createServer(app);
 var io = socketIO(server);
 
+/* Better stack traces */
+process.on('unhandledRejection', r => console.log(r));
+
 app.use(express.static(publicPath));
 
 app.get('*', (req, res) => {

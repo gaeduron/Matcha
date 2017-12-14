@@ -10,59 +10,22 @@ import OnboardingPhoto from './OnboardingPhoto';
 import OnboardingTags from './OnboardingTags';
 import OnboardingLocation from './OnboardingLocation';
 
-import { startGetProfile, step, stepBack, saveProfile } from '../../actions/onboarding';
+import { step, stepBack, saveUserData } from '../../actions/onboarding';
 
 export class Onboarding extends React.Component {
-	//	constructor(props) {
-	//		super(props);
-	//
-	//		// Pass facebook data if available (lname, fname, birthdate, photo)
-	//		// Or redux data if the user goes back to the previous steps during onboarding
-	//		const { firstname, lastname, photos, likes, gender} = props.FBData;	
-	//
-	//		this.state = {
-	//			step: 0,
-	//			profile: {
-	//				fname: firstname ? firstname : '',
-	//				lname: lastname ? lastname : '',
-	//				gender: gender ? gender : '',
-	//				photos: photos ? photos.slice(0, 5) : [],
-	//				tags: likes ? likes : []
-	//			},
-	//			errors: ''
-	//		};
-	//	}
 
 	getProfile = (formState) => {
-		//startGetProfile(pick(['fname', 'lname', 'nickname', 'birthDate', 'sessionToken'], formState)); 
-		this.props.saveProfile(pick(['fname', 'lname', 'nickname', 'birthDate', 'sessionToken'], formState));
-	
-		
-
-		//		this.setState({
-		//			profile: {
-		//				...this.state.profile,
-		//				fname: formState.fname.trim(),
-		//				lname: formState.lname.trim(),
-		//				nickname: formState.nickname.trim(),
-		//				birthDate: formState.birthDate
-		//			}	
-		//		});
-
-		this.props.stepInc();
+		this.props.saveUserData('SERVER/SAVE_PROFILE', pick(['fname', 'lname', 'nickname', 'birthDate'], formState));
 	};
 
-	getGender = (state) => {
-		const { gender, orientation } = state;
+	getGender = (genderState) => {
+		this.props.saveUserData('SERVER/SAVE_GENDER', pick(['gender', 'orientation'], genderState));
 	
-		this.setState({
-			profile: {
-				...this.state.profile,
-				gender,
-				orientation
-			}
-		});
-		this.props.stepInc();
+		/* 
+		 * [ ] Save gender in redux 
+		 * [ ] Step  
+		 *
+		 * */
 	};
 
 	getTags = (tags) => {
@@ -123,7 +86,7 @@ export class Onboarding extends React.Component {
 								fname={fname}
 								lname={lname}
 								nickname={nickname}
-								birthDate={birthDate}
+								birthDate={birthDate ? new Date(birthDate) : ''}
 								getProfile={this.getProfile}
 								minAge={18}
 					/>}
@@ -165,7 +128,7 @@ export class Onboarding extends React.Component {
 const mapDispatchToProps = (dispatch) => ({
 	stepInc: () => dispatch(step()),
 	stepBack: () => dispatch(stepBack()),
-	saveProfile: (profile) => dispatch(saveProfile(profile)) 
+	saveUserData: (emitMessage, profile) => dispatch(saveUserData(emitMessage, profile))
 });
 
 const mapStateToProps = (state, props) => ({

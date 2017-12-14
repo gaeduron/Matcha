@@ -1,3 +1,5 @@
+import { step } from '../../actions/onboarding'; 
+
 import {
 	updateFname,	
 	updateLname,	
@@ -11,13 +13,13 @@ import {
 } from '../../actions/user';
 
 const onboardingListener = (dispatch, socket) => {
-	socket.on('getProfile', (res) => {
-		console.log('getProfile response: ', res);
+	socket.on('SERVER/SAVE_PROFILE', (res) => {
 		dispatch([
 			updateFname(res.fname),	
 			updateLname(res.lname),	
 			updateNickname(res.nickname),	
-			updateBirthDate(res.birthDate)
+			updateBirthDate(res.birthDate),
+			step()
 		]);
 	});
 };
