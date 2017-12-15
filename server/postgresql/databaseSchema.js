@@ -21,6 +21,13 @@ CREATE TABLE users (
 	  last_connection TIMESTAMP NULL DEFAULT NULL,
 	  PRIMARY KEY (id)
 );
+
+CREATE TABLE tags (
+	  id SERIAL,
+	  tag VARCHAR(64) NOT NULL,
+	  user_id INTEGER NULL DEFAULT NULL,
+	  PRIMARY KEY (id)
+);
 `;
 
 module.exports = userSchema;

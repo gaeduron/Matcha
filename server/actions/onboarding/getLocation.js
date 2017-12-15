@@ -10,7 +10,7 @@ const error = {
 };
 
 
-const validation = async ({ latitude, longitude }) => {
+const validation = async ({ latitude = 0, longitude = 0 }) => {
 	let errors = [];
 
 	if (!latitude || !longitude)
@@ -37,7 +37,7 @@ const getLocation = async (location) => {
 
 	const updateResponse = await Users.update({
 		latitude: location.latitude,
-		longitude: location.longitude
+		longitude: location.longitude,
 		sessionToken
 	});
 	

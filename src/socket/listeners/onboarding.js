@@ -30,6 +30,20 @@ const onboardingListener = (dispatch, socket) => {
 			step()
 		]);
 	});
+
+	socket.on('SERVER/SAVE_LOCATION', ({ latitude, longitude }) => {
+		dispatch([
+			updateLocation({ latitude, longitude }),	
+			step()
+		]);
+	});
+
+	socket.on('SERVER/SAVE_TAGS', ({ tags }) => {
+		dispatch([
+			updateTags(tags),	
+			step()
+		]);
+	});
 };
 
 export default onboardingListener;

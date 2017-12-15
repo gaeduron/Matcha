@@ -41,16 +41,10 @@ export class Onboarding extends React.Component {
 		 * [ ] save tags in DB  
 		 *
 		 * */
-		this.props.saveUserData('SERVER/SAVE_TAGS', tags);
+		this.props.saveUserData('SERVER/SAVE_TAGS', { tags });
 	};
 
 	getLocation = (location) => {
-		/*
-		 * { lat, lon } 
-		 * [ ] validate normal coordinates
-		 * [ ] save in DB in longitude / latitude  
-		 *
-		 * */
 		this.props.saveUserData('SERVER/SAVE_LOCATION', location);
 	};
 	

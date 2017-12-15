@@ -23,8 +23,10 @@
 
 ## Todo 
 
-[ ] validate location - test if the errors are triggered 
+[ ] Front : Add chip validation : https://github.com/TeamWertarbyte/material-ui-chip-input/issues/145
+[ ] error handling on invalid input crashes (mergeBuffer) / Gat ? 
 
+[x] validate location - test if the errors are triggered 
 [x] onboarding - profile - nickname should be unique 
 [x] StepInc conditionnel et async, que si la data a bien ete saved dans la DB
 [x] BirthDate format to correct redux - > component props

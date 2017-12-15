@@ -13,8 +13,10 @@ const validateBirthdate = require('./steps/validateBirthdate');
 const validateGender = require('./steps/validateGender');
 const validateLocation = require('./steps/validateLocation');
 const validateOrientation = require('./steps/validateOrientation');
+const validateTags = require('./steps/validateTags');
 const hashPassword = require('./steps/hashPassword');
 const create = require('./steps/create');
+const addTags = require('./steps/tags/addTags');
 
 // PATHS //
 const find = require('./paths/find');
@@ -37,8 +39,10 @@ module.exports = {
 	validateGender,
 	validateOrientation,
 	validateLocation,
+	validateTags,
 	hashPassword,
 	create,
+	addTags,
 	// PATHS //
 	find,
 	newSession,
