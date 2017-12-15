@@ -11,6 +11,7 @@ const validateLogin = require('./steps/validateLogin');
 const validatePassword = require('./steps/validatePassword');
 const validateBirthdate = require('./steps/validateBirthdate');
 const validateGender = require('./steps/validateGender');
+const validateLocation = require('./steps/validateLocation');
 const validateOrientation = require('./steps/validateOrientation');
 const hashPassword = require('./steps/hashPassword');
 const create = require('./steps/create');
@@ -35,6 +36,7 @@ module.exports = {
 	validateBirthdate,
 	validateGender,
 	validateOrientation,
+	validateLocation,
 	hashPassword,
 	create,
 	// PATHS //

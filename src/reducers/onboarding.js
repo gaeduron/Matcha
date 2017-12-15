@@ -1,5 +1,5 @@
 const defaultState = {
-	step: 0
+	step: 4
 };
 
 export default (state = defaultState, action) => {

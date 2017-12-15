@@ -23,7 +23,8 @@
 
 ## Todo 
 
-[ ] onboarding - profile - nickname should be unique 
+[ ] validate location - test if the errors are triggered 
 
+[x] onboarding - profile - nickname should be unique 
 [x] StepInc conditionnel et async, que si la data a bien ete saved dans la DB
 [x] BirthDate format to correct redux - > component props

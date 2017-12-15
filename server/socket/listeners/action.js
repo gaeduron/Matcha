@@ -3,6 +3,7 @@
 const logger = require('../../logs/logger');
 const getProfile = require('../../actions/onboarding/getProfile');
 const getGender = require('../../actions/onboarding/getGender');
+const getLocation = require('../../actions/onboarding/getLocation');
 
 
 const startAction = async (action, socket, actionFunc, loggerContent) => {
@@ -24,6 +25,9 @@ const actionListeners = (socket) => {
 				break; 
 			case 'SERVER/SAVE_GENDER':
 				startAction(action, socket, getGender, 'Onboarding: user gender data saved to DB');
+				break; 
+			case 'SERVER/SAVE_LOCATION':
+				startAction(action, socket, getLocation, 'Onboarding: user location data saved to DB');
 				break; 
 
 			default: 

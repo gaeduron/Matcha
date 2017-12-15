@@ -3502,6 +3502,10 @@ is-ci@^1.0.10:
   dependencies:
     ci-info "^1.0.0"
 
+is-coordinates@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/is-coordinates/-/is-coordinates-2.0.2.tgz#c313bb6ece24ed39b6ad3fdfcf6e8e93ae117370"
+
 is-date-object@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/is-date-object/-/is-date-object-1.0.1.tgz#9aa20eb6aeebbff77fbd33e74ca01b33581d3a16"

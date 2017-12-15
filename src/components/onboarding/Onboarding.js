@@ -20,43 +20,38 @@ export class Onboarding extends React.Component {
 
 	getGender = (genderState) => {
 		this.props.saveUserData('SERVER/SAVE_GENDER', pick(['gender', 'orientation'], genderState));
-	
-		/* 
-		 * [ ] Save gender in redux 
-		 * [ ] Step  
-		 *
-		 * */
-	};
-
-	getTags = (tags) => {
-		this.setState({ 
-			profile: {
-				...this.state.profile,	
-				tags 
-			}
-		});
-		this.props.stepInc();
 	};
 
 	getPhoto = (photos) => {
-		this.setState({ 
-			profile: {
-				...this.state.profile,	
-				photos 
-			}
-		});
+		/*
+		 * Array [5] URLs
+		 * [ ] Save photo binaries somewhere
+		 * [ ] Save photos URLs in DB
+		 * [ ] Determine main profile picture in DB
+		 *
+		 * */
+		this.props.saveUserData('SERVER/SAVE_PHOTOS', photos);
+	};
 
-		this.props.stepInc();
+	getTags = (tags) => {
+		/*
+		 * Array [x] 
+		 * [ ] create tags DB 
+		 * [ ] validate tags (text, ascii basic)
+		 * [ ] save tags in DB  
+		 *
+		 * */
+		this.props.saveUserData('SERVER/SAVE_TAGS', tags);
 	};
 
 	getLocation = (location) => {
-		this.setState({
-			profile: {
-				...this.state.profile,	
-				location 
-			}
-		});		
-		this.props.stepInc();
+		/*
+		 * { lat, lon } 
+		 * [ ] validate normal coordinates
+		 * [ ] save in DB in longitude / latitude  
+		 *
+		 * */
+		this.props.saveUserData('SERVER/SAVE_LOCATION', location);
 	};
 	
 

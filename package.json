@@ -38,6 +38,7 @@
     "file-loader": "^1.1.5",
     "firebase": "4.2.0",
     "history": "4.7.2",
+    "is-coordinates": "^2.0.2",
     "js-cookie": "^2.2.0",
     "jsonwebtoken": "^8.1.0",
     "logform": "^1.2.1",
