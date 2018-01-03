@@ -49,6 +49,7 @@ export default class PhotoUploader extends React.Component {
 
 	handleSave = data => {
 		const img = this.editor.getImage().toDataURL();
+		//const img = this.editor.getImage().toBlob((blob) => console.log(URL.createObjectURL(blob)));
 		const rect = this.editor.getCroppingRect();
 
 		this.setState({
@@ -62,6 +63,7 @@ export default class PhotoUploader extends React.Component {
 			}
 		});
 		this.closeModal();
+		console.log(img);
 	}
 
 	setEditorRef = (editor) => this.editor = editor;
@@ -80,7 +82,10 @@ export default class PhotoUploader extends React.Component {
 							    backgroundPosition: 'center center'	
 							}}
 						>
-							<button onClick={this.handleClearPhoto}>X</button>
+							<label htmlFor="clear-photo-btn" className="custom-file-upload">
+								<span>x</span>
+							</label>
+							<button id="clear-photo-btn" onClick={this.handleClearPhoto}>x</button>
 						</div>
 					}
 					{!this.state.preview && 
