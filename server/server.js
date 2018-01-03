@@ -21,5 +21,8 @@ app.get('*', (req, res) => {
 io.on('connection', socketInit);
 
 server.listen(port, () => {
+	if (port == 8080) {
+		console.log('URL: http://localhost:8080/')
+	}
 	console.log(`Server is up on ${port}`);
 });
