@@ -34,13 +34,6 @@ export class Onboarding extends React.Component {
 	};
 
 	getTags = (tags) => {
-		/*
-		 * Array [x] 
-		 * [ ] create tags DB 
-		 * [ ] validate tags (text, ascii basic)
-		 * [ ] save tags in DB  
-		 *
-		 * */
 		this.props.saveUserData('SERVER/SAVE_TAGS', { tags });
 	};
 

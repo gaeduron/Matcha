@@ -1,0 +1,16 @@
+.photo-uploader {
+	background-color: lightgrey;
+	width: 90px;
+	height: 90px;
+	border-radius: 4px;
+
+	input[type="file"] {
+		display: none;
+	}
+
+	.custom-file-upload {
+		display: inline-block;
+		padding: 6px 12px;
+		cursor: pointer;
+	}
+}

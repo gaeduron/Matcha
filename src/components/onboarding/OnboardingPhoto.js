@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, Upload, Message } from 'element-react';
 import { range, sort } from 'ramda';
+import PhotoUploader from '../photo/PhotoUploader';
 import 'element-theme-default/lib/upload.css';
 
 export default class OnboardingPhoto extends React.Component {
@@ -73,6 +74,7 @@ export default class OnboardingPhoto extends React.Component {
 
 		return (
 			<div>
+				<PhotoUploader />
 				<p>Photo</p>
 
 				{ photosUrl.map((photo, idx) => (
@@ -94,7 +96,6 @@ export default class OnboardingPhoto extends React.Component {
 						{ (photo && idx > 0) && <button onClick={() => this.setAsProfile(idx)}>set as profile</button> }
 					</div>
 				)) }
-
 				<button onClick={this.getPhoto}>Continue</button>
 			</div>
 		);
