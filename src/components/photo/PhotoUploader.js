@@ -27,11 +27,21 @@ export default class PhotoUploader extends React.Component {
 	}
 
 	openModal = (e) => {
-		this.setState({ 
-			modalIsOpen: true,
-			currentImg: e.target.files[0]
-		});
+		const currentImg = e.target.files[0];
+		console.log('image size', currentImg.size);
+
+		if (this.validatePhoto(currentImg)) {
+			this.setState({ 
+				modalIsOpen: true,
+				currentImg
+			});
+		}
 		e.target.value = null;
+	}
+
+	validatePhoto = (file) => {
+		return (file.size < 2500000) ? true : false; 
+		/* TRIGGER WARNING NOTIFICATION */
 	}
 
 	closeModal = () => {
@@ -44,7 +54,24 @@ export default class PhotoUploader extends React.Component {
 	}
 
 	handleClearPhoto = () => {
-	    this.setState({ preview: null });				  
+		let cl = this.state.cloudinary;
+
+		if (cl) {
+			var timeDiffInMin = Math.round((new Date() - new Date(cl.created_at)) / 60000);
+		}
+
+
+		if (timeDiffInMin < 10) {
+			axios.post('https://api.cloudinary.com/v1_1/matcha/delete_by_token', { 
+				token: this.state.cloudinary.delete_token 
+			})
+			.catch(error => { console.log('delete token has expired') });
+		}
+		
+	    this.setState({ 
+			preview: null,
+			cloudinary: null
+	   	});				  
 	}
 
 	handleSave = data => {
@@ -63,8 +90,28 @@ export default class PhotoUploader extends React.Component {
 			}
 		});
 		this.closeModal();
-		console.log(img);
+		this.uploadPhoto(img);
 	}
+
+	uploadPhoto = (file) => {
+
+		const cloudName = 'matcha';
+		const unsignedUploadPreset = 'l37etlko';
+		const url = `https://api.cloudinary.com/v1_1/${cloudName}/upload`;
+
+		axios.post(url, { upload_preset: unsignedUploadPreset, file: file })
+			.then(({ data }) => {
+				const url = data.secure_url;
+				let tokens = url.split('/');
+				tokens.splice(-2, 0, 'w_150,c_scale');
+				let img = new Image(); 
+				img.src = tokens.join('/');
+				img.alt = data.public_id;
+				document.getElementById('gallery').appendChild(img);
+				this.setState({ cloudinary: data });
+		});
+	}  
+
 
 	setEditorRef = (editor) => this.editor = editor;
 
@@ -72,6 +119,7 @@ export default class PhotoUploader extends React.Component {
 
 		return (
 				<div>
+					<div id="gallery"></div>
 					{this.state.preview && 
 						<div 
 							className="photo-uploader" 
@@ -93,7 +141,7 @@ export default class PhotoUploader extends React.Component {
 							<label htmlFor="image_uploads" className="custom-file-upload">
 								<span>+</span>
 							</label>
-							<input onChange={this.openModal} type="file" id="image_uploads" name="image_uploads" accept=".jpg, .jpeg, .png, .gif" />
+							<input onChange={this.openModal} type="file" id="image_uploads" name="image_uploads" accept=".jpg, .jpeg, .png" />
 								
 						</div>
 					}
@@ -126,7 +174,7 @@ export default class PhotoUploader extends React.Component {
 					   		type='range'
 							onChange={this.handleScale}
 				  			min={this.state.allowZoomOut ? '0.1' : '1'}
-				  			max='2'
+				  			max='3'
 				  			step='0.01'
 				  			defaultValue='1'
 						/>
