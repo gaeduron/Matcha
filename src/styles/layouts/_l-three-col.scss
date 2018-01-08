@@ -1,0 +1,19 @@
+.l-flex-container {
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	display: flex;
+}
+
+.l-nav {
+	display: inline-block;
+}
+
+.l-menu {
+	display: inline-block;
+}
+
+.l-main {
+	display: inline-block;
+	flex-grow: 1;
+}

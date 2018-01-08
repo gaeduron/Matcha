@@ -12,22 +12,16 @@ const error = {
 
 const create = async ({
 	email,
-	firstname,
-	lastname,
-	login,
 	password,
 }) => {
 	const query = `
 	INSERT INTO users (
 		email,
-		firstname,
-		lastname,
-		login,
 		password
-	) VALUES ($1, $2, $3, $4, $5);`;
+	) VALUES ($1, $2);`;
 
 	try {
-		await database.query(query, [email, firstname, lastname, login, password]);
+		await database.query(query, [email, password]);
 		logger.info('User Creation succesful !');
 		return {
 			message: ['Your account has been successfuly created !'],
