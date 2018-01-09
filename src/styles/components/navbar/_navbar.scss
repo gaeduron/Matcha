@@ -21,6 +21,12 @@
 	transition: 0.2s;
 }
 
+.c-nav__item--active:hover {
+	opacity: 1;
+
+	transition: 0s;
+}
+
 .c-nav__item--opposite {
 	position: absolute;
 
