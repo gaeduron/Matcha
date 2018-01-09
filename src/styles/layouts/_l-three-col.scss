@@ -10,10 +10,27 @@
 }
 
 .l-menu {
+	margin-left: 100px;
 	display: inline-block;
 }
 
 .l-main {
 	display: inline-block;
 	flex-grow: 1;
+}
+
+@media only screen and (max-width: 768px) {
+	.l-flex-container {
+		height: 100%;
+		width: 100%;
+		position: absolute;
+	}
+
+	.l-nav {
+		display: block;
+		position: absolute;
+		bottom: 0px;
+		width: 100%;
+		height: 40px;
+	}
 }
