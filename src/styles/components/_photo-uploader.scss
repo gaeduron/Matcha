@@ -3,6 +3,10 @@
 	width: 90px;
 	height: 90px;
 	border-radius: 4px;
+	background-size: cover;                      
+	background-repeat: no-repeat;
+	background-position: center center;
+
 
 	input[type="file"] {
 		display: none;

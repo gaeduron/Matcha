@@ -1,7 +1,16 @@
+/* TO DO	
+ *
+ * [1] Trigger warning notofications  
+ * [2] Add a transparent dark background when loading
+ *
+ *
+ **/
+
 import React from 'react';
 import Modal from 'react-modal';
 import axios from 'axios';
 import AvatarEditor from 'react-avatar-editor';
+import MDSpinner from "react-md-spinner";
 
 const customStyles = {
 	content : {
@@ -14,6 +23,8 @@ const customStyles = {
 	}
 };
 
+
+
 export default class PhotoUploader extends React.Component {
 
 	constructor(props) {
@@ -22,18 +33,21 @@ export default class PhotoUploader extends React.Component {
 		this.state = {
 			scale: 1,
 			modalIsOpen: false,
-			currentImg: "",
+			file: "",
+			loading: false,
+			cloudinary: null,
+			url: this.props.url ? this.props.url : null
 		};
 	}
 
 	openModal = (e) => {
-		const currentImg = e.target.files[0];
-		console.log('image size', currentImg.size);
+		const file = e.target.files[0];
+		console.log('image size', file.size);
 
-		if (this.validatePhoto(currentImg)) {
+		if (this.validatePhoto(file)) {
 			this.setState({ 
 				modalIsOpen: true,
-				currentImg
+				file
 			});
 		}
 		e.target.value = null;
@@ -41,7 +55,7 @@ export default class PhotoUploader extends React.Component {
 
 	validatePhoto = (file) => {
 		return (file.size < 2500000) ? true : false; 
-		/* TRIGGER WARNING NOTIFICATION */
+		/* TO DO 1 */
 	}
 
 	closeModal = () => {
@@ -60,7 +74,8 @@ export default class PhotoUploader extends React.Component {
 			var timeDiffInMin = Math.round((new Date() - new Date(cl.created_at)) / 60000);
 		}
 
-
+		/* With unsigned upload, the user is able to delete his photo from cloudinary 
+		 * with the delete token up to 10 min after upload */
 		if (timeDiffInMin < 10) {
 			axios.post('https://api.cloudinary.com/v1_1/matcha/delete_by_token', { 
 				token: this.state.cloudinary.delete_token 
@@ -69,28 +84,21 @@ export default class PhotoUploader extends React.Component {
 		}
 		
 	    this.setState({ 
-			preview: null,
-			cloudinary: null
+			url: null,
+			cloudinary: null,
+			file: null
 	   	});				  
 	}
 
 	handleSave = data => {
 		const img = this.editor.getImage().toDataURL();
-		//const img = this.editor.getImage().toBlob((blob) => console.log(URL.createObjectURL(blob)));
-		const rect = this.editor.getCroppingRect();
 
-		this.setState({
-			preview: {
-				img,
-				rect,
-				scale: this.state.scale,
-				width: this.state.width,
-				height: this.state.height,
-				borderRadius: this.state.borderRadius
-			}
-		});
+		/*TO TEST*/	
+		this.setState({ url: true });
+
 		this.closeModal();
 		this.uploadPhoto(img);
+
 	}
 
 	uploadPhoto = (file) => {
@@ -99,16 +107,29 @@ export default class PhotoUploader extends React.Component {
 		const unsignedUploadPreset = 'l37etlko';
 		const url = `https://api.cloudinary.com/v1_1/${cloudName}/upload`;
 
+		this.setState({ loading: true });
+
 		axios.post(url, { upload_preset: unsignedUploadPreset, file: file })
 			.then(({ data }) => {
-				const url = data.secure_url;
-				let tokens = url.split('/');
-				tokens.splice(-2, 0, 'w_150,c_scale');
-				let img = new Image(); 
-				img.src = tokens.join('/');
-				img.alt = data.public_id;
-				document.getElementById('gallery').appendChild(img);
-				this.setState({ cloudinary: data });
+				//const url = data.secure_url;
+				//let tokens = url.split('/');
+				//tokens.splice(-2, 0, 'w_150,c_scale');
+				//let img = new Image(); 
+				//img.src = tokens.join('/');
+				//img.alt = data.public_id;
+				//document.getElementById('gallery').appendChild(img);
+				
+				let photoUrl = data.secure_url;
+
+				//document.getElementsByClassName('photo-uploader')[this.props.photoId].style.backgroundImage = `url(${url})`; 
+
+				this.setState({ 
+					cloudinary: data,
+					loading: false,
+					url: photoUrl
+			   	});
+
+				this.props.onSuccess(photoUrl);
 		});
 	}  
 
@@ -116,35 +137,53 @@ export default class PhotoUploader extends React.Component {
 	setEditorRef = (editor) => this.editor = editor;
 
 	render () {
+	
+		let photoUrl = this.state.url;	
 
 		return (
 				<div>
-					<div id="gallery"></div>
-					{this.state.preview && 
+					{/* Image state after cropping */}	
+
+					{this.state.url && 
 						<div 
-							className="photo-uploader" 
-							style={{ 
-								backgroundImage:	`url(${this.state.preview.img})`,
-							    backgroundSize:		'cover',                      
-							    backgroundRepeat:   'no-repeat',
-							    backgroundPosition: 'center center'	
-							}}
+							className="photo-uploader"
+							style={{
+								backgroundImage: `url(${photoUrl})`
+							}}	
 						>
 							<label htmlFor="clear-photo-btn" className="custom-file-upload">
 								<span>x</span>
 							</label>
 							<button id="clear-photo-btn" onClick={this.handleClearPhoto}>x</button>
+							<div>
+								{this.state.loading && 
+									<MDSpinner 
+										size={40}	
+										singleColor="rgb(255, 255, 255)"
+									/>
+								}
+								{/* TO DO 2 */}
+							</div>
 						</div>
 					}
-					{!this.state.preview && 
-						<div className="photo-uploader">
-							<label htmlFor="image_uploads" className="custom-file-upload">
+
+
+					{/* Image state before cropping */}	
+
+					{!this.state.url && 
+						<div 
+							className="photo-uploader"
+						>
+							<label htmlFor={`image_uploads${this.props.photoId}`} className="custom-file-upload">
 								<span>+</span>
 							</label>
-							<input onChange={this.openModal} type="file" id="image_uploads" name="image_uploads" accept=".jpg, .jpeg, .png" />
+							<input onChange={this.openModal} type="file" id={`image_uploads${this.props.photoId}`} name="image_uploads" accept=".jpg, .jpeg, .png" />
 								
 						</div>
 					}
+
+
+					{/* Modal displaying cropping feature */}	
 
 					<Modal
 						isOpen={this.state.modalIsOpen}
@@ -157,7 +196,7 @@ export default class PhotoUploader extends React.Component {
 
 						<AvatarEditor
 							ref={this.setEditorRef}
-							image={this.state.currentImg}
+							image={this.state.file}
 							width={250}
 							height={250}
 							border={50}
