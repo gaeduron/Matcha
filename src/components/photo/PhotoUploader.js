@@ -94,7 +94,7 @@ export default class PhotoUploader extends React.Component {
 		const img = this.editor.getImage().toDataURL();
 
 		/*TO TEST*/	
-		this.setState({ url: true });
+//		this.setState({ url: true });
 
 		this.closeModal();
 		this.uploadPhoto(img);
@@ -129,7 +129,7 @@ export default class PhotoUploader extends React.Component {
 					url: photoUrl
 			   	});
 
-				this.props.onSuccess(photoUrl);
+			//	this.props.onSuccess(photoUrl);
 		});
 	}  
 

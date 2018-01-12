@@ -79,20 +79,17 @@ export default class OnboardingPhoto extends React.Component {
 		const { photosUrl } = this.state;
 
 		return (
-			<div>
-
-				<PhotoUploader 
-					key={0}
-					photoId={0} 
-					url="https://s3.amazonaws.com/uifaces/faces/twitter/sillyleo/128.jpg" 
-					onSuccess={this.photoUploadSuccess}
-				/>
-				<PhotoUploader photoId={1} key={1}/>
-				<PhotoUploader photoId={2} key={2}/>
-				<PhotoUploader photoId={3} key={3}/>
-				<PhotoUploader photoId={4} key={4}/>
+			<div>	
+				
+				{ photosUrl.map((photo, idx) => (			
+					<div key={idx}>					
+						<PhotoUploader photoId={`sample${idx}`}/>
+					</div>
+				)) }
+				
 				<p>Photo</p>
 
+				{ /*
 				{ photosUrl.map((photo, idx) => (
 					<div key={idx}>
 						<Upload
@@ -112,8 +109,17 @@ export default class OnboardingPhoto extends React.Component {
 						{ (photo && idx > 0) && <button onClick={() => this.setAsProfile(idx)}>set as profile</button> }
 					</div>
 				)) }
+
+				*/}
 				<button onClick={this.getPhoto}>Continue</button>
 			</div>
 		);
 	}
 }
+
+		///		<PhotoUploader 
+		///			key={0}
+		///			photoId={0} 
+		///			url="https://s3.amazonaws.com/uifaces/faces/twitter/sillyleo/128.jpg" 
+		///			onSuccess={this.photoUploadSuccess}
+		///		/>
