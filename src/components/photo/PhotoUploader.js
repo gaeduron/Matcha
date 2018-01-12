@@ -132,7 +132,9 @@ export default class PhotoUploader extends React.Component {
 	render () {
 	
 		let photoUrl = this.props.url;	
+		let { pos } = this.props;
 		let { loading } = this.state;
+
 
 		return (
 				<div>
@@ -149,6 +151,7 @@ export default class PhotoUploader extends React.Component {
 								<span>x</span>
 							</label>
 							<button id={`clear${this.props.photoId}`} onClick={this.handleClearPhoto}>x</button>
+
 							<div>
 								{loading && 
 									<MDSpinner 
@@ -158,6 +161,12 @@ export default class PhotoUploader extends React.Component {
 								}
 								{/* TO DO 2 */}
 							</div>
+
+							<label htmlFor={`leftSwap${this.props.photoId}`} className="custom-file-upload">
+								<span>LEFT</span>
+							</label>
+							<button id={`leftSwap${this.props.photoId}`} onClick={() => this.props.leftSwap(pos)}>left</button>
+
 						</div>
 					}
 

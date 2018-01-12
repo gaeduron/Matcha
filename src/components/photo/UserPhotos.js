@@ -41,6 +41,23 @@ export default class UserPhotos extends React.Component {
 		this.setState({ photosUrl });
 	};
 
+	leftSwap = (pos) => {
+		let arr =  this.state.photosUrl.slice();	
+		
+		console.log('swaping', arr);
+		console.log('pos', pos);
+
+		/* protect boundaries */
+		let tmp = arr[(pos - 1) % 5];
+		arr[(pos - 1) % 5] = arr[pos % 5];
+		arr[pos % 5] = tmp;
+	
+		console.log('swaped', arr);
+
+		this.setState({ photosUrl: arr });	
+	};
+	
+
 	render () {
 		const { photosUrl } = this.state;
 		const { shouldStartGetPhotosUrl, getPhotosUrl } = this.props;
@@ -59,6 +76,7 @@ export default class UserPhotos extends React.Component {
 						pos={idx}	
 						onSuccess={this.photoUploadSuccess}
 						onClearSuccess={this.photoClearSuccess}
+						leftSwap={this.leftSwap}
 					/>
 				)) }
 				
