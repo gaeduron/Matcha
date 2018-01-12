@@ -93,3 +93,17 @@ USIGNED CLOUDINARY PHOTO UPLOAD [Client -> Cloudinary]
 	*[error = error msg + photo blank again]
 
 
+
+-----------------------------------------------------------
+USERPHOTOS 
+----------------------------------------------------------
+
+PROPS 
+- initial photos from db/fb
+- onSuccess function (updated photo array) 
+
+
+
+
+
+

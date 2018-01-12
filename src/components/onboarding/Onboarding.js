@@ -81,7 +81,7 @@ export class Onboarding extends React.Component {
 					{step == 2 && 
 							<OnboardingPhoto 
 								getPhoto={this.getPhoto}
-								photos={photos}
+								initialPhotos={photos}
 					/>}
 					{step == 3 && 
 							<OnboardingTags

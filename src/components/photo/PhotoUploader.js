@@ -24,7 +24,6 @@ const customStyles = {
 };
 
 
-
 export default class PhotoUploader extends React.Component {
 
 	constructor(props) {
@@ -36,7 +35,6 @@ export default class PhotoUploader extends React.Component {
 			file: "",
 			loading: false,
 			cloudinary: null,
-			url: this.props.url ? this.props.url : null
 		};
 	}
 
@@ -50,7 +48,7 @@ export default class PhotoUploader extends React.Component {
 				file
 			});
 		}
-		e.target.value = null;
+//		e.target.value = null;
 	}
 
 	validatePhoto = (file) => {
@@ -83,8 +81,8 @@ export default class PhotoUploader extends React.Component {
 			.catch(error => { console.log('delete token has expired') });
 		}
 		
+		this.props.onClearSuccess(this.props.pos);
 	    this.setState({ 
-			url: null,
 			cloudinary: null,
 			file: null
 	   	});				  
@@ -93,12 +91,8 @@ export default class PhotoUploader extends React.Component {
 	handleSave = data => {
 		const img = this.editor.getImage().toDataURL();
 
-		/*TO TEST*/	
-//		this.setState({ url: true });
-
 		this.closeModal();
 		this.uploadPhoto(img);
-
 	}
 
 	uploadPhoto = (file) => {
@@ -123,13 +117,12 @@ export default class PhotoUploader extends React.Component {
 
 				//document.getElementsByClassName('photo-uploader')[this.props.photoId].style.backgroundImage = `url(${url})`; 
 
+				this.props.onSuccess(photoUrl, this.props.pos);
 				this.setState({ 
 					cloudinary: data,
 					loading: false,
-					url: photoUrl
 			   	});
 
-			//	this.props.onSuccess(photoUrl);
 		});
 	}  
 
@@ -138,25 +131,26 @@ export default class PhotoUploader extends React.Component {
 
 	render () {
 	
-		let photoUrl = this.state.url;	
+		let photoUrl = this.props.url;	
+		let { loading } = this.state;
 
 		return (
 				<div>
 					{/* Image state after cropping */}	
 
-					{this.state.url && 
+					{(this.props.url || loading) &&  
 						<div 
 							className="photo-uploader"
 							style={{
 								backgroundImage: `url(${photoUrl})`
 							}}	
 						>
-							<label htmlFor="clear-photo-btn" className="custom-file-upload">
+							<label htmlFor={`clear${this.props.photoId}`} className="custom-file-upload">
 								<span>x</span>
 							</label>
-							<button id="clear-photo-btn" onClick={this.handleClearPhoto}>x</button>
+							<button id={`clear${this.props.photoId}`} onClick={this.handleClearPhoto}>x</button>
 							<div>
-								{this.state.loading && 
+								{loading && 
 									<MDSpinner 
 										size={40}	
 										singleColor="rgb(255, 255, 255)"
@@ -170,7 +164,7 @@ export default class PhotoUploader extends React.Component {
 
 					{/* Image state before cropping */}	
 
-					{!this.state.url && 
+					{(!this.props.url && !loading) && 
 						<div 
 							className="photo-uploader"
 						>
@@ -226,4 +220,3 @@ export default class PhotoUploader extends React.Component {
 		);
 	}
 }
-
