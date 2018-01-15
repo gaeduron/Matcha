@@ -135,38 +135,31 @@ export default class PhotoUploader extends React.Component {
 		let { pos } = this.props;
 		let { loading } = this.state;
 
+		let profile = (pos === 0) ? "profile" : "";
 
 		return (
 				<div>
 					{/* Image state after cropping */}	
 
 					{(this.props.url || loading) &&  
-						<div 
-							className="photo-uploader"
-							style={{
-								backgroundImage: `url(${photoUrl})`
-							}}	
-						>
-							<label htmlFor={`clear${this.props.photoId}`} className="custom-file-upload">
-								<span>x</span>
-							</label>
-							<button id={`clear${this.props.photoId}`} onClick={this.handleClearPhoto}>x</button>
+						<div className={`photo-container ${profile}`} style={{ backgroundImage: `url(${photoUrl})` }}>
+							<i className="material-icons photo-circle clear" id={`clear${this.props.photoId}`} onClick={this.handleClearPhoto}>
+								clear
+							</i>
+							<i className="material-icons photo-circle photo-left visible" id={`leftSwap${this.props.photoId}`} onClick={() => this.props.leftSwap(pos)}>
+								keyboard_arrow_left
+							</i>
+							<i className="material-icons photo-circle photo-right visible" id={`rightSwap${this.props.photoId}`} onClick={() => this.props.rightSwap(pos)}>
+								keyboard_arrow_right
+							</i>
 
-							<div>
-								{loading && 
-									<MDSpinner 
-										size={40}	
-										singleColor="rgb(255, 255, 255)"
-									/>
-								}
-								{/* TO DO 2 */}
-							</div>
-
-							<label htmlFor={`leftSwap${this.props.photoId}`} className="custom-file-upload">
-								<span>LEFT</span>
-							</label>
-							<button id={`leftSwap${this.props.photoId}`} onClick={() => this.props.leftSwap(pos)}>left</button>
-
+							{loading && 
+								<MDSpinner 
+									size={40}	
+									singleColor="rgb(255, 255, 255)"
+								/>
+							}
+							{/* TO DO 2 */}
 						</div>
 					}
 
@@ -174,14 +167,11 @@ export default class PhotoUploader extends React.Component {
 					{/* Image state before cropping */}	
 
 					{(!this.props.url && !loading) && 
-						<div 
-							className="photo-uploader"
-						>
-							<label htmlFor={`image_uploads${this.props.photoId}`} className="custom-file-upload">
-								<span>+</span>
+						<div className="photo-container">
+							<label htmlFor={`image_uploads${this.props.photoId}`}>
+								<i className="material-icons photo-circle clear">add</i>
 							</label>
 							<input onChange={this.openModal} type="file" id={`image_uploads${this.props.photoId}`} name="image_uploads" accept=".jpg, .jpeg, .png" />
-								
 						</div>
 					}
 

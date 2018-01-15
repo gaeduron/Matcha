@@ -1,24 +1,96 @@
-.photo-uploader {
-	background-color: lightgrey;
-	width: 90px;
-	height: 90px;
+.container--photo-uploader {
+	overflow: auto;
+	width: 510px;
+//	background-color: #FFFFFF;
+	margin: 0 auto;
+}
+
+.photo-container {
+	background-color: #D8D8D8;
+	width: 100px;
+	height: 100px;
 	border-radius: 4px;
+	margin: 10px 10px;
+	float: left;
 	background-size: cover;                      
 	background-repeat: no-repeat;
 	background-position: center center;
-
 
 	input[type="file"] {
 		display: none;
 	}
 
-	button {
-		display: none;
+	.material-icons {
+	    font-size: 15px;  
 	}
 
-	.custom-file-upload {
-		display: inline-block;
-		padding: 6px 12px;
-		cursor: pointer;
+	&:hover {   
+		.visible {
+			visibility: visible;
+			opacity: 1;
+		}
+	}
+}
+
+.visible {
+	visibility: hidden;
+	opacity: 0;
+	transition: opacity 0.3s ease;
+}
+
+.photo-circle {
+	border-radius: 100%;
+	background-color: #FFFFFF;
+	color: #fc2b68;
+	padding: 4px;
+	font-size: 15px;
+	font-weight: 500;
+	cursor: pointer;
+	transition: all 0.3s ease;
+
+	&:hover {
+		background-color: #fc2b68;
+		color: white;
+	}
+}
+
+.clear {
+	position: relative;
+	left: 70px;
+	top: 7px; 
+}
+
+.photo-right {
+	position: relative;
+	left: 25px;
+	top: 70px; 
+}
+
+.photo-left {
+	position: relative;
+	left: -15px;
+	top: 70px; 
+}
+
+.profile {
+	width: 220px;
+	height: 220px;  
+
+	.clear {
+		position: relative;
+		left: 190px;
+		top: 7px; 
+	}
+
+	.photo-right {
+		position: relative;
+		left: 143px;
+		top: 190px; 
+	}
+
+	.photo-left {
+		position: relative;
+		left: -15px;
+		top: 190px; 
 	}
 }

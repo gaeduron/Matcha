@@ -28,7 +28,8 @@ export default class UserPhotos extends React.Component {
 			({ value, id }, idx) => idx === pos 
 				? ({ value: url, id }) 
 				: ({ value, id })
-		);				
+		);
+		photosUrl.sort((a, b) => a.value == undefined);
 		this.setState({ photosUrl });
 	}; 
 
@@ -38,21 +39,26 @@ export default class UserPhotos extends React.Component {
 				? ({ value: undefined, id }) 
 				: ({ value, id })
 		);				
+		photosUrl.sort((a, b) => a.value == undefined);
 		this.setState({ photosUrl });
+	};
+
+	rightSwap = (pos) => {
+		let arr =  this.state.photosUrl.slice();	
+
+		const right = (pos == 4) ? 0 : pos + 1;
+		if (arr[right].value !== undefined) 
+			[arr[right], arr[pos]] = [arr[pos], arr[right]];	
+
+		this.setState({ photosUrl: arr });	
 	};
 
 	leftSwap = (pos) => {
 		let arr =  this.state.photosUrl.slice();	
-		
-		console.log('swaping', arr);
-		console.log('pos', pos);
 
-		/* protect boundaries */
-		let tmp = arr[(pos - 1) % 5];
-		arr[(pos - 1) % 5] = arr[pos % 5];
-		arr[pos % 5] = tmp;
-	
-		console.log('swaped', arr);
+		const left = (pos == 0) ? 4 : pos - 1;
+		if (arr[left].value !== undefined)
+			[arr[left], arr[pos]] = [arr[pos], arr[left]];	
 
 		this.setState({ photosUrl: arr });	
 	};
@@ -66,7 +72,7 @@ export default class UserPhotos extends React.Component {
 			getPhotosUrl(photosUrl.map(({ value }) => value )); 
 
 		return (
-			<div>	
+			<div className="container--photo-uploader">	
 				
 				{ photosUrl.map(({ value, id }, idx) => (			
 					<PhotoUploader 
@@ -77,11 +83,12 @@ export default class UserPhotos extends React.Component {
 						onSuccess={this.photoUploadSuccess}
 						onClearSuccess={this.photoClearSuccess}
 						leftSwap={this.leftSwap}
+						rightSwap={this.rightSwap}
+						className=""
 					/>
 				)) }
 				
 			</div>
 		);
 	}
-
 }
