@@ -13,6 +13,14 @@ import AvatarEditor from 'react-avatar-editor';
 import MDSpinner from "react-md-spinner";
 
 const customStyles = {
+	overlay : {
+		position          : 'fixed',
+		top               : 0,
+		left              : 0,
+		right             : 0,
+		bottom            : 0,
+		backgroundColor   : 'rgba(0, 0, 0, 0.85)'
+	},
 	content : {
 		top                   : '50%',
 		left                  : '50%',
@@ -21,6 +29,11 @@ const customStyles = {
 		marginRight           : '-50%',
 		transform             : 'translate(-50%, -50%)'
 	}
+};
+
+const spinnerStyle = {
+	left: 29,
+	top: 3
 };
 
 
@@ -157,6 +170,7 @@ export default class PhotoUploader extends React.Component {
 								<MDSpinner 
 									size={40}	
 									singleColor="rgb(255, 255, 255)"
+									style={spinnerStyle}
 								/>
 							}
 							{/* TO DO 2 */}
@@ -167,7 +181,7 @@ export default class PhotoUploader extends React.Component {
 					{/* Image state before cropping */}	
 
 					{(!this.props.url && !loading) && 
-						<div className="photo-container">
+						<div className={`photo-container ${profile}`}>
 							<label htmlFor={`image_uploads${this.props.photoId}`}>
 								<i className="material-icons photo-circle clear">add</i>
 							</label>
@@ -214,7 +228,6 @@ export default class PhotoUploader extends React.Component {
 						<button onClick={this.closeModal}>close</button>
 						<button onClick={this.handleSave}>save</button>
 					</Modal>
-					<br />
 				</div>
 		);
 	}

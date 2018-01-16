@@ -46,7 +46,7 @@
 	font-size: 15px;
 	font-weight: 500;
 	cursor: pointer;
-	transition: all 0.3s ease;
+//	transition: all 0.3s ease;
 
 	&:hover {
 		background-color: #fc2b68;
@@ -93,4 +93,11 @@
 		left: -15px;
 		top: 190px; 
 	}
+}
+
+/* REACT MODAL OVERLAY */
+
+.ReactModal__Overlay {
+	background-color: rgba(0, 0, 0, 0.80);
+
 }
