@@ -25,9 +25,9 @@ export const updateTags = tags => ({
 	tags
 });
 
-export const updatePhotos = photos => ({
-	type: 'UPDATE_PHOTOS',
-	photos
+export const updatePhotos = photos => ({			
+		type: 'UPDATE_PHOTOS',
+		photos: photos.map(photo => (photo === null ? undefined : photo))
 });
 
 export const updateOrientation = orientation => ({
@@ -44,3 +44,4 @@ export const updateLocation = location => ({
 	type: 'UPDATE_LOCATION',
 	location
 });
+

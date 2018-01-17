@@ -17,6 +17,7 @@ export default class OnboardingPhoto extends React.Component {
 	};
 
 	getPhoto = (photosUrl) => {
+		this.props.getPhoto({ photosUrl });
 		console.log('Photo Urls in OnboardingPhoto', photosUrl);	
 	};
 

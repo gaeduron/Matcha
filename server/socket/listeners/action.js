@@ -5,6 +5,7 @@ const getProfile = require('../../actions/onboarding/getProfile');
 const getGender = require('../../actions/onboarding/getGender');
 const getLocation = require('../../actions/onboarding/getLocation');
 const getTags = require('../../actions/onboarding/getTags');
+const getPhotos = require('../../actions/onboarding/getPhotos');
 
 
 const startAction = async (action, socket, actionFunc, loggerContent) => {
@@ -34,6 +35,9 @@ const actionListeners = (socket) => {
 				break; 
 			case 'SERVER/SAVE_TAGS':
 				startAction(action, socket, getTags, 'Onboarding: user tags saved to DB');
+				break; 
+			case 'SERVER/SAVE_PHOTOS':
+				startAction(action, socket, getPhotos, 'Onboarding: user photos saved to DB');
 				break; 
 
 			default: 

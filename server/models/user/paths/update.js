@@ -32,7 +32,8 @@ const updateUser = async (user) => {
 			session_token = $16,
 			password_reset_token = $17,
 			password_reset_expire_at = $18,
-			birthdate = $19
+			birthdate = $19,
+			photos = $20
 		WHERE id = $1;`;
 
 	try {

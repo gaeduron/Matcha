@@ -23,13 +23,6 @@ export class Onboarding extends React.Component {
 	};
 
 	getPhoto = (photos) => {
-		/*
-		 * Array [5] URLs
-		 * [ ] Save photo binaries somewhere
-		 * [ ] Save photos URLs in DB
-		 * [ ] Determine main profile picture in DB
-		 *
-		 * */
 		this.props.saveUserData('SERVER/SAVE_PHOTOS', photos);
 	};
 

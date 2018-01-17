@@ -44,6 +44,13 @@ const onboardingListener = (dispatch, socket) => {
 			step()
 		]);
 	});
+
+	socket.on('SERVER/SAVE_PHOTOS', ({ photosUrl }) => {
+		dispatch([
+			updatePhotos(photosUrl),	
+			step()
+		]);
+	});
 };
 
 export default onboardingListener;
