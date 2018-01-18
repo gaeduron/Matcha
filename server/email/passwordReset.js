@@ -114,7 +114,7 @@ a, a:hover {
 			color: #999999;
 			font-family: sans-serif;" class="footer">
 
-				This email template was sent to you by Matcha.com
+				This email was sent to you by Matcha.com
 
 		</td>
 	</tr>

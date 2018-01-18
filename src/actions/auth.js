@@ -36,11 +36,6 @@ export const createAccount = ({
 	});
 };
 
-export const createAccountNotif = notification => ({
-	type: 'ADD_NOTIFICATION',
-	notification,
-});
-
 export const login = uid => ({
 	type: 'LOGIN',
 	uid,

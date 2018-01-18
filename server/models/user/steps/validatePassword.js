@@ -8,7 +8,7 @@ const error = {
 	}),
 	format: myError.newFailure({
 		log: 'User password contain forbidden characters',
-		message: 'Your password should only contain letters.',
+		message: 'Your password should at least contain one lowercase letter, one uppercase letter and a digit.',
 	}),
 };
 

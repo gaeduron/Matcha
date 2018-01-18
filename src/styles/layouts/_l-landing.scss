@@ -1,0 +1,42 @@
+.l-wrapper__landing {
+	width: 100%;
+	margin: 210px auto 0px auto;
+	text-align: center;
+	position: relative;
+}
+
+.l-corner-button {
+	 position:absolute;
+     top:20px;
+     right:40px;
+}
+
+.l-landing__buttons {
+	width: 310px;
+	margin: 350px auto 0px auto;
+}
+
+.l-landing__buttons-margin {
+	margin-top: 6px;
+}
+
+.l-landing__form {
+	z-index: 1;
+    position: absolute;
+    bottom: 0px;
+	left: calc(50% - 162px);
+}
+
+@media only screen and (max-width: 425px) {
+	.l-wrapper__landing {
+		width: 312px;
+		margin: 200px auto 0px auto;
+		text-align: center;
+		position: relative;
+	}
+
+	.l-landing__buttons {
+		margin: 150px auto 0px auto;
+	}
+
+}
