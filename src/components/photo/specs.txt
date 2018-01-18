@@ -1,0 +1,109 @@
+# PROFILE PHOTO UPLOAD 
+
+Component hierarchy:
+
+	
+
+PHOTO FORMAT
+	blob ?
+	base64 ?
+
+
+FACEBOOK EXTRACTED PHOTOS 
+	autocrop ? 	
+
+
+CLIENT -> SERVER 
+	when new photo
+	when new ordering 
+
+
+AWS PHOTO UPLOAD 
+	[C] choose file on computer 
+	[C] crop photo 
+		[C] mount crop component on entire page 
+			url ? 
+			toggle display ? 
+		[C] pass cropped photo to photo upload component 
+			[if cancel, blank photo upload component]
+	[C] display photo in pu component + toggle loading state to true
+		(while loading w/ disactivated photo in bg) 
+			[C -> S] send photo to server
+			[S] server validate photo 							[if not, error]
+			[S -> AWS] server ask AWS for token 				[if not, error]
+			[S -> C] server send token to client
+			[C -> AWS] client send token + photo to AWS 		[if not, error]
+			[C -> S] client send new photo array to server 		[if not, error]
+			[S -> DB] server save new photos (AWS urls) in DB 	[if not, error]
+			[C] new photos are dispatched to redux
+	[C] loading disabled 
+	[C] component re-render with props from redux (photo array)
+
+	*[error = error msg + photo blank again]
+
+
+PHOTO DELETION 
+
+
+PHOTO REORDERING
+
+
+REDUX DATA FLOW 
+	store
+		photo array 
+				
+
+USE PHOTO FROM URL 
+	be able to get photo size 470x / 60x etc... url/500x500/photo.png
+
+RANDOM
+	avoid file name collisions by renaming the photos  
+		unique random hash ? 
+		concat username + photo name ?
+			avoid spaces and special characters URIencode
+
+
+
+---------------------------------------------------------------
+CLOUDINARY PROCEDURE 
+--------------------
+
+USIGNED CLOUDINARY PHOTO UPLOAD [Client -> Cloudinary] 
+	[C] choose file on computer 
+	[C] client validation (provisoire)
+		png / jpg / 400x400px min / maximum 5 mo
+	[C] crop photo 
+		[C] mount crop component on modal 
+			toggle display ? 
+		[C] pass cropped photo to photo upload component 
+			[if cancel, blank photo upload component]
+	[C] display photo in pu component + toggle loading state to true
+		(while loading w/ disactivated photo in bg) 
+			[C -> S] send photo to server
+			[S] server validate photo 							[if not, error]
+			[S -> AWS] server ask AWS for token 				[if not, error]
+			[S -> C] server send token to client
+			[C -> AWS] client send token + photo to AWS 		[if not, error]
+			[C -> S] client send new photo array to server 		[if not, error]
+			[S -> DB] server save new photos (AWS urls) in DB 	[if not, error]
+			[C] new photos are dispatched to redux
+	[C] loading disabled 
+	[C] component re-render with props from redux (photo array)
+
+	*[error = error msg + photo blank again]
+
+
+
+-----------------------------------------------------------
+USERPHOTOS 
+----------------------------------------------------------
+
+PROPS 
+- initial photos from db/fb
+- onSuccess function (updated photo array) 
+
+
+
+
+
+

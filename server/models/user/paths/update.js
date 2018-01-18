@@ -3,6 +3,7 @@ const logger = require('../../../logs/logger');
 const myErrors = require('../../../errors');
 const find = require('./find');
 
+
 const error = {
 	database: myErrors.newFailure({
 		log: e => `Database error: models/user/paths/find.js => ${e}`,
@@ -10,35 +11,54 @@ const error = {
 	}),
 };
 
-const updateUser = async ({ ...user }) => {
-	const query = 'UPDATE users SET session_token = $2, password_reset_token = $3, password_reset_expire_at = $4, connected = $5, age = $6, score = $7, reported = $8, login = $9, password = $10, firstname = $11, lastname = $12, email = $13, sex = $14, sexual_orientation = $15, bio = $16, longitude = $17, latitude = $18, last_connection = $19 WHERE id = $1;';
+const updateUser = async (user) => {
+
+	const query = `
+		UPDATE users 	
+		SET connected = $2,
+			score = $3,
+			reported = $4,
+			login = $5,
+			password = $6,
+			firstname = $7,
+			lastname = $8,
+			email = $9,
+			sex = $10,
+			sexual_orientation = $11,
+			bio = $12,
+			longitude = $13,
+			latitude = $14,
+			last_connection = $15,
+			session_token = $16,
+			password_reset_token = $17,
+			password_reset_expire_at = $18,
+			birthdate = $19,
+			photos = $20
+		WHERE id = $1;`;
 
 	try {
-		const res = await database.query(
-			query,
-			[id, session_token, password_reset_token, password_reset_expire_at, connected,age,score,reported,login,password,firstname,lastname,email,sex,sexual_orientation,bio,longitude,latitude,last_connection],
-		);
-
-		return { user: res.rows[0] };
+		const res = await database.query(query, Object.values(user));
+		return { user: res };
 	} catch (e) {
-		return error.database(e);
+		return { error: error.database(e) };
 	}
 };
 
 const update = async (user) => {
-	let response = find(user);
+	let response = await find(user);
 	if (response.error) { return response; }
 	response.user = {
 		...response.user,
-		...user,
+		...user
 	};
-	response = await updateUser(response.user);
-	if (response.error) { return response; }
+
+	let update = await updateUser(response.user);
+	if (update.error) { return update; }
 
 	logger.info(`User has been updated: ${
-		JSON.stringify(response.user, null, 2)
+		JSON.stringify(user, null, 2)
 	}`);
-	return response;
+	return update;
 };
 
 module.exports = update;
