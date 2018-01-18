@@ -1,0 +1,23 @@
+.material-icons--big-white {
+	color: #FFFFFF;
+
+	font-size: 32px !important;
+	width: 32px;
+	height: 32px;
+}
+
+@media only screen and (max-width: 768px) {
+	.material-icons--big-white {
+		color: #000;
+
+		font-size: 24px !important;
+		height: 24px !important;
+	}
+	
+	.material-icons--active {
+		background-image: linear-gradient(45deg, #FF00CF 0%, #FF4700 100%);
+		-webkit-background-clip: text;
+ 		-webkit-text-fill-color: transparent;
+	}
+}
+

@@ -1,0 +1,35 @@
+.c-form-input {
+	background: #FFFFFF;
+	border: 1px solid #DDDDDD;
+	border-radius: 2px;
+	width: 284px;
+	height: 68px;
+	position: relative;
+}
+
+.c-form-input__title {
+	font-family: Avenir;
+	font-weight: 900;
+	font-style: normal;
+	font-size: 10px;
+	color: #C0C0C0;
+	letter-spacing: 1px;
+	
+	position: absolute;
+	top: 10px;
+	left: 15px;
+}
+
+.c-form-input__content {
+	font-family: Avenir;
+	font-weight: 300;
+	font-style: normal;
+	font-size: 18px;
+	color: #333333;
+	letter-spacing: 0;
+	
+	position: absolute;
+	top: 30px;
+	left: 15px;
+	width: 254px;	
+}

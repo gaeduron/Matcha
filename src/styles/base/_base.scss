@@ -1,26 +1,61 @@
-* {
+// Resets margins and paddings for headers, ul, ol and p
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ul,
+li,
+p,
+blockquote {
+  margin: 0;
+  padding: 0;
+}
+
+// Completely resets form items
+// ----------------------------
+// Super hard reset that removes all borders
+// and radius of all form items.
+// ============================
+input,
+textarea,
+button {
+  border: 0;
+  border-radius: 0;
+  outline: none;
+  appearance: none;
+
+  &:hover,
+  &:active,
+  &:focus {
+    outline: none;
+  }
+}
+
+// Use border-box for everything
+html {
   box-sizing: border-box;
 }
 
-html {
-  font-size: 62.5%;
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
 }
 
-body {
-  color: $dark-grey;
-  font-family: Helvetica, Arial, sans-serif;
-  font-size: $m-size;
-  line-height: 1.6;
+// Set Image and Objects to have a max-width of 100%
+embed,
+iframe,
+img,
+object,
+video {
+  max-width: 100%;
 }
 
-button {
-  cursor: pointer;
-}
-
-button:disabled {
-  cursor: default;
-}
-
-.is-active {
-  font-weight: bold;
+// Set Default Font to $font variable
+* {
+	font-family: $default-font;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
