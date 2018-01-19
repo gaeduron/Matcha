@@ -87,12 +87,16 @@ export default class BirthdatePicker extends React.Component {
 
 		return (
 			<div>
-				<select 
-					onChange={this.handleMonth}
-					defaultValue={month}
-				>
-					{months.map(({ value, name }, idx) => (<option key={idx} value={value} >{name}</option>))}	
-				</select> 
+				<div className="c-form-input c-form-box__first-input">
+					<h5 className="c-form-input__title">Firstname</h5>
+					<select 
+						className="c-form-input__content"
+						onChange={this.handleMonth}
+						defaultValue={month}
+					>
+						{months.map(({ value, name }, idx) => (<option key={idx} value={value} >{name}</option>))}	
+					</select> 
+				</div>
 				<select 
 					onChange={this.handleDay}
 					defaultValue={day}

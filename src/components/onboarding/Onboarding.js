@@ -52,49 +52,47 @@ export class Onboarding extends React.Component {
 		} = this.props.profile; 
 
 		return (
-			<div className="page-header">
-				<div className="content-container">
-					{step != 0 &&  <Button onClick={this.props.stepBack} plain={true} type="info" icon="arrow-left"></Button>}
+			<div className="l-onboarding-container">
+				{step != 0 &&  <Button onClick={this.props.stepBack} plain={true} type="info" icon="arrow-left"></Button>}
 
-					{step == 0 && 
-							<OnboardingProfile 
-								fname={fname}
-								lname={lname}
-								nickname={nickname}
-								birthDate={birthDate ? new Date(birthDate) : ''}
-								getProfile={this.getProfile}
-								minAge={18}
-					/>}
-					{step == 1 && 
-							<OnboardingGender 
-								getGender={this.getGender}		
-								gender={gender}
-								orientation={orientation}
-					/>}
-					{step == 2 && 
-							<OnboardingPhoto 
-								getPhoto={this.getPhoto}
-								initialPhotos={photos}
-					/>}
-					{step == 3 && 
-							<OnboardingTags
-								getTags={this.getTags}
-								tags={tags}
-					/>}
-					{step == 4 && 
-							<OnboardingLocation 
-								getLocation={this.getLocation}
-								latitude={location ? location.latitude : 0}
-								longitude={location ? location.longitude : 0}
-					/>}
+				{step == 0 && 
+						<OnboardingProfile 
+							fname={fname}
+							lname={lname}
+							nickname={nickname}
+							birthDate={birthDate ? new Date(birthDate) : ''}
+							getProfile={this.getProfile}
+							minAge={18}
+				/>}
+				{step == 1 && 
+						<OnboardingGender 
+							getGender={this.getGender}		
+							gender={gender}
+							orientation={orientation}
+				/>}
+				{step == 2 && 
+						<OnboardingPhoto 
+							getPhoto={this.getPhoto}
+							initialPhotos={photos}
+				/>}
+				{step == 3 && 
+						<OnboardingTags
+							getTags={this.getTags}
+							tags={tags}
+				/>}
+				{step == 4 && 
+						<OnboardingLocation 
+							getLocation={this.getLocation}
+							latitude={location ? location.latitude : 0}
+							longitude={location ? location.longitude : 0}
+				/>}
 
-					{step == 5 && <button>Discover people</button>}
+				{step == 5 && <button>Discover people</button>}
 
-					<br />
-					<Progress percentage={step / 5.0 * 100} status={step == 5 ? "success" : undefined }/> 
+				<br />
+				<Progress percentage={step / 5.0 * 100} status={step == 5 ? "success" : undefined }/> 
 
 
-				</div>
 			</div>
 		);
 	}

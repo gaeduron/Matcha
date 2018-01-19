@@ -159,10 +159,10 @@ export default class PhotoUploader extends React.Component {
 							<i className="material-icons photo-circle clear" id={`clear${this.props.photoId}`} onClick={this.handleClearPhoto}>
 								clear
 							</i>
-							<i className="material-icons photo-circle photo-left visible" id={`leftSwap${this.props.photoId}`} onClick={() => this.props.leftSwap(pos)}>
+							<i className="material-icons photo-circle photo-left switch-visible" id={`leftSwap${this.props.photoId}`} onClick={() => this.props.leftSwap(pos)}>
 								keyboard_arrow_left
 							</i>
-							<i className="material-icons photo-circle photo-right visible" id={`rightSwap${this.props.photoId}`} onClick={() => this.props.rightSwap(pos)}>
+							<i className="material-icons photo-circle photo-right switch-visible" id={`rightSwap${this.props.photoId}`} onClick={() => this.props.rightSwap(pos)}>
 								keyboard_arrow_right
 							</i>
 

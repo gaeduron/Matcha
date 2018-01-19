@@ -25,14 +25,14 @@
 	}
 
 	&:hover {   
-		.visible {
+		.switch-visible {
 			visibility: visible;
 			opacity: 1;
 		}
 	}
 }
 
-.visible {
+.switch-visible {
 	visibility: hidden;
 	opacity: 0;
 	transition: opacity 0.3s ease;
