@@ -9,12 +9,20 @@ const validateFirstname = require('./steps/validateFirstname');
 const validateLastname = require('./steps/validateLastname');
 const validateLogin = require('./steps/validateLogin');
 const validatePassword = require('./steps/validatePassword');
+const validateBirthdate = require('./steps/validateBirthdate');
+const validateGender = require('./steps/validateGender');
+const validateLocation = require('./steps/validateLocation');
+const validateOrientation = require('./steps/validateOrientation');
+const validateTags = require('./steps/validateTags');
+const validatePhotos = require('./steps/validatePhotos');
 const hashPassword = require('./steps/hashPassword');
 const create = require('./steps/create');
+const addTags = require('./steps/tags/addTags');
 
 // PATHS //
 const find = require('./paths/find');
 const newSession = require('./paths/newSession');
+const update = require('./paths/update');
 
 module.exports = {
 	// STEPS //
@@ -28,9 +36,17 @@ module.exports = {
 	validateLastname,
 	validateLogin,
 	validatePassword,
+	validateBirthdate,
+	validateGender,
+	validateOrientation,
+	validateLocation,
+	validateTags,
+	validatePhotos,
 	hashPassword,
 	create,
+	addTags,
 	// PATHS //
 	find,
 	newSession,
+	update
 };

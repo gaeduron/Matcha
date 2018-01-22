@@ -112,35 +112,48 @@ export default class OnboardingProfile extends React.Component {
 		let error = this.validate(this.state);
 
 		return (
-			<div>
+			<div className="c-form-box">
 				<form onSubmit={(e) => this.onSubmit(e, error)} onChange={this.log}>
-					<p><b>Let's know each other</b></p>
-					<input
-						onChange={(e) => this.handleOnChange(e, 'fname')}
-						type="text"
-						placeholder="Firstname"
-						autoFocus
-						value={this.state.fname}
-					/>
+					<h4 className="c-form-box__title">LET'S KNOW EACH OTHER</h4>
+
+					<div className="c-form-input c-form-box__first-input">
+						<h5 className="c-form-input__title">Firstname</h5>
+						<input
+							className="c-form-input__content"
+							onChange={(e) => this.handleOnChange(e, 'fname')}
+							type="text"
+							placeholder="Firstname"
+							autoFocus
+							value={this.state.fname}
+						/>
+					</div>
 					<p>{error.fname}</p>
 
-					<input
-						onChange={(e) => this.handleOnChange(e, 'lname')}
-						type="text"
-						placeholder="Lastname"
-						value={this.state.lname}
-					/>
+					<div className="c-form-input c-form-box__input">
+						<h5 className="c-form-input__title">Lastname</h5>
+						<input
+							className="c-form-input__content"
+							onChange={(e) => this.handleOnChange(e, 'lname')}
+							type="text"
+							placeholder="Lastname"
+							value={this.state.lname}
+						/>
+					</div>
 					<p>{error.lname}</p>
 
-					<input 
-						onChange={(e) => this.handleOnChange(e, 'nickname')}
-						type="text"
-						placeholder="Nickname"
-						value={this.state.nickname}
-					/>
+					<div className="c-form-input c-form-box__input">
+						<h5 className="c-form-input__title">Firstname</h5>
+						<input 
+							className="c-form-input__content"
+							onChange={(e) => this.handleOnChange(e, 'nickname')}
+							type="text"
+							placeholder="Nickname"
+							value={this.state.nickname}
+						/>
+					</div>
 					<p>{error.nickname}</p>
 
-					<p><b>Birthdate</b></p>
+					<h4 className="c-form-box__title">BIRTHDATE</h4>
 					<BirthdatePicker 
 						getTimestamp={this.getTimestamp} 
 						birthDate={this.props.birthDate}

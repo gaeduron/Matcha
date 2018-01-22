@@ -1,5 +1,7 @@
 const userListeners = require('./listeners/user');
 const authListeners = require('./listeners/auth');
+const actionListeners = require('./listeners/action');
+const onboardingListeners = require('./listeners/onboarding');
 const socketLogout = require('../actions/authentication/socketLogout.js');
 const logger = require('../logs/logger');
 
@@ -23,6 +25,8 @@ const initListeners = (socket) => {
 	defaultListeners(socket);
 	authListeners(socket);
 	userListeners(socket);
+	onboardingListeners(socket);
+	actionListeners(socket);
 };
 
 module.exports = initListeners;

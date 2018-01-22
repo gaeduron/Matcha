@@ -45,3 +45,9 @@ export default class OnboardingTags extends React.Component {
 		);
 	}
 }
+
+
+/*
+ * [ ] Add chip validation : https://github.com/TeamWertarbyte/material-ui-chip-input/issues/145
+ *
+ * */

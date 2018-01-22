@@ -1,104 +1,43 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { pick } from 'ramda';
 import { Progress, Button } from 'element-react';
 import 'element-theme-default';
 
-import OnboardingProfile from './OnboardingProfile'
-import OnboardingGender from './OnboardingGender'
-import OnboardingPhoto from './OnboardingPhoto'
-import OnboardingTags from './OnboardingTags'
-import OnboardingLocation from './OnboardingLocation'
+import OnboardingProfile from './OnboardingProfile';
+import OnboardingGender from './OnboardingGender';
+import OnboardingPhoto from './OnboardingPhoto';
+import OnboardingTags from './OnboardingTags';
+import OnboardingLocation from './OnboardingLocation';
 
-export default class Onboarding extends React.Component {
-	constructor(props) {
-		super(props);
+import { step, stepBack, saveUserData } from '../../actions/onboarding';
 
-		// Pass facebook data if available (lname, fname, birthdate, photo)
-		// Or redux data if the user goes back to the previous steps during onboarding
-		const { firstname, lastname, photos, likes, gender} = props.FBData;	
-
-		this.state = {
-			step: 2,
-			profile: {
-				fname: firstname ? firstname : '',
-				lname: lastname ? lastname : '',
-				gender: gender ? gender : '',
-				photos: photos ? photos.slice(0, 5) : [],
-				tags: likes ? likes : []
-			},
-			errors: ''
-		};
-	}
-
-	onNextStep = () => {
-		this.setState(() => ({step: this.state.step + 1}));
-	};
-
-	onBackStep = () => {
-		this.setState(() => ({step: this.state.step - 1}));
-	};
+export class Onboarding extends React.Component {
 
 	getProfile = (formState) => {
-		this.setState({
-			profile: {
-				...this.state.profile,
-				fname: formState.fname.trim(),
-				lname: formState.lname.trim(),
-				nickname: formState.nickname.trim(),
-				birthDate: formState.birthDate
-			}	
-		});
-
-		this.onNextStep();
+		this.props.saveUserData('SERVER/SAVE_PROFILE', pick(['fname', 'lname', 'nickname', 'birthDate'], formState));
 	};
 
-	getGender = (state) => {
-		const { gender, orientation } = state;
-	
-		this.setState({
-			profile: {
-				...this.state.profile,
-				gender,
-				orientation
-			}
-		});
-		this.onNextStep();
-	};
-
-	getTags = (tags) => {
-		this.setState({ 
-			profile: {
-				...this.state.profile,	
-				tags 
-			}
-		});
-		this.onNextStep();
+	getGender = (genderState) => {
+		this.props.saveUserData('SERVER/SAVE_GENDER', pick(['gender', 'orientation'], genderState));
 	};
 
 	getPhoto = (photos) => {
-		this.setState({ 
-			profile: {
-				...this.state.profile,	
-				photos 
-			}
-		});
+		this.props.saveUserData('SERVER/SAVE_PHOTOS', photos);
+	};
 
-		this.onNextStep();
+	getTags = (tags) => {
+		this.props.saveUserData('SERVER/SAVE_TAGS', { tags });
 	};
 
 	getLocation = (location) => {
-		this.setState({
-			profile: {
-				...this.state.profile,	
-				location 
-			}
-		});		
-		this.onNextStep();
+		this.props.saveUserData('SERVER/SAVE_LOCATION', location);
 	};
 	
 
 	render () {
 
-		const { step } = this.state; 
+		const step = this.props.step; 
 
 		const { 
 			fname, 
@@ -110,53 +49,64 @@ export default class Onboarding extends React.Component {
 			birthDate,
 			tags,
 			photos
-		} = this.state.profile; 
+		} = this.props.profile; 
 
 		return (
-			<div className="page-header">
-				<div className="content-container">
-					{step != 0 &&  <Button onClick={this.onBackStep} plain={true} type="info" icon="arrow-left"></Button>}
+			<div className="l-onboarding-container">
+				{step != 0 &&  <Button onClick={this.props.stepBack} plain={true} type="info" icon="arrow-left"></Button>}
 
-					{step == 0 && 
-							<OnboardingProfile 
-								fname={fname}
-								lname={lname}
-								nickname={nickname}
-								birthDate={birthDate}
-								getProfile={this.getProfile}
-								minAge={18}
-					/>}
-					{step == 1 && 
-							<OnboardingGender 
-								getGender={this.getGender}		
-								gender={gender}
-								orientation={orientation}
-					/>}
-					{step == 2 && 
-							<OnboardingPhoto 
-								getPhoto={this.getPhoto}
-								photos={photos}
-					/>}
-					{step == 3 && 
-							<OnboardingTags
-								getTags={this.getTags}
-								tags={tags}
-					/>}
-					{step == 4 && 
-							<OnboardingLocation 
-								getLocation={this.getLocation}
-								latitude={location ? location.latitude : 0}
-								longitude={location ? location.longitude : 0}
-					/>}
+				{step == 0 && 
+						<OnboardingProfile 
+							fname={fname}
+							lname={lname}
+							nickname={nickname}
+							birthDate={birthDate ? new Date(birthDate) : ''}
+							getProfile={this.getProfile}
+							minAge={18}
+				/>}
+				{step == 1 && 
+						<OnboardingGender 
+							getGender={this.getGender}		
+							gender={gender}
+							orientation={orientation}
+				/>}
+				{step == 2 && 
+						<OnboardingPhoto 
+							getPhoto={this.getPhoto}
+							initialPhotos={photos}
+				/>}
+				{step == 3 && 
+						<OnboardingTags
+							getTags={this.getTags}
+							tags={tags}
+				/>}
+				{step == 4 && 
+						<OnboardingLocation 
+							getLocation={this.getLocation}
+							latitude={location ? location.latitude : 0}
+							longitude={location ? location.longitude : 0}
+				/>}
 
-					{step == 5 && <button>Discover people</button>}
+				{step == 5 && <button>Discover people</button>}
 
-					<br />
-					<Progress percentage={step / 5.0 * 100} status={step == 5 ? "success" : undefined }/> 
+				<br />
+				<Progress percentage={step / 5.0 * 100} status={step == 5 ? "success" : undefined }/> 
 
 
-				</div>
 			</div>
 		);
 	}
 }
+
+const mapDispatchToProps = (dispatch) => ({
+	stepInc: () => dispatch(step()),
+	stepBack: () => dispatch(stepBack()),
+	saveUserData: (emitMessage, profile) => dispatch(saveUserData(emitMessage, profile))
+});
+
+const mapStateToProps = (state, props) => ({
+	profile: state.user,
+	step: state.onboarding.step
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Onboarding);
