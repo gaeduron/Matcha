@@ -1,7 +1,7 @@
 import React from 'react';
 import { Router, Route, Switch } from 'react-router-dom';
 import createHistory from 'history/createBrowserHistory';
-import DashboardPage from '../components/DashboardPage';
+import DashboardPage from '../components/searchPage/page';
 import ProfilePage from '../components/ProfilePage';
 import ChatPage from '../components/ChatPage';
 import NewsPage from '../components/NewsPage';

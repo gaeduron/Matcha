@@ -1,0 +1,56 @@
+.c-user-card {
+	border-radius: 8px;
+	width: 260px;
+	height: 316px;
+	background: #666;
+	position: relative;
+	box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.11);
+	@extend %transition;
+	
+	:hover {
+		box-shadow: 2px 4px 3px 0px rgba(0,0,0,0.11);
+		@extend %transition;
+	}
+}
+
+.c-user-card__image {
+	object-fit: cover;
+	height: 100%;
+	border-radius: 8px;
+	background: #DDD;
+}
+
+.c-user-card__text {
+    position: absolute;
+	text-align: left;
+	bottom: 20px;
+	left: 20px;
+	
+	color: #FFFFFF;
+}
+
+.c-user-card__title {
+	font-weight: 900;
+	color: #FFF;
+	font-size: 18px;
+	letter-spacing: 1.5px;
+	text-shadow: 0 2px 4px rgba(0,0,0,0.75);
+}
+
+.c-user-card__date {
+	font-weight: 300;
+	font-size: 14px;
+	color: #FFF;
+	letter-spacing: -0.23px;
+	text-shadow: 0 2px 4px rgba(0,0,0,0.75);
+}
+
+.c-user-card__gradient {
+    position: absolute;
+	bottom: 0px;
+	
+	height: 70px;
+	width: 100%;
+	border-radius: 8px;
+	background: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.4) 100%);
+}
