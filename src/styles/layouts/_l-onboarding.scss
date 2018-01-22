@@ -1,6 +1,16 @@
-.l-onboarding-container {
-	background-color: #EFEFEF;
-	max-width: 900px;
-	margin: 0 auto;
-	min-height: 100%; 
+.l-onb-bg {
+	background-color: red;
+	height: 100vh;
+	display: flex;
+	justify-content: center;
 }
+
+.l-onb-container {
+	width: 600px; 
+	background-color: #F8F8F8; 
+	display: flex;
+	align-items: center;
+	padding-top: $l-size;
+	flex-direction: column;
+}
+

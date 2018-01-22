@@ -1,0 +1,181 @@
+.c-onb-progress {	
+	width: 50%;
+	height: 50px;
+	margin-top: auto;
+}
+
+.c-onb-form__submit {
+
+}
+
+.l-onb-form__container {
+	width: 324px;
+	text-align: center;
+	position: relative;
+	padding-bottom: $m-size;
+}
+
+.c-onb-form__error {
+	font-family: Avenir;
+	font-weight: 900;
+	font-style: normal;
+	font-size: 10px;
+	color: red;
+	letter-spacing: 1px;
+	position: absolute;
+	top: 10px;
+	left: 15px;
+}
+
+.c-onb-form__title {
+	font-family: Avenir;
+	font-weight: 900;
+	font-style: normal;
+	font-size: 12px;
+	color: #333333;
+	letter-spacing: 0.38px;
+
+	padding-top: $m-size;
+}
+
+.c-onb-form__input {
+	background: #FFFFFF;
+	border: 1px solid #DDDDDD;
+	border-radius: 2px;
+	width: 284px;
+	height: 68px;
+	position: relative;
+}
+
+.c-onb-form__input--select {
+	-webkit-appearance: none;
+	border: none;
+	background-color: white;
+	outline: none;
+	font-family: Avenir;
+	font-weight: 300;
+	font-style: normal;
+	font-size: 18px;
+	color: #333333;
+	letter-spacing: 0;
+	position: absolute;
+	top: 30px;
+	left: 15px;
+	width: 80%;
+	background-image: url('data:image/svg+xml;utf-8,<svg fill="#333333" height="24" viewBox="0 1 24 27" width="124" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+	background-repeat: no-repeat;
+}
+
+.c-onb-form__input--select-icon {
+	color: #333333;
+	position: absolute;
+	top: 30px;
+	right: 10px;
+	font-size: 18px !important;
+}
+
+.c-onb-form__input--sideborderless {
+	border-left: 0px;
+	border-right: 0px;
+}
+
+.l-onb-datepicker {
+	display: flex;
+	width: 284px;
+}
+
+/***************************
+
+.c-form-box {
+	background: #F8F8F8;
+	box-shadow: 0 1px 2px 0 rgba(0,0,0,0.15);
+	border-radius: 2px;
+	width: 324px;
+	height: 255px;
+	text-align: center;
+	position: relative;
+}
+
+.c-form-box--long {
+	height: 270px;
+}
+
+.c-form-box__title {
+	font-family: Avenir;
+	font-weight: 900;
+	font-style: normal;
+	font-size: 12px;
+	color: #333333;
+	letter-spacing: 0.38px;
+
+	padding-top: 24px;
+}
+
+.c-form-box__button {
+	background: #EEEEEE;
+	border: 1px solid #DDDDDD;
+	border-radius: 2px;
+	width: 284px;
+	height: 48px;
+
+	font-family: Avenir;
+	font-weight: 900;
+	font-style: normal;
+	font-size: 12px;
+	color: #333333;
+	letter-spacing: 0.57px;
+	margin: -1px auto 0px auto;
+}
+
+.c-form-box__button:hover {
+	background: #DDD;
+	transition: 0.2s;
+	transition-timing-function: ease;
+}
+
+.c-form-box__close {
+	position: absolute;
+	top: 8px;
+	right: 8px;
+	opacity: 0.75;
+	font-size: 16px !important;
+	cursor: pointer;
+}
+
+.c-form-box__close:hover {
+	opacity: 1;
+	transition: 0.2s;
+	transition-timing-function: ease;
+}
+
+.c-form-box__first-input {
+	margin: 18px auto 0px auto;
+}
+
+.c-form-box__input {
+	margin: -1px auto 0px auto;
+}
+
+.c-form-box__clickable-text {
+	font-family: Avenir;
+	font-weight: 900;
+	font-style: normal;
+	text-decoration: underline; 
+	font-size: 10px;
+	color: #A0A0A0;
+	letter-spacing: 1px;
+
+	cursor: pointer;
+
+	margin-top: 12px;
+    padding-right: 145px;
+}
+
+.c-form-box__clickable-text:hover {
+	color: #808080;
+	
+	transition: 0.2s;
+	transition-timing-function: ease;
+}
+
+*********************************/
