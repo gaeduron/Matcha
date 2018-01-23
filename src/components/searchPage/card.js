@@ -8,8 +8,72 @@ export class UserCard extends React.Component {
 
 	render() {
 		return (
-			<div>
-				<div className="c-user-card">
+			<div className="l-cards">
+				<div className="l-card c-user-card">
+					<div className="c-user-card__gradient"/>
+					<div className="c-user-card__text">
+						<p className="c-user-card__title">Paola Gracias, 29</p>
+						<p className="c-user-card__date">Data Scientist at Robetim</p>
+					</div>
+					<img className="c-user-card__image" src="http://image.ibb.co/dKurob/Screen_Shot_2018_01_22_at_5_33_26_PM.png" alt="" />
+				</div>
+				<div className="l-card c-user-card">
+					<div className="c-user-card__gradient"/>
+					<div className="c-user-card__text">
+						<p className="c-user-card__title">Paola Gracias, 29</p>
+						<p className="c-user-card__date">Data Scientist at Robetim</p>
+					</div>
+					<img className="c-user-card__image" src="http://image.ibb.co/dKurob/Screen_Shot_2018_01_22_at_5_33_26_PM.png" alt="" />
+				</div>
+				<div className="l-card c-user-card">
+					<div className="c-user-card__gradient"/>
+					<div className="c-user-card__text">
+						<p className="c-user-card__title">Paola Gracias, 29</p>
+						<p className="c-user-card__date">Data Scientist at Robetim</p>
+					</div>
+					<img className="c-user-card__image" src="http://image.ibb.co/dKurob/Screen_Shot_2018_01_22_at_5_33_26_PM.png" alt="" />
+				</div>
+				<div className="l-card c-user-card">
+					<div className="c-user-card__gradient"/>
+					<div className="c-user-card__text">
+						<p className="c-user-card__title">Paola Gracias, 29</p>
+						<p className="c-user-card__date">Data Scientist at Robetim</p>
+					</div>
+					<img className="c-user-card__image" src="http://image.ibb.co/dKurob/Screen_Shot_2018_01_22_at_5_33_26_PM.png" alt="" />
+				</div>
+				<div className="l-card c-user-card">
+					<div className="c-user-card__gradient"/>
+					<div className="c-user-card__text">
+						<p className="c-user-card__title">Paola Gracias, 29</p>
+						<p className="c-user-card__date">Data Scientist at Robetim</p>
+					</div>
+					<img className="c-user-card__image" src="http://image.ibb.co/dKurob/Screen_Shot_2018_01_22_at_5_33_26_PM.png" alt="" />
+				</div>
+				<div className="l-card c-user-card">
+					<div className="c-user-card__gradient"/>
+					<div className="c-user-card__text">
+						<p className="c-user-card__title">Paola Gracias, 29</p>
+						<p className="c-user-card__date">Data Scientist at Robetim</p>
+					</div>
+					<img className="c-user-card__image" src="http://image.ibb.co/dKurob/Screen_Shot_2018_01_22_at_5_33_26_PM.png" alt="" />
+				</div>
+				<div className="l-card c-user-card">
+					<div className="c-user-card__gradient"/>
+					<div className="c-user-card__text">
+						<p className="c-user-card__title">Paola Gracias, 29</p>
+						<p className="c-user-card__date">Data Scientist at Robetim</p>
+					</div>
+					<img className="c-user-card__image" src="http://image.ibb.co/dKurob/Screen_Shot_2018_01_22_at_5_33_26_PM.png" alt="" />
+				</div>
+				<div className="l-card c-user-card">
+					<div className="c-user-card__gradient"/>
+					<div className="c-user-card__text">
+						<p className="c-user-card__title">Paola Gracias, 29</p>
+						<p className="c-user-card__date">Data Scientist at Robetim</p>
+					</div>
+					<img className="c-user-card__image" src="http://image.ibb.co/dKurob/Screen_Shot_2018_01_22_at_5_33_26_PM.png" alt="" />
+				</div>
+				<div className="l-card c-user-card">
 					<div className="c-user-card__gradient"/>
 					<div className="c-user-card__text">
 						<p className="c-user-card__title">Paola Gracias, 29</p>

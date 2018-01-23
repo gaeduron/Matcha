@@ -1,31 +1,38 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { startLogout } from '../actions/auth';
-import { history } from '../routers/AppRouter';
 
-const onProfile = () => history.push(`profile/user-id`);
-const onNotifications = () => history.push(`notifications/`);
-const onMessages = () => history.push(`messages/`);
 
-export const Header = ({ startLogout }) => (
-  <header className="header">
-    <div className="content-container">
-      <div className="header__content">
-        <Link className="header__title" to="/dashboard">
-          <h1>Matcha</h1>
-        </Link>
-        <button className="button button--link" onClick={onProfile}>Profile</button>
-        <button className="button button--link" onClick={onNotifications}>Notifications</button>
-        <button className="button button--link" onClick={onMessages}>Messages</button>
-        <button className="button button--link" onClick={startLogout}>Logout</button>
-      </div>
-    </div>
-  </header>
+const navItemActive = (path) => {
+	if (history.location.pathname === path) {
+		return ' c-nav__item--active';
+	}
+	return '';
+};
+
+const itemLogoActive = (path) => {
+	if (history.location.pathname === path) {
+		return ' c-nav-item__logo--active';
+	}
+	return '';
+};
+
+const iconActive = (path) => {
+	if (history.location.pathname === path) {
+		return ' material-icons--active';
+	}
+	return '';
+};
+
+export const Header = () => (
+	<header className="c-nav">
+
+		<div className="c-nav__item c-nav__item--opposite" onClick={}>
+			<div className="c-nav-item__logo">
+				<i className="material-icons material-icons--big-white">power_settings_new</i>
+			</div>
+			<h5 className="c-nav-item__text">logout</h5>
+		</div>
+
+	</header>
 );
 
-const mapDispatchToProps = (dispatch) => ({
-  startLogout: () => startLogout()
-});
-
-export default connect(undefined, mapDispatchToProps)(Header);
+export default Header;
