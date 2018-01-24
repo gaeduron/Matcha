@@ -54,7 +54,6 @@ export class Onboarding extends React.Component {
 		return (
 			<div className="l-onb-bg">
 				<div className="l-onb-container">
-					{step != 0 &&  <Button onClick={this.props.stepBack} plain={true} type="info" icon="arrow-left"></Button>}
 
 					{step == 0 && 
 							<OnboardingProfile 
@@ -89,10 +88,6 @@ export class Onboarding extends React.Component {
 					/>}
 
 					{step == 5 && <button>Discover people</button>}
-
-					<div className="c-onb-progress">
-						<Progress percentage={step / 5.0 * 100} status={step == 5 ? "success" : undefined }/> 
-					</div>
 
 				</div>
 			</div>

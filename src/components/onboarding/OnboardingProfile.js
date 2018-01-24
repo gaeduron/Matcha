@@ -1,6 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 import BirthdatePicker from '../utils/BirthdatePicker';
+import OnboardingNav from './OnboardingNav';
 
 export default class OnboardingProfile extends React.Component {
 
@@ -94,8 +95,7 @@ export default class OnboardingProfile extends React.Component {
 		return false;
 	};
 
-	onSubmit = (e, error) => {
-		e.preventDefault();
+	onSubmit = (error) => {
 		this.setState({ touched: {
 				...this.state.touched,
 				form: true
@@ -113,7 +113,7 @@ export default class OnboardingProfile extends React.Component {
 
 		return (
 			<div className="l-onb-form__container">
-				<form onSubmit={(e) => this.onSubmit(e, error)} onChange={this.log}>
+				<form>
 					<h4 className="c-onb-form__title">LET'S KNOW EACH OTHER</h4>
 
 					<div className="c-form-input c-form-box__first-input">
@@ -157,10 +157,8 @@ export default class OnboardingProfile extends React.Component {
 					/>
 					<p>{error.birthDate}</p>
 					<p>{error.minAge}</p>
-					<div className="c-onb-form__submit">
-						<input type="submit" value="Continue"/>
-					</div>
 				</form>
+				<OnboardingNav action={() => this.onSubmit(error)} />
 
 			</div>
 		);

@@ -1,3 +1,26 @@
+.c-button {
+	display: flex;
+	align-items: center;
+	padding: 10px 20px;
+	border-radius: 30px;
+	font-size: 12px;
+	font-family: Avenir;
+	box-shadow: 0 2px 5px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
+	color: #333333;
+	background-color: white;
+
+	i {
+		font-size: 18px;
+	}
+}
+
+.c-button--circle {
+	padding: 10px;
+} 
+
+
+/*
+
 .button {
   background: $blue;
   border: none;
@@ -17,3 +40,5 @@
 .button--secondary {
   background: #888;
 }
+
+*/

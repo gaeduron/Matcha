@@ -1,5 +1,6 @@
 import React from 'react';
 import UserPhotos from '../photo/UserPhotos';
+import OnboardingNav from './OnboardingNav';
 
 export default class OnboardingPhoto extends React.Component {
 
@@ -32,8 +33,8 @@ export default class OnboardingPhoto extends React.Component {
 					getPhotosUrl={this.getPhoto}
 					shouldStartGetPhotosUrl={this.state.startGetPhotosUrl}
 				/>	
-				
-				<button onClick={this.startGetPhotosUrl}>Continue</button>
+
+				<OnboardingNav action={this.startGetPhotosUrl} />
 			</div>
 		);
 	}
