@@ -1,5 +1,5 @@
 .l-onb-bg {
-	background-color: red;
+	background: linear-gradient(45deg, rgba(255, 0, 192, 0.75), rgba(255, 0, 0, 1));
 	height: 100vh;
 	display: flex;
 	justify-content: center;
@@ -14,3 +14,6 @@
 	flex-direction: column;
 }
 
+.l-onb__location {
+	margin-top: 25px;
+}

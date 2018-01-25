@@ -155,8 +155,10 @@ export default class OnboardingProfile extends React.Component {
 						getTimestamp={this.getTimestamp} 
 						birthDate={this.props.birthDate}
 					/>
-					<p>{error.birthDate}</p>
-					<p>{error.minAge}</p>
+					<div className="c-onb-form__error c-onb-form__error--birthdate">
+						<p>{error.birthDate}</p>
+						<p>{error.minAge}</p>
+					</div>
 				</form>
 				<OnboardingNav action={() => this.onSubmit(error)} />
 

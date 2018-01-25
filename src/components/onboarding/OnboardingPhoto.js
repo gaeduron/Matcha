@@ -27,7 +27,9 @@ export default class OnboardingPhoto extends React.Component {
 				
 			
 		return (
-			<div>	
+			<div className="l-onb-form__container"> 	
+				<h4 className="c-onb-form__title l-onb-margin-bottom">CHOOSE YOUR BEST PROFILE PICTURES</h4>
+	
 				<UserPhotos 
 					initialPhotos={initialPhotos} 
 					getPhotosUrl={this.getPhoto}

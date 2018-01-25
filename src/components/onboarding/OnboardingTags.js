@@ -3,6 +3,7 @@ import ChipInput from 'material-ui-chip-input';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import OnboardingNav from './OnboardingNav';
 
+
 export default class OnboardingTags extends React.Component {
 
 	constructor(props) {
@@ -53,6 +54,7 @@ export default class OnboardingTags extends React.Component {
 							}}
 						/>
 					</div>
+
 
 					<OnboardingNav action={this.getTags} />
 				</div>

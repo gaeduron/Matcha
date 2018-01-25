@@ -54,7 +54,6 @@ export class Onboarding extends React.Component {
 		return (
 			<div className="l-onb-bg">
 				<div className="l-onb-container">
-
 					{step == 0 && 
 							<OnboardingProfile 
 								fname={fname}
@@ -90,6 +89,7 @@ export class Onboarding extends React.Component {
 					{step == 5 && <button>Discover people</button>}
 
 				</div>
+
 			</div>
 		);
 	}

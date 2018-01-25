@@ -24,7 +24,7 @@ export class OnboardingNav extends React.Component {
 						</button>
 					</div>
 
-					<Progress percentage={step / 5.0 * 100} status={step == 5 ? "success" : undefined } showText={false} /> 
+				<Progress percentage={step / 5.0 * 100} status={step == 5 ? "success" : undefined } showText={false} /> 
 			</div>
 		);
 	}

@@ -2,6 +2,10 @@
 	background-color: #fc2b68;
 }
 
+.l-onb-margin-bottom {
+	margin-bottom: 25px;
+}
+
 .l-tags {
 	 width: 100%;
 	 margin-top: 25px;
@@ -23,7 +27,7 @@
 
 
 .l-onb-form__container {
-	width: 324px;
+	width: 500px;
 	height: 100vh;
 	text-align: center;
 	position: relative;
@@ -42,6 +46,11 @@
 	position: absolute;
 	top: 10px;
 	left: 15px;
+}
+
+.c-onb-form__error--birthdate {
+	margin-top: 10px;
+	position: initial;
 }
 
 .c-onb-form__title {
@@ -107,98 +116,12 @@
 	width: 284px;
 }
 
-/***************************
 
-.c-form-box {
-	background: #F8F8F8;
-	box-shadow: 0 1px 2px 0 rgba(0,0,0,0.15);
-	border-radius: 2px;
-	width: 324px;
-	height: 255px;
-	text-align: center;
-	position: relative;
+@media (max-width: 768px) {
+	  
+	.l-onb-form__container {
+		width: 324px;
+	}
 }
 
-.c-form-box--long {
-	height: 270px;
-}
 
-.c-form-box__title {
-	font-family: Avenir;
-	font-weight: 900;
-	font-style: normal;
-	font-size: 12px;
-	color: #333333;
-	letter-spacing: 0.38px;
-
-	padding-top: 24px;
-}
-
-.c-form-box__button {
-	background: #EEEEEE;
-	border: 1px solid #DDDDDD;
-	border-radius: 2px;
-	width: 284px;
-	height: 48px;
-
-	font-family: Avenir;
-	font-weight: 900;
-	font-style: normal;
-	font-size: 12px;
-	color: #333333;
-	letter-spacing: 0.57px;
-	margin: -1px auto 0px auto;
-}
-
-.c-form-box__button:hover {
-	background: #DDD;
-	transition: 0.2s;
-	transition-timing-function: ease;
-}
-
-.c-form-box__close {
-	position: absolute;
-	top: 8px;
-	right: 8px;
-	opacity: 0.75;
-	font-size: 16px !important;
-	cursor: pointer;
-}
-
-.c-form-box__close:hover {
-	opacity: 1;
-	transition: 0.2s;
-	transition-timing-function: ease;
-}
-
-.c-form-box__first-input {
-	margin: 18px auto 0px auto;
-}
-
-.c-form-box__input {
-	margin: -1px auto 0px auto;
-}
-
-.c-form-box__clickable-text {
-	font-family: Avenir;
-	font-weight: 900;
-	font-style: normal;
-	text-decoration: underline; 
-	font-size: 10px;
-	color: #A0A0A0;
-	letter-spacing: 1px;
-
-	cursor: pointer;
-
-	margin-top: 12px;
-    padding-right: 145px;
-}
-
-.c-form-box__clickable-text:hover {
-	color: #808080;
-	
-	transition: 0.2s;
-	transition-timing-function: ease;
-}
-
-*********************************/

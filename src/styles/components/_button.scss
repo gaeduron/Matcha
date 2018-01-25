@@ -8,15 +8,30 @@
 	box-shadow: 0 2px 5px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
 	color: #333333;
 	background-color: white;
+	transition: all .15s ease;
 
 	i {
 		font-size: 18px;
 	}
+ 
+	&:hover {
+		color: #FC367F;
+		transform: translateY(-1px);
+		box-shadow: 0 7px 14px rgba(50,50,93,.1),0 3px 6px rgba(0,0,0,.08)
+	}	
+
+	&:active {
+		color: #F9316A;
+		background-color: white;
+		transform: translateY(1px);
+		box-shadow: 0 4px 6px rgba(50,50,93,.11),0 1px 3px rgba(0,0,0,.08)
+	}	
 }
 
 .c-button--circle {
 	padding: 10px;
 } 
+
 
 
 /*
