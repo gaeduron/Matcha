@@ -1,5 +1,6 @@
 .el-progress-bar__inner {
 	background-color: #fc2b68;
+	transition: width 300ms ease;
 }
 
 .l-onb-margin-bottom {
@@ -31,7 +32,6 @@
 	height: 100vh;
 	text-align: center;
 	position: relative;
-	padding-bottom: $m-size;
 	display: flex;
 	flex-direction: column;
 }
@@ -124,4 +124,10 @@
 	}
 }
 
+@media (max-width: 320px) {
+	  
+	.l-onb-form__container {
+		width: 283px;
+	}
+}
 

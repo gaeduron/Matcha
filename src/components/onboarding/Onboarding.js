@@ -88,7 +88,11 @@ export class Onboarding extends React.Component {
 
 					{step == 5 && <button>Discover people</button>}
 
+					<div className="l-onb-progress">
+						<Progress percentage={step / 5.0 * 100} status={step == 5 ? "success" : undefined } showText={false} /> 
+					</div>
 				</div>
+					
 
 			</div>
 		);

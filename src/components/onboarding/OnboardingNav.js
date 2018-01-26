@@ -1,7 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Progress } from 'element-react';
-import 'element-theme-default';
 import { stepBack } from '../../actions/onboarding';
 
 export class OnboardingNav extends React.Component {
@@ -23,8 +21,6 @@ export class OnboardingNav extends React.Component {
 							<div><i className="material-icons">chevron_right</i></div>
 						</button>
 					</div>
-
-				<Progress percentage={step / 5.0 * 100} status={step == 5 ? "success" : undefined } showText={false} /> 
 			</div>
 		);
 	}

@@ -3,6 +3,20 @@ import ChipInput from 'material-ui-chip-input';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import OnboardingNav from './OnboardingNav';
 
+const style = () => {
+	const { innerWidth } = window;
+
+	switch (true) {
+		case (innerWidth < 321): 
+			return { width: 270 }; 
+			break;
+		case (innerWidth < 769): 
+			return { width: 300 }; 
+			break;
+		default:	
+			return { width: 330 }; 
+	}
+};
 
 export default class OnboardingTags extends React.Component {
 
@@ -49,9 +63,7 @@ export default class OnboardingTags extends React.Component {
 							underlineFocusStyle={{
 								borderBottom: '2px solid #fc2b68'
 							}}
-							style={{
-								width: 330
-							}}
+							style={style()}
 						/>
 					</div>
 
@@ -62,6 +74,7 @@ export default class OnboardingTags extends React.Component {
 		);
 	}
 }
+
 
 
 /*
