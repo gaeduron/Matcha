@@ -1,0 +1,13 @@
+.c-menu {
+	background: #F8F8F8;
+	text-align: center;
+
+	width: 400px;
+}
+
+@media only screen and (max-width: 768px) {
+	.c-menu {
+		width: 100%;
+	}
+	
+}

@@ -1,38 +1,35 @@
 import React from 'react';
 
-
-const navItemActive = (path) => {
-	if (history.location.pathname === path) {
-		return ' c-nav__item--active';
+export class Header extends React.Component {
+	constructor(props) {
+		super(props);
 	}
-	return '';
-};
 
-const itemLogoActive = (path) => {
-	if (history.location.pathname === path) {
-		return ' c-nav-item__logo--active';
+	onSort = () => this.props.showMenu();
+	onArrowBack = () => this.props.hideMenu();
+
+	render() {
+		if (this.props.menu === "hidden") {
+			return (
+				<header className="c-header">		
+					<h1 className="c-header--title">SEARCH</h1>
+					<i
+						className="material-icons c-header--icon-sort"
+						onClick={this.onSort}>sort
+					</i>
+				</header>
+			);
+		} else {
+			return (
+				<header className="c-header c-header__menu">	
+					<i
+						className="material-icons c-header--icon-arrow"
+						onClick={this.onArrowBack}>arrow_back
+					</i>
+				</header>
+			);
+		}
 	}
-	return '';
-};
-
-const iconActive = (path) => {
-	if (history.location.pathname === path) {
-		return ' material-icons--active';
-	}
-	return '';
-};
-
-export const Header = () => (
-	<header className="c-nav">
-
-		<div className="c-nav__item c-nav__item--opposite" onClick={}>
-			<div className="c-nav-item__logo">
-				<i className="material-icons material-icons--big-white">power_settings_new</i>
-			</div>
-			<h5 className="c-nav-item__text">logout</h5>
-		</div>
-
-	</header>
-);
+}
 
 export default Header;
