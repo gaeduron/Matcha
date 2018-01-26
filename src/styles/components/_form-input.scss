@@ -32,4 +32,9 @@
 	top: 30px;
 	left: 15px;
 	width: 254px;	
+
+	&:focus::-webkit-input-placeholder { color:transparent; }
+	&:focus:-moz-placeholder { color:transparent; } /* FF 4-18 */
+	&:focus::-moz-placeholder { color:transparent; } /* FF 19+ */
+	&:focus:-ms-input-placeholder { color:transparent; } /* IE 10+ */
 }

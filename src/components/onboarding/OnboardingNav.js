@@ -26,6 +26,7 @@ export class OnboardingNav extends React.Component {
 	}
 }
 
+
 const mapDispatchToProps = (dispatch) => ({
 	stepBack: () => dispatch(stepBack())
 });
