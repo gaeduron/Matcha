@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { Button } from 'element-react';
 import OnboardingNav from './OnboardingNav';
+import Geolocate from '../map/Geolocate';
 import 'element-theme-default';
 
 // FOR TEST PURPOSE ONLY, TO MOVE IN ENV
@@ -79,14 +80,15 @@ export default class OnboardingLocation extends React.Component {
 
 				<h4 className="c-onb-form__title">WHERE ARE YOU FROM ?</h4>
 				<div className="l-onb__location">
-					<Button 
+				{/*	<Button 
 						loading={loading} 
 						onClick={located ? this.getLocation : this.findLocation}
 					>
 						{ located ? 'We\'re all set, continue !' : 'Find my location' }
 					</Button> 
 					<p>{error}</p>
-					<img src="https://maps.googleapis.com/maps/api/staticmap?center=48.891985,2.319287&markers=color:red%7C48.891985,2.319287&zoom=12&size=400x400&key=AIzaSyC3VByoAFwfYTsXvC5GgS0F6mEiJuoku2Y" alt=""/>
+					<img src="https://maps.googleapis.com/maps/api/staticmap?center=48.891985,2.319287&markers=color:red%7C48.891985,2.319287&zoom=12&size=400x400&key=AIzaSyC3VByoAFwfYTsXvC5GgS0F6mEiJuoku2Y" alt=""/> */}
+					<Geolocate />
 				</div>
 				<OnboardingNav action={this.getLocation} />
 
