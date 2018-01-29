@@ -31,9 +31,9 @@ const onboardingListener = (dispatch, socket) => {
 		]);
 	});
 
-	socket.on('SERVER/SAVE_LOCATION', ({ latitude, longitude }) => {
+	socket.on('SERVER/SAVE_LOCATION', ({ latitude, longitude, geolocationAllowed = false }) => {
 		dispatch([
-			updateLocation({ latitude, longitude }),	
+			updateLocation({ latitude, longitude, geolocationAllowed }),	
 			step()
 		]);
 	});

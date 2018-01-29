@@ -9,6 +9,7 @@ import OnboardingGender from './OnboardingGender';
 import OnboardingPhoto from './OnboardingPhoto';
 import OnboardingTags from './OnboardingTags';
 import OnboardingLocation from './OnboardingLocation';
+import OnboardingBio from './OnboardingBio';
 
 import { step, stepBack, saveUserData } from '../../actions/onboarding';
 
@@ -32,6 +33,10 @@ export class Onboarding extends React.Component {
 
 	getLocation = (location) => {
 		this.props.saveUserData('SERVER/SAVE_LOCATION', location);
+	};
+
+	getLocation = (bio) => {
+		this.props.saveUserData('SERVER/SAVE_BIO', bio);
 	};
 	
 
@@ -80,13 +85,20 @@ export class Onboarding extends React.Component {
 								tags={tags}
 					/>}
 					{step == 4 && 
+							<OnboardingBio
+								getBio={this.getTags}
+								bio={'Bio'}
+								occupation={"Occupation"}
+					/>}
+					{step == 5 && 
 							<OnboardingLocation 
 								getLocation={this.getLocation}
 								latitude={location ? location.latitude : 0}
 								longitude={location ? location.longitude : 0}
+								geolocationAllowed={location && location.geolocationAllowed ? true : false}
 					/>}
 
-					{step == 5 && <button>Discover people</button>}
+					{step == 6 && <button>Discover people</button>}
 
 					<div className="l-onb-progress">
 						<Progress percentage={step / 5.0 * 100} status={step == 5 ? "success" : undefined } showText={false} /> 

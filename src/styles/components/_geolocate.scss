@@ -1,4 +1,5 @@
 .c-geolocation__container {
+	position: relative;
 	width: 400px; 
 	height: 400px;
 	background-color: white;
@@ -6,6 +7,8 @@
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: center center;
+	//box-shadow: inset 0px 0px 8px 0px rgba(5,5,5,0.10);
+	border: solid 1px #dadada;
 
 }
 
@@ -20,10 +23,31 @@
 } 
 
 
+.c-geolocation__error { 
+	top: 323px;
+	padding: 10px 0px;
+	background-color: #FC347B;
+	font-size: 14px;
+	position: relative;
+	color: white;
+	transition: all 300ms ease !important;
+}
+
+.c-geolocation__error-icon {
+	font-size: 14px !important; 
+	vertical-align: top;
+	margin-right: 10px;
+}
+
+
 @media (max-width: 768px) {
 	.c-geolocation__container {
 		width: 300px; 
 		height: 300px;
+	}
+
+	.c-geolocation__error { 
+		top: 224px;
 	}
 }
 
@@ -32,5 +56,10 @@
 	.c-geolocation__container {
 		width: 250px; 
 		height: 250px;
+	}
+
+	.c-geolocation__error { 
+		top: 175px;
+		font-size: 13px;
 	}
 }

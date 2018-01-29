@@ -19,7 +19,9 @@ CREATE TABLE users (
 	  longitude VARCHAR(255) NULL DEFAULT NULL,
 	  latitude VARCHAR(255) NULL DEFAULT NULL,
 	  last_connection TIMESTAMP NULL DEFAULT NULL,
-	  ADD COLUMN photos varchar(1000) NOT NULL DEFAULT '[null,null,null,null,null]',
+	  photos varchar(1000) NOT NULL DEFAULT '[null,null,null,null,null]',
+	  geolocation_allowed BOOLEAN DEFAULT FALSE,
+	  occupation VARCHAR(560) NULL DEFAULT NULL,
 	  PRIMARY KEY (id)
 );
 
