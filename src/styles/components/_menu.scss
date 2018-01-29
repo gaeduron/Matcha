@@ -5,9 +5,33 @@
 	width: 400px;
 }
 
+.c-menu__title {
+	font-weight: 700;
+	font-size: 20px;
+}
+
+.c-menu__title-container {
+	width: 350px;
+	margin: 10px auto 15px auto;
+	display: flex;
+	justify-content: space-between;
+}
+
+.c-sort__title {
+	display: inline-block;
+	margin-right: 14px;
+}
+
 @media only screen and (max-width: 768px) {
 	.c-menu {
 		width: 100%;
+	}
+	
+}
+
+@media only screen and (max-width: 370px) {
+	.c-menu__title-container {
+		width: 300px;
 	}
 	
 }
