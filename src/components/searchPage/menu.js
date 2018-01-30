@@ -137,7 +137,9 @@ export class SearchMenu extends React.Component {
 					</div>
 					<Slider range max={1000} defaultValue={this.state.popularityRange} onChange={this.getPopularity} />
 				</div>
-				<h2 className="c-menu__title">Tags</h2>
+				<div className="c-menu__title-container c-menu__title-container--solo">
+					<h2 className="c-menu__title">Tags</h2>
+				</div>
 				<div className="c-menu__tag-n-map">
 					<MuiThemeProvider>
 						<div className="c-menu__tags">

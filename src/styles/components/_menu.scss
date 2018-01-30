@@ -22,6 +22,10 @@
 	justify-content: space-between;
 }
 
+.c-menu__title-container--solo {
+	margin: 50px auto 5px auto;
+}
+
 .c-sort__title {
 	display: inline-block;
 	margin-right: 14px;
@@ -38,7 +42,7 @@
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
-	height: calc(100% - 260px);
+	height: calc(100% - 301px);
 }
 
 @media only screen and (max-width: 768px) {
