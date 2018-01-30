@@ -3,6 +3,11 @@ import { connect } from 'react-redux';
 import { Slider } from 'antd';
 import ChipInput from 'material-ui-chip-input';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import MapWithAMarker from './map';
+
+// FOR TEST PURPOSE ONLY, TO MOVE IN ENV
+const GOOGLE_GEOLOCATION_API_KEY = 'AIzaSyC3VByoAFwfYTsXvC5GgS0F6mEiJuoku2Y';
+//AIzaSyC2Z8zLwy0uT8hd8qyBgfMmoqpKJRZwRkI
 
 const style = () => {
 	const { innerWidth } = window;
@@ -61,9 +66,27 @@ export class SearchMenu extends React.Component {
 		this.props.getTags(tags);
 	};
 
+	getMapZoom = (maxDistance) => {
+		if (maxDistance < 6) {
+			return 14;
+		} else if ( maxDistance < 11) {
+			return 12;
+		} else if ( maxDistance < 25) {
+			return 11.5;
+		} else if ( maxDistance < 50) {
+			return 11;
+		} else if ( maxDistance < 75) {
+			return 10.5;
+		} else if ( maxDistance < 99) {
+			return 10;
+		} else {
+			return 5;
+		}
+	};
+
 	render() {
 		return (
-			<div className="">
+			<div className="c-menu__wrapper">
 				<div className="c-menu__title-container">
 					<h2 className="c-menu__title">Filters</h2>
 					<div>
@@ -114,25 +137,36 @@ export class SearchMenu extends React.Component {
 					</div>
 					<Slider range max={1000} defaultValue={this.state.popularityRange} onChange={this.getPopularity} />
 				</div>
-			<MuiThemeProvider>
-				<div>
-					<h2 className="c-menu__title">Tags</h2>
-					<ChipInput
-						value={this.state.tags}
-						onRequestAdd={(tag) => this.handleAddtag(tag)}
-						onRequestDelete={(tag, index) => this.handleDeletetag(tag, index)}
-						underlineStyle={{ }}
-						hintText={'Add some tags (ex. Cool, Cat, ...)'}
-						chipContainerStyle={{
-							backgroundColor: 'red'
-						}}
-						underlineFocusStyle={{
-							borderBottom: '2px solid #fc2b68'
-						}}
-						style={style()}
-					/>
+				<h2 className="c-menu__title">Tags</h2>
+				<div className="c-menu__tag-n-map">
+					<MuiThemeProvider>
+						<div className="c-menu__tags">
+							<ChipInput
+								value={this.state.tags}
+								onRequestAdd={(tag) => this.handleAddtag(tag)}
+								onRequestDelete={(tag, index) => this.handleDeletetag(tag, index)}
+								underlineStyle={{ }}
+								hintText={'Add some tags (ex. Cool, Cat, ...)'}
+								chipContainerStyle={{
+									backgroundColor: 'red'
+								}}
+								underlineFocusStyle={{
+									borderBottom: '2px solid #fc2b68'
+								}}
+								style={style()}
+							/>
+						</div>
+					</MuiThemeProvider>
+					<div className="c-menu__map">
+						<MapWithAMarker
+						  googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${GOOGLE_GEOLOCATION_API_KEY}&v=3.exp&libraries=geometry,drawing,places`}
+						  loadingElement={<div style={{ height: `100%` }} />}
+						  containerElement={<div style={{ height: `400px` }} />}
+						  mapElement={<div style={{ height: `100%` }} />}
+						  zoom={this.getMapZoom(this.state.distanceRange[1])}
+						/>
+					</div>
 				</div>
-			</MuiThemeProvider>
 			</div>
 		);
 	}

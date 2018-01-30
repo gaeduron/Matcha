@@ -3,6 +3,11 @@
 	text-align: center;
 
 	width: 400px;
+	overflow: auto;
+}
+
+.c-menu__wrapper {
+	height: calc(100% - 10px);
 }
 
 .c-menu__title {
@@ -22,9 +27,37 @@
 	margin-right: 14px;
 }
 
+.c-menu__map {
+	position: relative;
+	bottom: -24px;
+	height: 400px;
+	width: 100%;
+}
+
+.c-menu__tag-n-map {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	height: calc(100% - 260px);
+}
+
 @media only screen and (max-width: 768px) {
 	.c-menu {
 		width: 100%;
+	}
+	
+	.c-menu__map {
+		position: relative;
+		margin-top: 25px;
+		width: 100%;
+	}
+	
+}
+
+@media only screen and (max-height: 745px) {
+	.c-menu__map {
+		position: relative;
+		margin-top: 25px;
 	}
 	
 }
