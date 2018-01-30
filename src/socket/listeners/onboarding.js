@@ -9,6 +9,8 @@ import {
 	updatePhotos,	
 	updateTags,	
 	updateBirthDate,	
+	updateOccupation,	
+	updateBio,	
 	updateLocation	
 } from '../../actions/user';
 
@@ -51,6 +53,15 @@ const onboardingListener = (dispatch, socket) => {
 			step()
 		]);
 	});
+
+	socket.on('SERVER/SAVE_BIO', ({ bio, occupation }) => {
+		dispatch([
+			updateBio(bio),	
+			updateOccupation(occupation),	
+			step()
+		]);
+	});
+
 };
 
 export default onboardingListener;

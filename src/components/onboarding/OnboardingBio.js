@@ -20,18 +20,31 @@ export default class OnboardingProfile extends React.Component {
 		};
 	}
 
-	handleOnChange = (e, name) => {
+	handleOnChangeBio = (e) => {
 		const input = e.target.value;
 
-	//	if (!input || input.match(/^[a-z][a-z \-]*$/i)) {
+		if (input.length < 281) {
 			this.setState({ 
-				[name]: input, 
+				bio: input, 
 				touched: { 
 					...this.state.touched,
-					[name]: true
+					bio: true
 				}	
 			});	
-	//	}
+		}	
+	};
+
+	handleOnChangeOccupation = (e) => {
+		const input = e.target.value;
+		if (input.length < 51) {
+			this.setState({ 
+				occupation: input, 
+				touched: { 
+					...this.state.touched,
+					occupation: true
+				}	
+			});	
+		}
 	};
 
 	getTimestamp = (timestamp) => {
@@ -44,7 +57,7 @@ export default class OnboardingProfile extends React.Component {
 			}
 		});
 	};	
-	
+
 	validate = (state) => {
 		const { bio, occupation, touched} = state;
 		const BIO_ERR = 'Please provide your bio';
@@ -53,35 +66,36 @@ export default class OnboardingProfile extends React.Component {
 		return {
 			bio: (!bio && (touched.form || touched.bio)) ? BIO_ERR : '', 
 			occupation: (!occupation && (touched.form || touched.occupation)) ? OCCUPATION_ERR : ''
+
 		};		
 	};
 
 	hasError = (errors) => {
 		const { bio, occupation } = this.state;
-	
+
 		if (!bio || !occupation)	
 			return true;
 		for (let error in errors) {
 			if (errors[error])
-			 	return true;
+				return true;
 		}
 		return false;
 	};
 
 	onSubmit = (error) => {
 		this.setState({ touched: {
-				...this.state.touched,
-				form: true
-			}
+			...this.state.touched,
+			form: true
+		}
 		});
 		if (this.hasError(error))	
 			return ;
-		this.props.getProfile(this.state);
+		this.props.getBio(this.state);
 	};
 
 
 	render () {
-	
+
 		let error = this.validate(this.state);
 
 		return (
@@ -93,7 +107,7 @@ export default class OnboardingProfile extends React.Component {
 						<h5 className={(error.occupation ? 'c-onb-form__error' : 'c-form-input__title')}>{error.occupation ? error.occupation : 'OCCUPATION'}</h5>
 						<input
 							className="c-form-input__content"
-							onChange={(e) => this.handleOnChange(e, 'occupation')}
+							onChange={(e) => this.handleOnChangeOccupation(e)}
 							type="text"
 							placeholder="Occupation"
 							autoFocus
@@ -107,8 +121,8 @@ export default class OnboardingProfile extends React.Component {
 						<h5 className={(error.bio ? 'c-onb-form__error' : 'c-form-input__title')}>{error.bio ? error.bio : 'BIO'}</h5>
 						<Textarea
 							className="c-form-input__content no-resize"
-							onChange={(e) => this.handleOnChange(e, 'bio')}
-							placeholder="bio"
+							onChange={(e) => this.handleOnChangeBio(e)}
+							placeholder="Bio"
 							value={this.state.bio}
 							minRows={8}
 							maxRows={8}

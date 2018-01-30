@@ -15,13 +15,13 @@ CREATE TABLE users (
 	  email VARCHAR(255) NOT NULL,
 	  sex VARCHAR(6) DEFAULT NULL,
 	  sexual_orientation VARCHAR(255) DEFAULT 'bisexual',
-	  bio VARCHAR(560) NULL DEFAULT NULL,
+	  bio VARCHAR(280) NULL DEFAULT NULL,
 	  longitude VARCHAR(255) NULL DEFAULT NULL,
 	  latitude VARCHAR(255) NULL DEFAULT NULL,
 	  last_connection TIMESTAMP NULL DEFAULT NULL,
 	  photos varchar(1000) NOT NULL DEFAULT '[null,null,null,null,null]',
 	  geolocation_allowed BOOLEAN DEFAULT FALSE,
-	  occupation VARCHAR(560) NULL DEFAULT NULL,
+	  occupation VARCHAR(50) NULL DEFAULT NULL,
 	  PRIMARY KEY (id)
 );
 

@@ -35,7 +35,7 @@ export class Onboarding extends React.Component {
 		this.props.saveUserData('SERVER/SAVE_LOCATION', location);
 	};
 
-	getLocation = (bio) => {
+	getBio = (bio) => {
 		this.props.saveUserData('SERVER/SAVE_BIO', bio);
 	};
 	
@@ -53,7 +53,9 @@ export class Onboarding extends React.Component {
 			orientation,
 			birthDate,
 			tags,
-			photos
+			photos,
+			occupation,
+			bio
 		} = this.props.profile; 
 
 		return (
@@ -86,9 +88,9 @@ export class Onboarding extends React.Component {
 					/>}
 					{step == 4 && 
 							<OnboardingBio
-								getBio={this.getTags}
-								bio={'Bio'}
-								occupation={"Occupation"}
+								getBio={this.getBio}
+								bio={bio}
+								occupation={occupation}
 					/>}
 					{step == 5 && 
 							<OnboardingLocation 

@@ -15,6 +15,8 @@ const validateLocation = require('./steps/validateLocation');
 const validateOrientation = require('./steps/validateOrientation');
 const validateTags = require('./steps/validateTags');
 const validatePhotos = require('./steps/validatePhotos');
+const validateOccupation = require('./steps/validateOccupation');
+const validateBio = require('./steps/validateBio');
 const hashPassword = require('./steps/hashPassword');
 const create = require('./steps/create');
 const addTags = require('./steps/tags/addTags');
@@ -42,6 +44,8 @@ module.exports = {
 	validateLocation,
 	validateTags,
 	validatePhotos,
+	validateBio,
+	validateOccupation,
 	hashPassword,
 	create,
 	addTags,
