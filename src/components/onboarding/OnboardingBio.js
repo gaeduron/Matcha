@@ -100,7 +100,7 @@ export default class OnboardingBio extends React.Component {
 
 		return (
 			<div className="l-onb-form__container">
-				<form>
+				<form onSubmit={(e) => {e.preventDefault()}}>
 					<h4 className="c-onb-form__title">WHAT ARE YOU DOING ALL DAY ?</h4>
 
 					<div className="c-form-input c-form-box__first-input">
