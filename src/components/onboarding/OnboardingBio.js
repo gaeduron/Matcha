@@ -4,7 +4,7 @@ import Textarea from 'react-textarea-autosize';
 import BirthdatePicker from '../utils/BirthdatePicker';
 import OnboardingNav from './OnboardingNav';
 
-export default class OnboardingProfile extends React.Component {
+export default class OnboardingBio extends React.Component {
 
 	constructor(props) {
 		super(props);
