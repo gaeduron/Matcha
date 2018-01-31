@@ -2,6 +2,7 @@ const registration = require('../../actions/user/registration');
 const passwordResetEmail = require('../../actions/user/passwordResetMail');
 const passwordReset = require('../../actions/user/passwordReset');
 const logger = require('../../logs/logger');
+const login = require('../../actions/authentication/login');
 
 const userListeners = (socket) => {
 	socket.on('createUser', async (user) => {
@@ -12,8 +13,21 @@ const userListeners = (socket) => {
 				socket.emit('notificationError', error);
 			});
 		} else {
-			socket.emit('notificationSuccess', 'Account successfully created, you can now login !');
+			socket.emit('notificationSuccess', 'Account successfully created !');
+			socket.emit('createUser');
 			logger.succes('User registration');
+
+			user.emailOrLogin = user.email;
+			logger.info(`Login user with: ${JSON.stringify(user)}`);
+			const response = await login(user);
+			if (response.error) {
+				response.error.forEach((error) => {
+					socket.emit('notificationError', error);
+				});
+			} else {
+				socket.emit('login', response);
+				logger.succes('Login user');
+			}
 		}
 	});
 

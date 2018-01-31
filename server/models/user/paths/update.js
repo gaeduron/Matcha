@@ -35,7 +35,8 @@ const updateUser = async (user) => {
 			birthdate = $19,
 			photos = $20,
 			geolocation_allowed = $21,
-			occupation = $22
+			occupation = $22,
+			onboarding = $23
 		WHERE id = $1;`;
 
 	try {

@@ -8,6 +8,7 @@ const cookieLogin = async ({ sessionToken, socketID }) => {
 	};
 	let response = await Users.find(user);
 	if (response.error) { return response; }
+	let isOnboarding = response.user.onboarding;
 	user.id = response.user.id;
 	logger.info('User is valide');
 
@@ -15,7 +16,12 @@ const cookieLogin = async ({ sessionToken, socketID }) => {
 	if (response.error) { return response; }
 	logger.info('Socket is saved');
 
-	return Users.newSession(user);
+	let uid = await Users.newSession(user);
+
+	return { 
+		uid,
+		isOnboarding
+	};
 };
 
 module.exports = cookieLogin;
