@@ -1,0 +1,137 @@
+.c-menu {
+	background: #F8F8F8;
+	text-align: center;
+
+	width: 400px;
+	overflow: auto;
+}
+
+.c-menu--white {
+	background: #FFFFFF;
+}
+
+.c-menu--no-padding {
+	padding: 0px;
+}
+
+.c-menu__wrapper {
+	height: calc(100% - 10px);
+}
+
+.c-menu__title {
+	font-weight: 700;
+	font-size: 20px;
+}
+
+.c-menu__title-container {
+	width: 350px;
+	margin: 10px auto 15px auto;
+	display: flex;
+	justify-content: space-between;
+}
+
+.c-menu__title-container--solo {
+	margin: 50px auto 5px auto;
+}
+
+.c-sort__title {
+	display: inline-block;
+	margin-right: 14px;
+}
+
+.c-menu__map {
+	position: relative;
+	bottom: -24px;
+	height: 400px;
+	width: 100%;
+}
+
+.c-menu__tag-n-map {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	height: calc(100% - 301px);
+}
+
+.c-menu__page {
+	width: 50%;
+	height: 46px;
+	padding: 12px;
+	background: #fff;
+	display: inline-block;
+	font-family: Avenir;
+    font-size: 14px;
+    color: #333;
+}
+
+.c-menu__page--hidden {
+	@extend %transition;
+	background: #eee;
+}
+
+.c-menu__page--hidden:hover {
+	@extend %transition;
+	cursor: pointer;
+	box-shadow: inset 22px -22px 40px -22px rgba(0, 0, 0, 0.1);
+}
+
+.c-menu__search-bar-box {
+	height: 85px;
+	width: 100%;
+}
+
+.c-menu__search-bar-title {
+	padding-top: 12px;
+	letter-spacing: 1.0px;
+	font-size: 10px;
+	font-weight: 300;
+	color: #999;
+}
+
+.c-menu__search-bar {
+	background: #f8f8f8;
+	width: 90%;
+	height: 36px;
+	border-radius: 50px;
+	margin-top: 8px;
+	padding-left: 20px;
+
+	::placeholder {
+		margin-left: 10px;
+	}
+}
+
+.c-menu__search-bar-icon {
+    position: absolute;
+    top: 41px;
+    right: 42px;
+    color: #AAA !important;
+}
+
+@media only screen and (max-width: 768px) {
+	.c-menu {
+		width: 100%;
+	}
+	
+	.c-menu__map {
+		position: relative;
+		margin-top: 25px;
+		width: 100%;
+	}
+	
+}
+
+@media only screen and (max-height: 745px) {
+	.c-menu__map {
+		position: relative;
+		margin-top: 25px;
+	}
+	
+}
+
+@media only screen and (max-width: 370px) {
+	.c-menu__title-container {
+		width: 300px;
+	}
+	
+}

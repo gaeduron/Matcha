@@ -1,6 +1,7 @@
 .c-news {
 	width: 100%;
 	display: flex;
+	text-align: left;
 	
 	transition: 0.2s;
 	transition-timing-function: ease;
@@ -36,6 +37,10 @@
     margin-left: 40px;
 }
 
+.c-news__image-container--menu {
+	margin-left: 20px;
+}
+
 .c-news__image {
 	background: #DDD;
 	box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.50);
@@ -52,6 +57,24 @@
 	position: relative;
 	top: -80px;
     left: 64px;
+}
+
+.c-news__image-container--chat {
+	position: absolute;
+	right: 30px;
+	top: 5px;
+	width: 36px;
+	height: 40px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+.c-news__user-status--chat {
+	border: 0px solid #FFFFFF;
+	width: 8px;
+	height: 8px;
+	top: -36px;
+	left: 28px;
 }
 
 .c-news__text {
@@ -84,6 +107,10 @@
 	overflow: hidden;
     text-overflow: ellipsis;
 	white-space: nowrap;
+}
+
+.c-news__message--menu {
+	margin-top: 0px;
 }
 
 @media only screen and (max-width: 768px) {

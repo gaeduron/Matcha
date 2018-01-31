@@ -1,3 +1,5 @@
+@import '~antd/dist/antd.css';
+
 @import './variables/breakpoints';
 @import './variables/colors';
 @import './variables/fonts';
@@ -13,6 +15,7 @@
 @import './layouts/l-three-col';
 @import './layouts/l-news';
 @import './layouts/l-onboarding';
+@import './layouts/_l-search.scss';
 
 @import './components/box-layout';
 @import './components/button';
@@ -30,7 +33,11 @@
 @import './components/form-input';
 @import './components/navbar/navbar';
 @import './components/news';
+@import './components/user-card';
+@import './components/menu';
+@import './components/slider';
 
 @import './utils/visibility';
 @import './utils/material-icons';
+@import './utils/ant-lib-override';
 

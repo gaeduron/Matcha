@@ -8,3 +8,8 @@
   opacity: 0;
   transition: visibility 0s 0.1s, opacity 0.1s linear;
 }
+
+%transition {
+	transition: 0.2s;
+	transition-timing-function: ease;
+}

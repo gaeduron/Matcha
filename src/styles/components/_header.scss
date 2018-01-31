@@ -1,18 +1,52 @@
-.header {
-  background: $dark-blue;
+.c-header {
+	background-image: linear-gradient(-225deg, #FF0095 0%, #FF4400 100%);	
+	box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.05);
+	width: 100%;
+	height: 46px;
+	padding-top: 0px;
+
+	position: fixed;
+	z-index: 100;
 }
 
-.header__content {
-  align-items: center;
-  display: flex;
-  justify-content: space-between;
-  padding: $s-size 0;
+.c-header__menu {
+	background: #fff;
+    text-align: center;
 }
 
-.header__title {
-  color: white;
-  text-decoration: none;
-  h1 {
-    margin: 0;
-  }
+.c-header--title {
+	display: inline-block;
+	
+	font-family: Avenir Black Oblique;
+	font-size: 20px;
+	color: #FFFFFF;
+	letter-spacing: 0.57px;
+	margin-left: 25px;
+	margin-top: 12px;
+}
+
+.c-header--icon-sort {
+	color: #fff;
+	font-size: 32px !important;
+	vertical-align: middle;
+	
+	position: absolute;
+	top: 8px;
+	right: 25px;
+}
+
+.c-header--icon-arrow {
+	color: #333;
+	font-size: 32px !important;
+	vertical-align: middle;
+	
+	position: absolute;
+	top: 8px;
+	left: 25px;
+}
+
+.c-header--user-name {
+	font-weight: 600;
+	font-size: 14px;
+	padding-top: 14px;
 }
