@@ -10,7 +10,8 @@
 }
 
 .c-header__menu {
-	background: #fff;	
+	background: #fff;
+    text-align: center;
 }
 
 .c-header--title {
@@ -42,4 +43,10 @@
 	position: absolute;
 	top: 8px;
 	left: 25px;
+}
+
+.c-header--user-name {
+	font-weight: 600;
+	font-size: 14px;
+	padding-top: 14px;
 }

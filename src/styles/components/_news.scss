@@ -59,6 +59,24 @@
     left: 64px;
 }
 
+.c-news__image-container--chat {
+	position: absolute;
+	right: 30px;
+	top: 5px;
+	width: 36px;
+	height: 40px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+.c-news__user-status--chat {
+	border: 0px solid #FFFFFF;
+	width: 8px;
+	height: 8px;
+	top: -36px;
+	left: 28px;
+}
+
 .c-news__text {
 	flex: 1;
 	min-width: 0;

@@ -35,11 +35,13 @@ export class SearchPage extends React.Component {
 				</div>
 				<div className="l-nav"><Navbar /></div>
 				<div
-					className={`l-menu c-menu c-menu--white 
-						${this.state.menu === "hidden" ? "" : "l-menu__show"}
+					className={`l-menu l-menu--slide-left c-menu c-menu--white c-menu--no-padding
+						${this.state.menu === "visible" ? "" : "l-menu__show"}
 					`}
 				>
-					<Menu />
+					<Menu 
+						showMenu={this.onShowMenu}
+					/>
 				</div>
 				<div className="l-main l-main__search c-main c-main--white">
 				</div>

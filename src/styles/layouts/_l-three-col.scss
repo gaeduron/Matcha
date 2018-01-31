@@ -67,6 +67,10 @@
 		display: block;
 	}
 
+	.l-menu--slide-left {
+		transform: translateX(-100%);
+	}
+
 	.l-menu__show {
 		transform: translateX(0%);
 	}
