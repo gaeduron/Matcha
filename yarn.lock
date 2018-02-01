@@ -4815,10 +4815,6 @@ markerwithlabel@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/markerwithlabel/-/markerwithlabel-2.0.1.tgz#822f4eb68c488c2509c5ebdb75982eb84a856096"
 
-material-design-icons@^3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/material-design-icons/-/material-design-icons-3.0.1.tgz#9a71c48747218ebca51e51a66da682038cdcb7bf"
-
 material-ui-chip-input@^0.18.3:
   version "0.18.3"
   resolved "https://registry.yarnpkg.com/material-ui-chip-input/-/material-ui-chip-input-0.18.3.tgz#379b6f32b144003bf8125e318a268b9d750b7ddd"
@@ -6610,6 +6606,18 @@ react-router@^4.2.0:
     prop-types "^15.5.4"
     warning "^3.0.0"
 
+react-slick@~0.16.0:
+  version "0.16.0"
+  resolved "https://registry.yarnpkg.com/react-slick/-/react-slick-0.16.0.tgz#27385fb88503d208be081d37267ddec961209a7b"
+  dependencies:
+    can-use-dom "^0.1.0"
+    classnames "^2.2.5"
+    create-react-class "^15.5.2"
+    enquire.js "^2.1.6"
+    json2mq "^0.2.0"
+    object-assign "^4.1.0"
+    slick-carousel "^1.6.0"
+
 react-smooth@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/react-smooth/-/react-smooth-1.0.0.tgz#b29dbebddddb06d21b5b08962167fb9eac1897d8"
@@ -6624,18 +6632,6 @@ react-textarea-autosize@^5.2.1:
   resolved "https://registry.yarnpkg.com/react-textarea-autosize/-/react-textarea-autosize-5.2.1.tgz#2b78f9067180f41b08ac59f78f1581abadd61e54"
   dependencies:
     prop-types "^15.6.0"
-
-react-slick@~0.16.0:
-  version "0.16.0"
-  resolved "https://registry.yarnpkg.com/react-slick/-/react-slick-0.16.0.tgz#27385fb88503d208be081d37267ddec961209a7b"
-  dependencies:
-    can-use-dom "^0.1.0"
-    classnames "^2.2.5"
-    create-react-class "^15.5.2"
-    enquire.js "^2.1.6"
-    json2mq "^0.2.0"
-    object-assign "^4.1.0"
-    slick-carousel "^1.6.0"
 
 react-transition-group@^1.1.2:
   version "1.2.1"
