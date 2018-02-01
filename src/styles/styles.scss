@@ -16,6 +16,7 @@
 @import './layouts/l-news';
 @import './layouts/l-onboarding';
 @import './layouts/_l-search.scss';
+@import './layouts/l-profile';
 
 @import './components/box-layout';
 @import './components/button';
@@ -36,6 +37,7 @@
 @import './components/user-card';
 @import './components/menu';
 @import './components/slider';
+@import './components/user_description';
 
 @import './utils/visibility';
 @import './utils/material-icons';

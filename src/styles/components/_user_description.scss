@@ -1,0 +1,52 @@
+.c-user-desc {
+	display: inline-block;
+	width: 472px;
+	background: #fff;
+	box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.1);
+	border-radius: 2px;
+}
+
+.c-user-desc__text-container {
+	width: 90%;
+	margin: auto;
+	margin-top: 20px;
+	text-align: left;
+}
+
+.c-user-desc__name {
+	font-size: 26px;
+    color: #333;
+    font-weight: 900;
+	display: inline-block;
+}
+
+.c-user-desc__age {
+	font-size: 26px;
+    color: #333;
+    font-weight: 300;
+	display: inline-block;
+	margin-left: 8px;
+}
+
+.c-user-desc__info-box {
+	margin: 10px 0px 20px 0px;
+}
+
+.c-user-desc__info {
+	font-size: 14px;
+    color: #333;
+    font-weight: 300;	
+}
+
+.c-user-desc__text {
+	white-space: pre-wrap;
+	font-size: 16px;
+    color: #000;
+    font-weight: 300;	
+}
+
+.c-user-desc__score {
+	font-size: 20px;
+    color: #FF0055;
+    font-weight: 300;	
+}
