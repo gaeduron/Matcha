@@ -1,3 +1,67 @@
+.c-button {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 10px 20px;
+	border-radius: 60px;
+	font-size: 12px;
+	font-family: Avenir;
+	box-shadow: 0 2px 5px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
+	color: #333333;
+	background-color: white;
+	transition: all .20s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+	cursor: pointer;
+
+	i {
+		font-size: 18px;
+	}
+ 
+	&:hover {
+		color: #FC367F;
+		transform: translateY(-1px);
+		box-shadow: 0 7px 14px rgba(50,50,93,.1),0 3px 6px rgba(0,0,0,.08)
+	}	
+
+	&:active {
+		color: #F9316A;
+		background-color: white;
+		transform: translateY(1px);
+		box-shadow: 0 4px 6px rgba(50,50,93,.11),0 1px 3px rgba(0,0,0,.08)
+	}	
+}
+
+.c-button--circle {
+	padding: 10px;
+} 
+
+
+.c-button__close {
+	width: 30px;
+	height: 30px;
+	background: none;
+	position: absolute;
+	right: 0px;
+	top: -35px;
+	color: #d7d8dc;
+	transition: color 300ms ease;
+	cursor: pointer;
+
+	i {
+		font-size: 20px;
+	} 
+
+	&:hover {
+		color: #FD2351;
+	}
+
+	&:active {
+		color: #c92243;
+	}
+	
+}
+
+/*
+
 .button {
   background: $blue;
   border: none;
@@ -17,3 +81,5 @@
 .button--secondary {
   background: #888;
 }
+
+*/

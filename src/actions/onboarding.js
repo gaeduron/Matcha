@@ -14,6 +14,10 @@ export const stepBack = () => ({
 	type: 'STEPBACK'
 });
 
+export const completeOnboarding = () => ({
+	type: 'COMPLETE_ONBOARDING'
+});
+
 export const saveUserData = (emitMessage, data) => (dispatch, getState) => { 
 	data.sessionToken = cookie.get('sessionToken');
 	 dispatch({ 

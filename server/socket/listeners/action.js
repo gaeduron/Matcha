@@ -6,6 +6,7 @@ const getGender = require('../../actions/onboarding/getGender');
 const getLocation = require('../../actions/onboarding/getLocation');
 const getTags = require('../../actions/onboarding/getTags');
 const getPhotos = require('../../actions/onboarding/getPhotos');
+const getBio = require('../../actions/onboarding/getBio');
 
 
 const startAction = async (action, socket, actionFunc, loggerContent) => {
@@ -14,7 +15,11 @@ const startAction = async (action, socket, actionFunc, loggerContent) => {
 		socket.emit('notify_error', response);
 	} else {
 		socket.emit(action.type, action.data);
-		logger.succes(loggerContent);
+		switch (action.type) {
+			case 'SERVER/SAVE_LOCATION': 
+				socket.emit('notificationSuccess', 'Congratulations, welcome to Matcha !');
+		}
+			logger.succes(loggerContent);
 	}
 };
 
@@ -24,13 +29,13 @@ const actionListeners = (socket) => {
 		switch (action.type) {
 			
 			/* Onboarding  */
-			case 'SERVER/SAVE_PROFILE':
+			case 'SERVER/SAVE_PROFILE': /* lname, fname, nickname, birthdate */
 				startAction(action, socket, getProfile, 'Onboarding: user profile data saved to DB');
 				break; 
 			case 'SERVER/SAVE_GENDER':
 				startAction(action, socket, getGender, 'Onboarding: user gender data saved to DB');
 				break; 
-			case 'SERVER/SAVE_LOCATION':
+			case 'SERVER/SAVE_LOCATION': /* latitude, longitude, geolocationAllowed */
 				startAction(action, socket, getLocation, 'Onboarding: user location data saved to DB');
 				break; 
 			case 'SERVER/SAVE_TAGS':
@@ -38,6 +43,9 @@ const actionListeners = (socket) => {
 				break; 
 			case 'SERVER/SAVE_PHOTOS':
 				startAction(action, socket, getPhotos, 'Onboarding: user photos saved to DB');
+				break; 
+			case 'SERVER/SAVE_BIO': /* bio, occupation */ 
+				startAction(action, socket, getBio, 'Onboarding: user bio and occupation saved to DB');
 				break; 
 
 			default: 

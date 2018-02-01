@@ -7,12 +7,13 @@ const saveCookie = (sessionToken) => {
 
 const authListener = (dispatch, socket) => {
 	
-	socket.on('login', (res) => {
-		console.log('response: ', res);
-		saveCookie(res);
+	socket.on('login', ({ uid, isOnboarding }) => {
+		console.log('response: ', uid, isOnboarding);
+		saveCookie(uid);
 		dispatch({
 			type: 'LOGIN',
-			uid: res
+			uid,
+			isOnboarding
 		});
 	});
 	
@@ -22,6 +23,8 @@ const authListener = (dispatch, socket) => {
 			type: 'LOGOUT'
 		});	
 	});
+
+	
 };
 
 export default authListener;

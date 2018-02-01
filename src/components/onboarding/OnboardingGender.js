@@ -1,4 +1,6 @@
 import React from 'react';
+import OnboardingNav from './OnboardingNav';
+import OnboardingClose from './OnboardingClose';
 
 export default class OnboardingGender extends React.Component {
 		
@@ -16,34 +18,50 @@ export default class OnboardingGender extends React.Component {
 		this.setState({ [name]: input });	
 	};
 
-	onSubmit = (e) => {
-		e.preventDefault();
+	onSubmit = () => {
 		this.props.getGender(this.state);
 	};  
 
 	render () {
 		return (
-			<div>
-				<p>Gender</p>
-				<p>You are a</p>
-				<form onSubmit={this.onSubmit}>
-					<select 
-						onChange={(e) => this.handleOnChange(e, 'orientation')} 
-						defaultValue={this.state.orientation}
-					>
-						<option value='straight'>Straight</option>
-						<option value='gay'>Gay</option>
-						<option value='bisexual'>Bisexual</option>
-					</select> 
-					<select
-						onChange={(e) => this.handleOnChange(e, 'gender')} 
-						defaultValue={this.state.gender}
-					>
-						<option value='woman'>Woman</option>
-						<option value='man'>Man</option>
-					</select>
-					<input type="submit" value="Continue"/>
+			<div className="l-onb-form__container">
+				<OnboardingClose />
+
+				<h4 className="c-onb-form__title">YOU ARE A</h4>
+
+				<form>
+
+					<div className="c-form-input c-form-box__first-input">
+						<h5 className="c-form-input__title">ORIENTATION</h5>
+							<select 
+								className="c-onb-form__input--select c-onb-form__input--select-long"
+								onChange={(e) => this.handleOnChange(e, 'orientation')} 
+								defaultValue={this.state.orientation}
+							>
+								<option value='straight'>Straight</option>
+								<option value='gay'>Gay</option>
+								<option value='bisexual'>Bisexual</option>
+							</select> 
+					</div>		
+
+					<div className="c-form-input c-form-box__input">
+						<h5 className="c-form-input__title">GENDER</h5>
+							<select 
+								className="c-onb-form__input--select c-onb-form__input--select-long"
+								onChange={(e) => this.handleOnChange(e, 'gender')} 
+								defaultValue={this.state.gender}
+							>
+								<option value='woman'>Woman</option>
+								<option value='man'>Man</option>
+							</select>
+					</div>		
+
+
+
+
 				</form>
+
+				<OnboardingNav action={this.onSubmit} />
 
 			</div>
 		);

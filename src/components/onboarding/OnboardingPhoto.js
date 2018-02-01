@@ -1,5 +1,7 @@
 import React from 'react';
 import UserPhotos from '../photo/UserPhotos';
+import OnboardingNav from './OnboardingNav';
+import OnboardingClose from './OnboardingClose';
 
 export default class OnboardingPhoto extends React.Component {
 
@@ -26,14 +28,17 @@ export default class OnboardingPhoto extends React.Component {
 				
 			
 		return (
-			<div>	
+			<div className="l-onb-form__container"> 	
+				<OnboardingClose />
+				<h4 className="c-onb-form__title l-onb-margin-bottom">CHOOSE YOUR BEST PROFILE PICTURES</h4>
+	
 				<UserPhotos 
 					initialPhotos={initialPhotos} 
 					getPhotosUrl={this.getPhoto}
 					shouldStartGetPhotosUrl={this.state.startGetPhotosUrl}
 				/>	
-				
-				<button onClick={this.startGetPhotosUrl}>Continue</button>
+
+				<OnboardingNav action={this.startGetPhotosUrl} />
 			</div>
 		);
 	}

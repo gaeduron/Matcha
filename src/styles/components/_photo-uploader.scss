@@ -3,6 +3,7 @@
 	width: 510px;
 //	background-color: #FFFFFF;
 	margin: 0 auto;
+	text-align: justify;
 }
 
 .photo-container {
@@ -22,6 +23,7 @@
 
 	.material-icons {
 	    font-size: 15px;  
+		transition: background-color 300ms, color 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
 	}
 
 	&:hover {   
@@ -100,4 +102,112 @@
 .ReactModal__Overlay {
 	background-color: rgba(0, 0, 0, 0.80);
 
+}
+
+
+
+@media (max-width: 768px) {
+
+	.container--photo-uploader {
+		width: 335px;
+		overflow: initial;
+	}
+
+	.clear {
+		left: 41px;
+		top: 7px; 
+	}
+		  
+	.photo-container {
+		width: 70px;
+		height: 70px;
+		margin: 5px 5px;
+	}
+
+	.photo-left {
+		left: -17px;
+		top: 41px;
+	}
+
+	.photo-right {
+		left: -5px;
+		top: 41px;
+	}
+
+	.profile {
+		width: 150px;
+		height: 150px;  
+
+		.clear {
+			left: 120px;
+		}
+
+		.photo-right {
+			position: relative;
+			left: 75px;
+			top: 121px;
+		}
+
+		.photo-left {
+			position: relative;
+			left: -17px;
+			top: 121px;
+		}
+	}
+}
+
+
+
+@media (max-width: 320px) {
+
+	.container--photo-uploader {
+		width: 284px;
+		overflow: initial;
+	}
+
+	.photo-circle {
+		font-size: 14px;
+	}
+
+	.clear {
+		left: 34px;
+		top: 5px; 
+	}
+		  
+	.photo-container {
+		width: 60px;
+		height: 60px;
+		margin: 5px 5px;
+	}
+
+	.photo-left {
+		left: -17px;
+		top: 34px;
+	}
+
+	.photo-right {
+		left: 34px;
+		top: 13px;
+	}
+
+	.profile {
+		width: 130px;
+		height: 130px;  
+
+		.clear {
+			left: 104px;
+		}
+
+		.photo-right {
+			position: relative;
+			left: 62px;
+			top: 104px;
+		}
+
+		.photo-left {
+			position: relative;
+			left: -16px;
+			top: 104px;
+		}
+	}
 }

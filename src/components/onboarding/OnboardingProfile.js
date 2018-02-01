@@ -1,6 +1,8 @@
 import React from 'react';
 import moment from 'moment';
 import BirthdatePicker from '../utils/BirthdatePicker';
+import OnboardingNav from './OnboardingNav';
+import OnboardingClose from './OnboardingClose';
 
 export default class OnboardingProfile extends React.Component {
 
@@ -94,8 +96,7 @@ export default class OnboardingProfile extends React.Component {
 		return false;
 	};
 
-	onSubmit = (e, error) => {
-		e.preventDefault();
+	onSubmit = (error) => {
 		this.setState({ touched: {
 				...this.state.touched,
 				form: true
@@ -112,12 +113,13 @@ export default class OnboardingProfile extends React.Component {
 		let error = this.validate(this.state);
 
 		return (
-			<div className="c-form-box">
-				<form onSubmit={(e) => this.onSubmit(e, error)} onChange={this.log}>
-					<h4 className="c-form-box__title">LET'S KNOW EACH OTHER</h4>
+			<div className="l-onb-form__container">
+				<OnboardingClose />
+				<form>
+					<h4 className="c-onb-form__title">LET'S KNOW EACH OTHER</h4>
 
 					<div className="c-form-input c-form-box__first-input">
-						<h5 className="c-form-input__title">Firstname</h5>
+						<h5 className={(error.fname ? 'c-onb-form__error' : 'c-form-input__title')}>{error.fname ? error.fname : 'FIRSTNAME'}</h5>
 						<input
 							className="c-form-input__content"
 							onChange={(e) => this.handleOnChange(e, 'fname')}
@@ -127,10 +129,9 @@ export default class OnboardingProfile extends React.Component {
 							value={this.state.fname}
 						/>
 					</div>
-					<p>{error.fname}</p>
 
 					<div className="c-form-input c-form-box__input">
-						<h5 className="c-form-input__title">Lastname</h5>
+						<h5 className={(error.lname ? 'c-onb-form__error' : 'c-form-input__title')}>{error.lname ? error.lname : 'LASTNAME'}</h5>
 						<input
 							className="c-form-input__content"
 							onChange={(e) => this.handleOnChange(e, 'lname')}
@@ -139,10 +140,9 @@ export default class OnboardingProfile extends React.Component {
 							value={this.state.lname}
 						/>
 					</div>
-					<p>{error.lname}</p>
 
 					<div className="c-form-input c-form-box__input">
-						<h5 className="c-form-input__title">Firstname</h5>
+						<h5 className={(error.nickname ? 'c-onb-form__error' : 'c-form-input__title')}>{error.nickname ? error.nickname : 'NICKNAME'}</h5>
 						<input 
 							className="c-form-input__content"
 							onChange={(e) => this.handleOnChange(e, 'nickname')}
@@ -151,17 +151,18 @@ export default class OnboardingProfile extends React.Component {
 							value={this.state.nickname}
 						/>
 					</div>
-					<p>{error.nickname}</p>
 
-					<h4 className="c-form-box__title">BIRTHDATE</h4>
+					<h4 className="c-onb-form__title">BIRTHDATE</h4>
 					<BirthdatePicker 
 						getTimestamp={this.getTimestamp} 
 						birthDate={this.props.birthDate}
 					/>
-					<p>{error.birthDate}</p>
-					<p>{error.minAge}</p>
-					<input type="submit" value="Continue"/>
+					<div className="c-onb-form__error c-onb-form__error--birthdate">
+						<p>{error.birthDate}</p>
+						<p>{error.minAge}</p>
+					</div>
 				</form>
+				<OnboardingNav action={() => this.onSubmit(error)} />
 
 			</div>
 		);

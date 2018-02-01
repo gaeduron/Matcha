@@ -25,13 +25,11 @@ const renderApp = () => {
 		hasRendered = true;
 	}
 };
-socket.on('loginWithCookie', (res) => {
-	console.log('response: ', res);
-	cookie.set('sessionToken', res);
-	store.dispatch({
-		type: 'LOGIN',
-		uid: res
-	});
+
+socket.on('loginWithCookie', ({ uid, isOnboarding }) => {
+	console.log('response: ', uid);
+	cookie.set('sessionToken', uid);
+	store.dispatch(login(uid, isOnboarding));
 	renderApp();
 });
 

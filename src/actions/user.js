@@ -45,3 +45,12 @@ export const updateLocation = location => ({
 	location
 });
 
+export const updateBio = bio => ({
+	type: 'UPDATE_BIO',
+	bio
+});
+
+export const updateOccupation = occupation => ({
+	type: 'UPDATE_OCCUPATION',
+	occupation
+});

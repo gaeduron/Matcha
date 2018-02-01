@@ -33,7 +33,10 @@ const updateUser = async (user) => {
 			password_reset_token = $17,
 			password_reset_expire_at = $18,
 			birthdate = $19,
-			photos = $20
+			photos = $20,
+			geolocation_allowed = $21,
+			occupation = $22,
+			onboarding = $23
 		WHERE id = $1;`;
 
 	try {

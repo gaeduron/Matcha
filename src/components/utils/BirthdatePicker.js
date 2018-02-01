@@ -83,35 +83,49 @@ export default class BirthdatePicker extends React.Component {
 		let days = this.getDaysRange();
 		let years = Array.from({length: startYear - endYear}, (v, k) => k + endYear).reverse();
 
-		let { day, year, month } = this.state;
+		let { day, year, month, error } = this.state;
 
 		return (
 			<div>
-				<div className="c-form-input c-form-box__first-input">
-					<h5 className="c-form-input__title">Firstname</h5>
-					<select 
-						className="c-form-input__content"
-						onChange={this.handleMonth}
-						defaultValue={month}
-					>
-						{months.map(({ value, name }, idx) => (<option key={idx} value={value} >{name}</option>))}	
-					</select> 
+
+				<div className="l-onb-datepicker c-form-box__first-input">
+					<div className="c-onb-form__input">
+						<h5 className="c-form-input__title">MONTH</h5>
+						<select 
+							className="c-onb-form__input--select"
+							onChange={this.handleMonth}
+							defaultValue={month}
+						>
+							{months.map(({ value, name }, idx) => (<option key={idx} value={value} >{name}</option>))}	
+						</select>
+					</div>
+
+					<div className="c-onb-form__input c-onb-form__input--sideborderless">
+						<h5 className="c-form-input__title">DAY</h5>
+							<select 
+								id="date-day"
+								className="c-onb-form__input--select"
+								onChange={this.handleDay}
+								defaultValue={day}
+							>
+								<option key="0" value="0">DD</option>
+								{days.map((day) => (<option key={day} value={day}>{day}</option>))}	
+							</select> 
+					</div>
+
+					<div className="c-onb-form__input">
+						<h5 className="c-form-input__title">YEAR</h5>
+							<select 
+								className="c-onb-form__input--select"
+								onChange={this.handleYear}
+								defaultValue={year}
+							>
+								<option key="0" value="0">YYYY</option>
+								{years.map((year) => (<option key={year} value={year}>{year}</option>))}	
+							</select> 
+					</div>
+					<p>{error}</p>
 				</div>
-				<select 
-					onChange={this.handleDay}
-					defaultValue={day}
-				>
-					<option key="0" value="0">DD</option>
-					{days.map((day) => (<option key={day} value={day}>{day}</option>))}	
-				</select> 
-				<select 
-					onChange={this.handleYear}
-					defaultValue={year}
-				>
-					<option key="0" value="0">YYYY</option>
-					{years.map((year) => (<option key={year} value={year}>{year}</option>))}	
-				</select> 
-				<p>{this.state.error}</p>
 
 			</div>
 		);
