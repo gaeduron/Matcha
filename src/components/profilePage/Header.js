@@ -12,10 +12,10 @@ export class Header extends React.Component {
 		if (this.props.menu === "hidden") {
 			return (
 				<header className="c-header">		
-					<h1 className="c-header--title">SEARCH</h1>
+					<h1 className="c-header--title">PROFILE</h1>
 					<i
 						className="material-icons c-header--icon-sort"
-						onClick={this.onSort}>sort
+						onClick={this.onSort}>more_vert
 					</i>
 				</header>
 			);

@@ -1,9 +1,9 @@
 import React from 'react';
 import { Router, Route, Switch } from 'react-router-dom';
 import createHistory from 'history/createBrowserHistory';
-import DashboardPage from '../components/DashboardPage';
-import ProfilePage from '../components/ProfilePage';
-import ChatPage from '../components/ChatPage';
+import DashboardPage from '../components/searchPage/page';
+import ProfilePage from '../components/profilePage/page';
+import ChatPage from '../components/chatPage/page';
 import NewsPage from '../components/NewsPage';
 import NotFoundPage from '../components/NotFoundPage';
 import LoginPage from '../components/LoginPage';

@@ -6,6 +6,7 @@
 	height: 100%;
 	padding-top: 10px;
 	position: fixed;
+	z-index: 100;
 }
 
 .c-nav__item {
@@ -57,16 +58,13 @@
 	margin-top: 5px;
 }
 
-.c-menu {
-	background: #F8F8F8;
-	text-align: center;
-
-	width: 400px;
-}
-
 .c-main {
 	background: #FFFFFF;
 	text-align: center;
+}
+
+.c-main--white {
+	background: #F8F8F8;
 }
 
 @media only screen and (max-width: 768px) {
