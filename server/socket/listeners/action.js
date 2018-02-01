@@ -15,7 +15,11 @@ const startAction = async (action, socket, actionFunc, loggerContent) => {
 		socket.emit('notify_error', response);
 	} else {
 		socket.emit(action.type, action.data);
-		logger.succes(loggerContent);
+		switch (action.type) {
+			case 'SERVER/SAVE_LOCATION': 
+				socket.emit('notificationSuccess', 'Congratulations, welcome to Matcha !');
+		}
+			logger.succes(loggerContent);
 	}
 };
 

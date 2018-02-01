@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { pick } from 'ramda';
 import { Progress, Button } from 'element-react';
 import 'element-theme-default';
+import { Redirect } from 'react-router-dom';
 
 import OnboardingProfile from './OnboardingProfile';
 import OnboardingGender from './OnboardingGender';
@@ -39,10 +40,14 @@ export class Onboarding extends React.Component {
 		this.props.saveUserData('SERVER/SAVE_BIO', bio);
 	};
 	
+	completeOnboarding = () => {
+		this.props.saveUserData('SERVER/COMPLETE_ONBOARDING', {});
+	};
+	
 
 	render () {
 
-		const step = this.props.step; 
+		const { step, isOnboarding } = this.props; 
 
 		const { 
 			fname, 
@@ -58,9 +63,13 @@ export class Onboarding extends React.Component {
 			bio
 		} = this.props.profile; 
 
+		if (!isOnboarding)
+			return (<Redirect to="/dashboard"/>);
+
 		return (
 			<div className="l-onb-bg">
 				<div className="l-onb-container">
+
 					{step == 0 && 
 							<OnboardingProfile 
 								fname={fname}
@@ -95,15 +104,14 @@ export class Onboarding extends React.Component {
 					{step == 5 && 
 							<OnboardingLocation 
 								getLocation={this.getLocation}
+								completeOnboarding={this.completeOnboarding}
 								latitude={location ? location.latitude : 0}
 								longitude={location ? location.longitude : 0}
 								geolocationAllowed={location && location.geolocationAllowed ? true : false}
 					/>}
 
-					{step == 6 && <button>Discover people</button>}
-
 					<div className="l-onb-progress">
-						<Progress percentage={step / 6.0 * 100} status={step == 6 ? "success" : undefined } showText={false} /> 
+						<Progress percentage={step / 5.0 * 100} showText={false} /> 
 					</div>
 				</div>
 					
@@ -121,7 +129,8 @@ const mapDispatchToProps = (dispatch) => ({
 
 const mapStateToProps = (state, props) => ({
 	profile: state.user,
-	step: state.onboarding.step
+	step: state.onboarding.step,
+	isOnboarding: state.auth.isOnboarding
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Onboarding);

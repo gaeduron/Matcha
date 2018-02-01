@@ -9,6 +9,11 @@ export default (state = {}, action) => {
 			return {
 				uid: false
 			};
+		case 'COMPLETE_ONBOARDING':
+			return {
+				...state,
+				isOnboarding: false
+			};
 		default:
 			return state;
 	}

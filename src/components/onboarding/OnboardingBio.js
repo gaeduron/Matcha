@@ -3,6 +3,7 @@ import moment from 'moment';
 import Textarea from 'react-textarea-autosize';
 import BirthdatePicker from '../utils/BirthdatePicker';
 import OnboardingNav from './OnboardingNav';
+import OnboardingClose from './OnboardingClose';
 
 export default class OnboardingBio extends React.Component {
 
@@ -100,6 +101,7 @@ export default class OnboardingBio extends React.Component {
 
 		return (
 			<div className="l-onb-form__container">
+				<OnboardingClose />
 				<form onSubmit={(e) => {e.preventDefault()}}>
 					<h4 className="c-onb-form__title">WHAT ARE YOU DOING ALL DAY ?</h4>
 

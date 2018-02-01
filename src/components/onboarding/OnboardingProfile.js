@@ -2,6 +2,7 @@ import React from 'react';
 import moment from 'moment';
 import BirthdatePicker from '../utils/BirthdatePicker';
 import OnboardingNav from './OnboardingNav';
+import OnboardingClose from './OnboardingClose';
 
 export default class OnboardingProfile extends React.Component {
 
@@ -113,6 +114,7 @@ export default class OnboardingProfile extends React.Component {
 
 		return (
 			<div className="l-onb-form__container">
+				<OnboardingClose />
 				<form>
 					<h4 className="c-onb-form__title">LET'S KNOW EACH OTHER</h4>
 

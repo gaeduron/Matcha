@@ -39,6 +39,7 @@ const getLocation = async (location) => {
 		latitude: location.latitude,
 		longitude: location.longitude,
 		geolocationAllowed: location.geolocationAllowed,
+		onboarding: false,
 		sessionToken
 	});
 	

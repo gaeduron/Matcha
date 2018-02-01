@@ -12,6 +12,7 @@ const onboardingListeners = (socket) => {
 			socket.emit('notify_error', response);
 		} else {
 		 	socket.emit('getProfile', profile);
+		 	socket.emit('notificationError', 'Bravo');
 		 	logger.succes('Onboarding: user profile data saved to DB');
 		}
 	});

@@ -2,6 +2,7 @@ import React from 'react';
 import ChipInput from 'material-ui-chip-input';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import OnboardingNav from './OnboardingNav';
+import OnboardingClose from './OnboardingClose';
 
 const style = () => {
 	const { innerWidth } = window;
@@ -48,6 +49,7 @@ export default class OnboardingTags extends React.Component {
 		return (
 			<MuiThemeProvider>
 				<div className="l-onb-form__container">
+					<OnboardingClose />
 				
 					<h4 className="c-onb-form__title">WHAT ARE YOU INTERESTED IN ?</h4>
 					<div className="l-tags">

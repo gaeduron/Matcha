@@ -1,5 +1,6 @@
 import React from 'react';
 import OnboardingNav from './OnboardingNav';
+import OnboardingClose from './OnboardingClose';
 
 export default class OnboardingGender extends React.Component {
 		
@@ -24,6 +25,7 @@ export default class OnboardingGender extends React.Component {
 	render () {
 		return (
 			<div className="l-onb-form__container">
+				<OnboardingClose />
 
 				<h4 className="c-onb-form__title">YOU ARE A</h4>
 

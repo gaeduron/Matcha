@@ -3,7 +3,7 @@
 	align-items: center;
 	justify-content: space-between;
 	padding: 10px 20px;
-	border-radius: 30px;
+	border-radius: 60px;
 	font-size: 12px;
 	font-family: Avenir;
 	box-shadow: 0 2px 5px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
@@ -35,6 +35,30 @@
 } 
 
 
+.c-button__close {
+	width: 30px;
+	height: 30px;
+	background: none;
+	position: absolute;
+	right: 0px;
+	top: -35px;
+	color: #d7d8dc;
+	transition: color 300ms ease;
+	cursor: pointer;
+
+	i {
+		font-size: 20px;
+	} 
+
+	&:hover {
+		color: #FD2351;
+	}
+
+	&:active {
+		color: #c92243;
+	}
+	
+}
 
 /*
 

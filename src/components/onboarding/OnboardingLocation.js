@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { Button } from 'element-react';
 import OnboardingNav from './OnboardingNav';
+import OnboardingClose from './OnboardingClose';
 import Geolocate from '../map/Geolocate';
 import 'element-theme-default';
 
@@ -54,6 +55,7 @@ export default class OnboardingLocation extends React.Component {
 			
 		return (
 			<div className="l-onb-form__container">
+				<OnboardingClose />
 
 				<h4 className="c-onb-form__title">WHERE ARE YOU FROM ?</h4>
 				<div className="l-onb__location">

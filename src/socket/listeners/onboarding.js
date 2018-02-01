@@ -1,4 +1,5 @@
-import { step } from '../../actions/onboarding'; 
+import { step, completeOnboarding } from '../../actions/onboarding'; 
+import { Redirect } from 'react-router-dom';
 
 import {
 	updateFname,	
@@ -33,13 +34,6 @@ const onboardingListener = (dispatch, socket) => {
 		]);
 	});
 
-	socket.on('SERVER/SAVE_LOCATION', ({ latitude, longitude, geolocationAllowed = false }) => {
-		dispatch([
-			updateLocation({ latitude, longitude, geolocationAllowed }),	
-			step()
-		]);
-	});
-
 	socket.on('SERVER/SAVE_TAGS', ({ tags }) => {
 		dispatch([
 			updateTags(tags),	
@@ -59,6 +53,13 @@ const onboardingListener = (dispatch, socket) => {
 			updateBio(bio),	
 			updateOccupation(occupation),	
 			step()
+		]);
+	});
+
+	socket.on('SERVER/SAVE_LOCATION', ({ latitude, longitude, geolocationAllowed = false }) => {
+		dispatch([
+			updateLocation({ latitude, longitude, geolocationAllowed }),	
+			completeOnboarding()
 		]);
 	});
 
