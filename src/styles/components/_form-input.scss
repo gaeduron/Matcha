@@ -7,6 +7,10 @@
 	position: relative;
 }
 
+.c-form-input--textarea {
+	height: 207px;
+}
+
 .c-form-input__title {
 	font-family: Avenir;
 	font-weight: 900;
@@ -32,4 +36,13 @@
 	top: 30px;
 	left: 15px;
 	width: 254px;	
+
+	&:focus::-webkit-input-placeholder { color:transparent; }
+	&:focus:-moz-placeholder { color:transparent; } /* FF 4-18 */
+	&:focus::-moz-placeholder { color:transparent; } /* FF 19+ */
+	&:focus:-ms-input-placeholder { color:transparent; } /* IE 10+ */
+}
+
+.no-resize {
+	resize: none;
 }

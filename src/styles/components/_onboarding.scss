@@ -1,0 +1,134 @@
+.el-progress-bar__inner {
+	background-color: #fc2b68;
+	transition: width 300ms ease;
+}
+
+
+.l-onb-margin-bottom {
+	margin-bottom: 25px;
+}
+
+.l-tags {
+	 width: 100%;
+	 margin-top: 25px;
+}
+
+.l-onb-nav {
+	margin-top: auto;
+}
+
+.l-onb-nav__buttons {
+	display: flex;
+	justify-content: flex-end;
+	margin-bottom: 25px;
+}
+
+.l-onb-nav__buttons-left {
+	margin-right: auto;
+}
+
+
+.l-onb-form__container {
+	width: 500px;
+	height: 100vh;
+	text-align: center;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+}
+
+.c-onb-form__error {
+	font-family: Avenir;
+	font-weight: 100;
+	font-style: normal;
+	font-size: 12px;
+	color: #fc3981;
+	letter-spacing: 1px;
+	position: absolute;
+	top: 10px;
+	left: 15px;
+}
+
+.c-onb-form__error--birthdate {
+	margin-top: 10px;
+	position: initial;
+}
+
+.c-onb-form__title {
+	font-family: Avenir;
+	font-weight: 900;
+	font-style: normal;
+	font-size: 12px;
+	color: #333333;
+	letter-spacing: 0.38px;
+
+	padding-top: $m-size;
+}
+
+.c-onb-form__input {
+	background: #FFFFFF;
+	border: 1px solid #DDDDDD;
+	border-radius: 2px;
+	width: 284px;
+	height: 68px;
+	position: relative;
+}
+
+.c-onb-form__input--select {
+	-webkit-appearance: none;
+	border: none;
+	background-color: white;
+	outline: none;
+	font-family: Avenir;
+	font-weight: 300;
+	font-style: normal;
+	font-size: 18px;
+	color: #333333;
+	letter-spacing: 0;
+	position: absolute;
+	top: 30px;
+	left: 15px;
+	width: 80%;
+	background-image: url('data:image/svg+xml;utf-8,<svg fill="#333333" height="24" viewBox="0 1 24 27" width="124" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+	background-repeat: no-repeat;
+}
+
+
+.c-onb-form__input--select-long {
+	width: 90%;
+	background-image: url('data:image/svg+xml;utf-8,<svg fill="#333333" height="18" viewBox="0 1 24 27" width="480" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+}
+
+.c-onb-form__input--select-icon {
+	color: #333333;
+	position: absolute;
+	top: 30px;
+	right: 10px;
+	font-size: 18px !important;
+}
+
+.c-onb-form__input--sideborderless {
+	border-left: 0px;
+	border-right: 0px;
+}
+
+.l-onb-datepicker {
+	display: flex;
+	width: 284px;
+}
+
+
+@media (max-width: 768px) {
+	  
+	.l-onb-form__container {
+		width: 324px;
+	}
+}
+
+@media (max-width: 320px) {
+	  
+	.l-onb-form__container {
+		width: 283px;
+	}
+}
+

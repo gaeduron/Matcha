@@ -38,6 +38,8 @@ const getLocation = async (location) => {
 	const updateResponse = await Users.update({
 		latitude: location.latitude,
 		longitude: location.longitude,
+		geolocationAllowed: location.geolocationAllowed,
+		onboarding: false,
 		sessionToken
 	});
 	

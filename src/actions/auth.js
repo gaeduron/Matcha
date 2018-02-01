@@ -22,23 +22,18 @@ export const passwordReset = ({
 
 export const createAccount = ({
 	email,
-	firstname,
-	lastname,
-	login,
 	password,
 }) => {
 	socket.emit('createUser', {
 		email,
-		firstname,
-		lastname,
-		login,
 		password,
 	});
 };
 
-export const login = uid => ({
+export const login = ( uid, isOnboarding ) => ({
 	type: 'LOGIN',
 	uid,
+	isOnboarding
 });
 
 export const startLogin = ({ emailOrLogin, password }) => {

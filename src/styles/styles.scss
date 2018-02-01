@@ -17,6 +17,7 @@
 @import './layouts/l-onboarding';
 @import './layouts/_l-search.scss';
 
+@import './components/onboarding';
 @import './components/box-layout';
 @import './components/button';
 @import './components/header';
@@ -32,6 +33,7 @@
 @import './components/form-box';
 @import './components/form-input';
 @import './components/navbar/navbar';
+@import './components/geolocate';
 @import './components/news';
 @import './components/user-card';
 @import './components/menu';
@@ -39,5 +41,9 @@
 
 @import './utils/visibility';
 @import './utils/material-icons';
+@import './utils/loaders';
+@import './utils/spaces';
 @import './utils/ant-lib-override';
+
+
 

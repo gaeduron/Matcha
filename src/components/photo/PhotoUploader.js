@@ -31,9 +31,22 @@ const customStyles = {
 	}
 };
 
+const style = () => {
+	if (window.innerWidth < 768) 
+		return spinnerStyle.mobile; 
+	else
+		return spinnerStyle.desktop;
+};
+
 const spinnerStyle = {
-	left: 29,
-	top: 3
+	desktop: {
+		left: 29,
+		top: 3
+	},
+	mobile: {
+		left: 15,
+		top: -7
+	}
 };
 
 
@@ -170,7 +183,7 @@ export default class PhotoUploader extends React.Component {
 								<MDSpinner 
 									size={40}	
 									singleColor="rgb(255, 255, 255)"
-									style={spinnerStyle}
+									style={style()}
 								/>
 							}
 							{/* TO DO 2 */}

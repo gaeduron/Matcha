@@ -8,6 +8,8 @@ const defaultState = {
 	photos: FB.photos,
 	orientation: 'bisexual',
 	birthDate: '',
+	occupation: '',
+	bio: '',
 	location: {
 		latitude: 0,
 		longitude: 0
@@ -60,6 +62,16 @@ export default (state = defaultState, action) => {
 			return {
 				...state,
 				location: action.location	
+			};
+		case 'UPDATE_BIO':
+			return {
+				...state,
+				bio: action.bio	
+			};
+		case 'UPDATE_OCCUPATION':
+			return {
+				...state,
+				occupation: action.occupation	
 			};
 		default:
 			return state;

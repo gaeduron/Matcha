@@ -1,6 +1,24 @@
-.l-onboarding-container {
-	background-color: #EFEFEF;
-	max-width: 900px;
-	margin: 0 auto;
-	min-height: 100%; 
+.l-onb-bg {
+	background: linear-gradient(45deg, rgba(255, 0, 192, 0.75), rgba(255, 0, 0, 1));
+	height: 100vh;
+	display: flex;
+	justify-content: center;
 }
+
+.l-onb-container {
+	width: 600px; 
+	background-color: #F8F8F8; 
+	display: flex;
+	align-items: center;
+	padding-top: $l-size;
+	flex-direction: column;
+}
+
+.l-onb__location {
+	margin-top: 25px;
+}
+
+.l-onb-progress {
+	width: 85%;
+	margin-bottom: 40px;
+} 

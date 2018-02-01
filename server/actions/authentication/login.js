@@ -20,6 +20,7 @@ const Login = async ({ socketID, emailOrLogin, password }) => {
 
 	let response = await Users.find(user);
 	if (response.error) { return response; }
+	let isOnboarding = response.user.onboarding;
 	user.id = response.user.id;
 	user.hash = response.user.password;
 	logger.info('User exist');
@@ -33,7 +34,12 @@ const Login = async ({ socketID, emailOrLogin, password }) => {
 	if (response.error) { return response; }
 	logger.info('Socket is saved');
 
-	return Users.newSession(user);
+	let uid = await Users.newSession(user);
+
+	return { 
+		uid,
+		isOnboarding
+	};
 };
 
 module.exports = Login;

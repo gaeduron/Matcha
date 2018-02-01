@@ -51,7 +51,7 @@ export class LoginPage extends React.Component {
 			email: this.state.email,
 			password: this.state.password,
 			});
-		}
+	}
 
 	onConnect = (e) => {
     	e.preventDefault();
