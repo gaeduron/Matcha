@@ -8,16 +8,11 @@
 }
 
 .c-user-desc--chat {
-	display: inline-block;
 	width: 472px;
 	background: #fff;
 	box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.1);
 	border-radius: 2px;
-	position: relative;
-	position: fixed;
-    right: 0;
     overflow-y: auto;
-    display: inline-block;
     height: 100%;
 }
 

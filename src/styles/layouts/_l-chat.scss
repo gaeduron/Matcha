@@ -1,10 +1,8 @@
 .l-chat__user-desc {
-	position: fixed;
-    right: 0;
     display: inline-block;
     height: 100%;
 }
 
 .l-chat__hide-desc {
-	transform: translateX(100%);
+	display: none;
 }

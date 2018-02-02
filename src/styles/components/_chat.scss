@@ -1,0 +1,35 @@
+.c-chat {
+	height: 100%;
+	width: 100%;
+    position: relative;
+}
+
+.c-chat__message-box {
+	height: 60px;
+	width: 100%;
+	border-radius: 2px;
+	box-shadow: 0px 2px 20px 0px #ddd;
+	background-color: white;
+	padding-left: 25px;
+}
+
+.c-chat__emoji {
+	position: absolute;
+	top: 19px;
+	right: 25px;
+}
+
+.c-chat__message-box-wrapper {
+	position: absolute;
+    bottom: 20px;
+    left: 6%;
+    width: calc(88%);
+}
+
+@media only screen and (max-width: 768px) {
+	.c-chat__message-box-wrapper {
+		bottom: 40px;
+		left: 0%;
+		width: 100%;
+	}
+}

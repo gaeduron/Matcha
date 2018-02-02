@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Navbar } from '../Navbar';
 import { Header } from './Header';
 import Menu from './menu';
+import Chat from './Chat';
 import UserDescription from './UserDescription.js';
 
 export class SearchPage extends React.Component {
@@ -45,7 +46,8 @@ export class SearchPage extends React.Component {
 						showMenu={this.onShowMenu}
 					/>
 				</div>
-				<div className="l-main l-main__search c-main c-main--white">
+				<div className="l-main l-main__chat c-main c-main--white">
+					<Chat />
 					<div className={`l-chat__user-desc ${this.state.description == "hidden" ? "l-chat__hide-desc" : ""}`}>
 						<UserDescription />
 					</div>
