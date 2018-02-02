@@ -5,7 +5,7 @@ import 'element-theme-default';
 import ChipInput from 'material-ui-chip-input';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import MapWithAMarker from '../searchPage/map';
-import { Tags } from './Tags';
+import { Tags } from '../profilePage/Tags';
 
 // FOR TEST PURPOSE ONLY, TO MOVE IN ENV
 const GOOGLE_GEOLOCATION_API_KEY = 'AIzaSyC3VByoAFwfYTsXvC5GgS0F6mEiJuoku2Y';
@@ -34,6 +34,7 @@ export class UserDescription extends React.Component {
 			edit: 'false',
 			tags: ["Creative", "Friendly", "Dog lover", "Meloman", "Problem Solver", "Egg Head"],
 			squareHeight: 472,
+			description: "visible",
 		};
 	}
 
@@ -48,19 +49,13 @@ export class UserDescription extends React.Component {
 	}
 
   updateDimensions = () => {
-    if(window.innerWidth <= 980 && window.innerWidth > 768) {
-		this.setState({ squareHeight: 320 });
-    } else if ( window.innerWidth <= 768 && window.innerWidth > 472) {
-		this.setState({ squareHeight: 472 });
-    } else if ( window.innerWidth <= 472 && window.innerWidth > 424) {
-		this.setState({ squareHeight: 425 });
-    } else if ( window.innerWidth <= 424 && window.innerWidth > 374) {
-		this.setState({ squareHeight: 375 });
-    } else if ( window.innerWidth <= 374) {
-		this.setState({ squareHeight: 320 });
-	} else {
-		this.setState({ squareHeight: 472 });
-    }
+    if(window.innerWidth > 1550) {
+		this.setState({ squareHeight: 472, description: "visible" });
+	} else if (window.innerWidth > 1235) {
+		this.setState({ squareHeight: 320, description: "visible" });
+    } else {
+		this.setState({ description: "hidden" });
+	}
   }
 
   componentDidMount = () => {
@@ -75,10 +70,7 @@ export class UserDescription extends React.Component {
 
 	render() {
 		return (
-			<div className="c-user-desc">
-				<button className="l-onb-nav__buttons-left c-button c-button--circle c-user-desc__edit" onClick={this.props.stepBack}>
-					<i className="material-icons">mode_edit</i>
-				</button>
+			<div className={`c-user-desc--chat ${this.state.description == "hidden" ? "l-chat__hide-desc" : ""}`}>
 				<Carousel height={`${this.state.squareHeight}px`} trigger="click" interval="10000" arrow="always">
 					{
 						[1,2,3,4,5].map((item, index) => {
@@ -103,7 +95,7 @@ My early career as an entrepreneur allowed me to develop a wide array of busines
 Today, I'm a full-time student at 42, striving to become a valuable Software Engineer. 
 If you find my profile interesting and if your company is both bold and innovative, I'd be glad to hear from you !</p>
 				</div>
-				<div className="c-menu__map c-user-desc__map">
+				<div className="c-menu__map c-user-desc__map--chat">
 					<MapWithAMarker
 					  googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${GOOGLE_GEOLOCATION_API_KEY}&v=3.exp&libraries=geometry,drawing,places`}
 					  loadingElement={<div style={{ height: `100%` }} />}

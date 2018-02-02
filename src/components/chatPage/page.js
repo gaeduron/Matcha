@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Navbar } from '../Navbar';
 import { Header } from './Header';
 import Menu from './menu';
+import UserDescription from './UserDescription.js';
 
 export class SearchPage extends React.Component {
 	constructor(props) {
@@ -10,6 +11,7 @@ export class SearchPage extends React.Component {
 
 		this.state = {
 			menu: 'hidden',
+			description: 'visible',
 		};
 	}
 
@@ -44,6 +46,9 @@ export class SearchPage extends React.Component {
 					/>
 				</div>
 				<div className="l-main l-main__search c-main c-main--white">
+					<div className={`l-chat__user-desc ${this.state.description == "hidden" ? "l-chat__hide-desc" : ""}`}>
+						<UserDescription />
+					</div>
 				</div>
 			</div>
 		);
