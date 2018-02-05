@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Input } from 'element-react';
 import 'element-theme-default';
+import { Message } from './Message';
 
 export class Chat extends React.Component {
 	constructor(props) {
@@ -14,6 +15,8 @@ export class Chat extends React.Component {
 	render() {
 		return (
 			<div className="c-chat">
+				<p className="c-chat__date-text">20 DECEMBRE 2017, 18:34</p>
+				<Message text="On fait un test yo yo yoo yoooo "/>
 				<div className="c-chat__message-box-wrapper">
 					<input className="c-chat__message-box" placeholder="Type a message..." />
 					<i className="material-icons c-chat__emoji">tag_faces</i>

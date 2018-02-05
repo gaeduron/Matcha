@@ -26,6 +26,10 @@
     width: calc(88%);
 }
 
+.c-chat__date-text {
+	font-size: 14px;
+}
+
 @media only screen and (max-width: 768px) {
 	.c-chat__message-box-wrapper {
 		bottom: 40px;
