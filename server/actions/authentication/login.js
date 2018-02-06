@@ -2,6 +2,7 @@ const Users = require('../../models/user');
 const logger = require('../../logs/logger');
 const myErrors = require('../../errors');
 const bcrypt = require('bcryptjs');
+const { pick } = require('ramda');
 
 const error = {
 	invalidePassword: myErrors.newFailure({
@@ -11,6 +12,15 @@ const error = {
 };
 
 const Login = async ({ socketID, emailOrLogin, password }) => {
+
+	const reduxStateData = [
+		'login', 'firstname', 'lastname', 
+		'nickname', 'email', 'sex', 
+		'sexualOrientation', 'bio', 
+		'longitude', 'latitude', 'birthdate', 
+		'photos', 'geolocationAllowed', 'onboarding', 'id', 'occupation'
+	];
+
 	const user = {
 		password,
 		connected: socketID,
@@ -21,6 +31,7 @@ const Login = async ({ socketID, emailOrLogin, password }) => {
 	let response = await Users.find(user);
 	if (response.error) { return response; }
 	let isOnboarding = response.user.onboarding;
+	let userRedux = pick(reduxStateData, response.user); 
 	user.id = response.user.id;
 	user.hash = response.user.password;
 	logger.info('User exist');
@@ -38,7 +49,8 @@ const Login = async ({ socketID, emailOrLogin, password }) => {
 
 	return { 
 		uid,
-		isOnboarding
+		isOnboarding,
+		...userRedux
 	};
 };
 
