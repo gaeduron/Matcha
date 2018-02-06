@@ -17,6 +17,13 @@
 	position: absolute;
 	top: 19px;
 	right: 25px;
+	@extend %transition;
+}
+
+.c-chat__emoji:hover {
+	cursor: pointer;
+	color: #FC2781;
+	@extend %transition;
 }
 
 .c-chat__message-box-wrapper {
