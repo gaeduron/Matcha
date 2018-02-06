@@ -2439,6 +2439,10 @@ elliptic@^6.0.0:
     minimalistic-assert "^1.0.0"
     minimalistic-crypto-utils "^1.0.0"
 
+emoji-mart@^2.4.2:
+  version "2.4.2"
+  resolved "https://registry.yarnpkg.com/emoji-mart/-/emoji-mart-2.4.2.tgz#df8051df6842e23b081df7d5b21418c491c44fcc"
+
 emoji-regex@^6.1.0:
   version "6.5.1"
   resolved "https://registry.yarnpkg.com/emoji-regex/-/emoji-regex-6.5.1.tgz#9baea929b155565c11ea41c6626eaa65cef992c2"

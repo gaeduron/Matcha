@@ -1,0 +1,153 @@
+.c-user-desc {
+	display: inline-block;
+	width: 472px;
+	background: #fff;
+	box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.1);
+	border-radius: 2px;
+	position: relative;
+}
+
+.c-user-desc--chat {
+	width: 472px;
+	background: #fff;
+	box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.1);
+	border-radius: 2px;
+    overflow-y: auto;
+    height: 100%;
+}
+
+.c-user-desc__text-container {
+	width: 90%;
+	margin: auto;
+	margin-top: 20px;
+	text-align: left;
+}
+
+.c-user-desc__name {
+	font-size: 26px;
+    color: #333;
+    font-weight: 900;
+	display: inline-block;
+}
+
+.c-user-desc__age {
+	font-size: 26px;
+    color: #333;
+    font-weight: 300;
+	display: inline-block;
+	margin-left: 8px;
+}
+
+.c-user-desc__info-box {
+	margin: 10px 0px 20px 0px;
+}
+
+.c-user-desc__info {
+	font-size: 14px;
+    color: #333;
+    font-weight: 300;	
+}
+
+.c-user-desc__info--inline {
+	display: inline-block;
+}
+
+.c-user-desc__info--marged-bot {
+	margin-bottom: 10px;
+}
+
+.c-user-desc__text {
+	white-space: pre-wrap;
+	font-size: 16px;
+    color: #000;
+    font-weight: 300;	
+}
+
+.c-user-desc__score {
+	margin-left: 12px;
+	margin-bottom: 20px;
+	font-size: 20px;
+    color: #FF0055;
+    font-weight: 300;	
+	display: inline-block;
+}
+
+.c-user-desc__map {
+	position: initial;
+	margin-top: 25px;
+	height: 472px;
+}
+
+.c-user-desc__map--chat {
+	position: initial;
+	margin-top: 25px;
+	height: 472px;
+}
+
+.c-user-desc__edit {
+	position: absolute;
+	top: 20px;
+	left: 20px;
+	z-index: 100;
+}
+
+@media only screen and (max-width: 1550px) {
+	.c-user-desc--chat {
+		width: 320px;
+	}
+	
+	.c-user-desc__map--chat {
+		height: 320px;
+	}
+}
+
+@media only screen and (max-width: 980px) {
+	.c-user-desc {
+		width: 320px;
+	}
+	
+	.c-user-desc__map {
+		height: 320px;
+	}
+}
+
+@media only screen and (max-width: 768px) {
+	.c-user-desc {
+		width: 472px;
+	}
+	
+	.c-user-desc__map {
+		height: 472px;
+	}
+}
+
+@media only screen and (max-width: 472px) {
+	.c-user-desc {
+		width: 425px;
+	}
+	
+	.c-user-desc__map {
+		height: 425px;
+	}
+}
+
+@media only screen and (max-width: 424px) {
+	.c-user-desc {
+		width: 375px;
+	}
+	
+	.c-user-desc__map {
+		height: 375px;
+	}
+}
+
+@media only screen and (max-width: 374px) {
+	.c-user-desc {
+		width: 320px;
+	}
+	
+	.c-user-desc__map {
+		height: 320px;
+	}
+}
+

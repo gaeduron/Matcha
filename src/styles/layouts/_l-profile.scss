@@ -1,0 +1,12 @@
+.l-user-desc__box {
+	margin: 50px auto 0px auto;
+	background: #f8f8f8;
+	padding-bottom: 50px;
+}
+
+@media only screen and (max-width: 768px) {
+	.l-user-desc__box {
+		margin: 46px auto 0px auto;
+		padding-bottom: 46px;
+	}	
+}
