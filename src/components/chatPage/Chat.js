@@ -85,6 +85,7 @@ export class Chat extends React.Component {
 					<Picker
 						native={true}
 						style={{
+							width: '295px',
 							position: 'absolute',
 							bottom: '78px',
 							right: '12px',
