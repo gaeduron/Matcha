@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Navbar } from '../Navbar';
 import { Header } from './Header';
+import { UserDescription } from './UserDescription';
 import Menu from './menu';
 
 export class SearchPage extends React.Component {
@@ -42,6 +43,9 @@ export class SearchPage extends React.Component {
 					<Menu />
 				</div>
 				<div className="l-main l-main__search c-main c-main--white">
+					<div className="l-user-desc__box">
+						<UserDescription />
+					</div>
 				</div>
 			</div>
 		);

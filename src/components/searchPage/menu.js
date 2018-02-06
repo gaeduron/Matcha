@@ -3,7 +3,10 @@ import { connect } from 'react-redux';
 import { Slider } from 'antd';
 import ChipInput from 'material-ui-chip-input';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import { Select } from 'antd';
 import MapWithAMarker from './map';
+
+const Option = Select.Option;
 
 // FOR TEST PURPOSE ONLY, TO MOVE IN ENV
 const GOOGLE_GEOLOCATION_API_KEY = 'AIzaSyC3VByoAFwfYTsXvC5GgS0F6mEiJuoku2Y';
@@ -32,8 +35,14 @@ export class SearchMenu extends React.Component {
 			distanceRange: [5, 40],	
 			ageRange: [24, 34],	
 			popularityRange: [50, 400],	
-			tags: this.props.tags ? this.props.tags : []
+			tags: this.props.tags ? this.props.tags : [],
+			sort: 'distance',
 		};
+	}
+
+	onSort = (value) => {
+		const sort = value;
+		this.setState(() => ({ sort }));
 	}
 
 	getDistance = (value) => {
@@ -91,11 +100,11 @@ export class SearchMenu extends React.Component {
 					<h2 className="c-menu__title">Filters</h2>
 					<div>
 						<p className="c-sort__title">Sort by</p>
-						<select className="c-onb-form__input--select">
-							<option value="0">distance</option>
-							<option value="1">age</option>
-							<option value="2">popularity</option>
-						</select>
+						<Select defaultValue="distance" style={{ width: 120 }} onChange={this.onSort}>
+							<Option value="distance">distance</Option>
+							<Option value="age">age</Option>
+							<Option value="score">score</Option>
+						</Select>
 					</div>
 				</div>
 				<div className="c-slider">

@@ -10,12 +10,15 @@
 @import './objects/o-background-image';
 @import './objects/o-button--line';
 @import './objects/o-title';
+@import './objects/o-tags';
 
 @import './layouts/l-landing';
 @import './layouts/l-three-col';
 @import './layouts/l-news';
 @import './layouts/l-onboarding';
 @import './layouts/_l-search.scss';
+@import './layouts/l-profile';
+@import './layouts/l-chat';
 
 @import './components/onboarding';
 @import './components/box-layout';
@@ -38,12 +41,13 @@
 @import './components/user-card';
 @import './components/menu';
 @import './components/slider';
+@import './components/user_description';
+@import './components/chat';
+@import './components/message';
 
 @import './utils/visibility';
 @import './utils/material-icons';
 @import './utils/loaders';
 @import './utils/spaces';
 @import './utils/ant-lib-override';
-
-
-
+@import './utils/emoji-mart';

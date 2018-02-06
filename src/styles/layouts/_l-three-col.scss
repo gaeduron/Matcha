@@ -32,6 +32,11 @@
 	text-align: center;
 }
 
+.l-main__chat {
+	display: flex;
+	overflow: hidden;
+}
+
 @media only screen and (max-width: 768px) {
 	.l-flex-container {
 		height: 100%;
