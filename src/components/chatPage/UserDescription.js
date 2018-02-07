@@ -4,6 +4,7 @@ import { Carousel } from 'element-react';
 import 'element-theme-default';
 import ChipInput from 'material-ui-chip-input';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import _ from 'lodash';
 import MapWithAMarker from '../searchPage/map';
 import { Tags } from '../profilePage/Tags';
 
@@ -60,13 +61,12 @@ export class UserDescription extends React.Component {
 
   componentDidMount = () => {
     this.updateDimensions();
-    window.addEventListener("resize", this.updateDimensions);
+    window.addEventListener("resize", _.throttle(this.updateDimensions, 1000));
   }
 
   componentWillUnmount = () => {
-    window.removeEventListener("resize", this.updateDimensions);
+    window.removeEventListener("resize", _.throttle(this.updateDimensions, 1000));
   }
-
 
 	render() {
 		return (
