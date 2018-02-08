@@ -12,6 +12,14 @@ import { history } from '../../routers/AppRouter';
 const GOOGLE_GEOLOCATION_API_KEY = 'AIzaSyC3VByoAFwfYTsXvC5GgS0F6mEiJuoku2Y';
 //AIzaSyC2Z8zLwy0uT8hd8qyBgfMmoqpKJRZwRkI
 
+const findAge = (birthDate) => {
+	let now = new Date(Date.now());
+	let timeDiff = Math.abs(now.getTime() - birthDate.getTime());
+	let age = Math.floor(timeDiff / (1000 * 3600 * 24 * 365)); 
+
+	return age;
+};
+
 const style = () => {
 	const { innerWidth } = window;
 

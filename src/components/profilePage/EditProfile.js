@@ -7,17 +7,11 @@ import MapWithAMarker from '../searchPage/map';
 import { Tags } from './Tags';
 import { history } from '../../routers/AppRouter';
 import UserPhotos from '../photo/UserPhotos';
+import BirthdatePicker from '../utils/BirthdatePicker';
 
 // FOR TEST PURPOSE ONLY, TO MOVE IN ENV
 const GOOGLE_GEOLOCATION_API_KEY = 'AIzaSyC3VByoAFwfYTsXvC5GgS0F6mEiJuoku2Y';
 
-const findAge = (birthDate) => {
-	let now = new Date(Date.now());
-	let timeDiff = Math.abs(now.getTime() - birthDate.getTime());
-	let age = Math.floor(timeDiff / (1000 * 3600 * 24 * 365)); 
-
-	return age;
-};
 
 const style = () => {
 	const { innerWidth } = window;
@@ -95,8 +89,8 @@ export class EditProfile extends React.Component {
 
 		return (
 			<div className="c-user-desc">
-				<button className="l-onb-nav__buttons-left c-button c-button--circle c-user-desc__edit" onClick={this.onEdit}>
-					<i className="material-icons">mode_edit</i>
+				<button className="l-onb-nav__buttons-right c-button c-button--circle c-user-desc__edit" onClick={this.onEdit}>
+					<i className="material-icons">save</i>
 				</button>
 
 
@@ -109,19 +103,46 @@ export class EditProfile extends React.Component {
 
 				{/* Profile form */}
 
-				<div className="c-user-desc__text-container">
-					<h2 className="c-user-desc__name">{fname} {lname},</h2>
-					<h2 className="c-user-desc__age">{findAge(birthDate)}</h2>
-					<div className="c-user-desc__info-box">
-						<p className="c-user-desc__info">{occupation}</p>
-						<p className="c-user-desc__info">4 km away</p>
-						<p className="c-user-desc__info">Straight, Male</p>
+						
+					
+				<div className="l-edit-profile__name">
+					<div className="c-form-input c-form-box__first-input">
+						<h5 className="c-form-input__title">FIRSTNAME</h5>
+						<input
+							className="c-form-input__content"
+							onChange={(e) => this.handleOnChange(e, 'fname')}
+							type="text"
+							placeholder="Firstname"
+							autoFocus
+							value={fname}
+						/>
 					</div>
-						<p className="c-user-desc__text">Hi, I'm Benjamin, 
-My early career as an entrepreneur allowed me to develop a wide array of business and digital related skills. 
-Today, I'm a full-time student at 42, striving to become a valuable Software Engineer. 
-If you find my profile interesting and if your company is both bold and innovative, I'd be glad to hear from you !</p>
-				</div>
+					
+					<div className="c-form-input c-form-box__input">
+						<h5 className="c-form-input__title">LASTNAME</h5>
+						<input
+							className="c-form-input__content"
+							onChange={(e) => this.handleOnChange(e, 'lname')}
+							type="text"
+							placeholder="Lastname"
+							value={lname}
+						/>
+					</div>
+
+					<BirthdatePicker 
+						getTimestamp={this.getTimestamp} 
+						birthDate={birthDate ? new Date(birthDate) : ''}
+					/>
+					<div className="c-onb-form__error c-onb-form__error--birthdate">
+					{/*
+						<p>{error.birthDate}</p>
+						<p>{error.minAge}</p>
+					*/}
+					</div>
+
+
+				</div>		
+
 
 				{/* Geolocation */}
 

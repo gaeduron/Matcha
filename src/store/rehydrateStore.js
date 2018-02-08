@@ -29,7 +29,7 @@ export default function rehydrateStore(dispatch, user) {
 			latitude: user.latitude, 
 			longitude: user.longitude, 
 			geolocationAllowed: user.geolocationAllowed 
-		})	
+		}),
 
 		//	updateTags(tags),	
 		

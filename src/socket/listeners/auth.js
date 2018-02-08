@@ -17,7 +17,7 @@ const authListener = (dispatch, socket) => {
 		dispatch({
 			type: 'LOGIN',
 			uid,
-			onboarding
+			isOnboarding: onboarding
 		});
 		
 		rehydrateStore(dispatch, user);
