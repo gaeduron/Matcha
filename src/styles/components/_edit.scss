@@ -1,12 +1,19 @@
 
+.c-edit-menu {
+	height: 40px;
+	display: flex;
+	justify-content: space-between;
+	align-items: baseline;
+	margin-bottom: 10px;
+}
+
 .l-edit-profile__container {
 		display: flex;
 		width: 284px;
 }
 
-.l-edit-profile__name {
-	display: flex;
-	width: 284px;
+.l-edit-form {
+	margin-top: 30px;
 }
 
 .l-edit__container {
@@ -17,3 +24,19 @@
 	display: flex;
 	flex-direction: column;
 }
+
+
+.l-edit-form__first-input {
+	margin: -1px auto 0px auto;
+}
+
+.l-edit-form__datepicker {
+	margin: -1px auto -11px auto;
+}
+
+
+//@media (max-width: 768px) {
+//	.c-edit-menu {
+//		margin-top: 46px;
+//	}
+//}
