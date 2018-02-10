@@ -119,7 +119,7 @@ If you find my profile interesting and if your company is both bold and innovati
 					<MapWithAMarker
 					  googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${GOOGLE_GEOLOCATION_API_KEY}&v=3.exp&libraries=geometry,drawing,places`}
 					  loadingElement={<div style={{ height: `100%` }} />}
-					  containerElement={<div style={{ height: `${this.state.squareHeight}px` }} />}
+					  containerElement={<div style={{ height: `100%` }} />}
 					  mapElement={<div style={{ height: `100%` }} />}
 					  zoom={12}
 					/>
