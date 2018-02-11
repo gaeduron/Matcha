@@ -51,20 +51,20 @@ export default class UserPhotos extends React.Component {
 		let arr =  this.state.photosUrl.slice();	
 
 		const right = (pos == 4) ? 0 : pos + 1;
-		if (arr[right].value !== undefined) 
+		if (arr[right].value !== undefined) {
 			[arr[right], arr[pos]] = [arr[pos], arr[right]];	
-
-		this.setState({ photosUrl: arr }, this.onChange);	
+			this.setState({ photosUrl: arr }, this.onChange);	
+		}
 	};
 
 	leftSwap = (pos) => {
 		let arr =  this.state.photosUrl.slice();	
 
 		const left = (pos == 0) ? 4 : pos - 1;
-		if (arr[left].value !== undefined)
+		if (arr[left].value !== undefined) {
 			[arr[left], arr[pos]] = [arr[pos], arr[left]];	
-
-		this.setState({ photosUrl: arr }, this.onChange);	
+			this.setState({ photosUrl: arr }, this.onChange);	
+		}
 	};
 
 	render () {

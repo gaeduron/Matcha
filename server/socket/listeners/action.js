@@ -7,17 +7,20 @@ const getLocation = require('../../actions/onboarding/getLocation');
 const getTags = require('../../actions/onboarding/getTags');
 const getPhotos = require('../../actions/onboarding/getPhotos');
 const getBio = require('../../actions/onboarding/getBio');
+const editProfile = require('../../actions/edit/editProfile');
 
 
 const startAction = async (action, socket, actionFunc, loggerContent) => {
 	const response = await actionFunc(action.data);
 	if (response.error) {
-		socket.emit('notify_error', response);
+		socket.emit('notificationError', response.error[0]);
 	} else {
 		socket.emit(action.type, action.data);
 		switch (action.type) {
 			case 'SERVER/SAVE_LOCATION': 
 				socket.emit('notificationSuccess', 'Congratulations, welcome to Matcha !');
+			case 'SERVER/EDIT_PROFILE': 
+				socket.emit('notificationSuccess', 'Profile updated');
 		}
 			logger.succes(loggerContent);
 	}
@@ -46,6 +49,9 @@ const actionListeners = (socket) => {
 				break; 
 			case 'SERVER/SAVE_BIO': /* bio, occupation */ 
 				startAction(action, socket, getBio, 'Onboarding: user bio and occupation saved to DB');
+				break; 
+			case 'SERVER/EDIT_PROFILE': 
+				startAction(action, socket, editProfile, 'Onboarding: user bio and occupation saved to DB');
 				break; 
 
 			default: 

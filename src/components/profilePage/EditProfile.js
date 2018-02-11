@@ -10,6 +10,7 @@ import UserPhotos from '../photo/UserPhotos';
 import EditProfileForm from './EditProfileForm';
 import Geolocate from '../map/Geolocate';
 import debounce from 'lodash/debounce';
+import { saveUserData } from '../../actions/onboarding';
 
 // FOR TEST PURPOSE ONLY, TO MOVE IN ENV
 const GOOGLE_GEOLOCATION_API_KEY = 'AIzaSyC3VByoAFwfYTsXvC5GgS0F6mEiJuoku2Y';
@@ -34,13 +35,22 @@ export class EditProfile extends React.Component {
 			tags: props.user.tags,
 			photos: props.user.photos,
 			location: props.user.location,
-			startGetPhotosUrl: false
 		};
 	}
 
 
 
 	/* Child components data retrieval */
+
+	handleAddtag = (tag) => {
+		const tags = [...this.state.tags, tag];
+		this.setState({ tags });
+	};	 
+
+	handleDeletetag = (tag, index) => {
+		const tags = this.state.tags.filter((elem) => elem !== tag);
+		this.setState({ tags });
+	};	 
 
 	getLocation = (latitude, longitude, geolocationAllowed) => {
 		this.setState({
@@ -77,8 +87,10 @@ export class EditProfile extends React.Component {
 	onPrev = () => history.replace('/profile/user-id');
 	
 	debouncedSave =  debounce(() => {
-		if (!this.hasError(this.state.profile.error))	
+		if (!this.hasError(this.state.profile.error)) {
 			console.log('emit data ', this.state);
+			this.props.saveUserData('SERVER/EDIT_PROFILE', this.state);
+		}
 	}, 1300);
 
 	componentDidUpdate() {
@@ -123,6 +135,27 @@ export class EditProfile extends React.Component {
 				/>
 				
 
+				{/******** TAGS *********/}
+				
+				<MuiThemeProvider>
+						<div className="l-tags">
+							<ChipInput
+								value={this.state.tags}
+								onRequestAdd={(tag) => this.handleAddtag(tag)}
+								onRequestDelete={(tag, index) => this.handleDeletetag(tag, index)}
+								underlineStyle={{ }}
+								hintText={'Add some tags (ex. Batman, Ramen, ...)'}
+								chipContainerStyle={{
+									backgroundColor: 'red'
+								}}
+								underlineFocusStyle={{
+									borderBottom: '2px solid #fc2b68'
+								}}
+							/>
+						</div>
+				</MuiThemeProvider>
+
+
 				{/******** GEOLOCATION *********/}
 
 				<div className="l-onb__location">
@@ -134,10 +167,16 @@ export class EditProfile extends React.Component {
 					/>
 				</div>
 
+
+
 			</div>
 		);
 	}
 }
+
+const mapDispatchToProps = (dispatch) => ({
+	saveUserData: (emitMessage, profile) => dispatch(saveUserData(emitMessage, profile))
+});
 
 const mapStateToProps = (state) => {
 	return {
@@ -146,4 +185,4 @@ const mapStateToProps = (state) => {
 	};
 };
 
-export default connect(mapStateToProps, undefined)(EditProfile);
+export default connect(mapStateToProps, mapDispatchToProps)(EditProfile);
