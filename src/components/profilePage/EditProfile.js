@@ -52,15 +52,8 @@ export class EditProfile extends React.Component {
 		});
 	};
 
-	startGetPhotosUrl = () => {
-		this.setState({ startGetPhotosUrl: true }, 
-				() => this.setState({ startGetPhotosUrl: false }));
-	};
-
 	getPhoto = (photosUrl) => {
-	//	this.props.getPhoto({ photosUrl });
-		setTimeout(() => this.setState({ photos: photosUrl }), 1000);
-		console.log('Photo Urls in OnboardingPhoto', photosUrl);	
+		this.setState({ photos: photosUrl });
 	};
 
 	getProfile = (profile) => {
@@ -119,11 +112,8 @@ export class EditProfile extends React.Component {
 
 				<UserPhotos 
 					initialPhotos={initialPhotos} 
-					getPhotosUrl={this.getPhoto}
-					shouldStartGetPhotosUrl={this.state.startGetPhotosUrl}
+					onChange={this.getPhoto}
 				/>
-
-				<button onClick={this.startGetPhotosUrl}> Save photos </button>
 
 				{/******** PROFILE FORM *********/}
 
