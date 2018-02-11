@@ -14,6 +14,8 @@ import debounce from 'lodash/debounce';
 // FOR TEST PURPOSE ONLY, TO MOVE IN ENV
 const GOOGLE_GEOLOCATION_API_KEY = 'AIzaSyC3VByoAFwfYTsXvC5GgS0F6mEiJuoku2Y';
 
+//test
+
 export class EditProfile extends React.Component {
 	constructor(props) {
 		super(props);
