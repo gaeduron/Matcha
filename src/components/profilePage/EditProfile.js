@@ -8,6 +8,7 @@ import { Tags } from './Tags';
 import { history } from '../../routers/AppRouter';
 import UserPhotos from '../photo/UserPhotos';
 import EditProfileForm from './EditProfileForm';
+import Geolocate from '../map/Geolocate';
 import debounce from 'lodash/debounce';
 
 // FOR TEST PURPOSE ONLY, TO MOVE IN ENV
@@ -39,6 +40,16 @@ export class EditProfile extends React.Component {
 
 	/* Child components data retrieval */
 
+	getLocation = (latitude, longitude, geolocationAllowed) => {
+		this.setState({
+			location: {
+				latitude,
+				longitude,
+				geolocationAllowed
+			}
+		});
+	};
+
 	startGetPhotosUrl = () => {
 		this.setState({ startGetPhotosUrl: true }, 
 				() => this.setState({ startGetPhotosUrl: false }));
@@ -46,7 +57,7 @@ export class EditProfile extends React.Component {
 
 	getPhoto = (photosUrl) => {
 	//	this.props.getPhoto({ photosUrl });
-		setTimeout(() => this.setState({ photos: photosUrl }), 3000);
+		setTimeout(() => this.setState({ photos: photosUrl }), 1000);
 		console.log('Photo Urls in OnboardingPhoto', photosUrl);	
 	};
 
@@ -82,12 +93,9 @@ export class EditProfile extends React.Component {
 
 	render() {
 
-		const { 
-			photos: initialPhotos,
-			tags,
-			location,
-			profile
-		} = this.state;
+		const { photos: initialPhotos, tags, profile } = this.state;
+		const { geolocationAllowed, latitude, longitude } = this.state.location;
+
 
 		const error = {};
 
@@ -125,6 +133,14 @@ export class EditProfile extends React.Component {
 
 				{/******** GEOLOCATION *********/}
 
+				<div className="l-onb__location">
+					<Geolocate 
+						onChange={this.getLocation} 
+						geolocationAllowed={geolocationAllowed}		
+						latitude={latitude}
+						longitude={longitude}
+					/>
+				</div>
 
 			</div>
 		);
