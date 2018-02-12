@@ -106,11 +106,11 @@
 
 
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
 
 	.container--photo-uploader {
 		width: 335px;
-		overflow: initial;
+	/*	overflow: initial; */
 	}
 
 	.clear {
@@ -162,7 +162,7 @@
 
 	.container--photo-uploader {
 		width: 284px;
-		overflow: initial;
+	/*	overflow: initial; */
 	}
 
 	.photo-circle {

@@ -56,9 +56,6 @@ export default class OnboardingGender extends React.Component {
 							</select>
 					</div>		
 
-
-
-
 				</form>
 
 				<OnboardingNav action={this.onSubmit} />

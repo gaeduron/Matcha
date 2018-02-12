@@ -126,8 +126,8 @@ export default class OnboardingBio extends React.Component {
 							onChange={(e) => this.handleOnChangeBio(e)}
 							placeholder="Bio"
 							value={this.state.bio}
-							minRows={8}
-							maxRows={8}
+							minRows={6}
+							maxRows={6}
 						/>
 					</div>
 				</form>

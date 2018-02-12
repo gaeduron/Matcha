@@ -88,7 +88,7 @@ export default class BirthdatePicker extends React.Component {
 		return (
 			<div>
 
-				<div className="l-onb-datepicker c-form-box__first-input">
+				<div className={`l-onb-datepicker c-form-box__first-input ${this.props.className}`}>
 					<div className="c-onb-form__input">
 						<h5 className="c-form-input__title">MONTH</h5>
 						<select 
