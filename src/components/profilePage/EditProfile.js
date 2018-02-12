@@ -86,14 +86,26 @@ export class EditProfile extends React.Component {
 
 	onPrev = () => history.replace('/profile/user-id');
 	
-	debouncedSave =  debounce(() => {
+	debouncedSave = debounce(() => {
 		if (!this.hasError(this.state.profile.error)) {
-			console.log('emit data ', this.state);
-			this.props.saveUserData('SERVER/EDIT_PROFILE', this.state);
+			
+			let data = {
+				...this.state.profile,
+				...this.state.location,
+				tags: this.state.tags,
+				photosUrl: this.state.photos,
+				sessionToken: this.state.sessionToken
+			};
+			delete data.error;
+
+			console.log('emit data ', data);
+			this.props.saveUserData('SERVER/EDIT_PROFILE', data);
 		}
 	}, 1300);
 
-	componentDidUpdate() {
+	componentDidUpdate(prevProps) {
+
+		if (Object.is(prevProps, this.props))	
 			this.debouncedSave();
 	} 
 

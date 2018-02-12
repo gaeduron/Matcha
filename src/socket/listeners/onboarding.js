@@ -63,6 +63,39 @@ const onboardingListener = (dispatch, socket) => {
 		]);
 	});
 
+	socket.on('SERVER/EDIT_PROFILE', (data) => {
+		
+		const {
+			latitude, 
+			longitude, 
+			geolocationAllowed,
+			bio, 
+			occupation,
+			photosUrl,
+			tags,
+			orientation,
+			gender,
+			fname,
+			lname,
+			nickname,
+			birthDate
+		} = data; 
+
+		dispatch([
+			updateFname(fname),	
+			updateLname(lname),	
+			updateNickname(nickname),	
+			updateBirthDate(birthDate),
+			updateGender(gender),	
+			updateOrientation(orientation),	
+			updatePhotos(photosUrl),	
+			updateBio(bio),	
+			updateOccupation(occupation),	
+			updateLocation({ latitude, longitude, geolocationAllowed }),	
+			updateTags(tags)	
+		]);
+	});
+
 };
 
 export default onboardingListener;
