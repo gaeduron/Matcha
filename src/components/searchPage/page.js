@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Navbar } from '../Navbar';
 import { Header } from '../Header';
-import { UserCard } from './card';
+import UserCard from './card';
 import Menu from './menu';
 
 export class SearchPage extends React.Component {

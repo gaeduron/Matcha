@@ -1,95 +1,34 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import moment from 'moment';
 
 export class UserCard extends React.Component {
-	constructor(props) {
-		super(props);
-	}
 
 	render() {
+		console.log(this.props);
 		return (
 			<div className="l-cards">
-				<div className="l-card c-user-card">
-					<div className="c-user-card__gradient"/>
-					<div className="c-user-card__text">
-						<p className="c-user-card__title">Paola Gracias, 29</p>
-						<p className="c-user-card__date">Data Scientist at Robetim</p>
+				{this.props.profiles.map((user, i) =>
+					<div className="l-card c-user-card" key={user.photos[0]+i}>
+						<div className="c-user-card__gradient"/>
+						<div className="c-user-card__text">
+							<p className="c-user-card__title">
+								{`${user.firstname} ${user.lastname}, ${moment().diff(user.birthdate, 'years')}`}
+							</p>
+							<p className="c-user-card__date">
+								{`${user.occupation}`}	
+							</p>
+						</div>
+						<img className="c-user-card__image" src={user.photos[0]} alt="" />
 					</div>
-					<img className="c-user-card__image" src="http://image.ibb.co/dKurob/Screen_Shot_2018_01_22_at_5_33_26_PM.png" alt="" />
-				</div>
-				<div className="l-card c-user-card">
-					<div className="c-user-card__gradient"/>
-					<div className="c-user-card__text">
-						<p className="c-user-card__title">Paola Gracias, 29</p>
-						<p className="c-user-card__date">Data Scientist at Robetim</p>
-					</div>
-					<img className="c-user-card__image" src="http://image.ibb.co/dKurob/Screen_Shot_2018_01_22_at_5_33_26_PM.png" alt="" />
-				</div>
-				<div className="l-card c-user-card">
-					<div className="c-user-card__gradient"/>
-					<div className="c-user-card__text">
-						<p className="c-user-card__title">Paola Gracias, 29</p>
-						<p className="c-user-card__date">Data Scientist at Robetim</p>
-					</div>
-					<img className="c-user-card__image" src="http://image.ibb.co/dKurob/Screen_Shot_2018_01_22_at_5_33_26_PM.png" alt="" />
-				</div>
-				<div className="l-card c-user-card">
-					<div className="c-user-card__gradient"/>
-					<div className="c-user-card__text">
-						<p className="c-user-card__title">Paola Gracias, 29</p>
-						<p className="c-user-card__date">Data Scientist at Robetim</p>
-					</div>
-					<img className="c-user-card__image" src="http://image.ibb.co/dKurob/Screen_Shot_2018_01_22_at_5_33_26_PM.png" alt="" />
-				</div>
-				<div className="l-card c-user-card">
-					<div className="c-user-card__gradient"/>
-					<div className="c-user-card__text">
-						<p className="c-user-card__title">Paola Gracias, 29</p>
-						<p className="c-user-card__date">Data Scientist at Robetim</p>
-					</div>
-					<img className="c-user-card__image" src="http://image.ibb.co/dKurob/Screen_Shot_2018_01_22_at_5_33_26_PM.png" alt="" />
-				</div>
-				<div className="l-card c-user-card">
-					<div className="c-user-card__gradient"/>
-					<div className="c-user-card__text">
-						<p className="c-user-card__title">Paola Gracias, 29</p>
-						<p className="c-user-card__date">Data Scientist at Robetim</p>
-					</div>
-					<img className="c-user-card__image" src="http://image.ibb.co/dKurob/Screen_Shot_2018_01_22_at_5_33_26_PM.png" alt="" />
-				</div>
-				<div className="l-card c-user-card">
-					<div className="c-user-card__gradient"/>
-					<div className="c-user-card__text">
-						<p className="c-user-card__title">Paola Gracias, 29</p>
-						<p className="c-user-card__date">Data Scientist at Robetim</p>
-					</div>
-					<img className="c-user-card__image" src="http://image.ibb.co/dKurob/Screen_Shot_2018_01_22_at_5_33_26_PM.png" alt="" />
-				</div>
-				<div className="l-card c-user-card">
-					<div className="c-user-card__gradient"/>
-					<div className="c-user-card__text">
-						<p className="c-user-card__title">Paola Gracias, 29</p>
-						<p className="c-user-card__date">Data Scientist at Robetim</p>
-					</div>
-					<img className="c-user-card__image" src="http://image.ibb.co/dKurob/Screen_Shot_2018_01_22_at_5_33_26_PM.png" alt="" />
-				</div>
-				<div className="l-card c-user-card">
-					<div className="c-user-card__gradient"/>
-					<div className="c-user-card__text">
-						<p className="c-user-card__title">Paola Gracias, 29</p>
-						<p className="c-user-card__date">Data Scientist at Robetim</p>
-					</div>
-					<img className="c-user-card__image" src="http://image.ibb.co/dKurob/Screen_Shot_2018_01_22_at_5_33_26_PM.png" alt="" />
-				</div>
+				)}
 			</div>
 		);
 	}
 }
 
-const mapStateToProps = (state) => {
-	return {
-		notif: state.notif.notification,
-	}
-};
+const mapStateToProps = (state) => ({
+	profiles: state.search.profiles,
+});
 
 export default connect(mapStateToProps, undefined)(UserCard);

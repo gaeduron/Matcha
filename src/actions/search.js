@@ -1,4 +1,6 @@
-export const updateProfiles = profiles => ({
-	type: 'GET_PROFILES',
-	profiles
-});
+export const updateProfiles = profiles => {
+	return {
+		type: 'GET_PROFILES',
+		profiles
+	}
+};
