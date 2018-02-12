@@ -10,6 +10,8 @@ import './styles/styles.scss';
 import 'react-dates/lib/css/_datepicker.css';
 import { socket, socketInit} from './socket/socket';
 import LoadingPage from './components/LoadingPage';
+import rehydrateStore from './store/rehydrateStore';
+
 
 const store = configureStore();
 
@@ -26,10 +28,14 @@ const renderApp = () => {
 	}
 };
 
-socket.on('loginWithCookie', ({ uid, isOnboarding }) => {
-	console.log('response: ', uid);
+socket.on('loginWithCookie', (user) => {
+	const { uid, onboarding } = user;
+
 	cookie.set('sessionToken', uid);
-	store.dispatch(login(uid, isOnboarding));
+	store.dispatch(login(uid, onboarding));
+
+	if (uid)
+		rehydrateStore(store.dispatch, user);
 	renderApp();
 });
 

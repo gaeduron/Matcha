@@ -6,10 +6,19 @@ import ChipInput from 'material-ui-chip-input';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import MapWithAMarker from '../searchPage/map';
 import { Tags } from './Tags';
+import { history } from '../../routers/AppRouter';
 
 // FOR TEST PURPOSE ONLY, TO MOVE IN ENV
 const GOOGLE_GEOLOCATION_API_KEY = 'AIzaSyC3VByoAFwfYTsXvC5GgS0F6mEiJuoku2Y';
 //AIzaSyC2Z8zLwy0uT8hd8qyBgfMmoqpKJRZwRkI
+
+const findAge = (birthDate) => {
+	let now = new Date(Date.now());
+	let timeDiff = Math.abs(now.getTime() - birthDate.getTime());
+	let age = Math.floor(timeDiff / (1000 * 3600 * 24 * 365)); 
+
+	return age;
+};
 
 const style = () => {
 	const { innerWidth } = window;
@@ -37,10 +46,12 @@ export class UserDescription extends React.Component {
 		};
 	}
 
-	onEdit = () => {	
-		const edit = true;
-		this.setState(() => ({ edit }));
-	}
+    onEdit = () => history.replace('/profile/edit');
+
+	//onEdit = () => {	
+	//	const edit = true;
+	//	this.setState(() => ({ edit }));
+	//}
 	
 	onStopEdit = () => {	
 		const edit = false;
@@ -63,6 +74,7 @@ export class UserDescription extends React.Component {
     }
   }
 
+
   componentDidMount = () => {
     this.updateDimensions();
     window.addEventListener("resize", this.updateDimensions);
@@ -76,7 +88,7 @@ export class UserDescription extends React.Component {
 	render() {
 		return (
 			<div className="c-user-desc">
-				<button className="l-onb-nav__buttons-left c-button c-button--circle c-user-desc__edit" onClick={this.props.stepBack}>
+				<button className="l-onb-nav__buttons-left c-button c-button--circle c-user-desc__edit" onClick={this.onEdit}>
 					<i className="material-icons">mode_edit</i>
 				</button>
 				<Carousel height={`${this.state.squareHeight}px`} trigger="click" interval="10000" arrow="always">
@@ -107,7 +119,7 @@ If you find my profile interesting and if your company is both bold and innovati
 					<MapWithAMarker
 					  googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${GOOGLE_GEOLOCATION_API_KEY}&v=3.exp&libraries=geometry,drawing,places`}
 					  loadingElement={<div style={{ height: `100%` }} />}
-					  containerElement={<div style={{ height: `${this.state.squareHeight}px` }} />}
+					  containerElement={<div style={{ height: `100%` }} />}
 					  mapElement={<div style={{ height: `100%` }} />}
 					  zoom={12}
 					/>

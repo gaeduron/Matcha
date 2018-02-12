@@ -5,10 +5,6 @@ export default (state = {}, action) => {
 				uid: action.uid,
 				isOnboarding: action.isOnboarding 
 			};
-		case 'LOGOUT':
-			return {
-				uid: false
-			};
 		case 'COMPLETE_ONBOARDING':
 			return {
 				...state,

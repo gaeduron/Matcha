@@ -59,6 +59,7 @@
     "numeral": "2.0.6",
     "pg": "^7.4.0",
     "pg-format": "^1.0.4",
+    "postgres-array": "^1.0.2",
     "prop-types": "^15.6.0",
     "ramda": "^0.25.0",
     "react": "^16.2.0",

@@ -7,25 +7,24 @@ export default class OnboardingPhoto extends React.Component {
 
 	constructor(props) {
 		super(props);
-
+		
 		this.state = {
-			startGetPhotosUrl: false
+			photosUrl: this.props.initialPhotos ? this.props.initialPhotos : '' 
 		};
 	}
 
 	startGetPhotosUrl = () => {
-		this.setState({ startGetPhotosUrl: true }, 
-				() => this.setState({ startGetPhotosUrl: false }));
+		const { photosUrl } = this.state;
+		this.props.getPhoto({ photosUrl });
+		console.log('Photo Urls in OnboardingPhoto', this.state.photosUrl);	
 	};
 
-	getPhoto = (photosUrl) => {
-		this.props.getPhoto({ photosUrl });
-		console.log('Photo Urls in OnboardingPhoto', photosUrl);	
-	};
+	onChange = (photosUrl) => {
+		this.setState({ photosUrl });
+	}; 
 
 	render () {
-		const { initialPhotos } = this.props;
-				
+		const { photosUrl } = this.state;
 			
 		return (
 			<div className="l-onb-form__container"> 	
@@ -33,9 +32,8 @@ export default class OnboardingPhoto extends React.Component {
 				<h4 className="c-onb-form__title l-onb-margin-bottom">CHOOSE YOUR BEST PROFILE PICTURES</h4>
 	
 				<UserPhotos 
-					initialPhotos={initialPhotos} 
-					getPhotosUrl={this.getPhoto}
-					shouldStartGetPhotosUrl={this.state.startGetPhotosUrl}
+					initialPhotos={photosUrl} 
+					onChange={this.onChange}
 				/>	
 
 				<OnboardingNav action={this.startGetPhotosUrl} />

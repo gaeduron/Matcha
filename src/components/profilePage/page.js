@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Navbar } from '../Navbar';
 import { Header } from './Header';
 import { UserDescription } from './UserDescription';
+import EditProfile from './EditProfile';
 import Menu from './menu';
 
 export class SearchPage extends React.Component {
@@ -44,7 +45,10 @@ export class SearchPage extends React.Component {
 				</div>
 				<div className="l-main l-main__search c-main c-main--white">
 					<div className="l-user-desc__box">
-						<UserDescription />
+						{this.props.edit 
+							? <EditProfile />
+							: <UserDescription />
+						}
 					</div>
 				</div>
 			</div>

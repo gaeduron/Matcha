@@ -9,7 +9,7 @@ const error = {
 };
 
 const validateLocation = (latitude, longitude) => {
-	if (isCoordinates([latitude, longitude]))	
+	if (isCoordinates([Number(latitude), Number(longitude)]))	
 		return { error: false };
 	return error.invalidLocation();
 };
