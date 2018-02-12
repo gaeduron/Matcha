@@ -4,6 +4,7 @@ import { Slider } from 'antd';
 import ChipInput from 'material-ui-chip-input';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { Select } from 'antd';
+import _ from 'lodash';
 import MapWithAMarker from './map';
 
 const Option = Select.Option;
@@ -75,6 +76,16 @@ export class SearchMenu extends React.Component {
 		this.props.getTags(tags);
 	};
 
+	getProfiles = () => {
+		this.props.getProfiles(this.state);
+	}
+
+	debouncedGet = _.debounce(this.getProfiles , 300);
+
+	componentDidUpdate = () => {
+		this.debouncedGet();
+	}
+	
 	getMapZoom = (maxDistance) => {
 		if (maxDistance < 6) {
 			return 14;
@@ -183,10 +194,17 @@ export class SearchMenu extends React.Component {
 	}
 }
 
+const mapDispatchToProps = (dispatch) => ({
+	getProfiles: (data) => dispatch({
+		type: 'SERVER/GET_PROFILES',
+		data
+	})
+});
+
 const mapStateToProps = (state) => {
 	return {
 		notif: state.notif.notification,
 	};
 };
 
-export default connect(mapStateToProps, undefined)(SearchMenu);
+export default connect(mapStateToProps, mapDispatchToProps)(SearchMenu);

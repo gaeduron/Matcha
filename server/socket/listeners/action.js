@@ -7,9 +7,11 @@ const getLocation = require('../../actions/onboarding/getLocation');
 const getTags = require('../../actions/onboarding/getTags');
 const getPhotos = require('../../actions/onboarding/getPhotos');
 const getBio = require('../../actions/onboarding/getBio');
+const getProfiles = require('../../actions/search/getProfiles');
 
 
 const startAction = async (action, socket, actionFunc, loggerContent) => {
+	action.data.socketID = socket.id;
 	const response = await actionFunc(action.data);
 	if (response.error) {
 		socket.emit('notify_error', response);
@@ -48,6 +50,11 @@ const actionListeners = (socket) => {
 				startAction(action, socket, getBio, 'Onboarding: user bio and occupation saved to DB');
 				break; 
 
+			/* Search */
+			case 'SERVER/GET_PROFILES': /* lname, fname, nickname, birthdate */
+				startAction(action, socket, getProfiles, 'Search: user profiles data fetched');
+				break;
+ 
 			default: 
 				return;
 		}
