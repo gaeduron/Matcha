@@ -84,11 +84,21 @@ const getProfiles = async (filters) => {
 	
 	logger.info(`filter data: ${JSON.stringify(filters, null, 2)}`);
 
-	logger.info('fetching profiles data in db...');		
+	logger.info('fetching profiles data in db...');
+
+	const data = [];
+	data.push.apply(data, fakeProfiles);
+	if (filters.nextProfileIndex > 0) {
+		let i = 1;
+		while (filters.nextProfileIndex >= 9 * i) {
+			data.push.apply(data, fakeProfiles);
+			i++;
+		}
+	}
 	
 	return  { data:
 				{
-					profiles: fakeProfiles,
+					profiles: data,
 				}
 			};
 };

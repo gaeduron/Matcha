@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import { Navbar } from '../Navbar';
 import { Header } from '../Header';
@@ -11,6 +12,7 @@ export class SearchPage extends React.Component {
 
 		this.state = {
 			menu: 'hidden',
+			nextProfileIndex: 0,
 		};
 	}
 
@@ -23,10 +25,14 @@ export class SearchPage extends React.Component {
 		const menu = 'hidden';
 		this.setState(() => ({ menu }));
 	}
+	
+	onLoadMore = (profileNumber) => {
+		this.setState({ nextProfileIndex: profileNumber });
+	}
 
 	render() {
 		return (
-			<div className="l-flex-container">
+			<div className="l-flex-container" >
 				<div className="l-header">
 					<Header
 						menu={this.state.menu}
@@ -40,12 +46,14 @@ export class SearchPage extends React.Component {
 						${this.state.menu === "hidden" ? "" : "l-menu__show"}
 					`}
 				>
-					<Menu />
+					<Menu
+						profiles={this.state.nextProfileIndex}
+					/>
 				</div>
 				<div className="l-main l-main__search c-main">
 					<div>
 						<p className="o-title-menu l-title-menu l-cards l-title-menu">321 results nearby</p>
-						<UserCard />
+						<UserCard onLoadMore={this.onLoadMore}/>
 					</div>
 				</div>
 			</div>

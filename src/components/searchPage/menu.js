@@ -77,13 +77,27 @@ export class SearchMenu extends React.Component {
 	};
 
 	getProfiles = () => {
-		this.props.getProfiles(this.state);
+		const i = this.props.profiles;
+		const state = this.state;
+		const data = {
+			...state,
+			nextProfileIndex: i,
+		};
+		console.log(data);
+		this.props.getProfiles(data);
 	}
 
 	debouncedGet = _.debounce(this.getProfiles , 300);
 
-	componentDidUpdate = () => {
+	componentDidUpdate = (prevProps) => {
+//		if (prevProps.profiles == this.props.profiles) {
+//			
+//		}
 		this.debouncedGet();
+	}
+	
+	componentWillMount = () => {
+		this.getProfiles();
 	}
 	
 	getMapZoom = (maxDistance) => {
