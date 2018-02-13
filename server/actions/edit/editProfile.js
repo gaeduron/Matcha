@@ -8,6 +8,12 @@ const getBio = require('../onboarding/getBio');
 
 const editProfile = async (data) => {
 	
+	/* Stringify photos array */	
+
+	let { photosUrl, sessionToken } = data;
+   	photosUrl = JSON.stringify(photosUrl);	
+
+
 	/* Async dispatch of validations and database updates */
 	let res = [];
 	res.push(await getProfile(pick(['fname', 'lname', 'nickname', 'birthDate', 'sessionToken'], data)));
@@ -15,7 +21,7 @@ const editProfile = async (data) => {
 	res.push(await getBio(pick(['bio', 'occupation', 'sessionToken'], data)));
 	res.push(await getLocation(pick(['latitude', 'longitude', 'geolocationAllowed', 'sessionToken'], data)));
 	res.push(await getTags(pick(['tags', 'sessionToken'], data)));
-	res.push(await getPhotos(pick(['photosUrl', 'sessionToken'], data)));
+	res.push(await getPhotos({ photosUrl, sessionToken }));
 
 	const error = res.filter(response => response.error)[0];
 	return error ? error : data; 
