@@ -25,6 +25,7 @@ export class Onboarding extends React.Component {
 	};
 
 	getPhoto = (photos) => {
+		console.log(photos, typeof(photos), 'getPhoto');
 		this.props.saveUserData('SERVER/SAVE_PHOTOS', photos);
 	};
 

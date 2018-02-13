@@ -15,6 +15,10 @@ import {
 
 export default function rehydrateStore(dispatch, user) {
 
+
+	console.log('hydrate raw', user.photos, typeof(user.photos));
+	user.photos = JSON.parse(user.photos).map(photo => (photo === null ? undefined : photo));
+
 	dispatch([
 		updateFname(user.firstname),	
 		updateLname(user.lastname),	
@@ -22,7 +26,7 @@ export default function rehydrateStore(dispatch, user) {
 		updateBirthDate(user.birthdate),
 		updateGender(user.sex),	
 		updateOrientation(user.sexualOrientation),	
-		updatePhotos(parse(user.photos)),	
+		updatePhotos(user.photos),	
 		updateBio(user.bio),	
 		updateOccupation(user.occupation),	
 		updateLocation({ 

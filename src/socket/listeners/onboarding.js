@@ -42,6 +42,9 @@ const onboardingListener = (dispatch, socket) => {
 	});
 
 	socket.on('SERVER/SAVE_PHOTOS', ({ photosUrl }) => {
+		
+		photosUrl = JSON.parse(photosUrl).map(photo => (photo === null ? undefined : photo));
+
 		dispatch([
 			updatePhotos(photosUrl),	
 			step()

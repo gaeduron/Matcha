@@ -13,6 +13,8 @@ const error = {
 const validation = async ({ photosUrl }) => {
 	let errors = [];
 
+	photosUrl = JSON.parse(photosUrl);
+
 	if (!photosUrl)
 		errors.push(error.noPhotos);
 	else

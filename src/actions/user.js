@@ -25,10 +25,19 @@ export const updateTags = tags => ({
 	tags
 });
 
-export const updatePhotos = photos => ({			
+//export const updatePhotos = photos => ({			
+//		type: 'UPDATE_PHOTOS',
+//		photos: JSON.parse(photos).map(photo => (photo === null ? undefined : photo))
+//});
+
+export const updatePhotos = photos => {
+
+	console.log(photos, typeof(photos), 'action redux');
+	return {		
 		type: 'UPDATE_PHOTOS',
-		photos: photos.map(photo => (photo === null ? undefined : photo))
-});
+		photos
+	};		
+};
 
 export const updateOrientation = orientation => ({
 	type: 'UPDATE_ORIENTATION',
