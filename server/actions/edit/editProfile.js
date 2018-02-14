@@ -11,8 +11,6 @@ const editProfile = async (data) => {
 	/* Stringify photos array */	
 
 	let { photosUrl, sessionToken } = data;
-   	photosUrl = JSON.stringify(photosUrl);	
-
 
 	/* Async dispatch of validations and database updates */
 	let res = [];

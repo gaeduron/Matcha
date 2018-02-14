@@ -68,6 +68,8 @@ const onboardingListener = (dispatch, socket) => {
 
 	socket.on('SERVER/EDIT_PROFILE', (data) => {
 		
+		data.photosUrl = JSON.parse(data.photosUrl).map(photo => (photo === null ? undefined : photo));
+
 		const {
 			latitude, 
 			longitude, 
@@ -83,6 +85,7 @@ const onboardingListener = (dispatch, socket) => {
 			nickname,
 			birthDate
 		} = data; 
+
 
 		dispatch([
 			updateFname(fname),	

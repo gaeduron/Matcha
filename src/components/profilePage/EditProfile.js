@@ -93,7 +93,7 @@ export class EditProfile extends React.Component {
 				...this.state.profile,
 				...this.state.location,
 				tags: this.state.tags,
-				photosUrl: this.state.photos,
+				photosUrl: JSON.stringify(this.state.photos),
 				sessionToken: this.state.sessionToken
 			};
 			delete data.error;
