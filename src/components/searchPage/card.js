@@ -5,7 +5,6 @@ import moment from 'moment';
 export class UserCard extends React.Component {
 
 	loadMore = () => {
-		console.log("MOOOORE");
 		this.props.onLoadMore(this.props.profiles.length);
 	}
 
@@ -17,10 +16,13 @@ export class UserCard extends React.Component {
 		window.removeEventListener('scroll', this.onScroll, false);
 	}
 
+	componentDidUpdate = () => {
+		if (this.wrapper.offsetHeight < window.innerHeight) {
+			this.loadMore();
+		}
+	}
+
 	onScroll = () => {
-		console.log("window.innerHeight:",window.innerHeight);
-		console.log("window.scrollY:",window.scrollY);
-		console.log("document.body.offsetHeight:",this.wrapper.offsetHeight);
 		if (
 			(window.innerHeight + window.scrollY) >= (this.wrapper.offsetHeight - 5) &&
 			this.props.profiles.length
@@ -30,8 +32,6 @@ export class UserCard extends React.Component {
 	}
 
 	render() {
-		console.log('current props', this.props);
-
 		return (
 			<div
 				className="l-cards"

@@ -76,24 +76,23 @@ export class SearchMenu extends React.Component {
 		this.props.getTags(tags);
 	};
 
-	getProfiles = () => {
-		const i = this.props.profiles;
+	getProfiles = (i = 0) => {
 		const state = this.state;
 		const data = {
 			...state,
 			nextProfileIndex: i,
 		};
-		console.log(data);
 		this.props.getProfiles(data);
 	}
 
 	debouncedGet = _.debounce(this.getProfiles , 300);
 
 	componentDidUpdate = (prevProps) => {
-//		if (prevProps.profiles == this.props.profiles) {
-//			
-//		}
-		this.debouncedGet();
+		if (prevProps.profiles == this.props.profiles) {
+			this.debouncedGet();
+		} else {
+			this.debouncedGet(this.props.profiles);
+		}
 	}
 	
 	componentWillMount = () => {
@@ -127,7 +126,7 @@ export class SearchMenu extends React.Component {
 						<p className="c-sort__title">Sort by</p>
 						<Select defaultValue="distance" style={{ width: 120 }} onChange={this.onSort}>
 							<Option value="distance">distance</Option>
-							<Option value="age">age</Option>
+							<Option value="birthdate">age</Option>
 							<Option value="score">score</Option>
 						</Select>
 					</div>

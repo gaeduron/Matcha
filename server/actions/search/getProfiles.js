@@ -76,29 +76,97 @@ const fakeProfiles = [
 	
 ];
 
+const getWantedGender = (orientation, gender) => {
+	if (orientation = 'straight') {
+		return gender == 'woman' ? ['man', 'man'] : ['woman', 'woman'];
+	} else if (orientation = 'gay') {
+		return gender == 'man' ? ['man', 'man'] : ['woman', 'woman'];	
+	} else {
+		return ['man' ,'woman'];
+	}
+}
+
+const validateSort = (sort) => {
+	if (sort === 'distance' || sort === 'birthdate' || sort === 'score') {
+		return sort;
+	}
+	return 'score';
+}
+
+const formatFilters = ({
+	distanceRange,
+	ageRange,
+	popularityRange,
+	sort,
+	nextProfileIndex,
+	sexualOrientation,
+	gender,
+	position,
+}) => {
+
+	const sex = getWantedGender(sexualOrientation, gender);
+	const validSort = validateSort(sort);
+
+	return {
+		birthdate: {
+			min: `${ageRange[0]} years`,
+			max: `${ageRange[1]} years`,
+		},
+		longitude: {
+			min: 2,
+			max: 3,
+		},
+		latitude: {
+			min: 48,
+			max: 49,
+		},
+		score: {
+			min: popularityRange[0],
+			max: popularityRange[1],
+		},
+		sex: ['man','woman'],//sex,
+		orderBy: validSort,
+		limit: nextProfileIndex + 12,
+	}
+};
+
 const getProfiles = async (filters) => {
 	logger.info(`Adding user sexual preferences to filters`);	
 	const res = await Users.find(filters);
 	if (res.error) { return error.userNotFound;	}
 	filters.sexualOrientation = res.user.sexualOrientation;
+	filters.gender = res.user.sex;
+	filters.position =	{
+		longitude: res.user.longitude,						
+		latitude: res.user.latitude,						
+	};
 	
-	logger.info(`filter data: ${JSON.stringify(filters, null, 2)}`);
+	logger.info(`formating filters: ${JSON.stringify(filters, null, 2)}`);
+	const formatedFilters = formatFilters(filters)
 
 	logger.info('fetching profiles data in db...');
+	const sql = await Users.getProfiles(formatedFilters);
+	if (sql.error) { return sql	}
 
-	const data = [];
-	data.push.apply(data, fakeProfiles);
-	if (filters.nextProfileIndex > 0) {
-		let i = 1;
-		while (filters.nextProfileIndex >= 9 * i) {
-			data.push.apply(data, fakeProfiles);
-			i++;
-		}
+	if (sql.profiles[0]) {
+		sql.profiles.forEach((profile) => {
+			profile.photos = JSON.parse(profile.photos);
+		});
 	}
+
+//	const data = [];
+//	data.push.apply(data, fakeProfiles);
+//	if (filters.nextProfileIndex > 0) {
+//		let i = 1;
+//		while (filters.nextProfileIndex >= 9 * i) {
+//			data.push.apply(data, fakeProfiles);
+//			i++;
+//		}
+//	}
 	
 	return  { data:
 				{
-					profiles: data,
+					profiles: sql.profiles,
 				}
 			};
 };

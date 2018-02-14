@@ -25,6 +25,7 @@ const addTags = require('./steps/tags/addTags');
 const find = require('./paths/find');
 const newSession = require('./paths/newSession');
 const update = require('./paths/update');
+const getProfiles = require('./paths/getProfiles');
 
 module.exports = {
 	// STEPS //
@@ -52,5 +53,6 @@ module.exports = {
 	// PATHS //
 	find,
 	newSession,
-	update
+	update,
+	getProfiles,
 };
