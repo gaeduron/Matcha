@@ -9,73 +9,6 @@ const error = {
 	}),
 };
 
-const fakeProfiles = [
-						{
-							firstname: 'Paola',
-							lastname: 'Gracias',
-							birthdate: '1994-06-09T22:00:00.000Z',
-							occupation: 'Writer at New York Times',
-							photos: ["http://image.ibb.co/dKurob/Screen_Shot_2018_01_22_at_5_33_26_PM.png"],
-						},
-						{
-							firstname: 'Yennifer',
-							lastname: 'Berolo',
-							birthdate: '1993-06-09T22:00:00.000Z',
-							occupation: 'Student at UCLA',
-							photos: ["https://images.unsplash.com/photo-1511424187101-2aaa60069357?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=37a36fd0d1ca10b2dbb297935c028815&auto=format&fit=crop&w=2770&q=80"],
-						},
-						{
-							firstname: 'Claire',
-							lastname: 'Pintel',
-							birthdate: '1995-06-09T22:00:00.000Z',
-							occupation: 'Model ASOS',
-							photos: ["https://images.unsplash.com/photo-1502768040783-423da5fd5fa0?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=0c6416353c255d2746a68c8a83943bdf&auto=format&fit=crop&w=934&q=80"],
-						},
-						{
-							firstname: 'Paola',
-							lastname: 'Gracias',
-							birthdate: '1994-06-09T22:00:00.000Z',
-							occupation: 'Writer at New York Times',
-							photos: ["http://image.ibb.co/dKurob/Screen_Shot_2018_01_22_at_5_33_26_PM.png"],
-						},
-						{
-							firstname: 'Yennifer',
-							lastname: 'Berolo',
-							birthdate: '1993-06-09T22:00:00.000Z',
-							occupation: 'Student at UCLA',
-							photos: ["https://images.unsplash.com/photo-1511424187101-2aaa60069357?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=37a36fd0d1ca10b2dbb297935c028815&auto=format&fit=crop&w=2770&q=80"],
-						},
-						{
-							firstname: 'Claire',
-							lastname: 'Pintel',
-							birthdate: '1995-06-09T22:00:00.000Z',
-							occupation: 'Model ASOS',
-							photos: ["https://images.unsplash.com/photo-1502768040783-423da5fd5fa0?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=0c6416353c255d2746a68c8a83943bdf&auto=format&fit=crop&w=934&q=80"],
-						},
-						{
-							firstname: 'Paola',
-							lastname: 'Gracias',
-							birthdate: '1994-06-09T22:00:00.000Z',
-							occupation: 'Writer at New York Times',
-							photos: ["http://image.ibb.co/dKurob/Screen_Shot_2018_01_22_at_5_33_26_PM.png"],
-						},
-						{
-							firstname: 'Yennifer',
-							lastname: 'Berolo',
-							birthdate: '1993-06-09T22:00:00.000Z',
-							occupation: 'Student at UCLA',
-							photos: ["https://images.unsplash.com/photo-1511424187101-2aaa60069357?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=37a36fd0d1ca10b2dbb297935c028815&auto=format&fit=crop&w=2770&q=80"],
-						},
-						{
-							firstname: 'Claire',
-							lastname: 'Pintel',
-							birthdate: '1995-06-09T22:00:00.000Z',
-							occupation: 'Model ASOS',
-							photos: ["https://images.unsplash.com/photo-1502768040783-423da5fd5fa0?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=0c6416353c255d2746a68c8a83943bdf&auto=format&fit=crop&w=934&q=80"],
-						},
-	
-];
-
 const getWantedGender = (orientation, gender) => {
 	if (orientation = 'straight') {
 		return gender == 'woman' ? ['man', 'man'] : ['woman', 'woman'];
@@ -93,6 +26,18 @@ const validateSort = (sort) => {
 	return 'score';
 }
 
+const convertDistances = (range) => {
+	if (range[0] > 0) {
+		range[0] = range[0] * 1000;
+	}
+	if (range[1] < 100) {
+		range[1] = range[1] * 1000;
+	} else {
+		range[1] = 21000000;
+	}
+	return range;
+}
+
 const formatFilters = ({
 	distanceRange,
 	ageRange,
@@ -102,31 +47,37 @@ const formatFilters = ({
 	sexualOrientation,
 	gender,
 	position,
+	tags,
+	id,
 }) => {
 
 	const sex = getWantedGender(sexualOrientation, gender);
 	const validSort = validateSort(sort);
-
+	const meterDistance = convertDistances(distanceRange);
+	
 	return {
 		birthdate: {
 			min: `${ageRange[0]} years`,
 			max: `${ageRange[1]} years`,
 		},
-		longitude: {
-			min: 2,
-			max: 3,
+		distance: {
+			min: meterDistance[0],
+			max: meterDistance[1],
 		},
-		latitude: {
-			min: 48,
-			max: 49,
+		position: {
+			lat: position.latitude,
+			lon: position.longitude,
 		},
 		score: {
 			min: popularityRange[0],
 			max: popularityRange[1],
 		},
-		sex: ['man','woman'],//sex,
+		sex: sex,
 		orderBy: validSort,
 		limit: nextProfileIndex + 12,
+		tags: tags,
+		noTags: !tags.length ? 'no tags' : 'tags',
+		id: id,
 	}
 };
 
@@ -136,6 +87,7 @@ const getProfiles = async (filters) => {
 	if (res.error) { return error.userNotFound;	}
 	filters.sexualOrientation = res.user.sexualOrientation;
 	filters.gender = res.user.sex;
+	filters.id = res.user.id;
 	filters.position =	{
 		longitude: res.user.longitude,						
 		latitude: res.user.latitude,						
@@ -144,7 +96,7 @@ const getProfiles = async (filters) => {
 	logger.info(`formating filters: ${JSON.stringify(filters, null, 2)}`);
 	const formatedFilters = formatFilters(filters)
 
-	logger.info('fetching profiles data in db...');
+	logger.info(`fetching profiles data in db with... ${JSON.stringify(formatedFilters, null, 2)}`);
 	const sql = await Users.getProfiles(formatedFilters);
 	if (sql.error) { return sql	}
 
@@ -154,16 +106,6 @@ const getProfiles = async (filters) => {
 		});
 	}
 
-//	const data = [];
-//	data.push.apply(data, fakeProfiles);
-//	if (filters.nextProfileIndex > 0) {
-//		let i = 1;
-//		while (filters.nextProfileIndex >= 9 * i) {
-//			data.push.apply(data, fakeProfiles);
-//			i++;
-//		}
-//	}
-	
 	return  { data:
 				{
 					profiles: sql.profiles,

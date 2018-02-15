@@ -4,3 +4,10 @@ export const updateProfiles = profiles => {
 		profiles
 	}
 };
+
+export const updateFocusedProfile = focusedProfile => {
+	return {
+		type: 'UPDATE_FOCUSEDPROFILE',
+		focusedProfile
+	}
+};

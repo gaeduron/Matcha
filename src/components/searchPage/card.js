@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
+import { updateFocusedProfile } from '../../actions/search';
 
 export class UserCard extends React.Component {
 
@@ -31,6 +32,10 @@ export class UserCard extends React.Component {
 		}
 	}
 
+	onProfileFocus = (user) => {
+		this.props.updateFocusedProfile(user);
+	}
+
 	render() {
 		return (
 			<div
@@ -38,7 +43,11 @@ export class UserCard extends React.Component {
 				ref={ wrapper => { this.wrapper = wrapper }}
 			>
 				{this.props.profiles.map((user, i) => 
-					<div className="l-card c-user-card" key={user.firstname+i}>
+					<div
+						className="l-card c-user-card"
+						key={user.firstname+i}
+						onMouseEnter={() => this.onProfileFocus(user)}
+					>
 						<div className="c-user-card__gradient"/>
 						<div className="c-user-card__text">
 							<p className="c-user-card__title">
@@ -56,8 +65,12 @@ export class UserCard extends React.Component {
 	}
 }
 
+const mapDispatchToProps = (dispatch) => ({
+	updateFocusedProfile: (profile) => dispatch(updateFocusedProfile(profile))
+});
+
 const mapStateToProps = (state) => ({
 	profiles: state.search.profiles,
 });
 
-export default connect(mapStateToProps, undefined)(UserCard);
+export default connect(mapStateToProps, mapDispatchToProps)(UserCard);

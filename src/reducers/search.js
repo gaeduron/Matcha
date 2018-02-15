@@ -43,6 +43,11 @@ export default (state = defaultState, action) => {
 				...state,
 				tags: action.tags
 			};
+		case 'UPDATE_FOCUSEDPROFILE':
+			return {
+				...state,
+				focusedProfile: action.focusedProfile
+			};
 		case 'GET_PROFILES':
 			return {
 				...state,

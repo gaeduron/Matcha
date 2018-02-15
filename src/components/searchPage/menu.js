@@ -88,10 +88,13 @@ export class SearchMenu extends React.Component {
 	debouncedGet = _.debounce(this.getProfiles , 300);
 
 	componentDidUpdate = (prevProps) => {
-		if (prevProps.profiles == this.props.profiles) {
-			this.debouncedGet();
-		} else {
-			this.debouncedGet(this.props.profiles);
+		if (prevProps.focusedProfile == this.props.focusedProfile)
+		{
+			if (prevProps.profiles == this.props.profiles) {
+				this.debouncedGet();
+			} else {
+				this.debouncedGet(this.props.profiles);
+			}
 		}
 	}
 	
@@ -117,7 +120,24 @@ export class SearchMenu extends React.Component {
 		}
 	};
 
+	formatPhoto = (url) => {
+		return url
+	}
+
+	getFocusedProfile = (profile) => {
+		console.log("profile: ",profile);
+		if (!profile) {
+			return false;
+		}
+		return {
+			lat: parseFloat(profile.lat),
+			lon: parseFloat(profile.lon),
+			photo: this.formatPhoto(profile.photos[0]),
+		};
+	}
+
 	render() {
+		const focusedProfile = this.getFocusedProfile(this.props.focusedProfile);
 		return (
 			<div className="c-menu__wrapper">
 				<div className="c-menu__title-container">
@@ -199,6 +219,8 @@ export class SearchMenu extends React.Component {
 						  containerElement={<div style={{ height: `400px` }} />}
 						  mapElement={<div style={{ height: `100%` }} />}
 						  zoom={this.getMapZoom(this.state.distanceRange[1])}
+						  me={{ lat:48.8566, lon: 2.3522, photo: 'https://res.cloudinary.com/matcha/image/upload/g_face,c_thumb,w_30,h_30,r_max/e_shadow/qmtv2zfl1s7vaiib6xdd.png'}}
+						  profile={focusedProfile}
 						/>
 					</div>
 				</div>
@@ -216,7 +238,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 const mapStateToProps = (state) => {
 	return {
-		notif: state.notif.notification,
+		focusedProfile: state.search.focusedProfile,
 	};
 };
 

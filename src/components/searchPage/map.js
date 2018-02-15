@@ -28,8 +28,15 @@ const MapWithAMarker = compose(
     defaultCenter={{ lat: 48.8566, lng: 2.3522 }}
   >
     <Marker
-      position={{ lat: 48.8566, lng: 2.3522 }}
+      position={{ lat: props.me.lat, lng: props.me.lon }}
+	  icon={{ url: props.me.photo }}
     />
+	{ props.profile && 
+	<Marker
+      position={{ lat: props.profile.lat, lng: props.profile.lon }}
+	  icon={{ url: props.profile.photo }}
+    />
+	}
   </GoogleMap>
 );
 
