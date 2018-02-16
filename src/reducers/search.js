@@ -14,6 +14,7 @@ const defaultState = {
 	},
 	tags: [],
 	profiles: [],
+	profilesCount: 0,
 };
 
 export default (state = defaultState, action) => {
@@ -52,6 +53,11 @@ export default (state = defaultState, action) => {
 			return {
 				...state,
 				profiles: action.profiles
+			};
+		case 'GET_PROFILES_COUNT':
+			return {
+				...state,
+				profilesCount: action.profilesCount
 			};
 		default:
 			return state;

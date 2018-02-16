@@ -83,6 +83,10 @@ export class SearchMenu extends React.Component {
 			nextProfileIndex: i,
 		};
 		this.props.getProfiles(data);
+		
+		if (i === 0) {
+			this.props.getProfilesCount(data);
+		}
 	}
 
 	debouncedGet = _.debounce(this.getProfiles , 300);
@@ -243,6 +247,10 @@ export class SearchMenu extends React.Component {
 const mapDispatchToProps = (dispatch) => ({
 	getProfiles: (data) => dispatch({
 		type: 'SERVER/GET_PROFILES',
+		data
+	}),
+	getProfilesCount: (data) => dispatch({
+		type: 'SERVER/GET_PROFILES_COUNT',
 		data
 	})
 });

@@ -13,6 +13,7 @@ export class SearchPage extends React.Component {
 		this.state = {
 			menu: 'hidden',
 			nextProfileIndex: 0,
+			profilesCount: 0,
 		};
 	}
 
@@ -28,6 +29,10 @@ export class SearchPage extends React.Component {
 	
 	onLoadMore = (profileNumber) => {
 		this.setState({ nextProfileIndex: profileNumber });
+	}
+	
+	onChangedFilters = (profilesCount) => {
+		this.setState({ profilesCount });
 	}
 
 	render() {
@@ -48,11 +53,12 @@ export class SearchPage extends React.Component {
 				>
 					<Menu
 						profiles={this.state.nextProfileIndex}
+						onChangedFilters={this.onChangedFilters}
 					/>
 				</div>
 				<div className="l-main l-main__search c-main">
 					<div>
-						<p className="o-title-menu l-title-menu l-cards l-title-menu">321 results nearby</p>
+						<p className="o-title-menu l-title-menu l-cards l-title-menu">{this.props.profilesCount} results nearby</p>
 						<UserCard onLoadMore={this.onLoadMore}/>
 					</div>
 				</div>
@@ -63,7 +69,7 @@ export class SearchPage extends React.Component {
 
 const mapStateToProps = (state) => {
 	return {
-		notif: state.notif.notification,
+		profilesCount: state.search.profilesCount,
 	};
 };
 

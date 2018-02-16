@@ -8,6 +8,7 @@ const getTags = require('../../actions/onboarding/getTags');
 const getPhotos = require('../../actions/onboarding/getPhotos');
 const getBio = require('../../actions/onboarding/getBio');
 const getProfiles = require('../../actions/search/getProfiles');
+const getProfilesCount = require('../../actions/search/getProfilesCount');
 const editProfile = require('../../actions/edit/editProfile');
 
 
@@ -18,6 +19,7 @@ const startAction = async (action, socket, actionFunc, loggerContent) => {
 		socket.emit('notificationError', response.error[0]);
 	} else {
 		if (!!response.data) {
+			logger.succes(`EMIT: ${action.type}`);
 			socket.emit(action.type, response.data);
 		} else {
 			socket.emit(action.type, action.data);
@@ -61,8 +63,11 @@ const actionListeners = (socket) => {
 				break; 
 
 			/* Search */
-			case 'SERVER/GET_PROFILES': /* lname, fname, nickname, birthdate */
+			case 'SERVER/GET_PROFILES':
 				startAction(action, socket, getProfiles, 'Search: user profiles data fetched');
+				break;
+			case 'SERVER/GET_PROFILES_COUNT':
+				startAction(action, socket, getProfilesCount, 'Search: user profiles count fetched');
 				break;
  
 			default: 

@@ -11,3 +11,10 @@ export const updateFocusedProfile = focusedProfile => {
 		focusedProfile
 	}
 };
+
+export const updateProfilesCount = profilesCount => {
+	return {
+		type: 'GET_PROFILES_COUNT',
+		profilesCount
+	}
+};
