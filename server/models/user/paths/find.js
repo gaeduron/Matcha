@@ -2,6 +2,7 @@ const changeCase = require('change-object-case');
 const database = require('../../../postgresql');
 const logger = require('../../../logs/logger');
 const myErrors = require('../../../errors');
+const getTags = require('../steps/tags/getTags');
 
 const error = {
 	database: myErrors.newFailure({
@@ -58,6 +59,9 @@ const find = async (user) => {
 	if (response.error) { return response; }
 
 	response.user = changeCase.camelKeys(response.user);
+
+	/* Append tags to user */
+	response.user.tags = await getTags(response.user.id);
 
 	logger.info(`A User has been found: ${
 		JSON.stringify(response.user, null, 2)

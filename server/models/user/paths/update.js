@@ -40,7 +40,7 @@ const updateUser = async (user) => {
 		WHERE id = $1;`;
 
 	try {
-		const res = await database.query(query, Object.values(user));
+		const res = await database.query(query, Object.values(user).slice(0, 23));
 		return { user: res };
 	} catch (e) {
 		return { error: error.database(e) };
