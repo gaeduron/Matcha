@@ -85,7 +85,23 @@ export class UserDescription extends React.Component {
   }
 
 
+	formatPhoto = (url) => {
+		url = url.replace(/v[0-9]+\//i, "g_face,c_thumb,w_40,h_40,r_max/e_shadow/");
+		url = url.replace(/\.[0-9a-z]+$/i, ".png");
+		return url;
+	}
+
+	getUserProfile = (profile) => {
+		return {
+			lat: parseFloat(profile.location.latitude),
+			lon: parseFloat(profile.location.longitude),
+			photo: this.formatPhoto(profile.photos[0]),
+		};
+	}
+
 	render() {
+		const focusedProfile = false;
+		const userProfile = this.getUserProfile(this.props.userProfile);
 		return (
 			<div className="c-user-desc">
 				<button className="l-onb-nav__buttons-left c-button c-button--circle c-user-desc__edit" onClick={this.onEdit}>
@@ -122,6 +138,8 @@ If you find my profile interesting and if your company is both bold and innovati
 					  containerElement={<div style={{ height: `100%` }} />}
 					  mapElement={<div style={{ height: `100%` }} />}
 					  zoom={12}
+					  me={userProfile}
+					  profile={focusedProfile}
 					/>
 				</div>
 				<div className="c-user-desc__text-container">
@@ -139,7 +157,7 @@ If you find my profile interesting and if your company is both bold and innovati
 
 const mapStateToProps = (state) => {
 	return {
-		notif: state.notif.notification,
+		userProfile: state.user,
 	};
 };
 

@@ -8,6 +8,7 @@ import auth from '../reducers/auth';
 import notif from '../reducers/notification';
 import onboarding from '../reducers/onboarding';
 import user from '../reducers/user';
+import search from '../reducers/search';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const middleware = [thunk, batch, socketIoMiddleware];
@@ -18,7 +19,8 @@ const appReducer = combineReducers({
 	auth,
 	notif,
 	onboarding,
-	user
+	user,
+	search,
 });
 
 const rootReducer = (state, action) => {

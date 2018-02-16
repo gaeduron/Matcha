@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Navbar } from '../Navbar';
 import { Header } from './Header';
-import { UserDescription } from './UserDescription';
+import UserDescription from './UserDescription';
 import EditProfile from './EditProfile';
 import Menu from './menu';
 
