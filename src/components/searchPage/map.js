@@ -25,7 +25,7 @@ const MapWithAMarker = compose(
 	}}
     defaultZoom={8}
     zoom={props.zoom}
-    defaultCenter={{ lat: 48.8566, lng: 2.3522 }}
+    defaultCenter={{ lat: props.me.lat, lng: props.me.lon }}
   >
     <Marker
       position={{ lat: props.me.lat, lng: props.me.lon }}

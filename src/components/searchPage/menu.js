@@ -121,10 +121,7 @@ export class SearchMenu extends React.Component {
 	};
 
 	formatPhoto = (url) => {
-		const imageParams = 'g_face,c_thumb,w_30,h_30,r_max/e_shadow/';
-		const imageFormat = 'png';
-
-		url = url.replace(/v[0-9]+\//i, "g_face,c_thumb,w_30,h_30,r_max/e_shadow/");
+		url = url.replace(/v[0-9]+\//i, "g_face,c_thumb,w_40,h_40,r_max/e_shadow/");
 		url = url.replace(/\.[0-9a-z]+$/i, ".png");
 		return url;
 	}
