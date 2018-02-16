@@ -121,23 +121,37 @@ export class SearchMenu extends React.Component {
 	};
 
 	formatPhoto = (url) => {
-		return url
+		const imageParams = 'g_face,c_thumb,w_30,h_30,r_max/e_shadow/';
+		const imageFormat = 'png';
+
+		url = url.replace(/v[0-9]+\//i, "g_face,c_thumb,w_30,h_30,r_max/e_shadow/");
+		url = url.replace(/\.[0-9a-z]+$/i, ".png");
+		return url;
 	}
 
 	getFocusedProfile = (profile) => {
-		console.log("profile: ",profile);
 		if (!profile) {
 			return false;
 		}
 		return {
-			lat: parseFloat(profile.lat),
-			lon: parseFloat(profile.lon),
+			lat: parseFloat(profile.latitude),
+			lon: parseFloat(profile.longitude),
 			photo: this.formatPhoto(profile.photos[0]),
 		};
 	}
-
+	
+	getUserProfile = (profile) => {
+		
+		return {
+			lat: parseFloat(profile.location.latitude),
+			lon: parseFloat(profile.location.longitude),
+			photo: this.formatPhoto(profile.photos[0]),
+		};
+	}
+	
 	render() {
 		const focusedProfile = this.getFocusedProfile(this.props.focusedProfile);
+		const userProfile = this.getUserProfile(this.props.userProfile);
 		return (
 			<div className="c-menu__wrapper">
 				<div className="c-menu__title-container">
@@ -219,7 +233,7 @@ export class SearchMenu extends React.Component {
 						  containerElement={<div style={{ height: `400px` }} />}
 						  mapElement={<div style={{ height: `100%` }} />}
 						  zoom={this.getMapZoom(this.state.distanceRange[1])}
-						  me={{ lat:48.8566, lon: 2.3522, photo: 'https://res.cloudinary.com/matcha/image/upload/g_face,c_thumb,w_30,h_30,r_max/e_shadow/qmtv2zfl1s7vaiib6xdd.png'}}
+						  me={userProfile}
 						  profile={focusedProfile}
 						/>
 					</div>
@@ -239,6 +253,7 @@ const mapDispatchToProps = (dispatch) => ({
 const mapStateToProps = (state) => {
 	return {
 		focusedProfile: state.search.focusedProfile,
+		userProfile: state.user,
 	};
 };
 

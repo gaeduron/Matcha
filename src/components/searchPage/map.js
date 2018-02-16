@@ -37,6 +37,7 @@ const MapWithAMarker = compose(
 	  icon={{ url: props.profile.photo }}
     />
 	}
+	{console.log(props)}
   </GoogleMap>
 );
 
