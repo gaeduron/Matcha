@@ -33,7 +33,7 @@ export default class EditProfileForm extends React.Component {
 		gender: (input) => (!input || input == 'man' || input == 'woman'),
 		orientation: (input) => (!input || input == 'straight' || input == 'gay' || input == 'bisexual'),
 		occupation: (input) => (!input || input.length < 51),
-		bio: (input) => (!input || input.length < 281)
+		bio: (input) => (!input || input.length < 599)
 	};
 	
 	handleOnChange = (e, name, validate) => {

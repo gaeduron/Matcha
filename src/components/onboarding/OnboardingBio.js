@@ -24,7 +24,7 @@ export default class OnboardingBio extends React.Component {
 	handleOnChangeBio = (e) => {
 		const input = e.target.value;
 
-		if (input.length < 281) {
+		if (input.length < 599) {
 			this.setState({ 
 				bio: input, 
 				touched: { 

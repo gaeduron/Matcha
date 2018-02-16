@@ -10,7 +10,7 @@ const error = {
 
 const validateBio = ({ bio }) => {
 
-	if (bio.length > 280) { return error.tooLong(bio.length); }
+	if (bio.length > 599) { return error.tooLong(bio.length); }
 	return { error: false };
 };
 
