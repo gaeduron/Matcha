@@ -22,38 +22,62 @@ function resolveTagsConfict(tags, newTags) {
 }
 
 
-const addTags = async (tags, userId) => {
+const addTags = async (tags = [], userId) => {
 
-	/*
-	 *	 Gerer les cas d'erreur 
-	 *	 Supprimer les tags absent du nouvel array et present en DB (reverse resolveconflivt args) 
-	 *	 Ajouter les nouveaux tags sans doublon
-	 *
-	 *
+	/*  resolveTagsConfict 		
+     *  
+     *  oldTags 	[ 1, 2, 3 ]
+     *  newTags	          [ 3, 4, 5 ]
+     *            	| rm  | 0 |  add |
 	 */
 
+	const oldTags = await getTags(userId);
+	const tagsToAdd = resolveTagsConfict(oldTags, tags);
+	const tagsToRemove = resolveTagsConfict(tags, oldTags);
 
-	if (!tags)
-		return error.emptyArray();
-			
-	if (tags.length == 0)
-		return { message: ['Your tags have been successfully saved to the db !'] };
 
 	try {
-		const dbTags = await getTags(userId);	
-		const newTags = resolveTagsConfict(dbTags, tags);		
+	
+		if (tagsToRemove.length > 0) {
+		
+		
+		}
 
-		const formattedTagsArray = newTags.map(tag => [userId, tag]);
-		console.log('user_id =', formattedTagsArray);
+		if (tagsToAdd.length > 0) {
+		
+		
+		}
 
-		const query = format(`INSERT INTO tags (user_id, tag) VALUES %L;`, formattedTagsArray);
-
-		await database.query(query);
-		logger.info('Tags succesfully inserted !');
+	
 		return { message: ['Your tags have been successfully saved to the db !'] };
-	} catch (e) {
-		return error.database();
-	}
+
+	} catch(e) {
+		return error.database();	
+	}		
+
+
+
+	//	if (!tags)
+	//		return error.emptyArray();
+	//
+	//	if (tags.length == 0)
+	//		return { message: ['Your tags have been successfully saved to the db !'] };
+	//
+	//	try {
+	//		const dbTags = await getTags(userId);	
+	//		const newTags = resolveTagsConfict(dbTags, tags);		
+	//
+	//		const formattedTagsArray = newTags.map(tag => [userId, tag]);
+	//		console.log('user_id =', formattedTagsArray);
+	//
+	//		const query = format(`INSERT INTO tags (user_id, tag) VALUES %L;`, formattedTagsArray);
+	//
+	//		await database.query(query);
+	//		logger.info('Tags succesfully inserted !');
+	//		return { message: ['Your tags have been successfully saved to the db !'] };
+	//	} catch (e) {
+	//		return error.database();
+	//	}
 };
 
 module.exports = addTags;
