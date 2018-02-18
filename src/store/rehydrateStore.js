@@ -13,6 +13,7 @@ import {
 	updateLocation	
 } from '../actions/user';
 
+
 export default function rehydrateStore(dispatch, user) {
 
 
@@ -34,8 +35,7 @@ export default function rehydrateStore(dispatch, user) {
 			longitude: user.longitude, 
 			geolocationAllowed: user.geolocationAllowed 
 		}),
-
-		//	updateTags(tags),	
+		updateTags(user.tags),	
 		
 	]);
 };

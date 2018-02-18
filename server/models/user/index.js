@@ -20,6 +20,7 @@ const validateBio = require('./steps/validateBio');
 const hashPassword = require('./steps/hashPassword');
 const create = require('./steps/create');
 const addTags = require('./steps/tags/addTags');
+const getTags = require('./steps/tags/getTags');
 
 // PATHS //
 const find = require('./paths/find');
@@ -51,6 +52,7 @@ module.exports = {
 	hashPassword,
 	create,
 	addTags,
+	getTags,
 	// PATHS //
 	find,
 	newSession,
