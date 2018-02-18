@@ -67,8 +67,24 @@ export class UserDescription extends React.Component {
   componentWillUnmount = () => {
     window.removeEventListener("resize", _.throttle(this.updateDimensions, 1000));
   }
+	
+	formatPhoto = (url) => {
+		url = url.replace(/v[0-9]+\//i, "g_face,c_thumb,w_40,h_40,r_max/e_shadow/");
+		url = url.replace(/\.[0-9a-z]+$/i, ".png");
+		return url;
+	}
+
+	getUserProfile = (profile) => {
+		return {
+			lat: parseFloat(profile.location.latitude),
+			lon: parseFloat(profile.location.longitude),
+			photo: this.formatPhoto(profile.photos[0]),
+		};
+	}
 
 	render() {
+		const focusedProfile = false;
+		const userProfile = this.getUserProfile(this.props.userProfile);
 		return (
 			<div className={`c-user-desc--chat ${this.state.description == "hidden" ? "l-chat__hide-desc" : ""}`}>
 				<Carousel height={`${this.state.squareHeight}px`} trigger="click" interval="10000" arrow="always">
@@ -102,6 +118,8 @@ If you find my profile interesting and if your company is both bold and innovati
 					  containerElement={<div style={{ height: `${this.state.squareHeight}px` }} />}
 					  mapElement={<div style={{ height: `100%` }} />}
 					  zoom={12}
+					  me={userProfile}
+					  profile={focusedProfile}
 					/>
 				</div>
 				<div className="c-user-desc__text-container">
@@ -119,7 +137,7 @@ If you find my profile interesting and if your company is both bold and innovati
 
 const mapStateToProps = (state) => {
 	return {
-		notif: state.notif.notification,
+		userProfile: state.user,
 	};
 };
 

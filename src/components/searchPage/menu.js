@@ -4,6 +4,7 @@ import { Slider } from 'antd';
 import ChipInput from 'material-ui-chip-input';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { Select } from 'antd';
+import _ from 'lodash';
 import MapWithAMarker from './map';
 
 const Option = Select.Option;
@@ -75,6 +76,36 @@ export class SearchMenu extends React.Component {
 		this.props.getTags(tags);
 	};
 
+	getProfiles = (i = 0) => {
+		const state = this.state;
+		const data = {
+			...state,
+			nextProfileIndex: i,
+		};
+		this.props.getProfiles(data);
+		
+		if (i === 0) {
+			this.props.getProfilesCount(data);
+		}
+	}
+
+	debouncedGet = _.debounce(this.getProfiles , 300);
+
+	componentDidUpdate = (prevProps) => {
+		if (prevProps.focusedProfile == this.props.focusedProfile)
+		{
+			if (prevProps.profiles == this.props.profiles) {
+				this.debouncedGet();
+			} else {
+				this.debouncedGet(this.props.profiles);
+			}
+		}
+	}
+	
+	componentWillMount = () => {
+		this.getProfiles();
+	}
+	
 	getMapZoom = (maxDistance) => {
 		if (maxDistance < 6) {
 			return 14;
@@ -93,7 +124,35 @@ export class SearchMenu extends React.Component {
 		}
 	};
 
+	formatPhoto = (url) => {
+		url = url.replace(/v[0-9]+\//i, "g_face,c_thumb,w_40,h_40,r_max/e_shadow/");
+		url = url.replace(/\.[0-9a-z]+$/i, ".png");
+		return url;
+	}
+
+	getFocusedProfile = (profile) => {
+		if (!profile) {
+			return false;
+		}
+		return {
+			lat: parseFloat(profile.latitude),
+			lon: parseFloat(profile.longitude),
+			photo: this.formatPhoto(profile.photos[0]),
+		};
+	}
+	
+	getUserProfile = (profile) => {
+		
+		return {
+			lat: parseFloat(profile.location.latitude),
+			lon: parseFloat(profile.location.longitude),
+			photo: this.formatPhoto(profile.photos[0]),
+		};
+	}
+	
 	render() {
+		const focusedProfile = this.getFocusedProfile(this.props.focusedProfile);
+		const userProfile = this.getUserProfile(this.props.userProfile);
 		return (
 			<div className="c-menu__wrapper">
 				<div className="c-menu__title-container">
@@ -102,7 +161,7 @@ export class SearchMenu extends React.Component {
 						<p className="c-sort__title">Sort by</p>
 						<Select defaultValue="distance" style={{ width: 120 }} onChange={this.onSort}>
 							<Option value="distance">distance</Option>
-							<Option value="age">age</Option>
+							<Option value="birthdate">age</Option>
 							<Option value="score">score</Option>
 						</Select>
 					</div>
@@ -175,6 +234,8 @@ export class SearchMenu extends React.Component {
 						  containerElement={<div style={{ height: `400px` }} />}
 						  mapElement={<div style={{ height: `100%` }} />}
 						  zoom={this.getMapZoom(this.state.distanceRange[1])}
+						  me={userProfile}
+						  profile={focusedProfile}
 						/>
 					</div>
 				</div>
@@ -183,10 +244,22 @@ export class SearchMenu extends React.Component {
 	}
 }
 
+const mapDispatchToProps = (dispatch) => ({
+	getProfiles: (data) => dispatch({
+		type: 'SERVER/GET_PROFILES',
+		data
+	}),
+	getProfilesCount: (data) => dispatch({
+		type: 'SERVER/GET_PROFILES_COUNT',
+		data
+	})
+});
+
 const mapStateToProps = (state) => {
 	return {
-		notif: state.notif.notification,
+		focusedProfile: state.search.focusedProfile,
+		userProfile: state.user,
 	};
 };
 
-export default connect(mapStateToProps, undefined)(SearchMenu);
+export default connect(mapStateToProps, mapDispatchToProps)(SearchMenu);

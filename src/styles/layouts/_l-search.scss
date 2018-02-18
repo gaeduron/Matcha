@@ -1,6 +1,8 @@
 .l-cards {
 	margin: 0px auto 40px auto;
 	width: 870px;
+	height: 100%;
+	overflow: auto;		
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: flex-start;

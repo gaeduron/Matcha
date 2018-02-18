@@ -7,15 +7,23 @@ const getLocation = require('../../actions/onboarding/getLocation');
 const getTags = require('../../actions/onboarding/getTags');
 const getPhotos = require('../../actions/onboarding/getPhotos');
 const getBio = require('../../actions/onboarding/getBio');
+const getProfiles = require('../../actions/search/getProfiles');
+const getProfilesCount = require('../../actions/search/getProfilesCount');
 const editProfile = require('../../actions/edit/editProfile');
 
 
 const startAction = async (action, socket, actionFunc, loggerContent) => {
+	action.data.socketID = socket.id;
 	const response = await actionFunc(action.data);
 	if (response.error) {
 		socket.emit('notificationError', response.error[0]);
 	} else {
-		socket.emit(action.type, action.data);
+		if (!!response.data) {
+			logger.succes(`EMIT: ${action.type}`);
+			socket.emit(action.type, response.data);
+		} else {
+			socket.emit(action.type, action.data);
+		}
 		switch (action.type) {
 			case 'SERVER/SAVE_LOCATION': 
 				socket.emit('notificationSuccess', 'Congratulations, welcome to Matcha !');
@@ -54,6 +62,14 @@ const actionListeners = (socket) => {
 				startAction(action, socket, editProfile, 'Onboarding: user bio and occupation saved to DB');
 				break; 
 
+			/* Search */
+			case 'SERVER/GET_PROFILES':
+				startAction(action, socket, getProfiles, 'Search: user profiles data fetched');
+				break;
+			case 'SERVER/GET_PROFILES_COUNT':
+				startAction(action, socket, getProfilesCount, 'Search: user profiles count fetched');
+				break;
+ 
 			default: 
 				return;
 		}
