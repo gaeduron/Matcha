@@ -35,49 +35,29 @@ const addTags = async (tags = [], userId) => {
 	const tagsToAdd = resolveTagsConfict(oldTags, tags);
 	const tagsToRemove = resolveTagsConfict(tags, oldTags);
 
-
 	try {
 	
 		if (tagsToRemove.length > 0) {
-		
-		
+			const query = 'DELETE FROM tags WHERE user_id = $1 AND tag = $2';	
+			for (let tag of tagsToRemove) {
+				await database.query(query, [userId, tag]);
+			}
+			logger.info(`[${tagsToRemove}] - Tags succesfully removed !`);
 		}
 
 		if (tagsToAdd.length > 0) {
-		
-		
+			const query = format(`INSERT INTO tags (user_id, tag) VALUES %L;`, tagsToAdd.map(tag => [userId, tag]));
+			await database.query(query);
+			logger.info(`[${tagsToAdd}] - Tags succesfully inserted !`);
 		}
 
-	
 		return { message: ['Your tags have been successfully saved to the db !'] };
 
 	} catch(e) {
+		logger.error(`Tags update failed - ${e}`); 
 		return error.database();	
 	}		
 
-
-
-	//	if (!tags)
-	//		return error.emptyArray();
-	//
-	//	if (tags.length == 0)
-	//		return { message: ['Your tags have been successfully saved to the db !'] };
-	//
-	//	try {
-	//		const dbTags = await getTags(userId);	
-	//		const newTags = resolveTagsConfict(dbTags, tags);		
-	//
-	//		const formattedTagsArray = newTags.map(tag => [userId, tag]);
-	//		console.log('user_id =', formattedTagsArray);
-	//
-	//		const query = format(`INSERT INTO tags (user_id, tag) VALUES %L;`, formattedTagsArray);
-	//
-	//		await database.query(query);
-	//		logger.info('Tags succesfully inserted !');
-	//		return { message: ['Your tags have been successfully saved to the db !'] };
-	//	} catch (e) {
-	//		return error.database();
-	//	}
 };
 
 module.exports = addTags;
