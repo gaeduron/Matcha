@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Carousel } from 'element-react';
+import moment from 'moment';
+import _ from 'lodash';
 import 'element-theme-default';
 import ChipInput from 'material-ui-chip-input';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -96,12 +98,23 @@ export class UserDescription extends React.Component {
 			lat: parseFloat(profile.location.latitude),
 			lon: parseFloat(profile.location.longitude),
 			photo: this.formatPhoto(profile.photos[0]),
+			photos: profile.photos.filter(x => x),
+			fname: _.capitalize(profile.fname),
+			lname: _.capitalize(profile.lname),
+			age: moment().diff(profile.birthDate, 'years'),
+			occupation: profile.occupation,
+			distance: 0,
+			bio: profile.bio,
+			tags: profile.tags,
+			score: profile.score,
+			orientation: _.capitalize(profile.orientation),
+			gender: _.capitalize(profile.gender),
 		};
 	}
-
+i
 	render() {
 		const focusedProfile = false;
-		const userProfile = this.getUserProfile(this.props.userProfile);
+		const user = this.getUserProfile(this.props.user);
 		return (
 			<div className="c-user-desc">
 				<button className="l-onb-nav__buttons-left c-button c-button--circle c-user-desc__edit" onClick={this.onEdit}>
@@ -109,27 +122,24 @@ export class UserDescription extends React.Component {
 				</button>
 				<Carousel height={`${this.state.squareHeight}px`} trigger="click" interval="10000" arrow="always">
 					{
-						[1,2,3,4,5].map((item, index) => {
+						user.photos.map((item, index) => {
 							return (
 								<Carousel.Item key={index}>
-									<img src="http://image.ibb.co/dKurob/Screen_Shot_2018_01_22_at_5_33_26_PM.png" alt="" />
+									<img src={item} alt="" />
 								</Carousel.Item>
 							)
 						})
 					}
 				</Carousel>
 				<div className="c-user-desc__text-container">
-					<h2 className="c-user-desc__name">Benjamin Duron,</h2>
-					<h2 className="c-user-desc__age">27</h2>
+					<h2 className="c-user-desc__name">{`${user.fname} ${user.lname},`}</h2>
+					<h2 className="c-user-desc__age">{`${user.age}`}</h2>
 					<div className="c-user-desc__info-box">
-						<p className="c-user-desc__info">Software Engineering student at 42</p>
-						<p className="c-user-desc__info">4 km away</p>
-						<p className="c-user-desc__info">Straight, Male</p>
+						<p className="c-user-desc__info">{`${user.occupation}`}</p>
+						<p className="c-user-desc__info">{`${user.distance}`} km away</p>
+						<p className="c-user-desc__info">{`${user.orientation}, ${user.gender}`}</p>
 					</div>
-						<p className="c-user-desc__text">Hi, I'm Benjamin, 
-My early career as an entrepreneur allowed me to develop a wide array of business and digital related skills. 
-Today, I'm a full-time student at 42, striving to become a valuable Software Engineer. 
-If you find my profile interesting and if your company is both bold and innovative, I'd be glad to hear from you !</p>
+						<p className="c-user-desc__text">{`${user.bio}`}</p>
 				</div>
 				<div className="c-menu__map c-user-desc__map">
 					<MapWithAMarker
@@ -138,17 +148,17 @@ If you find my profile interesting and if your company is both bold and innovati
 					  containerElement={<div style={{ height: `100%` }} />}
 					  mapElement={<div style={{ height: `100%` }} />}
 					  zoom={12}
-					  me={userProfile}
+					  me={user}
 					  profile={focusedProfile}
 					/>
 				</div>
 				<div className="c-user-desc__text-container">
 					<h2 className="c-user-desc__info c-user-desc__info--marged-bot">Tags</h2>
-					<Tags tags={this.state.tags}/>
+					<Tags tags={user.tags}/>
 				</div>
 				<div className="c-user-desc__text-container">
 					<p className="c-user-desc__info c-user-desc__info--inline">Popularity</p>
-					<h2 className="c-user-desc__score">5130</h2>
+					<h2 className="c-user-desc__score">{`${user.score}`}</h2>
 				</div>
 			</div>
 		);
@@ -157,7 +167,7 @@ If you find my profile interesting and if your company is both bold and innovati
 
 const mapStateToProps = (state) => {
 	return {
-		userProfile: state.user,
+		user: state.user,
 	};
 };
 

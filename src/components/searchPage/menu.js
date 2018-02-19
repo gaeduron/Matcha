@@ -107,18 +107,18 @@ export class SearchMenu extends React.Component {
 	}
 	
 	getMapZoom = (maxDistance) => {
-		if (maxDistance < 6) {
-			return 14;
-		} else if ( maxDistance < 11) {
-			return 12;
-		} else if ( maxDistance < 25) {
-			return 11.5;
-		} else if ( maxDistance < 50) {
+		if (maxDistance < 10) {
 			return 11;
-		} else if ( maxDistance < 75) {
-			return 10.5;
-		} else if ( maxDistance < 99) {
+		} else if ( maxDistance < 17) {
 			return 10;
+		} else if ( maxDistance < 40) {
+			return 9;
+		} else if ( maxDistance < 75) {
+			return 8;
+		} else if ( maxDistance < 75) {
+			return 8;
+		} else if ( maxDistance < 99) {
+			return 7;
 		} else {
 			return 5;
 		}

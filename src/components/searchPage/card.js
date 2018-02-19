@@ -44,7 +44,7 @@ export class UserCard extends React.Component {
 			>
 				{this.props.profiles.map((user, i) => 
 					<div
-						className="l-card c-user-card"
+						className="l-card c-user-card element-animation"
 						key={user.firstname+i}
 						onMouseEnter={() => this.onProfileFocus(user)}
 					>

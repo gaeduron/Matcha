@@ -73,6 +73,11 @@ export default (state = defaultState, action) => {
 				...state,
 				occupation: action.occupation	
 			};
+		case 'UPDATE_SCORE':
+			return {
+				...state,
+				score: action.score	
+			};
 		default:
 			return state;
 	}
