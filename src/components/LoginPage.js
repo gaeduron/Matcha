@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { createAccount, startLogin, passwordResetEmail } from '../actions/auth';
 import Login from './Login';
+import ReCAPTCHA from 'react-google-recaptcha';
 
 export class LoginPage extends React.Component {
 	constructor(props) {
@@ -12,8 +13,11 @@ export class LoginPage extends React.Component {
 			password: '',
 			formRegister: 'hidden',
 			formConnect: 'hidden',
+			captcha: false
 		};
 	}
+
+	onCaptchaChange = (captcha) => this.setState({ captcha });
 
 	onEmailChange = (e) => {
 		const email = e.target.value;
@@ -50,6 +54,7 @@ export class LoginPage extends React.Component {
 		createAccount({
 			email: this.state.email,
 			password: this.state.password,
+			captcha: this.state.captcha
 			});
 	}
 
@@ -135,6 +140,11 @@ export class LoginPage extends React.Component {
 								</div>
 								<button className="c-form-box__button">SEND</button>
 							</form>
+							<ReCAPTCHA
+								ref="recaptcha"
+								sitekey="6LekPkcUAAAAAO1xyqtfuQMJAhtIwW_l5B-MuJPa"
+								onChange={this.onCaptchaChange}
+							/>
 						</div>
 					</div>
 
