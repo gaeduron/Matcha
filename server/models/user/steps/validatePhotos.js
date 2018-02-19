@@ -4,6 +4,10 @@ const error = {
 	invalidPhoto: myError.newFailure({
 		log: 'invalid user photo',
 		message: 'Your photo is invalid'
+	}),
+	emptyPhoto: myError.newFailure({
+		log: 'user didn\'t submi any photo',
+		message: 'You must upload at least one picture'
 	})
 };
 
@@ -19,11 +23,19 @@ const isPhotoArray = (photosUrl) => {
 	return photosUrl.length == 5 ? true : false;
 };
 
+
+
 const validatePhotos = (photosUrl) => {
 
-	if (Array.isArray(photosUrl) && isPhotoArray(photosUrl))	
-		return { error: false };
-	return error.invalidPhoto();
+	if (photosUrl[0] == undefined)
+		return error.emptyPhoto();
+
+	const validate = [
+		Array.isArray(photosUrl), 
+		isPhotoArray(photosUrl), 
+	].reduce((acc, cond) => cond && acc, true);
+
+	return validate == true ? { error: false } : error.invalidPhoto();
 };
 
 module.exports = validatePhotos;
