@@ -23,10 +23,12 @@ export const passwordReset = ({
 export const createAccount = ({
 	email,
 	password,
+	captcha
 }) => {
 	socket.emit('createUser', {
 		email,
 		password,
+		captcha
 	});
 };
 

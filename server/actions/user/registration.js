@@ -12,19 +12,24 @@ const error = {
 		log: 'Login already registered',
 		message: 'This Login is already registered.',
 	}),
+
+	missingCaptcha: myError.newFailure({
+		log: 'User didn\'t validate reCaptcha',
+		message: 'You must validate reCaptcha',
+	}),
 };
 
 const registrationValidation = async (user) => {
 	let errors = [];
 
-	//	errors.push(Users.validateFirstname(user));
-	//	errors.push(Users.validateLastname(user));
 	errors.push(Users.validatePassword(user));
-	//	errors.push(Users.validateLogin(user));
 	errors.push(Users.validateEmail(user));
+	
+	if (!user.captcha)
+		errors.push(error.missingCaptcha());
 
 	const userWithThisEmail = await Users.find({ email: user.email });
-	//	const userWithThisLogin = await Users.find({ login: user.login });
+
 	if (userWithThisEmail.user) {
 		errors.push(error.emailNotUnique());
 	}
