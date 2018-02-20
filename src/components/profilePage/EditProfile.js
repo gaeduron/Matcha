@@ -84,7 +84,7 @@ export class EditProfile extends React.Component {
 
 	/* Lifecycle functions */
 
-	onPrev = () => history.replace('/profile/user-id');
+	onPrev = (id) => history.replace(`/profile/${id}`);
 	
 	debouncedSave = debounce(() => {
 		if (!this.hasError(this.state.profile.error)) {
@@ -125,7 +125,10 @@ export class EditProfile extends React.Component {
 				{/*********** NAV MENU ***********/}
 
 				<div className="c-edit-menu">
-					<button className="l-onb-nav__buttons-right c-button c-button--circle" onClick={this.onPrev}>
+					<button
+						className="l-onb-nav__buttons-right c-button c-button--circle"
+						onClick={() => this.onPrev(this.props.user.nickname)}
+					>
 						<i className="material-icons">chevron_left</i>
 					</button>
 					<p>EDIT PROFILE</p>

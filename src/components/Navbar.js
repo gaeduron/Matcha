@@ -4,7 +4,7 @@ import { startLogout } from '../actions/auth';
 import { history } from '../routers/AppRouter';
 
 const onSearch = () => history.replace('/dashboard');
-const onProfile = () => history.replace('/profile/user-id');
+const onProfile = (id) => history.replace(`/profile/${id}`);
 const onChat = () => history.replace('/chat');
 const onNews = () => history.replace('/news');
 
@@ -29,7 +29,9 @@ const iconActive = (path) => {
 	return '';
 };
 
-export const Navbar = () => (
+export const Navbar = ({ userID }) => {
+
+	return (
 	<header className="c-nav">
 
 		<div className={`c-nav__item ${navItemActive('/dashboard')}`} onClick={onSearch}>
@@ -41,9 +43,9 @@ export const Navbar = () => (
 			<h5 className="c-nav-item__text">search</h5>
 		</div>
 
-		<div className={`c-nav__item ${navItemActive('/profile/user-id')}`} onClick={onProfile}>
-			<div className={`c-nav-item__logo ${itemLogoActive('/profile/user-id')}`}>
-				<i className={`material-icons material-icons--big-white ${iconActive('/profile/user-id')}`}>
+		<div className={`c-nav__item ${navItemActive(`/profile/${userID}`)}`} onClick={() => onProfile(userID)}>
+			<div className={`c-nav-item__logo ${itemLogoActive(`/profile/${userID}`)}`}>
+				<i className={`material-icons material-icons--big-white ${iconActive(`/profile/${userID}`)}`}>
 				face
 				</i>
 			</div>
@@ -76,10 +78,10 @@ export const Navbar = () => (
 		</div>
 
 	</header>
-);
+)};
 
-const mapDispatchToProps = () => ({
-	startLogout: () => startLogout(),
+const mapStateToProps = (state) => ({
+	userID: state.user.nickname,
 });
 
-export default connect(undefined, mapDispatchToProps)(Navbar);
+export default connect(mapStateToProps, undefined)(Navbar);

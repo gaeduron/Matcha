@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Navbar } from '../Navbar';
+import Navbar from '../Navbar';
 import { Header } from './Header';
 import Menu from './menu';
 import Chat from './Chat';

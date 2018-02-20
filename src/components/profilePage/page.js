@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Navbar } from '../Navbar';
+import Navbar from '../Navbar';
 import { Header } from './Header';
 import UserDescription from './UserDescription';
 import EditProfile from './EditProfile';
@@ -26,39 +26,60 @@ export class SearchPage extends React.Component {
 	}
 
 	render() {
-		return (
-			<div className="l-flex-container">
-				<div className="l-header">
-					<Header
-						menu={this.state.menu}
-						showMenu={this.onShowMenu}
-						hideMenu={this.onHideMenu}
-					/>
-				</div>
-				<div className="l-nav"><Navbar /></div>
-				<div
-					className={`l-menu c-menu c-menu--white c-menu--no-padding 
-						${this.state.menu === "hidden" ? "" : "l-menu__show"}
-					`}
-				>
-					<Menu />
-				</div>
-				<div className="l-main l-main__search c-main c-main--white">
-					<div className="l-user-desc__box">
-						{this.props.edit 
-							? <EditProfile />
-							: <UserDescription />
-						}
+		if (this.props.userID == this.props.match.params.uid) {
+			return (
+				<div className="l-flex-container">
+					<div className="l-header">
+						<Header
+							menu={this.state.menu}
+							showMenu={this.onShowMenu}
+							hideMenu={this.onHideMenu}
+						/>
+					</div>
+					<div className="l-nav"><Navbar /></div>
+					<div
+						className={`l-menu c-menu c-menu--white c-menu--no-padding 
+							${this.state.menu === "hidden" ? "" : "l-menu__show"}
+						`}
+					>
+						<Menu />
+					</div>
+					<div className="l-main l-main__search c-main c-main--white">
+						<div className="l-user-desc__box">
+							{this.props.edit 
+								? <EditProfile />
+								: <UserDescription editable={true} />
+							}
+						</div>
 					</div>
 				</div>
-			</div>
-		);
+			);
+		} else {
+			return (
+				<div className="l-flex-container">
+					<div className="l-header">
+						<Header
+							menu={this.state.menu}
+							showMenu={this.onShowMenu}
+							hideMenu={this.onHideMenu}
+						/>
+					</div>
+					<div className="l-nav"><Navbar /></div>
+					<div className="l-main l-main--wide l-main__search c-main c-main--white">
+						<div className="l-user-desc__box">
+							<UserDescription editable={false} />
+						</div>
+					</div>
+				</div>
+			);
+
+		}
 	}
 }
 
 const mapStateToProps = (state) => {
 	return {
-		notif: state.notif.notification,
+		userID: state.user.nickname,
 	};
 };
 

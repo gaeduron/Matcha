@@ -48,7 +48,7 @@ export class UserDescription extends React.Component {
 		};
 	}
 
-    onEdit = () => history.replace('/profile/edit');
+    onEdit = (id) => history.replace(`/edit-profile/${id}`);
 
 	//onEdit = () => {	
 	//	const edit = true;
@@ -117,9 +117,13 @@ i
 		const user = this.getUserProfile(this.props.user);
 		return (
 			<div className="c-user-desc">
-				<button className="l-onb-nav__buttons-left c-button c-button--circle c-user-desc__edit" onClick={this.onEdit}>
-					<i className="material-icons">mode_edit</i>
-				</button>
+				{this.props.editable &&
+					<button
+						className="l-onb-nav__buttons-left c-button c-button--circle c-user-desc__edit"
+						onClick={() => this.onEdit(this.props.user.nickname)}>
+						<i className="material-icons">mode_edit</i>
+					</button>
+				}
 				<Carousel height={`${this.state.squareHeight}px`} trigger="click" interval="10000" arrow="always">
 					{
 						user.photos.map((item, index) => {
