@@ -32,12 +32,13 @@ export class SearchMenu extends React.Component {
 	constructor(props) {
 		super(props);
 		
+		const filters = this.props.searchParams;		
 		this.state = {
-			distanceRange: [5, 40],	
-			ageRange: [24, 34],	
-			popularityRange: [50, 400],	
-			tags: this.props.tags ? this.props.tags : [],
-			sort: 'distance',
+			distanceRange: [filters.distance.min, filters.distance.max],	
+			ageRange: [filters.age.min, filters.age.max],	
+			popularityRange: [filters.popularity.min, filters.popularity.max],	
+			tags: filters.tags ? filters.tags : [],
+			sort: filters.sortBy,	
 		};
 	}
 
@@ -91,8 +92,8 @@ export class SearchMenu extends React.Component {
 
 	debouncedGet = _.debounce(this.getProfiles , 300);
 
-	componentDidUpdate = (prevProps) => {
-		if (prevProps.focusedProfile == this.props.focusedProfile)
+	componentDidUpdate = (prevProps, prevState) => {
+		if (prevProps.focusedProfile == this.props.focusedProfile && prevState != this.state)
 		{
 			if (prevProps.profiles == this.props.profiles) {
 				this.debouncedGet();
@@ -159,7 +160,7 @@ export class SearchMenu extends React.Component {
 					<h2 className="c-menu__title">Filters</h2>
 					<div>
 						<p className="c-sort__title">Sort by</p>
-						<Select defaultValue="distance" style={{ width: 120 }} onChange={this.onSort}>
+						<Select defaultValue={this.state.sort} style={{ width: 120 }} onChange={this.onSort}>
 							<Option value="distance">distance</Option>
 							<Option value="birthdate">age</Option>
 							<Option value="score">score</Option>
@@ -259,6 +260,13 @@ const mapStateToProps = (state) => {
 	return {
 		focusedProfile: state.search.focusedProfile,
 		userProfile: state.user,
+		searchParams: 	{
+							distance: state.search.distance,
+							age: state.search.age,
+							popularity: state.search.popularity,
+							tags: state.search.tags,
+							sortBy: state.search.sortBy,
+						},
 	};
 };
 

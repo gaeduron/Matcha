@@ -9,18 +9,11 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import MapWithAMarker from '../searchPage/map';
 import { Tags } from './Tags';
 import { history } from '../../routers/AppRouter';
+import { getProfileByID } from '../../actions/search';
 
 // FOR TEST PURPOSE ONLY, TO MOVE IN ENV
 const GOOGLE_GEOLOCATION_API_KEY = 'AIzaSyC3VByoAFwfYTsXvC5GgS0F6mEiJuoku2Y';
 //AIzaSyC2Z8zLwy0uT8hd8qyBgfMmoqpKJRZwRkI
-
-const findAge = (birthDate) => {
-	let now = new Date(Date.now());
-	let timeDiff = Math.abs(now.getTime() - birthDate.getTime());
-	let age = Math.floor(timeDiff / (1000 * 3600 * 24 * 365)); 
-
-	return age;
-};
 
 const style = () => {
 	const { innerWidth } = window;
@@ -43,7 +36,6 @@ export class UserDescription extends React.Component {
 
 		this.state = {
 			edit: 'false',
-			tags: ["Creative", "Friendly", "Dog lover", "Meloman", "Problem Solver", "Egg Head"],
 			squareHeight: 472,
 		};
 	}
@@ -77,15 +69,20 @@ export class UserDescription extends React.Component {
   }
 
 
-  componentDidMount = () => {
-    this.updateDimensions();
-    window.addEventListener("resize", this.updateDimensions);
-  }
+	componentDidMount = () => {
+		this.updateDimensions();
+		window.addEventListener("resize", this.updateDimensions);
+	}	
 
-  componentWillUnmount = () => {
-    window.removeEventListener("resize", this.updateDimensions);
-  }
+	componentDidMount = () => {
+		if (this.props.profile) {
+			this.props.getProfileByID(this.props.profile);
+		}
+	}
 
+	componentWillUnmount = () => {
+		window.removeEventListener("resize", this.updateDimensions);
+	}
 
 	formatPhoto = (url) => {
 		url = url.replace(/v[0-9]+\//i, "g_face,c_thumb,w_40,h_40,r_max/e_shadow/");
@@ -93,7 +90,7 @@ export class UserDescription extends React.Component {
 		return url;
 	}
 
-	getUserProfile = (profile) => {
+	formatUser = (profile) => {
 		return {
 			lat: parseFloat(profile.location.latitude),
 			lon: parseFloat(profile.location.longitude),
@@ -111,13 +108,41 @@ export class UserDescription extends React.Component {
 			gender: _.capitalize(profile.gender),
 		};
 	}
-i
+	
+	formatFetchedProfile = (profile) => {
+		return {
+			lat: parseFloat(profile.latitude),
+			lon: parseFloat(profile.longitude),
+			photo: this.formatPhoto(JSON.parse(profile.photos)[0]),
+			photos: JSON.parse(profile.photos).filter(x => x),
+			fname: _.capitalize(profile.firstname),
+			lname: _.capitalize(profile.lastname),
+			age: moment().diff(profile.birthdate, 'years'),
+			occupation: profile.occupation,
+			distance: 0,
+			bio: profile.bio,
+			tags: profile.tags,
+			score: profile.score,
+			orientation: _.capitalize(profile.sexualOrientation),
+			gender: _.capitalize(profile.sex),
+		};
+	}
+
+	getUserProfile = (profile, fetchedProfile) => {
+		const profileID = this.props.profile;
+		if (profileID && fetchedProfile) {
+			return this.formatFetchedProfile(fetchedProfile);
+		} else {
+			return this.formatUser(profile);
+		}
+	}
+	
 	render() {
 		const focusedProfile = false;
-		const user = this.getUserProfile(this.props.user);
+		const user = this.getUserProfile(this.props.user, this.props.fetchedProfile);
 		return (
 			<div className="c-user-desc">
-				{this.props.editable &&
+				{!this.props.profile &&
 					<button
 						className="l-onb-nav__buttons-left c-button c-button--circle c-user-desc__edit"
 						onClick={() => this.onEdit(this.props.user.nickname)}>
@@ -169,10 +194,15 @@ i
 	}
 }
 
+const mapDispatchToProps = (dispatch) => ({
+	getProfileByID: (data) => dispatch(getProfileByID(data)),
+});
+
 const mapStateToProps = (state) => {
 	return {
 		user: state.user,
+		fetchedProfile: state.search.profile,
 	};
 };
 
-export default connect(mapStateToProps, undefined)(UserDescription);
+export default connect(mapStateToProps, mapDispatchToProps)(UserDescription);

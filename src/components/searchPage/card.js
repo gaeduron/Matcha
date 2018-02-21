@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
+import { history } from '../../routers/AppRouter';
 import { updateFocusedProfile } from '../../actions/search';
 
 export class UserCard extends React.Component {
@@ -35,6 +36,10 @@ export class UserCard extends React.Component {
 	onProfileFocus = (user) => {
 		this.props.updateFocusedProfile(user);
 	}
+	
+	onClick = (user) => {
+		history.replace(`/profile/${user.id}`);
+	}
 
 	render() {
 		return (
@@ -47,6 +52,7 @@ export class UserCard extends React.Component {
 						className="l-card c-user-card element-animation"
 						key={user.firstname+i}
 						onMouseEnter={() => this.onProfileFocus(user)}
+						onClick={() => this.onClick(user)}
 					>
 						<div className="c-user-card__gradient"/>
 						<div className="c-user-card__text">

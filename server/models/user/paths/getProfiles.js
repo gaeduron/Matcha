@@ -30,7 +30,7 @@ const findProfilesWithFilters = async (
 ) => {
 	const query = `
 		SELECT
-			firstname, lastname, birthdate, occupation, photos, latitude, longitude,
+			users.id, firstname, lastname, birthdate, occupation, photos, latitude, longitude,
 			(earth_distance(
 				ll_to_earth(cast(latitude AS float), cast(longitude AS float)),
 				ll_to_earth(cast($5 AS float), cast($6 AS float)))
@@ -61,7 +61,7 @@ const findProfilesWithFilters = async (
 		AND
 			(sex = $9 OR sex = $10)
 		AND
-			login != $14
+			users.id != $14
 		ORDER BY
 			${orderBy}
 		limit $11

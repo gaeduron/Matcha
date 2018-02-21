@@ -48,7 +48,7 @@ export class SearchPage extends React.Component {
 						<div className="l-user-desc__box">
 							{this.props.edit 
 								? <EditProfile />
-								: <UserDescription editable={true} />
+								: <UserDescription profile={false} />
 							}
 						</div>
 					</div>
@@ -67,7 +67,7 @@ export class SearchPage extends React.Component {
 					<div className="l-nav"><Navbar /></div>
 					<div className="l-main l-main--wide l-main__search c-main c-main--white">
 						<div className="l-user-desc__box">
-							<UserDescription editable={false} />
+							<UserDescription profile={this.props.match.params.uid} />
 						</div>
 					</div>
 				</div>
