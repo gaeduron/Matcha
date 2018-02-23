@@ -32,6 +32,38 @@ CREATE TABLE tags (
 	  user_id INTEGER NULL DEFAULT NULL,
 	  PRIMARY KEY (id)
 );
+
+CREATE TABLE likes (
+	  id SERIAL,
+	  sender INTEGER NULL DEFAULT NULL,
+	  receiver INTEGER NULL DEFAULT NULL,
+	  seen BOOLEAN DEFAULT FALSE,
+	  clicked BOOLEAN DEFAULT FALSE,
+	  created_at TIMESTAMPTZ DEFAULT NULL,
+	  PRIMARY KEY (id)
+);
+
+CREATE TABLE visits (
+	  id SERIAL,
+	  sender INTEGER NULL DEFAULT NULL,
+	  receiver INTEGER NULL DEFAULT NULL,
+	  seen BOOLEAN DEFAULT FALSE,
+	  clicked BOOLEAN DEFAULT FALSE,
+	  created_at TIMESTAMPTZ DEFAULT NULL,
+	  PRIMARY KEY (id)
+);
+
+CREATE TABLE messages (
+	  id SERIAL,
+	  sender INTEGER NULL DEFAULT NULL,
+	  receiver INTEGER NULL DEFAULT NULL,
+	  seen BOOLEAN DEFAULT FALSE,
+	  clicked BOOLEAN DEFAULT FALSE,
+	  created_at TIMESTAMPTZ DEFAULT NULL,
+	  message VARCHAR(500) DEFAULT NULL,
+	  PRIMARY KEY (id)
+);
+
 `;
 
 module.exports = userSchema;
