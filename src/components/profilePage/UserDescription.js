@@ -10,6 +10,7 @@ import MapWithAMarker from '../searchPage/map';
 import { Tags } from './Tags';
 import { history } from '../../routers/AppRouter';
 import { getProfileByID } from '../../actions/search';
+import { LikeButton, ReportButton, BlockButton } from './likeButton';
 
 // FOR TEST PURPOSE ONLY, TO MOVE IN ENV
 const GOOGLE_GEOLOCATION_API_KEY = 'AIzaSyC3VByoAFwfYTsXvC5GgS0F6mEiJuoku2Y';
@@ -36,21 +37,21 @@ export class UserDescription extends React.Component {
 
 		this.state = {
 			edit: 'false',
+			like: false,
+			reported: false,
+			blocked: false,
 			squareHeight: 472,
 		};
 	}
 
     onEdit = (id) => history.replace(`/edit-profile/${id}`);
-
-	//onEdit = () => {	
-	//	const edit = true;
-	//	this.setState(() => ({ edit }));
-	//}
-	
-	onStopEdit = () => {	
-		const edit = false;
-		this.setState(() => ({ edit }));
-	}
+	onStopEdit = () => this.setState({ edit: false });
+	onLike = () => this.setState({ like: true });
+	onUnlike = () => this.setState({ like: false });
+	onReport = () => this.setState({ reported: true });
+	onUnreport = () => this.setState({ reported: false });
+	onBlock = () => this.setState({ blocked: true });
+	onUnblock = () => this.setState({ blocked: false });
 
   updateDimensions = () => {
     if(window.innerWidth <= 980 && window.innerWidth > 768) {
@@ -72,22 +73,26 @@ export class UserDescription extends React.Component {
 	componentDidMount = () => {
 		this.updateDimensions();
 		window.addEventListener("resize", this.updateDimensions);
-	}	
-
-	componentDidMount = () => {
 		if (this.props.profile) {
 			this.props.getProfileByID(this.props.profile);
 		}
-	}
+	}	
 
-	componentWillUnmount = () => {
-		window.removeEventListener("resize", this.updateDimensions);
-	}
+	componentWillUnmount = () => window.removeEventListener("resize", this.updateDimensions);
 
 	formatPhoto = (url) => {
 		url = url.replace(/v[0-9]+\//i, "g_face,c_thumb,w_40,h_40,r_max/e_shadow/");
 		url = url.replace(/\.[0-9a-z]+$/i, ".png");
 		return url;
+	}
+
+	formatOrientation = (orientation) => {
+		if (orientation === 'hetero' || orientation === 'Hetero') {
+			return 'Straight';
+		} else if (orientation === 'bi' || orientation === 'Bi') {
+			return 'Bisexual';
+		}
+		return 'Gay';
 	}
 
 	formatUser = (profile) => {
@@ -123,7 +128,7 @@ export class UserDescription extends React.Component {
 			bio: profile.bio,
 			tags: profile.tags,
 			score: profile.score,
-			orientation: _.capitalize(profile.sexualOrientation),
+			orientation: this.formatOrientation(profile.sexualOrientation),
 			gender: _.capitalize(profile.sex),
 		};
 	}
@@ -148,6 +153,9 @@ export class UserDescription extends React.Component {
 						onClick={() => this.onEdit(this.props.user.nickname)}>
 						<i className="material-icons">mode_edit</i>
 					</button>
+				}
+				{this.props.profile &&
+					<LikeButton liked={this.state.like} onLike={this.onLike} onUnlike={this.onUnlike} />
 				}
 				<Carousel height={`${this.state.squareHeight}px`} trigger="click" interval="10000" arrow="always">
 					{
@@ -189,6 +197,20 @@ export class UserDescription extends React.Component {
 					<p className="c-user-desc__info c-user-desc__info--inline">Popularity</p>
 					<h2 className="c-user-desc__score">{`${user.score}`}</h2>
 				</div>
+				{this.props.profile &&
+					<div className="c-user-desc__report-block-wrap">
+						<ReportButton
+							reported={this.state.reported}
+							onReport={this.onReport}
+							onUnreport={this.onUnreport}
+						/>
+						<BlockButton
+							blocked={this.state.blocked}
+							onBlock={this.onBlock}
+							onUnblock={this.onUnblock}
+						/>
+					</div>
+				}
 			</div>
 		);
 	}

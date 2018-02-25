@@ -29,14 +29,17 @@ const iconActive = (path, altPath = false) => {
 	return '';
 };
 
-export const Navbar = ({ userID }) => {
-
+export const Navbar = ({ userID, search }) => {
+	let profile = false;
+	if ('profile' in search) {
+		profile = search.profile.id;		
+	}
 	return (
 	<header className="c-nav">
 
-		<div className={`c-nav__item ${navItemActive('/dashboard')}`} onClick={onSearch}>
-			<div className={`c-nav-item__logo ${itemLogoActive('/dashboard')}`}>
-				<i className={`material-icons material-icons--big-white ${iconActive('/dashboard')}`}>
+		<div className={`c-nav__item ${navItemActive('/dashboard', `/profile/${profile}`)}`} onClick={onSearch}>
+			<div className={`c-nav-item__logo ${itemLogoActive('/dashboard', `/profile/${profile}`)}`}>
+				<i className={`material-icons material-icons--big-white ${iconActive('/dashboard', `/profile/${profile}`)}`}>
 				search
 				</i>
 			</div>
@@ -93,6 +96,7 @@ export const Navbar = ({ userID }) => {
 
 const mapStateToProps = (state) => ({
 	userID: state.user.nickname,
+	search: state.search,
 });
 
 export default connect(mapStateToProps, undefined)(Navbar);
