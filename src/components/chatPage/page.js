@@ -26,6 +26,8 @@ export class SearchPage extends React.Component {
 		this.setState(() => ({ menu }));
 	}
 
+	onConversationChange = (profile) => this.setState({ profile });
+
 	render() {
 		return (
 			<div className="l-flex-container">
@@ -34,6 +36,7 @@ export class SearchPage extends React.Component {
 						menu={this.state.menu}
 						showMenu={this.onShowMenu}
 						hideMenu={this.onHideMenu}
+						profile={this.state.profile}
 					/>
 				</div>
 				<div className="l-nav"><Navbar /></div>
@@ -44,6 +47,7 @@ export class SearchPage extends React.Component {
 				>
 					<Menu 
 						showMenu={this.onShowMenu}
+						onConversationChange={(profile) => this.onConversationChange(profile)}
 					/>
 				</div>
 				<div className="l-main l-main__chat c-main c-main--white">

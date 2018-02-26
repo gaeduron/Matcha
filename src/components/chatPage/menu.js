@@ -1,12 +1,43 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import UserStatus from '../profilePage/UserStatus';
+
+const mockMatch = [
+    {
+        id: 527,
+        fname: 'Bill',
+        lname: 'Becker',
+        age: 32,
+        occupation: 'Waterside Worker',
+        photo: 'https://res.cloudinary.com/matcha/image/upload/v1518690862/yasxzl2kl4jip1k65b4t.jpg',
+        connected: false,
+        clicked: false,
+    },
+    {
+        id: 528,
+        fname: 'Charley',
+        lname: 'Gleichner',
+        age: 27,
+        occupation: 'Applications Programmers',
+        photo: 'https://res.cloudinary.com/matcha/image/upload/v1518691639/myh986grrkvm9g6wzqqk.jpg',
+        connected: true,
+        clicked: true,
+    },
+    {
+        id: 529,
+        fname: 'Cristopher',
+        lname: 'Hessel',
+        age: 23,
+        occupation: 'Concreter',
+        photo: 'https://res.cloudinary.com/matcha/image/upload/v1518692094/nwqsdyxpp7k1wyw08ihm.jpg',
+        connected: false,
+        clicked: true,
+    },
+];
 
 export class SearchMenu extends React.Component {
 	constructor(props) {
 		super(props);
-		
-		this.state = {
-		};
 	}
 	
 	onSort = () => this.props.showMenu();
@@ -22,36 +53,13 @@ export class SearchMenu extends React.Component {
 						<i className="material-icons c-menu__search-bar-icon">search</i>
 					</div>
 				</div>
-				<div className="c-news" onClick={this.onSort}>
-					<div className="c-news__image-container c-news__image-container--menu">
-						<img className="c-news__image" src="https://image.ibb.co/mu4up6/Screen_Shot_2018_01_10_at_5_39_51_PM.png" alt="" />
-						<div className="c-news__user-status"></div>
-					</div>
-					<div className="c-news__text">
-						<p className="c-news__title">Paola Gracias, 26</p>
-						<p className="c-news__message c-news__message--menu">Data Scientist at Roberim</p>
-					</div>
-				</div>
-				<div className="c-news" onClick={this.onSort}>
-					<div className="c-news__image-container c-news__image-container--menu">
-						<img className="c-news__image" src="https://image.ibb.co/mu4up6/Screen_Shot_2018_01_10_at_5_39_51_PM.png" alt="" />
-						<div className="c-news__user-status"></div>
-					</div>
-					<div className="c-news__text">
-						<p className="c-news__title">Paola Gracias, 26</p>
-						<p className="c-news__message c-news__message--menu">Data Scientist at Roberim</p>
-					</div>
-				</div>
-				<div className="c-news" onClick={this.onSort}>
-					<div className="c-news__image-container c-news__image-container--menu">
-						<img className="c-news__image" src="https://image.ibb.co/mu4up6/Screen_Shot_2018_01_10_at_5_39_51_PM.png" alt="" />
-						<div className="c-news__user-status"></div>
-					</div>
-					<div className="c-news__text">
-						<p className="c-news__title">Paola Gracias, 26</p>
-						<p className="c-news__message c-news__message--menu">Data Scientist at Roberim</p>
-					</div>
-				</div>
+				{this.props.matches.map((user) => (
+					<UserStatus
+						data={user}
+						showProfile={this.onSort}
+						key={user.id}
+					/>
+				))}
 			</div>
 		);
 	}
@@ -59,7 +67,7 @@ export class SearchMenu extends React.Component {
 
 const mapStateToProps = (state) => {
 	return {
-		notif: state.notif.notification,
+		matches: mockMatch,
 	};
 };
 

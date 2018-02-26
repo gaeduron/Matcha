@@ -7,6 +7,7 @@ import { updateFocusedProfile } from '../../actions/search';
 export class UserCard extends React.Component {
 
 	loadMore = () => {
+		console.log('card on load more TRIGGERED', this.props.profiles.length);
 		this.props.onLoadMore(this.props.profiles.length);
 	}
 
@@ -38,7 +39,7 @@ export class UserCard extends React.Component {
 	}
 	
 	onClick = (user) => {
-		history.replace(`/profile/${user.id}`);
+		history.push(`/profile/${user.id}`);
 	}
 
 	render() {

@@ -21,6 +21,7 @@ const hashPassword = require('./steps/hashPassword');
 const create = require('./steps/create');
 const addTags = require('./steps/tags/addTags');
 const getTags = require('./steps/tags/getTags');
+const likeMe = require('./steps/likeMe');
 
 // PATHS //
 const find = require('./paths/find');
@@ -53,6 +54,7 @@ module.exports = {
 	create,
 	addTags,
 	getTags,
+	likeMe,
 	// PATHS //
 	find,
 	newSession,

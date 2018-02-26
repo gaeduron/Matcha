@@ -1,0 +1,33 @@
+import React from 'react';
+
+export class UserStatus extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+		const user = this.props.data;
+		return (
+			<div
+				className={`c-news ${user.clicked ? "" : "c-news--unseen"}`}
+				onClick={this.props.showProfile}
+			>
+				<div className="c-news__image-container c-news__image-container--menu">
+					<img className="c-news__image" src={user.photo} alt="" />
+					<div 
+						className={`c-news__user-status
+							${user.connected ? "c-news__user-status--active" : ""}
+						`}
+					>
+					</div>
+				</div>
+				<div className="c-news__text">
+					<p className="c-news__title">{`${user.fname} ${user.lname}, ${user.age}`}</p>
+					<p className="c-news__message c-news__message--menu">{user.occupation}</p>
+				</div>
+			</div>
+		)
+    }
+}
+
+export default UserStatus;

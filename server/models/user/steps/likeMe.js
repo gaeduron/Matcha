@@ -1,8 +1,8 @@
-const database = require('../../../../postgresql');
+const database = require('../../../postgresql');
 
 async function likeMe(myID, userID) {
 
-	const query = `SELECT id FROM likes WHERE from = $2 AND to = $1;`;		
+	const query = `SELECT id FROM likes WHERE from = $2 AND to = $1;`;
 
 	try {
 		const res = await database.query(query, [myID, userID]);
@@ -12,4 +12,4 @@ async function likeMe(myID, userID) {
 	}
 }
 
-module.exports = getTags;
+module.exports = likeMe;

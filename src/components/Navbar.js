@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 import { startLogout } from '../actions/auth';
 import { history } from '../routers/AppRouter.js';
 
-const onSearch = () => history.replace('/dashboard');
-const onProfile = (id) => history.replace(`/profile/${id}`);
-const onChat = () => history.replace('/chat');
-const onNews = () => history.replace('/news');
+const onSearch = () => history.push('/dashboard');
+const onProfile = (id) => history.push(`/profile/${id}`);
+const onChat = () => history.push('/chat');
+const onNews = () => history.push('/news');
 
 const navItemActive = (path, altPath = false) => {
 	if (history.location.pathname === path || history.location.pathname === altPath) {
