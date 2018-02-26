@@ -1,13 +1,13 @@
 import { socket } from '../socket/socket';
 import cookie from 'js-cookie';
 
-export const getLikes = (likes) => ({
-	type: 'GET_LIKES',
+export const updateLikes = (likes) => ({
+	type: 'UPDATE_LIKES',
 	likes
 });
 
-export const getVisits = (visits) => ({
-	type: 'GET_VISITS',
+export const updateVisits = (visits) => ({
+	type: 'UPDATE_VISITS',
 	visits
 });
 

@@ -21,6 +21,15 @@ const startAction = async (action, socket, actionFunc, loggerContent) => {
 		socket.emit('notificationError', response.error[0]);
 	} else {
 
+		/* Only if a response need to be broadcasted to one or many users ws */
+		if (response.sockets) {
+			response.sockets.forEach(ws => {
+				socket.to(ws).emit(action.type, {});						
+				console.log(`emitting to ${ws}...`);	
+			});
+			delete response.sockets;
+		}	
+
 		/* Send back either the initial data to client or the response output */	
 		if (!!response.data) {
 			logger.succes(`EMIT: ${action.type}`);
@@ -28,12 +37,6 @@ const startAction = async (action, socket, actionFunc, loggerContent) => {
 		} else {
 			socket.emit(action.type, action.data);
 		}
-
-
-		/* Only if a response need to be broadcasted to one or many users ws */
-		if (response.sockets) {
-			console.log('target sockets ', response.sockets);	
-		}	
 
 		/* Only if a notification message need to be sent */
 		switch (action.type) {
@@ -89,6 +92,10 @@ const actionListeners = (socket) => {
 			case 'SERVER/ADD_LIKE':
 				//	console.log('like : ', action);
 				startAction(action, socket, addLike, 'Adding new like to db');
+				break;
+			case 'SERVER/GET_LIKES':
+					console.log('GET LIKES', action);
+				//	startAction(action, socket, addLike, 'Adding new like to db');
 				break;
 			case 'SERVER/ADD_VISIT':
 				console.log('visit : ', action);

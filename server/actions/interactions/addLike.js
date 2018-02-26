@@ -19,7 +19,7 @@ const addLikeValidation = async ({sender, receiver}) => {
 	
 
 	if (!isValid)
-		errors.push(error.wrongUserId);
+		errors.push(error.wrongUserId());
 
 	myError.cleanBuffer(errors);
 	errors = myError.mergeBuffer(errors);
@@ -40,7 +40,7 @@ const addLike = async (data) => {
 
 	const updateResponse = await Users.addLike(data);
 	const receiver = await Users.find({ id: data.receiver });
-	updateResponse.sockets = [receiver.user.connected]
+	data.sockets = [receiver.user.connected];
 
 	return (updateResponse.error ? updateResponse : data);
 };
