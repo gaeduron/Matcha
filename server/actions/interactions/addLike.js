@@ -9,12 +9,13 @@ const error = {
 	}),
 };
 
-const addLikeValidation = async ({sender, receiver}) => {
+const addLikeValidation = async ({sender, receiver, id}) => {
 	let errors = [];
 
 	const isValid = [
 		Number.isInteger(sender),
-		Number.isInteger(receiver)
+		Number.isInteger(receiver),
+		id === sender
 	].reduce((acc, cond) => acc && cond, true); 
 	
 

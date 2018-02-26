@@ -7,14 +7,13 @@ import {
 
 const interactionsListener = (dispatch, socket) => {
 	socket.on('SERVER/ADD_LIKE', (res) => {
-		console.log('OKOK');
 		dispatch(sendInteraction('SERVER/GET_LIKES', {}));
-		//		dispatch(serverGetLikes());
 	});
 
-	//	socket.on('SERVER/GET_LIKES', (res) => {
-	//		dispatch(updateLikes(res.likes));
-	//	});
+	socket.on('SERVER/GET_LIKES', (res) => {
+		console.log('bien recu');
+		dispatch(updateLikes(res.likes));
+	});
 };
 
 export default interactionsListener;

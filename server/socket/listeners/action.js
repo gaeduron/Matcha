@@ -1,4 +1,5 @@
 /* Default socket listner for Redux-Socket.io middleware */
+const Users = require('../../models/user');
 
 const logger = require('../../logs/logger');
 const getProfile = require('../../actions/onboarding/getProfile');
@@ -11,11 +12,23 @@ const getProfiles = require('../../actions/search/getProfiles');
 const getProfilesCount = require('../../actions/search/getProfilesCount');
 const editProfile = require('../../actions/edit/editProfile');
 const addLike = require('../../actions/interactions/addLike');
+const getLikes = require('../../actions/interactions/getLikes');
 
 
 const startAction = async (action, socket, actionFunc, loggerContent) => {
+
+	/* Verify that the user is authenticated */
+	const auth = await Users.find({ socketID: socket.id });
+	if (auth.error) {
+		socket.emit('notificationError', auth.error);
+		return ;	
+	}	
+
+	/* Launch action */
 	action.data.socketID = socket.id;
+	action.data.id = auth.user.id;
 	const response = await actionFunc(action.data);
+
 
 	if (response.error) {
 		socket.emit('notificationError', response.error[0]);
@@ -95,7 +108,7 @@ const actionListeners = (socket) => {
 				break;
 			case 'SERVER/GET_LIKES':
 					console.log('GET LIKES', action);
-				//	startAction(action, socket, addLike, 'Adding new like to db');
+					startAction(action, socket, getLikes, 'Retrieving all user\'s likes from db');
 				break;
 			case 'SERVER/ADD_VISIT':
 				console.log('visit : ', action);

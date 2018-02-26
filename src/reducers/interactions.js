@@ -6,12 +6,12 @@ const defaultState = {
 
 export default (state = defaultState, action) => {
 	switch (action.type) {
-		case 'GET_LIKES':
+		case 'UPDATE_LIKES':
 			return {
 				...state,
 				likes: action.likes	
 			};
-		case 'GET_VISITS':
+		case 'UPDATE_VISITS':
 			return {
 				...state,
 				likes: action.likes	

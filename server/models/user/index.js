@@ -22,6 +22,7 @@ const create = require('./steps/create');
 const addTags = require('./steps/tags/addTags');
 const getTags = require('./steps/tags/getTags');
 const addLike = require('./steps/likes/addLike');
+const getLikes = require('./steps/likes/getLikes');
 
 // PATHS //
 const find = require('./paths/find');
@@ -55,6 +56,7 @@ module.exports = {
 	addTags,
 	getTags,
 	addLike,
+	getLikes,
 	// PATHS //
 	find,
 	newSession,
