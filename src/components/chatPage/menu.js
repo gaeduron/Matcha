@@ -7,7 +7,10 @@ export class SearchMenu extends React.Component {
 		super(props);
 	}
 	
-	onSort = () => this.props.showMenu();
+	onClick = (user) => {
+		this.props.showMenu();
+		this.props.onConversationChange(user);
+	};
 
 	render() {
 		return (
@@ -23,7 +26,7 @@ export class SearchMenu extends React.Component {
 				{this.props.matches.map((user) => (
 					<UserStatus
 						data={user}
-						showProfile={this.onSort}
+						showProfile={() => this.onClick(user)}
 						key={user.id}
 					/>
 				))}

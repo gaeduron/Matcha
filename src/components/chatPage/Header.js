@@ -9,6 +9,8 @@ export class Header extends React.Component {
 	onArrowBack = () => this.props.hideMenu();
 
 	render() {
+		const profile = this.props.profile;
+
 		if (this.props.menu === "hidden") {
 			return (
 				<header className="c-header">		
@@ -22,13 +24,16 @@ export class Header extends React.Component {
 						className="material-icons c-header--icon-arrow"
 						onClick={this.onArrowBack}>arrow_back
 					</i>
-					<h2 className="c-header--user-name">Paola Gracias</h2>
+					<h2 className="c-header--user-name">{`${profile.fname} ${profile.lname}`}</h2>
 					<div className="
 						c-news__image-container
 						c-news__image-container--chat
 					">
-						<img className="c-news__image" src="https://image.ibb.co/mu4up6/Screen_Shot_2018_01_10_at_5_39_51_PM.png" alt="" />
-						<div className="c-news__user-status c-news__user-status--chat"></div>
+						<img className="c-news__image" src={profile.photo} alt="" />
+						<div className={`c-news__user-status c-news__user-status--chat
+							${profile.connected && "c-news__user-status--active"}
+						`}
+						></div>
 					</div>	
 				</header>
 			);

@@ -4,7 +4,8 @@ import Navbar from '../Navbar';
 import { Header } from './Header';
 import Menu from './menu';
 import Chat from './Chat';
-import UserDescription from './UserDescription.js';
+import UserDescription from './UserDescription2.js';
+import { updateChatProfile } from '../../actions/chat';
 
 const mockMatch = [
     {
@@ -39,6 +40,17 @@ const mockMatch = [
     },
 ];
 
+const mockMessages = [
+				{time: "2018-01-28T14:30:11.202Z", from: "you", text: "Hey, how are you ?"},
+				{time: "2018-01-28T14:31:11.202Z", from: "paola", text: "Fine and you?"},
+				{time: "2018-01-28T14:31:11.202Z", from: "paola", text: "Do you come here often?"},
+				{time: "2018-01-28T14:32:11.202Z", from: "you", text: "Fine thanks :), It's my first time using this app. Hopefully I will make some cool friends here !"},
+				{time: "2018-01-28T14:32:11.202Z", from: "paola", text: "Me too, seem like the place too be ;)"},
+				{time: "2018-01-28T14:32:11.202Z", from: "you", text: "Are you from paris, or are you traveling ?"},
+				{time: "2018-01-29T12:12:11.202Z", from: "you", text: "I just arrived my self last week."},
+]
+
+
 export class ChatPage extends React.Component {
 	constructor(props) {
 		super(props);
@@ -59,13 +71,18 @@ export class ChatPage extends React.Component {
 		this.setState(() => ({ menu }));
 	}
 
-	onConversationChange = (profile) => this.setState({ profile });
+	onConversationChange = (profile) => this.props.updateChatProfile(profile);
 
 	componentWillMount = () => {
-		console.log('o');	
+		if (this.props.chatProfile.id === 0 && this.props.matches.length) {
+			this.props.updateChatProfile(this.props.matches[0]);
+		} else {
+			this.onShowMenu();
+		}
 	}
 
 	render() {
+		const messages = this.props.messages;
 		return (
 			<div className="l-flex-container">
 				<div className="l-header">
@@ -73,7 +90,7 @@ export class ChatPage extends React.Component {
 						menu={this.state.menu}
 						showMenu={this.onShowMenu}
 						hideMenu={this.onHideMenu}
-						profile={this.state.profile}
+						profile={this.props.chatProfile}
 					/>
 				</div>
 				<div className="l-nav"><Navbar /></div>
@@ -85,13 +102,15 @@ export class ChatPage extends React.Component {
 					<Menu
 						matches={this.props.matches}
 						showMenu={this.onShowMenu}
-						onConversationChange={(profile) => this.onConversationChange(profile)}
+						onConversationChange={this.onConversationChange}
 					/>
 				</div>
 				<div className="l-main l-main__chat c-main c-main--white">
-					<Chat />
+					<Chat messages={messages} />
 					<div className={`l-chat__user-desc ${this.state.description == "hidden" ? "l-chat__hide-desc" : ""}`}>
-						<UserDescription />
+						<UserDescription
+							profile={this.props.chatProfile.id}
+						/>
 					</div>
 				</div>
 			</div>
@@ -99,12 +118,19 @@ export class ChatPage extends React.Component {
 	}
 }
 
+const mapDispatchToProps = (dispatch) => {
+	return {
+		updateChatProfile: (profile) => dispatch(updateChatProfile(profile))
+	};	
+}
+
 const mapStateToProps = (state) => {
 	return {
 		notif: state.notif.notification,
-		mathes: mockMatch,
+		matches: mockMatch,
 		chatProfile: state.chat.chatProfile,
+		messages: mockMessages,
 	};
 };
 
-export default connect(mapStateToProps, undefined)(ChatPage);
+export default connect(mapStateToProps, mapDispatchToProps)(ChatPage);

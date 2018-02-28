@@ -1,12 +1,9 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import moment from 'moment';
 
 export class Message extends React.Component {
 	constructor(props) {
 		super(props);
-
-		this.state = {
-		};
 	}
 
 	header = () => {
@@ -41,7 +38,7 @@ export class Message extends React.Component {
 							className={`c-message__date 
 								${this.props.from == "you" ? "c-message__date--sent" : ""}
 							`}
-						>{this.props.time}</p>
+						>{moment(this.props.time).format('HH:mm')}</p>
 					</div>
 				</div>
 			</div>
@@ -49,10 +46,4 @@ export class Message extends React.Component {
 	}
 }
 
-const mapStateToProps = (state) => {
-	return {
-		notif: state.notif.notification,
-	};
-};
-
-export default connect(mapStateToProps, undefined)(Message);
+export default Message;
