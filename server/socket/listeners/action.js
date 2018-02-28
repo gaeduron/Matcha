@@ -13,6 +13,8 @@ const getProfilesCount = require('../../actions/search/getProfilesCount');
 const editProfile = require('../../actions/edit/editProfile');
 const addLike = require('../../actions/interactions/addLike');
 const getLikes = require('../../actions/interactions/getLikes');
+const addVisit = require('../../actions/interactions/addVisit');
+const getVisits = require('../../actions/interactions/getVisits');
 
 
 const startAction = async (action, socket, actionFunc, loggerContent) => {
@@ -103,16 +105,17 @@ const actionListeners = (socket) => {
 
 			/* Interactions (likes & visits) */	
 			case 'SERVER/ADD_LIKE':
-				//	console.log('like : ', action);
 				startAction(action, socket, addLike, 'Adding new like to db');
 				break;
 			case 'SERVER/GET_LIKES':
-					console.log('GET LIKES', action);
 					startAction(action, socket, getLikes, 'Retrieving all user\'s likes from db');
 				break;
 			case 'SERVER/ADD_VISIT':
 				console.log('visit : ', action);
-				//  startAction(action, socket, getProfiles, 'Search: user profiles data fetched');
+				startAction(action, socket, addVisit, 'New visit saved to DB');
+				break;
+			case 'SERVER/GET_VISITS':
+					startAction(action, socket, getVisits, 'Retrieving all user\'s visits from db');
 				break;
 
 				

@@ -23,6 +23,9 @@ const addTags = require('./steps/tags/addTags');
 const getTags = require('./steps/tags/getTags');
 const addLike = require('./steps/likes/addLike');
 const getLikes = require('./steps/likes/getLikes');
+const addVisit = require('./steps/visits/addVisit');
+const getVisits = require('./steps/visits/getVisits');
+const getOnlineUsers = require('./steps/online/getOnlineUsers');
 
 // PATHS //
 const find = require('./paths/find');
@@ -57,6 +60,9 @@ module.exports = {
 	getTags,
 	addLike,
 	getLikes,
+	addVisit,
+	getVisits,
+	getOnlineUsers,
 	// PATHS //
 	find,
 	newSession,

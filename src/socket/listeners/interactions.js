@@ -1,4 +1,4 @@
-import { sendInteraction, updateLikes } from '../../actions/interactions'; 
+import { sendInteraction, updateLikes, updateVisits, updateOnlineUsers } from '../../actions/interactions'; 
 import { Redirect } from 'react-router-dom';
 
 import {
@@ -11,8 +11,20 @@ const interactionsListener = (dispatch, socket) => {
 	});
 
 	socket.on('SERVER/GET_LIKES', (res) => {
-		console.log('bien recu');
 		dispatch(updateLikes(res.likes));
+	});
+
+	socket.on('SERVER/ADD_VISIT', (res) => {
+		dispatch(sendInteraction('SERVER/GET_VISITS', {}));
+	});
+
+	socket.on('SERVER/GET_VISITS', (res) => {
+		console.log('bien recu', res.visits);
+		dispatch(updateVisits(res.visits));
+	});
+
+	socket.on('onlineUsers', (res) => {
+		dispatch(updateOnlineUsers(res));
 	});
 };
 

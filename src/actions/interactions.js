@@ -11,6 +11,11 @@ export const updateVisits = (visits) => ({
 	visits
 });
 
+export const updateOnlineUsers = (onlineUsers) => ({
+	type: 'UPDATE_ONLINE_USERS',
+	onlineUsers
+});
+
 export const sendInteraction = (emitMessage, data) => (dispatch, getState) => { 
 	data.sessionToken = cookie.get('sessionToken');
 	 dispatch({ 
