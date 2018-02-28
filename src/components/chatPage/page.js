@@ -6,7 +6,40 @@ import Menu from './menu';
 import Chat from './Chat';
 import UserDescription from './UserDescription.js';
 
-export class SearchPage extends React.Component {
+const mockMatch = [
+    {
+        id: 527,
+        fname: 'Bill',
+        lname: 'Becker',
+        age: 32,
+        occupation: 'Waterside Worker',
+        photo: 'https://res.cloudinary.com/matcha/image/upload/v1518690862/yasxzl2kl4jip1k65b4t.jpg',
+        connected: false,
+        clicked: false,
+    },
+    {
+        id: 528,
+        fname: 'Charley',
+        lname: 'Gleichner',
+        age: 27,
+        occupation: 'Applications Programmers',
+        photo: 'https://res.cloudinary.com/matcha/image/upload/v1518691639/myh986grrkvm9g6wzqqk.jpg',
+        connected: true,
+        clicked: true,
+    },
+    {
+        id: 529,
+        fname: 'Cristopher',
+        lname: 'Hessel',
+        age: 23,
+        occupation: 'Concreter',
+        photo: 'https://res.cloudinary.com/matcha/image/upload/v1518692094/nwqsdyxpp7k1wyw08ihm.jpg',
+        connected: false,
+        clicked: true,
+    },
+];
+
+export class ChatPage extends React.Component {
 	constructor(props) {
 		super(props);
 
@@ -28,6 +61,10 @@ export class SearchPage extends React.Component {
 
 	onConversationChange = (profile) => this.setState({ profile });
 
+	componentWillMount = () => {
+		console.log('o');	
+	}
+
 	render() {
 		return (
 			<div className="l-flex-container">
@@ -45,7 +82,8 @@ export class SearchPage extends React.Component {
 						${this.state.menu === "visible" ? "" : "l-menu__show"}
 					`}
 				>
-					<Menu 
+					<Menu
+						matches={this.props.matches}
 						showMenu={this.onShowMenu}
 						onConversationChange={(profile) => this.onConversationChange(profile)}
 					/>
@@ -64,7 +102,9 @@ export class SearchPage extends React.Component {
 const mapStateToProps = (state) => {
 	return {
 		notif: state.notif.notification,
+		mathes: mockMatch,
+		chatProfile: state.chat.chatProfile,
 	};
 };
 
-export default connect(mapStateToProps, undefined)(SearchPage);
+export default connect(mapStateToProps, undefined)(ChatPage);
