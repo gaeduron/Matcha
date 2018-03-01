@@ -10,7 +10,8 @@ import {
 	updateBirthDate,	
 	updateOccupation,	
 	updateBio,	
-	updateLocation	
+	updateLocation,
+	updateScore,
 } from '../actions/user';
 
 
@@ -35,8 +36,8 @@ export default function rehydrateStore(dispatch, user) {
 			longitude: user.longitude, 
 			geolocationAllowed: user.geolocationAllowed 
 		}),
-		updateTags(user.tags),	
-		
+		updateTags(user.tags),
+		updateScore(user.score)
 	]);
 };
 

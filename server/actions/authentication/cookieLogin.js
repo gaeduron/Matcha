@@ -9,7 +9,8 @@ const cookieLogin = async ({ sessionToken, socketID }) => {
 		'nickname', 'email', 'sex', 
 		'sexualOrientation', 'bio', 
 		'longitude', 'latitude', 'birthdate', 
-		'photos', 'geolocationAllowed', 'onboarding', 'id', 'occupation', 'tags'
+		'photos', 'geolocationAllowed', 'onboarding', 'id', 'occupation', 'tags',
+		'score'	
 	];
 
 	const user = {

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
-import { Navbar } from '../Navbar';
+import Navbar from '../Navbar';
 import { Header } from '../Header';
 import UserCard from './card';
 import Menu from './menu';

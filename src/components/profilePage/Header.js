@@ -13,10 +13,12 @@ export class Header extends React.Component {
 			return (
 				<header className="c-header">		
 					<h1 className="c-header--title">PROFILE</h1>
-					<i
-						className="material-icons c-header--icon-sort"
-						onClick={this.onSort}>more_vert
-					</i>
+					{!this.props.noMenu &&
+						<i
+							className="material-icons c-header--icon-sort"
+							onClick={this.onSort}>more_vert
+						</i>
+					}
 				</header>
 			);
 		} else {

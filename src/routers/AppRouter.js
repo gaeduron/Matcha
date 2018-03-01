@@ -26,8 +26,8 @@ const AppRouter = () => (
 					<PublicRoute path="/" component={LoginPage} exact={true} />
 					<PublicRoute path="/password-reset/:token" component={PasswordResetPage} />
 					<PrivateRoute path="/dashboard" component={DashboardPage} />
-					<PrivateRoute path="/profile/:user-id" component={ProfilePage} />
-					<PrivateRoute path="/profile/edit" component={() => (<ProfilePage edit />)} />
+					<PrivateRoute path="/profile/:uid" component={ProfilePage} />
+					<PrivateRoute path="/edit-profile/:uid" component={(props) => (<ProfilePage edit match={props.match} />)} />
 					<PrivateRoute path="/chat" component={ChatPage} />
 					<PrivateRoute path="/news" component={NewsPage} />
 					<Route component={NotFoundPage} />

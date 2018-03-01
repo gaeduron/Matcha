@@ -30,6 +30,16 @@
 	color: #B7B7B7;
 }
 
+.o-little-title--button {
+	text-decoration: underline;
+	@extend %transition;
+	
+	&:hover {
+		color: #FF0055;
+		cursor: pointer;
+	}
+}
+
 .o-little-title--light {
 	font-weight: 500;
 }

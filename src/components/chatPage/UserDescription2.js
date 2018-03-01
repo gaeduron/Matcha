@@ -7,10 +7,10 @@ import 'element-theme-default';
 import ChipInput from 'material-ui-chip-input';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import MapWithAMarker from '../searchPage/map';
-import { Tags } from './Tags';
+import { Tags } from '../profilePage/Tags';
 import { history } from '../../routers/AppRouter';
 import { getProfileByID } from '../../actions/search';
-import { LikeButton, ReportButton, BlockButton } from './likeButton';
+import { LikeButton, ReportButton, BlockButton } from '../profilePage/likeButton';
 
 // FOR TEST PURPOSE ONLY, TO MOVE IN ENV
 const GOOGLE_GEOLOCATION_API_KEY = 'AIzaSyC3VByoAFwfYTsXvC5GgS0F6mEiJuoku2Y';
@@ -53,22 +53,21 @@ export class UserDescription extends React.Component {
 	onBlock = () => this.setState({ blocked: true });
 	onUnblock = () => this.setState({ blocked: false });
 
-  updateDimensions = () => {
-    if(window.innerWidth <= 980 && window.innerWidth > 768) {
-		this.setState({ squareHeight: 320 });
-    } else if ( window.innerWidth <= 768 && window.innerWidth > 472) {
-		this.setState({ squareHeight: 472 });
-    } else if ( window.innerWidth <= 472 && window.innerWidth > 424) {
-		this.setState({ squareHeight: 425 });
-    } else if ( window.innerWidth <= 424 && window.innerWidth > 374) {
-		this.setState({ squareHeight: 375 });
-    } else if ( window.innerWidth <= 374) {
-		this.setState({ squareHeight: 320 });
-	} else {
-		this.setState({ squareHeight: 472 });
-    }
-  }
+	updateDimensions = () => {
+		if(window.innerWidth > 1550) {
+			this.setState({ squareHeight: 472, description: "visible" });
+		} else if (window.innerWidth > 1235) {
+			this.setState({ squareHeight: 320, description: "visible" });
+		} else {
+			this.setState({ description: "hidden" });
+		}
+	}
 
+	componentDidUpdate = (prevProps) => {
+		if (prevProps.profile != this.props.profile) {
+			this.props.getProfileByID(this.props.profile);	
+		}
+	}
 
 	componentDidMount = () => {
 		this.updateDimensions();
@@ -146,7 +145,7 @@ export class UserDescription extends React.Component {
 		const focusedProfile = false;
 		const user = this.getUserProfile(this.props.user, this.props.fetchedProfile);
 		return (
-			<div className="c-user-desc">
+			<div className={`c-user-desc--chat ${this.state.description == "hidden" ? "l-chat__hide-desc" : ""}`}>
 				{!this.props.profile &&
 					<button
 						className="l-onb-nav__buttons-left c-button c-button--circle c-user-desc__edit"

@@ -109,7 +109,7 @@ export class LoginPage extends React.Component {
 						style={{ visibility: this.state.formRegister }}
 						className={ "l-landing__form " + this.state.formRegister }
 					>
-						<div className="c-form-box">
+						<div className="c-form-box c-form-box--recaptcha">
 							<i
 								className="material-icons c-form-box__close"
 								onClick={this.onCloseButtonClick}
@@ -139,12 +139,16 @@ export class LoginPage extends React.Component {
 									/>
 								</div>
 								<button className="c-form-box__button">SEND</button>
-							</form>
 							<ReCAPTCHA
 								ref="recaptcha"
 								sitekey="6LekPkcUAAAAAO1xyqtfuQMJAhtIwW_l5B-MuJPa"
 								onChange={this.onCaptchaChange}
+								style={{
+									marginLeft: '10px',
+									marginTop: '10px'
+								}}
 							/>
+							</form>
 						</div>
 					</div>
 

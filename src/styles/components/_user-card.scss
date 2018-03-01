@@ -8,8 +8,13 @@
 	@extend %transition;
 }
 
+.c-user-card--hidden {
+	display: none;
+}
+
 .c-user-card:hover {
 	box-shadow: 0px 2px 15px 0px rgba(0,0,0,0.5);
+    transform:  translate(0px,-5px)  rotate(0deg) scaleX(1.01) scaleY(1.01) ;
 	@extend %transition;
 }
 
@@ -78,4 +83,41 @@
 	.c-user-card {
 		height: 350px;
 	}
+}
+
+.element-animation{
+  animation: fancyAnimationFrames ease 0.75s;
+  animation-iteration-count: 1;
+  transform-origin: 50% 50%;
+  animation-fill-mode:forwards; /*when the spec is finished*/
+}
+
+.element-animation-out{
+  animation: fancyAnimationFramesOut ease 0.75s;
+  animation-iteration-count: 1;
+  transform-origin: 50% 50%;
+  animation-fill-mode:forwards; /*when the spec is finished*/
+}
+
+@keyframes fancyAnimationFrames{
+  0% {
+	display: flex;
+    opacity:0.5;
+    transform:  translate(0px,-10px)  rotate(0deg) scaleX(1.01) scaleY(1.01) ;
+  }
+  100% {
+    opacity:1;
+    transform:  translate(0px,0px)  rotate(0deg) scaleX(1.00) scaleY(1.00) ;
+  }
+}
+
+@keyframes fancyAnimationFramesOut{
+  0% {
+    opacity:1;
+    transform:  translate(0px,0px)  rotate(0deg) scaleX(1.00) scaleY(1.00) ;
+  }
+  100% {
+    opacity:0;
+    transform:  translate(0px,-10px)  rotate(0deg) scaleX(1.01) scaleY(1.01) ;
+  }
 }

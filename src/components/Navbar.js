@@ -1,49 +1,65 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { startLogout } from '../actions/auth';
-import { history } from '../routers/AppRouter';
+import { history } from '../routers/AppRouter.js';
 
-const onSearch = () => history.replace('/dashboard');
-const onProfile = () => history.replace('/profile/user-id');
-const onChat = () => history.replace('/chat');
-const onNews = () => history.replace('/news');
+const onSearch = () => history.push('/dashboard');
+const onProfile = (id) => history.push(`/profile/${id}`);
+const onChat = () => history.push('/chat');
+const onNews = () => history.push('/news');
 
-const navItemActive = (path) => {
-	if (history.location.pathname === path) {
+const navItemActive = (path, altPath = false) => {
+	if (history.location.pathname === path || history.location.pathname === altPath) {
 		return ' c-nav__item--active';
 	}
 	return '';
 };
 
-const itemLogoActive = (path) => {
-	if (history.location.pathname === path) {
+const itemLogoActive = (path, altPath = false) => {
+	if (history.location.pathname === path || history.location.pathname === altPath) {
 		return ' c-nav-item__logo--active';
 	}
 	return '';
 };
 
-const iconActive = (path) => {
-	if (history.location.pathname === path) {
+const iconActive = (path, altPath = false) => {
+	if (history.location.pathname === path || history.location.pathname === altPath) {
 		return ' material-icons--active';
 	}
 	return '';
 };
 
-export const Navbar = () => (
+export const Navbar = ({ userID, search }) => {
+	let profile = false;
+	if ('profile' in search) {
+		profile = search.profile.id;		
+	}
+	return (
 	<header className="c-nav">
 
-		<div className={`c-nav__item ${navItemActive('/dashboard')}`} onClick={onSearch}>
-			<div className={`c-nav-item__logo ${itemLogoActive('/dashboard')}`}>
-				<i className={`material-icons material-icons--big-white ${iconActive('/dashboard')}`}>
+		<div className={`c-nav__item ${navItemActive('/dashboard', `/profile/${profile}`)}`} onClick={onSearch}>
+			<div className={`c-nav-item__logo ${itemLogoActive('/dashboard', `/profile/${profile}`)}`}>
+				<i className={`material-icons material-icons--big-white ${iconActive('/dashboard', `/profile/${profile}`)}`}>
 				search
 				</i>
 			</div>
 			<h5 className="c-nav-item__text">search</h5>
 		</div>
 
-		<div className={`c-nav__item ${navItemActive('/profile/user-id')}`} onClick={onProfile}>
-			<div className={`c-nav-item__logo ${itemLogoActive('/profile/user-id')}`}>
-				<i className={`material-icons material-icons--big-white ${iconActive('/profile/user-id')}`}>
+		<div
+			className={`c-nav__item
+				${navItemActive(`/profile/${userID}`, `/edit-profile/${userID}`)}
+			`}
+			onClick={() => onProfile(userID)}
+		>
+			<div className={`c-nav-item__logo
+					${itemLogoActive(`/profile/${userID}`, `/edit-profile/${userID}` )}
+				`}
+			>
+				<i className={`material-icons material-icons--big-white 
+						${iconActive(`/profile/${userID}`, `/edit-profile/${userID}`)}
+					`}
+				>
 				face
 				</i>
 			</div>
@@ -76,10 +92,11 @@ export const Navbar = () => (
 		</div>
 
 	</header>
-);
+)};
 
-const mapDispatchToProps = () => ({
-	startLogout: () => startLogout(),
+const mapStateToProps = (state) => ({
+	userID: state.user.nickname,
+	search: state.search,
 });
 
-export default connect(undefined, mapDispatchToProps)(Navbar);
+export default connect(mapStateToProps, undefined)(Navbar);

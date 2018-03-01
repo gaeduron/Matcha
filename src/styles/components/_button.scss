@@ -30,6 +30,12 @@
 	}	
 }
 
+.c-button--active {
+	color: #F9316A;
+	background-color: white;
+	box-shadow: 0 4px 6px rgba(50,50,93,.11),0 1px 3px rgba(0,0,0,.08)
+}
+
 .c-button--circle {
 	padding: 10px;
 } 
