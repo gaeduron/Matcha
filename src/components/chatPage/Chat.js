@@ -25,10 +25,9 @@ export class Chat extends React.Component {
 	}
 	
 	changedDay = (message, i, messages) => {
-		const day = moment(moment(message.time).format("YYYY-MM-DD"));
 		if (i === 0) {
 			return moment(message.time).format('dddd, MMMM Do');
-		} else if (day.diff(moment(messages[i-1].time), 'days') >= 1) {
+		} else if (moment(message.time).isAfter(moment(messages[i-1].time), 'days') >= 1) {
 			return moment(message.time).format('dddd, MMMM Do');
 		}
 		return false;
@@ -52,13 +51,30 @@ export class Chat extends React.Component {
 		newMessage += emoji.native;
     	this.setState({ newMessage });	
 	}
+	
+	scrollToBottom = () => {
+		this.messagesEnd.scrollIntoView({ behavior: "instant", block: "end" });
+	}
+	
+	componentDidMount() {
+		this.scrollToBottom();
+	}
+	
+	componentDidUpdate() {
+		this.scrollToBottom();
+	}
+
+	onSend = () => {	
+		this.props.onSendMessage(this.state.newMessage);
+		this.setState({ newMessage: "" });
+	}
 
 	render() {
 		const emojiVisible = this.state.emojiPicker;
 		return (
 			<div className="c-chat">
 				<div className="c-chat__messages">
-				{this.props.messages.map((message, i, messages) => 
+					{this.props.messages.map((message, i, messages) => 
 						<Message
 							from={message.from}
 							time={message.time}
@@ -67,7 +83,10 @@ export class Chat extends React.Component {
 							changedDay={this.changedDay(message, i, messages)}
 							key={i}
 						/>
-				)}
+					)}
+					<div style={{ height: '100px'}}
+						ref={(el) => { this.messagesEnd = el; }}>
+					</div>
 				</div>
 				<div className="c-chat__message-box-wrapper">
 					<input
@@ -76,7 +95,18 @@ export class Chat extends React.Component {
 						value={this.state.newMessage}
 						onChange={this.handleChange}
 					/>
-					<i className="material-icons c-chat__emoji" onClick={this.onFaceClick}>tag_faces</i>
+					<i
+						className="material-icons c-chat__emoji"
+						onClick={this.onSend}
+					>
+						send
+					</i>
+					<i
+						className="material-icons c-chat__emoji c-chat__emoji--face"
+						onClick={this.onFaceClick}
+					>
+						tag_faces
+					</i>
 					{ this.state.mounted == true && 
 					<Picker
 						native={true}
@@ -86,6 +116,7 @@ export class Chat extends React.Component {
 							bottom: '78px',
 							right: '12px',
 							transform: emojiVisible,
+							overflow: 'hidden',
 						}}
 						title=''
 						emoji='point_up_2'

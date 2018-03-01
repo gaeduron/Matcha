@@ -7,9 +7,14 @@ export class UserStatus extends React.Component {
 
     render() {
 		const user = this.props.data;
+		const focused = this.props.focused;
 		return (
 			<div
-				className={`c-news ${user.clicked ? "" : "c-news--unseen"}`}
+				className={`
+					c-news
+					${user.clicked ? "" : "c-news--unseen"}
+					${focused && "c-news--focused"}
+				`}
 				onClick={this.props.showProfile}
 			>
 				<div className="c-news__image-container c-news__image-container--menu">

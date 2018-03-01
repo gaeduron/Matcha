@@ -26,6 +26,7 @@ export class SearchPage extends React.Component {
 	}
 
 	render() {
+		window.scroll(0, 0);
 		if (this.props.userID == this.props.match.params.uid) {
 			return (
 				<div className="l-flex-container">
@@ -34,6 +35,7 @@ export class SearchPage extends React.Component {
 							menu={this.state.menu}
 							showMenu={this.onShowMenu}
 							hideMenu={this.onHideMenu}
+							noMenu={false}
 						/>
 					</div>
 					<div className="l-nav"><Navbar /></div>
@@ -62,6 +64,7 @@ export class SearchPage extends React.Component {
 							menu={this.state.menu}
 							showMenu={this.onShowMenu}
 							hideMenu={this.onHideMenu}
+							noMenu={true}
 						/>
 					</div>
 					<div className="l-nav"><Navbar /></div>

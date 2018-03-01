@@ -40,15 +40,86 @@ const mockMatch = [
     },
 ];
 
-const mockMessages = [
-				{time: "2018-01-28T14:30:11.202Z", from: "you", text: "Hey, how are you ?"},
-				{time: "2018-01-28T14:31:11.202Z", from: "paola", text: "Fine and you?"},
-				{time: "2018-01-28T14:31:11.202Z", from: "paola", text: "Do you come here often?"},
-				{time: "2018-01-28T14:32:11.202Z", from: "you", text: "Fine thanks :), It's my first time using this app. Hopefully I will make some cool friends here !"},
-				{time: "2018-01-28T14:32:11.202Z", from: "paola", text: "Me too, seem like the place too be ;)"},
-				{time: "2018-01-28T14:32:11.202Z", from: "you", text: "Are you from paris, or are you traveling ?"},
-				{time: "2018-01-29T12:12:11.202Z", from: "you", text: "I just arrived my self last week."},
-]
+const mockMessages = {
+	0: [{time: "2018-01-28T14:30:11.202Z", from: "you", text: "____________"}],
+	527: [
+			{time: "2018-01-28T14:30:11.202Z", from: "you", text: "Hey, how are you ?"},
+			{time: "2018-01-28T14:31:11.202Z", from: "paola", text: "Fine and you?"},
+			{time: "2018-01-28T14:31:11.202Z", from: "paola", text: "Do you come here often?"},
+			{time: "2018-01-28T14:32:11.202Z", from: "you", text: "Fine thanks :), It's my first time using this app. Hopefully I will make some cool friends here !"},
+			{time: "2018-01-28T14:32:11.202Z", from: "paola", text: "Me too, seem like the place too be ;)"},
+			{time: "2018-01-28T14:32:11.202Z", from: "you", text: "Are you from paris, or are you traveling ?"},
+			{time: "2018-01-29T12:12:11.202Z", from: "you", text: "I just arrived my self last week."},
+		],
+	528: [
+			{time: "2018-01-28T14:32:11.202Z", from: "you", text: "Fine thanks :), It's my first time using this app. Hopefully I will make some cool friends here !"},
+			{time: "2018-01-28T14:32:11.202Z", from: "paola", text: "Me too, seem like the place too be ;)"},
+			{time: "2018-01-28T14:32:11.202Z", from: "you", text: "Are you from paris, or are you traveling ?"},
+			{time: "2018-01-29T12:12:11.202Z", from: "you", text: "I just arrived my self last week."},
+		],
+	529: [
+			{time: "2018-01-28T14:30:11.202Z", from: "you", text: "Hey, how are you ?"},
+			{time: "2018-01-28T14:31:11.202Z", from: "paola", text: "Fine and you?"},
+			{time: "2018-01-28T14:31:11.202Z", from: "paola", text: "Do you come here often?"},
+			{time: "2018-01-28T14:32:11.202Z", from: "you", text: "Fine thanks :), It's my first time using this app. Hopefully I will make some cool friends here !"},
+			{time: "2018-01-28T14:32:11.202Z", from: "paola", text: "Me too, seem like the place too be ;)"},
+			{time: "2018-01-28T14:32:11.202Z", from: "you", text: "Are you from paris, or are you traveling ?"},
+			{time: "2018-01-28T14:30:11.202Z", from: "you", text: "Hey, how are you ?"},
+			{time: "2018-01-28T14:31:11.202Z", from: "paola", text: "Fine and you?"},
+			{time: "2018-01-28T14:31:11.202Z", from: "paola", text: "Do you come here often?"},
+			{time: "2018-01-28T14:32:11.202Z", from: "you", text: "Fine thanks :), It's my first time using this app. Hopefully I will make some cool friends here !"},
+			{time: "2018-01-28T14:32:11.202Z", from: "paola", text: "Me too, seem like the place too be ;)"},
+			{time: "2018-01-28T14:32:11.202Z", from: "you", text: "Are you from paris, or are you traveling ?"},
+			{time: "2018-01-29T12:12:11.202Z", from: "you", text: "I just arrived my self last week."},
+			{time: "2018-01-28T14:30:11.202Z", from: "you", text: "Hey, how are you ?"},
+			{time: "2018-01-28T14:31:11.202Z", from: "paola", text: "Fine and you?"},
+			{time: "2018-01-28T14:31:11.202Z", from: "paola", text: "Do you come here often?"},
+			{time: "2018-01-28T14:32:11.202Z", from: "you", text: "Fine thanks :), It's my first time using this app. Hopefully I will make some cool friends here !"},
+			{time: "2018-01-28T14:32:11.202Z", from: "paola", text: "Me too, seem like the place too be ;)"},
+			{time: "2018-01-28T14:32:11.202Z", from: "you", text: "Are you from paris, or are you traveling ?"},
+			{time: "2018-01-29T12:12:11.202Z", from: "you", text: "I just arrived my self last week."},
+			{time: "2018-01-28T14:30:11.202Z", from: "you", text: "Hey, how are you ?"},
+			{time: "2018-01-28T14:31:11.202Z", from: "paola", text: "Fine and you?"},
+			{time: "2018-01-28T14:31:11.202Z", from: "paola", text: "Do you come here often?"},
+			{time: "2018-01-28T14:32:11.202Z", from: "you", text: "Fine thanks :), It's my first time using this app. Hopefully I will make some cool friends here !"},
+			{time: "2018-01-28T14:32:11.202Z", from: "paola", text: "Me too, seem like the place too be ;)"},
+			{time: "2018-01-28T14:32:11.202Z", from: "you", text: "Are you from paris, or are you traveling ?"},
+			{time: "2018-01-28T14:30:11.202Z", from: "you", text: "Hey, how are you ?"},
+			{time: "2018-01-28T14:31:11.202Z", from: "paola", text: "Fine and you?"},
+			{time: "2018-01-28T14:31:11.202Z", from: "paola", text: "Do you come here often?"},
+			{time: "2018-01-28T14:32:11.202Z", from: "you", text: "Fine thanks :), It's my first time using this app. Hopefully I will make some cool friends here !"},
+			{time: "2018-01-28T14:32:11.202Z", from: "paola", text: "Me too, seem like the place too be ;)"},
+			{time: "2018-01-28T14:32:11.202Z", from: "you", text: "Are you from paris, or are you traveling ?"},
+			{time: "2018-01-29T12:12:11.202Z", from: "you", text: "I just arrived my self last week."},
+			{time: "2018-01-28T14:30:11.202Z", from: "you", text: "Hey, how are you ?"},
+			{time: "2018-01-28T14:31:11.202Z", from: "paola", text: "Fine and you?"},
+			{time: "2018-01-28T14:31:11.202Z", from: "paola", text: "Do you come here often?"},
+			{time: "2018-01-28T14:32:11.202Z", from: "you", text: "Fine thanks :), It's my first time using this app. Hopefully I will make some cool friends here !"},
+			{time: "2018-01-28T14:32:11.202Z", from: "paola", text: "Me too, seem like the place too be ;)"},
+			{time: "2018-01-28T14:32:11.202Z", from: "you", text: "Are you from paris, or are you traveling ?"},
+			{time: "2018-01-29T12:12:11.202Z", from: "you", text: "I just arrived my self last week."},
+			{time: "2018-01-28T14:30:11.202Z", from: "you", text: "Hey, how are you ?"},
+			{time: "2018-01-28T14:31:11.202Z", from: "paola", text: "Fine and you?"},
+			{time: "2018-01-28T14:31:11.202Z", from: "paola", text: "Do you come here often?"},
+			{time: "2018-01-28T14:32:11.202Z", from: "you", text: "Fine thanks :), It's my first time using this app. Hopefully I will make some cool friends here !"},
+			{time: "2018-01-28T14:32:11.202Z", from: "paola", text: "Me too, seem like the place too be ;)"},
+			{time: "2018-01-28T14:32:11.202Z", from: "you", text: "Are you from paris, or are you traveling ?"},
+			{time: "2018-01-28T14:30:11.202Z", from: "you", text: "Hey, how are you ?"},
+			{time: "2018-01-28T14:31:11.202Z", from: "paola", text: "Fine and you?"},
+			{time: "2018-01-28T14:31:11.202Z", from: "paola", text: "Do you come here often?"},
+			{time: "2018-01-28T14:32:11.202Z", from: "you", text: "Fine thanks :), It's my first time using this app. Hopefully I will make some cool friends here !"},
+			{time: "2018-01-28T14:32:11.202Z", from: "paola", text: "Me too, seem like the place too be ;)"},
+			{time: "2018-01-28T14:32:11.202Z", from: "you", text: "Are you from paris, or are you traveling ?"},
+			{time: "2018-01-29T12:12:11.202Z", from: "you", text: "I just arrived my self last week."},
+			{time: "2018-01-28T14:30:11.202Z", from: "you", text: "Hey, how are you ?"},
+			{time: "2018-01-28T14:31:11.202Z", from: "paola", text: "Fine and you?"},
+			{time: "2018-01-28T14:31:11.202Z", from: "paola", text: "Do you come here often?"},
+			{time: "2018-01-28T14:32:11.202Z", from: "you", text: "Fine thanks :), It's my first time using this app. Hopefully I will make some cool friends here !"},
+			{time: "2018-01-28T14:32:11.202Z", from: "paola", text: "Me too, seem like the place too be ;)"},
+			{time: "2018-01-28T14:32:11.202Z", from: "you", text: "Are you from paris, or are you traveling ?"},
+			{time: "2018-01-29T12:12:11.202Z", from: "you", text: "I just arrived my self last week."},
+		],
+}
 
 
 export class ChatPage extends React.Component {
@@ -81,8 +152,14 @@ export class ChatPage extends React.Component {
 		}
 	}
 
+	getProfileMessages = id => this.props.messages[id];
+
+	onSendMessage = (message) => {
+		alert(`chatPage/page:158: message: ${message}`);
+	};
+
 	render() {
-		const messages = this.props.messages;
+		const messages = this.getProfileMessages(this.props.chatProfile.id.toString());
 		return (
 			<div className="l-flex-container">
 				<div className="l-header">
@@ -103,10 +180,14 @@ export class ChatPage extends React.Component {
 						matches={this.props.matches}
 						showMenu={this.onShowMenu}
 						onConversationChange={this.onConversationChange}
+						focusedProfile={this.props.chatProfile}
 					/>
 				</div>
 				<div className="l-main l-main__chat c-main c-main--white">
-					<Chat messages={messages} />
+					<Chat
+						messages={messages}
+						onSendMessage={this.onSendMessage}
+					/>
 					<div className={`l-chat__user-desc ${this.state.description == "hidden" ? "l-chat__hide-desc" : ""}`}>
 						<UserDescription
 							profile={this.props.chatProfile.id}

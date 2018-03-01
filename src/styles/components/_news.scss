@@ -28,6 +28,10 @@
 	background: darken(#d0e4f5, 8%);
 }
 
+.c-news--focused {
+	background: darken(#EFEFEF, 8%);
+}
+
 .c-news__image-container {
 	display: inline-block;
 	width: 80px;
@@ -87,6 +91,7 @@
 
 	margin-left: 20px;
 	margin-top: 30px;
+	padding-right: 10px;
 }
 
 .c-news__title {
