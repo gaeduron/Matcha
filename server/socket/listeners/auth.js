@@ -1,7 +1,10 @@
 const logger = require('../../logs/logger');
 const login = require('../../actions/authentication/login');
 const logout = require('../../actions/authentication/logout');
-const cookieLogin = require('../../actions/authentication/cookieLogin.js');
+const cookieLogin = require('../../actions/authentication/cookieLogin');
+const broadcastOnlineUsers = require('../../actions/interactions/broadcastOnlineUsers');
+
+
 
 const authListeners = (socket) => {
 	socket.on('login', async (user) => {
@@ -12,6 +15,7 @@ const authListeners = (socket) => {
 				socket.emit('notificationError', error);
 			});
 		} else {
+			broadcastOnlineUsers(socket);
 			socket.emit('login', response);
 			logger.succes('Login user');
 		}
@@ -23,6 +27,7 @@ const authListeners = (socket) => {
 		if (response.error) {
 			socket.emit('loginWithCookie', false);
 		} else {
+			broadcastOnlineUsers(socket);
 			socket.emit('loginWithCookie', response);
 			logger.succes('Login user with cookie');
 		}
@@ -36,6 +41,7 @@ const authListeners = (socket) => {
 				socket.emit('notificationError', error);
 			});
 		} else {
+			broadcastOnlineUsers(socket);
 			socket.emit('logout', response);
 			logger.succes('Logout user');
 		}
