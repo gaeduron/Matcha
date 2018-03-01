@@ -4,6 +4,7 @@ import authListener from './auth';
 import userListener from './user';
 import onboardingListener from './onboarding';
 import searchListener from './search';
+import interactionsListener from './interactions';
 
 const defaultListener = (dispatch, socket) => {
 	socket.on('connect', function () {
@@ -26,6 +27,7 @@ const initListeners = (dispatch, socket) => {
 	userListener(dispatch, socket);
 	onboardingListener(dispatch, socket);
 	searchListener(dispatch, socket);
+	interactionsListener(dispatch, socket);
 };
 
 export default initListeners;
