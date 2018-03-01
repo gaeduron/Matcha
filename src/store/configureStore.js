@@ -10,6 +10,7 @@ import onboarding from '../reducers/onboarding';
 import user from '../reducers/user';
 import search from '../reducers/search';
 import chat from '../reducers/chat';
+import interactions from '../reducers/interactions';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const middleware = [thunk, batch, socketIoMiddleware];
@@ -23,6 +24,7 @@ const appReducer = combineReducers({
 	user,
 	search,
 	chat,
+	interactions,
 });
 
 const rootReducer = (state, action) => {

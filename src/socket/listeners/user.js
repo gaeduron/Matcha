@@ -12,6 +12,7 @@ const userListener = (dispatch, socket) => {
 		console.log('redirect: ', res);
 	//	history.push(`onboarding`);
 	});
+
 };
 
 export default userListener;
