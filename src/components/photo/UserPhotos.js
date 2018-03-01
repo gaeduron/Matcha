@@ -21,8 +21,9 @@ export default class UserPhotos extends React.Component {
 				
 		if (photos.length == 0)
 			return photosUrl;
+		/* If initial photos length > 5, get only the first 5th photos */
 		for (let i = 0; i < photos.length && i < 5; i++)
-			photosUrl[i] = photos[i];
+			photosUrl[i] = photos[i] === null ? undefined : photos[i];
 		photosUrl = keyIndex(photosUrl, 1);
 		return photosUrl;
 	};
