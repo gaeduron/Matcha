@@ -15,6 +15,7 @@ const addLike = require('../../actions/interactions/addLike');
 const getLikes = require('../../actions/interactions/getLikes');
 const addVisit = require('../../actions/interactions/addVisit');
 const getVisits = require('../../actions/interactions/getVisits');
+const addMessage = require('../../actions/interactions/addMessage');
 
 
 const startAction = async (action, socket, actionFunc, loggerContent) => {
@@ -22,7 +23,7 @@ const startAction = async (action, socket, actionFunc, loggerContent) => {
 	/* Verify that the user is authenticated */
 	const auth = await Users.find({ socketID: socket.id });
 	if (auth.error) {
-		socket.emit('notificationError', auth.error);
+		socket.emit('notificationError', "You must be authenticated");
 		return ;	
 	}	
 
@@ -116,6 +117,10 @@ const actionListeners = (socket) => {
 				break;
 			case 'SERVER/GET_VISITS':
 					startAction(action, socket, getVisits, 'Retrieving all user\'s visits from db');
+				break;
+			case 'SERVER/ADD_MESSAGE':
+				console.log('message : ', action);
+				startAction(action, socket, addMessage, 'New message saved to DB');
 				break;
 
 				
