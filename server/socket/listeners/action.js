@@ -12,12 +12,15 @@ const getProfiles = require('../../actions/search/getProfiles');
 const getProfilesCount = require('../../actions/search/getProfilesCount');
 const getProfileByID = require('../../actions/search/getProfileByID');
 const editProfile = require('../../actions/edit/editProfile');
+const addUnlike = require('../../actions/interactions/addUnlike');
 const addLike = require('../../actions/interactions/addLike');
 const getLikes = require('../../actions/interactions/getLikes');
 const addVisit = require('../../actions/interactions/addVisit');
 const getVisits = require('../../actions/interactions/getVisits');
 const addMessage = require('../../actions/interactions/addMessage');
 const getMessages = require('../../actions/interactions/getMessages');
+const seen = require('../../actions/interactions/seen');
+const clicked = require('../../actions/interactions/clicked');
 
 
 const startAction = async (action, socket, actionFunc, loggerContent) => {
@@ -112,6 +115,9 @@ const actionListeners = (socket) => {
  
 
 			/* Interactions (likes & visits) */	
+			case 'SERVER/ADD_UNLIKE':
+				startAction(action, socket, addUnlike, 'Updating unlike to db');
+				break;
 			case 'SERVER/ADD_LIKE':
 				startAction(action, socket, addLike, 'Adding new like to db');
 				break;
@@ -130,6 +136,12 @@ const actionListeners = (socket) => {
 				break;
 			case 'SERVER/GET_MESSAGES':
 					startAction(action, socket, getMessages, 'Retrieving all user\'s messages from db');
+				break;
+			case 'SERVER/SEEN':
+					startAction(action, socket, seen, 'Updating user notifications status to SEEN');
+				break;
+			case 'SERVER/CLICKED':
+					startAction(action, socket, clicked, 'Updating user notifications status to CLICKED');
 				break;
 
 				

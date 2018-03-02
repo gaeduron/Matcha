@@ -28,3 +28,14 @@ export const sendInteraction = (emitMessage, data) => (dispatch, getState) => {
 		data
 	});
 };
+
+/*
+	sendInteraction('SERVER/SEEN', { type: 'chat | news' });
+
+	sendInteraction('SERVER/CLICKED', {
+		type: 'chat | like | visit',
+		sender, (sender id) 
+		newsId (only for like or visit)
+	});
+
+*/

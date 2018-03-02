@@ -14,13 +14,13 @@ const error = {
 
 const getVisits = async ({ id }) => {
 	const query = `
-		SELECT visits.*, users.firstname, users.lastname, users.birthdate, users.occupation, users.photos, users.id 
+		SELECT visits.*, users.firstname, users.lastname, users.birthdate, users.occupation, users.photos 
 			FROM visits 
 			INNER JOIN users 
 			ON users.id = visits.receiver 
 			WHERE sender = $1 
 		UNION
-		SELECT visits.*, users.firstname, users.lastname, users.birthdate, users.occupation, users.photos, users.id 
+		SELECT visits.*, users.firstname, users.lastname, users.birthdate, users.occupation, users.photos
 			FROM visits INNER JOIN users 
 			ON users.id = visits.sender 
 			WHERE receiver = $1;

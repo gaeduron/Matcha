@@ -29,6 +29,8 @@ const getVisits = require('./steps/visits/getVisits');
 const addMessage = require('./steps/messages/addMessage');
 const getMessages = require('./steps/messages/getMessages');
 const getOnlineUsers = require('./steps/online/getOnlineUsers');
+const seen = require('./steps/interactions/seen');
+const clicked = require('./steps/interactions/clicked');
 
 // PATHS //
 const find = require('./paths/find');
@@ -69,6 +71,8 @@ module.exports = {
 	addMessage,
 	getMessages,
 	getOnlineUsers,
+	seen,
+	clicked,
 	// PATHS //
 	find,
 	newSession,

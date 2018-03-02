@@ -14,13 +14,13 @@ const error = {
 
 const getLikes = async ({ id }) => {
 	const query = `
-		SELECT likes.*, users.firstname, users.lastname, users.birthdate, users.occupation, users.photos, users.id 
+		SELECT likes.*, users.firstname, users.lastname, users.birthdate, users.occupation, users.photos 
 			FROM likes 
 			INNER JOIN users 
 			ON users.id = likes.receiver 
 			WHERE sender = $1 
 		UNION
-		SELECT likes.*, users.firstname, users.lastname, users.birthdate, users.occupation, users.photos, users.id 
+		SELECT likes.*, users.firstname, users.lastname, users.birthdate, users.occupation, users.photos
 			FROM likes INNER JOIN users 
 			ON users.id = likes.sender 
 			WHERE receiver = $1;

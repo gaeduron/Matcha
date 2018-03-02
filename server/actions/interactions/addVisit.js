@@ -41,7 +41,7 @@ const addVisit = async (data) => {
 
 	const updateResponse = await Users.addVisit(data);
 	const receiver = await Users.find({ id: data.receiver });
-	data.sockets = [receiver.user.connected];
+	data.sockets = receiver.error ? [] : [receiver.user.connected];
 
 	return (updateResponse.error ? updateResponse : data);
 };
