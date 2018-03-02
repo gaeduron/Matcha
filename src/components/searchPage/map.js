@@ -25,7 +25,7 @@ const MapWithAMarker = compose(
 	}}
     defaultZoom={8}
     zoom={props.zoom}
-    defaultCenter={{ lat: props.me.lat, lng: props.me.lon }}
+    center={{ lat: props.me.lat, lng: props.me.lon }}
   >
     <Marker
       position={{ lat: props.me.lat, lng: props.me.lon }}
@@ -37,7 +37,6 @@ const MapWithAMarker = compose(
 	  icon={{ url: props.profile.photo }}
     />
 	}
-	{console.log(props)}
   </GoogleMap>
 );
 

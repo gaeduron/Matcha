@@ -10,6 +10,7 @@ const getPhotos = require('../../actions/onboarding/getPhotos');
 const getBio = require('../../actions/onboarding/getBio');
 const getProfiles = require('../../actions/search/getProfiles');
 const getProfilesCount = require('../../actions/search/getProfilesCount');
+const getProfileByID = require('../../actions/search/getProfileByID');
 const editProfile = require('../../actions/edit/editProfile');
 const addLike = require('../../actions/interactions/addLike');
 const getLikes = require('../../actions/interactions/getLikes');
@@ -60,6 +61,8 @@ const startAction = async (action, socket, actionFunc, loggerContent) => {
 				socket.emit('notificationSuccess', 'Congratulations, welcome to Matcha !');
 			case 'SERVER/EDIT_PROFILE': 
 				socket.emit('notificationSuccess', 'Profile updated');
+			case 'SERVER/GET_PROFILES': 
+				socket.emit('SERVER/UPDATE_FILTERS', action.data);
 		}
 
 		logger.succes(loggerContent);
@@ -96,6 +99,9 @@ const actionListeners = (socket) => {
 				break; 
 
 			/* Search */
+			case 'SERVER/GET_PROFILE_BY_ID':
+				startAction(action, socket, getProfileByID, 'Search: profile data fetched');
+				break;
 			case 'SERVER/GET_PROFILES':
 				startAction(action, socket, getProfiles, 'Search: user profiles data fetched');
 				break;

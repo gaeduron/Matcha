@@ -18,3 +18,34 @@ export const updateProfilesCount = profilesCount => {
 		profilesCount
 	}
 };
+
+export const updateSortBy = sortBy => ({
+	type: 'UPDATE_SORTBY',
+	sortBy
+});
+export const updateDistance = distance => ({
+	type: 'UPDATE_DISTANCE',
+	distance
+});
+export const updateAge = age => ({
+	type: 'UPDATE_AGE',
+	age
+});
+export const updatePopularity = popularity => ({
+	type: 'UPDATE_POPULARITY',
+	popularity
+});
+export const updateFiltersTags = tags => ({
+	type: 'UPDATE_FILTERS_TAGS',
+	tags
+});
+
+export const getProfileByID = (data) => ({
+	type: 'SERVER/GET_PROFILE_BY_ID',
+	data,
+});
+
+export const updateProfile = profile => ({
+	type: 'GET_PROFILE',
+	profile,
+});

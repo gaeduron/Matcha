@@ -9,8 +9,8 @@ const defaultState = {
 		max: 34
 	},
 	popularity: {
-		min: 5,
-		max: 40
+		min: 50,
+		max: 400
 	},
 	tags: [],
 	profiles: [],
@@ -39,7 +39,7 @@ export default (state = defaultState, action) => {
 				...state,
 				popularity: action.popularity
 			};
-		case 'UPDATE_TAGS':
+		case 'UPDATE_FILTERS_TAGS':
 			return {
 				...state,
 				tags: action.tags
@@ -53,6 +53,11 @@ export default (state = defaultState, action) => {
 			return {
 				...state,
 				profiles: action.profiles
+			};
+		case 'GET_PROFILE':
+			return {
+				...state,
+				profile: action.profile
 			};
 		case 'GET_PROFILES_COUNT':
 			return {

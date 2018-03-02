@@ -21,6 +21,7 @@ const hashPassword = require('./steps/hashPassword');
 const create = require('./steps/create');
 const addTags = require('./steps/tags/addTags');
 const getTags = require('./steps/tags/getTags');
+const likeMe = require('./steps/likeMe');
 const addLike = require('./steps/likes/addLike');
 const getLikes = require('./steps/likes/getLikes');
 const addVisit = require('./steps/visits/addVisit');
@@ -59,6 +60,7 @@ module.exports = {
 	create,
 	addTags,
 	getTags,
+	likeMe,
 	addLike,
 	getLikes,
 	addVisit,

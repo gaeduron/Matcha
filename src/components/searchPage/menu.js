@@ -32,12 +32,13 @@ export class SearchMenu extends React.Component {
 	constructor(props) {
 		super(props);
 		
+		const filters = this.props.searchParams;		
 		this.state = {
-			distanceRange: [5, 40],	
-			ageRange: [24, 34],	
-			popularityRange: [50, 400],	
-			tags: this.props.tags ? this.props.tags : [],
-			sort: 'distance',
+			distanceRange: [filters.distance.min, filters.distance.max],	
+			ageRange: [filters.age.min, filters.age.max],	
+			popularityRange: [filters.popularity.min, filters.popularity.max],	
+			tags: filters.tags ? filters.tags : [],
+			sort: filters.sortBy,	
 		};
 	}
 
@@ -91,8 +92,11 @@ export class SearchMenu extends React.Component {
 
 	debouncedGet = _.debounce(this.getProfiles , 300);
 
-	componentDidUpdate = (prevProps) => {
-		if (prevProps.focusedProfile == this.props.focusedProfile)
+	componentDidUpdate = (prevProps, prevState) => {
+		if 	(
+				(prevProps.focusedProfile == this.props.focusedProfile) &&
+				(prevState != this.state || prevProps.profiles != this.props.profiles)
+			)
 		{
 			if (prevProps.profiles == this.props.profiles) {
 				this.debouncedGet();
@@ -107,18 +111,18 @@ export class SearchMenu extends React.Component {
 	}
 	
 	getMapZoom = (maxDistance) => {
-		if (maxDistance < 6) {
-			return 14;
-		} else if ( maxDistance < 11) {
-			return 12;
-		} else if ( maxDistance < 25) {
-			return 11.5;
-		} else if ( maxDistance < 50) {
+		if (maxDistance < 10) {
 			return 11;
-		} else if ( maxDistance < 75) {
-			return 10.5;
-		} else if ( maxDistance < 99) {
+		} else if ( maxDistance < 17) {
 			return 10;
+		} else if ( maxDistance < 40) {
+			return 9;
+		} else if ( maxDistance < 75) {
+			return 8;
+		} else if ( maxDistance < 75) {
+			return 8;
+		} else if ( maxDistance < 99) {
+			return 7;
 		} else {
 			return 5;
 		}
@@ -159,7 +163,7 @@ export class SearchMenu extends React.Component {
 					<h2 className="c-menu__title">Filters</h2>
 					<div>
 						<p className="c-sort__title">Sort by</p>
-						<Select defaultValue="distance" style={{ width: 120 }} onChange={this.onSort}>
+						<Select defaultValue={this.state.sort} style={{ width: 120 }} onChange={this.onSort}>
 							<Option value="distance">distance</Option>
 							<Option value="birthdate">age</Option>
 							<Option value="score">score</Option>
@@ -259,6 +263,13 @@ const mapStateToProps = (state) => {
 	return {
 		focusedProfile: state.search.focusedProfile,
 		userProfile: state.user,
+		searchParams: 	{
+							distance: state.search.distance,
+							age: state.search.age,
+							popularity: state.search.popularity,
+							tags: state.search.tags,
+							sortBy: state.search.sortBy,
+						},
 	};
 };
 

@@ -1,66 +1,74 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import UserStatus from '../profilePage/UserStatus';
+import _ from 'lodash';
 
 export class SearchMenu extends React.Component {
 	constructor(props) {
 		super(props);
-		
+
 		this.state = {
+			search: "",
 		};
 	}
 	
-	onSort = () => this.props.showMenu();
+	onClick = (user) => {
+		this.props.showMenu();
+		this.props.onConversationChange(user);
+	}
+
+	onSearch = (e) => {
+		const search = e.target.value;
+		this.setState(() => ({ search }));
+	}
+	
+	searchProfile = (profiles) => {
+		if (this.state.search === "") {
+			return profiles;
+		}
+		return profiles.filter(profile => {
+			const profileString = `${profile.fname} ${profile.lname}, ${profile.age.toString()}
+				 ${profile.occupation}`;
+
+			
+			if (profileString.toLowerCase().includes(this.state.search.toLowerCase())) {
+				return profile;
+			}
+		});
+	}
 
 	render() {
+		const profiles = this.searchProfile(this.props.matches);
 		return (
 			<div className="c-menu__wrapper">
 				<div className="c-menu__search-bar-box">
 					<h2 className="o-little-title c-menu__search-bar-title">MATCHES</h2>
 					<div>
-						<input className="c-menu__search-bar" type="text" placeholder="Search">
+						<input
+							className="c-menu__search-bar"
+							type="text"
+							placeholder="Search"
+							onChange={this.onSearch}
+							value={this.state.search}
+						>
 						</input>
 						<i className="material-icons c-menu__search-bar-icon">search</i>
 					</div>
 				</div>
-				<div className="c-news" onClick={this.onSort}>
-					<div className="c-news__image-container c-news__image-container--menu">
-						<img className="c-news__image" src="https://image.ibb.co/mu4up6/Screen_Shot_2018_01_10_at_5_39_51_PM.png" alt="" />
-						<div className="c-news__user-status"></div>
-					</div>
-					<div className="c-news__text">
-						<p className="c-news__title">Paola Gracias, 26</p>
-						<p className="c-news__message c-news__message--menu">Data Scientist at Roberim</p>
-					</div>
-				</div>
-				<div className="c-news" onClick={this.onSort}>
-					<div className="c-news__image-container c-news__image-container--menu">
-						<img className="c-news__image" src="https://image.ibb.co/mu4up6/Screen_Shot_2018_01_10_at_5_39_51_PM.png" alt="" />
-						<div className="c-news__user-status"></div>
-					</div>
-					<div className="c-news__text">
-						<p className="c-news__title">Paola Gracias, 26</p>
-						<p className="c-news__message c-news__message--menu">Data Scientist at Roberim</p>
-					</div>
-				</div>
-				<div className="c-news" onClick={this.onSort}>
-					<div className="c-news__image-container c-news__image-container--menu">
-						<img className="c-news__image" src="https://image.ibb.co/mu4up6/Screen_Shot_2018_01_10_at_5_39_51_PM.png" alt="" />
-						<div className="c-news__user-status"></div>
-					</div>
-					<div className="c-news__text">
-						<p className="c-news__title">Paola Gracias, 26</p>
-						<p className="c-news__message c-news__message--menu">Data Scientist at Roberim</p>
-					</div>
-				</div>
+				{profiles.map((user) => (
+					<UserStatus
+						data={user}
+						showProfile={() => this.onClick(user)}
+						key={user.id}
+						focused={user.id == this.props.focusedProfile.id}
+					/>
+				))}
+				{profiles.length === 0 && 
+					<p className='o-little-title c-menu__search-bar-title'>No user found</p>
+				}
 			</div>
 		);
 	}
 }
 
-const mapStateToProps = (state) => {
-	return {
-		notif: state.notif.notification,
-	};
-};
-
-export default connect(mapStateToProps, undefined)(SearchMenu);
+export default SearchMenu;
