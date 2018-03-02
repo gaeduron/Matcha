@@ -17,6 +17,7 @@ const getLikes = require('../../actions/interactions/getLikes');
 const addVisit = require('../../actions/interactions/addVisit');
 const getVisits = require('../../actions/interactions/getVisits');
 const addMessage = require('../../actions/interactions/addMessage');
+const getMessages = require('../../actions/interactions/getMessages');
 
 
 const startAction = async (action, socket, actionFunc, loggerContent) => {
@@ -125,8 +126,10 @@ const actionListeners = (socket) => {
 					startAction(action, socket, getVisits, 'Retrieving all user\'s visits from db');
 				break;
 			case 'SERVER/ADD_MESSAGE':
-				console.log('message : ', action);
 				startAction(action, socket, addMessage, 'New message saved to DB');
+				break;
+			case 'SERVER/GET_MESSAGES':
+					startAction(action, socket, getMessages, 'Retrieving all user\'s messages from db');
 				break;
 
 				

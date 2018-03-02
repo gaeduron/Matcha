@@ -16,6 +16,11 @@ export default (state = defaultState, action) => {
 				...state,
 				visits: action.visits	
 			};
+		case 'UPDATE_MESSAGES':
+			return {
+				...state,
+				messages: action.messages 	
+			};
 		case 'UPDATE_ONLINE_USERS':
 			return {
 				...state,

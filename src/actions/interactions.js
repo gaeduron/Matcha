@@ -11,6 +11,11 @@ export const updateVisits = (visits) => ({
 	visits
 });
 
+export const updateMessages = (messages) => ({
+	type: 'UPDATE_MESSAGES',
+	messages
+});
+
 export const updateOnlineUsers = (onlineUsers) => ({
 	type: 'UPDATE_ONLINE_USERS',
 	onlineUsers

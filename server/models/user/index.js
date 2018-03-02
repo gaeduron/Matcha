@@ -27,6 +27,7 @@ const getLikes = require('./steps/likes/getLikes');
 const addVisit = require('./steps/visits/addVisit');
 const getVisits = require('./steps/visits/getVisits');
 const addMessage = require('./steps/messages/addMessage');
+const getMessages = require('./steps/messages/getMessages');
 const getOnlineUsers = require('./steps/online/getOnlineUsers');
 
 // PATHS //
@@ -66,6 +67,7 @@ module.exports = {
 	addVisit,
 	getVisits,
 	addMessage,
+	getMessages,
 	getOnlineUsers,
 	// PATHS //
 	find,
