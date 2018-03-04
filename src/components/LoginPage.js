@@ -91,9 +91,11 @@ export class LoginPage extends React.Component {
 					<h1 className="o-title">MATCHA</h1>
 					<h3 className="o-subtitle">LOVE IS WAITING FOR YOU</h3>
 					<div className="l-landing__buttons">
+						<a href="/auth/facebook" target="_blank">
 						<button className="o-button--fb o-button--large">
 							CONNECT WITH FACEBOOK
 						</button>
+						</a>
 						<button
 							className="
 								l-landing__buttons-margin
