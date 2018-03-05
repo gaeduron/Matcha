@@ -12,6 +12,7 @@ import {
 	updateBio,	
 	updateLocation,
 	updateScore,
+	updateId,
 } from '../actions/user';
 
 
@@ -37,7 +38,8 @@ export default function rehydrateStore(dispatch, user) {
 			geolocationAllowed: user.geolocationAllowed 
 		}),
 		updateTags(user.tags),
-		updateScore(user.score)
+		updateScore(user.score),
+		updateId(user.id)
 	]);
 };
 

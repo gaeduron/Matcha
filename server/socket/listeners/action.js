@@ -21,6 +21,8 @@ const addMessage = require('../../actions/interactions/addMessage');
 const getMessages = require('../../actions/interactions/getMessages');
 const seen = require('../../actions/interactions/seen');
 const clicked = require('../../actions/interactions/clicked');
+const block = require('../../actions/interactions/block');
+const getBlocks = require('../../actions/interactions/getBlocks');
 
 
 const startAction = async (action, socket, actionFunc, loggerContent) => {
@@ -142,6 +144,12 @@ const actionListeners = (socket) => {
 				break;
 			case 'SERVER/CLICKED':
 					startAction(action, socket, clicked, 'Updating user notifications status to CLICKED');
+				break;
+			case 'SERVER/BLOCK':
+				startAction(action, socket, block, 'Blocking / Unblocking user');
+				break;
+			case 'SERVER/GET_BLOCKS':
+				startAction(action, socket, getBlocks, 'Blocked users retrieved');
 				break;
 
 				

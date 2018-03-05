@@ -21,6 +21,12 @@ export const updateOnlineUsers = (onlineUsers) => ({
 	onlineUsers
 });
 
+export const updateBlocks = (blocks, id) => ({
+	type: 'UPDATE_BLOCKS',
+	blocks,
+	id
+});
+
 export const sendInteraction = (emitMessage, data) => (dispatch, getState) => { 
 	data.sessionToken = cookie.get('sessionToken');
 	 dispatch({ 

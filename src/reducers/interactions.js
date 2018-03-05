@@ -26,6 +26,18 @@ export default (state = defaultState, action) => {
 				...state,
 				onlineUsers: action.onlineUsers	
 			};
+		case 'UPDATE_BLOCKS':
+			const blocked = action.blocks
+				.filter(x => x.sender == action.id)
+				.map(x => x.receiver);
+			const blockedMe = action.blocks
+				.filter(x => x.receiver == action.id)
+				.map(x => x.sender);
+			return {
+				...state,
+				blocked,
+				blockedMe
+			};
 		default:
 			return state;
 	}

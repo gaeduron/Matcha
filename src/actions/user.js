@@ -1,5 +1,10 @@
 /* User actions */
 
+export const updateId = id => ({
+	type: 'UPDATE_ID',
+	id
+});
+
 export const updateFname = fname => ({
 	type: 'UPDATE_FNAME',
 	fname

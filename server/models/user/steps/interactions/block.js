@@ -3,14 +3,14 @@ const myError = require('../../../../errors');
 
 const error = {
 	database: myError.newFailure({
-		log: e => `Database error: models/user/steps/likes/addLike => ${e}`,
+		log: e => `Database error: models/user/steps/interactions/block => ${e}`,
 		message: 'Error, please try again later',
 	}),
 };
 
-async function addUnlike({receiver, sender}) {
+async function block({receiver, sender}) {
 
-	const query = `INSERT INTO likes (receiver, sender, unliked) VALUES ($1, $2, TRUE);`;
+	const query = `INSERT INTO blocked (receiver, sender) VALUES ($1, $2);`;
 
 	try {
 		const res = await database.query(query, [receiver, sender]);
@@ -20,4 +20,4 @@ async function addUnlike({receiver, sender}) {
 	}
 }
 
-module.exports = addUnlike;
+module.exports = block;
