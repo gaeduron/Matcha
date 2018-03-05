@@ -3,6 +3,59 @@ import { connect } from 'react-redux';
 import { history } from '../routers/AppRouter';
 import Navbar from './Navbar';
 import Notification from './NotificationList.js'
+import uuid from 'uuid';
+
+import age from 's-age';
+import ago from 's-ago';
+
+const newsSelector = ({ visits, likes, onlineUsers }, id) => {
+
+	const LIKE = 'liked your profile',
+		UNLIKE = 'unliked your profile',
+		VISIT = 'visited your profile';
+	let news = [];
+		
+	likes.forEach(x => { 
+		if (x.receiver == id)
+			news.push({
+				id: x.sender,
+				fname: x.firstname,
+				lname: x.lastname,
+				age: age(x.birthdate),
+				occupation: x.occupation,
+				photo: JSON.parse(x.photos)[0], 
+				connected: onlineUsers.includes(x.sender),
+				clicked: x.clicked,
+				type: x.unliked == true ? UNLIKE : LIKE ,
+				time: ago(new Date(x.created_at)),
+				created_at: x.created_at,
+				content: false,
+			});
+	});
+
+	visits.forEach(x => { 
+		if (x.receiver == id)
+			news.push({
+				id: x.sender,
+				fname: x.firstname,
+				lname: x.lastname,
+				age: age(x.birthdate),
+				occupation: x.occupation,
+				photo: JSON.parse(x.photos)[0], 
+				connected: onlineUsers.includes(x.sender),
+				clicked: x.clicked,
+				type: VISIT,
+				time: ago(new Date(x.created_at)),
+				created_at: new Date(x.created_at).getTime(),
+				content: false,
+			});
+	});
+
+	news.sort((a, b) => a.created_at - b.created_at);
+
+	return news;
+};
+
 
 const mockNews = [
 	{
@@ -73,7 +126,11 @@ export class NewsPage extends React.Component {
 	};
 
 	render() {
-		const news = mockNews;
+
+		/* Debug */
+		//		console.log(this.props.notif);
+		
+		const news = this.props.notif;
 		return (
 			<div className="l-flex-container">
 				<div className="l-nav"><Navbar /></div>
@@ -88,7 +145,7 @@ export class NewsPage extends React.Component {
 						{news.map((user) => 
 							<Notification
 								data={user}
-								key={user.photo + user.time}
+								key={uuid()}
 								onNewsClick={() => this.onNewsClick(user)}
 							/>
 						)}
@@ -101,7 +158,7 @@ export class NewsPage extends React.Component {
 
 const mapStateToProps = (state) => {
 	return {
-		notif: state.notif.notification,
+		notif: newsSelector(state.interactions, state.user.id),
 	}
 };
 

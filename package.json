@@ -89,6 +89,8 @@
     "redux-mock-store": "1.2.3",
     "redux-socket.io": "^1.4.0",
     "redux-thunk": "2.2.0",
+    "s-age": "^1.1.2",
+    "s-ago": "^1.2.2",
     "sass-loader": "6.0.6",
     "shuffle-array": "^1.0.1",
     "socket.io": "^2.0.4",

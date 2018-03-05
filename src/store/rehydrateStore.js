@@ -1,4 +1,4 @@
-import { parse } from 'postgres-array';
+import { sendInteraction } from '../actions/interactions'; 
 import {
 	updateFname,	
 	updateLname,	
@@ -15,7 +15,6 @@ import {
 	updateId,
 } from '../actions/user';
 
-
 export default function rehydrateStore(dispatch, user) {
 
 
@@ -23,6 +22,8 @@ export default function rehydrateStore(dispatch, user) {
 	user.photos = JSON.parse(user.photos).map(photo => (photo === null ? undefined : photo));
 
 	dispatch([
+
+		/* User */
 		updateFname(user.firstname),	
 		updateLname(user.lastname),	
 		updateNickname(user.login),	
@@ -39,8 +40,15 @@ export default function rehydrateStore(dispatch, user) {
 		}),
 		updateTags(user.tags),
 		updateScore(user.score),
-		updateId(user.id)
+		updateId(user.id),
+			
 	]);
+
+	/* Interactions */
+	dispatch(sendInteraction('SERVER/GET_VISITS', {}));
+	dispatch(sendInteraction('SERVER/GET_MESSAGES', {}));
+	dispatch(sendInteraction('SERVER/GET_LIKES', {}));
+	dispatch(sendInteraction('SERVER/GET_BLOCKS', {}));
 };
 
 
