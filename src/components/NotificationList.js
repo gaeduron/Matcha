@@ -20,7 +20,7 @@ export class Notification extends React.Component {
 						</div>
 					</div>
 					<div className="c-news__text">
-						<p className="c-news__title">{`${user.fname} ${user.lname}, ${user.type}`}</p>
+						<p className="c-news__title">{`${user.fname} ${user.lname} ${user.type}`}</p>
 						{user.content && <p className="c-news__message">{user.content}</p>}
 						<p className="c-news__date">{user.time}</p>
 					</div>

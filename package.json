@@ -40,6 +40,7 @@
     "express": "4.15.4",
     "extract-text-webpack-plugin": "3.0.0",
     "faker": "^4.1.0",
+    "fast-deep-equal": "^1.1.0",
     "file-loader": "^1.1.5",
     "firebase": "4.2.0",
     "gender": "^0.0.1",

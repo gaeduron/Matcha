@@ -14,12 +14,16 @@ const error = {
 
 const getMessages = async ({ id }) => {
 	const query = `
-		SELECT * 
+		SELECT messages.*, users.firstname, users.lastname, users.birthdate, users.occupation, users.photos, users.reported 
 			FROM messages 
+			INNER JOIN users 
+			ON users.id = messages.receiver 
 			WHERE sender = $1 
 		UNION
-		SELECT *
+		SELECT messages.*, users.firstname, users.lastname, users.birthdate, users.occupation, users.photos, users.reported 
 			FROM messages 
+			INNER JOIN users 
+			ON users.id = messages.sender 
 			WHERE receiver = $1;
 	`;
 

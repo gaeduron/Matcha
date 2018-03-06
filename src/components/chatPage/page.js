@@ -6,6 +6,7 @@ import Menu from './menu';
 import Chat from './Chat';
 import UserDescription from './UserDescription2.js';
 import { updateChatProfile } from '../../actions/chat';
+import { matchSelector } from '../../selectors/interactions';
 
 const mockMatch = [
     {
@@ -23,7 +24,7 @@ const mockMatch = [
         fname: 'Charley',
         lname: 'Gleichner',
         age: 27,
-        occupation: 'Applications Programmers',
+        occupation: 'Yeah don\'t forget my favorite color is blue ciel',
         photo: 'https://res.cloudinary.com/matcha/image/upload/v1518691639/myh986grrkvm9g6wzqqk.jpg',
         connected: true,
         clicked: true,
@@ -208,7 +209,7 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = (state) => {
 	return {
 		notif: state.notif.notification,
-		matches: mockMatch,
+		matches: matchSelector(state.interactions, state.user.id),// mockMatch,
 		chatProfile: state.chat.chatProfile,
 		messages: mockMessages,
 	};
