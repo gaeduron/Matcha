@@ -71,10 +71,12 @@ export class Chat extends React.Component {
 
 	render() {
 		const emojiVisible = this.state.emojiPicker;
+		console.log('received : ', this.props.messages);
+
 		return (
 			<div className="c-chat">
 				<div className="c-chat__messages">
-					{this.props.messages.map((message, i, messages) => 
+					{this.props.messages.length && this.props.messages.map((message, i, messages) => 
 						<Message
 							from={message.from}
 							time={message.time}

@@ -133,8 +133,32 @@ const mockMatch = {
 
 
 
+/* Messages selector */
 
+const formatMessage = (msg, id) => ({
+	time: msg.created_at,
+	from: msg.sender == id ? 'you' : msg.firstname,
+	text: msg.message
+});
 
+export const messagesSelector = ({ messages }, id, matches) => {
+
+	let messagesObj = {},	
+	    matchesArr = matches.map(x => x.id);  
+	
+	matchesArr.forEach(userId => {
+		messagesObj[userId] = messages
+			.filter(x => (x.receiver == userId && x.sender == id) || (x.receiver == id && x.sender == userId))
+			.sort((a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime())
+			.map(x => formatMessage(x, id));
+	});	
+
+	messagesObj['0'] = [];
+	//messagesObj['0'] = [{time: "2018-01-28T14:30:11.202Z", from: "you", text: "..."}];
+	return messagesObj;
+};
+
+//	{time: "2018-01-29T12:12:11.202Z", from: "you", text: "I just arrived my self last week."},
 
 
 

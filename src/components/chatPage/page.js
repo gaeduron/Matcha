@@ -6,7 +6,7 @@ import Menu from './menu';
 import Chat from './Chat';
 import UserDescription from './UserDescription2.js';
 import { updateChatProfile } from '../../actions/chat';
-import { matchSelector } from '../../selectors/interactions';
+import { matchSelector, messagesSelector } from '../../selectors/interactions';
 
 const mockMatch = [
     {
@@ -43,7 +43,7 @@ const mockMatch = [
 
 const mockMessages = {
 	0: [{time: "2018-01-28T14:30:11.202Z", from: "you", text: "____________"}],
-	527: [
+	60: [
 			{time: "2018-01-28T14:30:11.202Z", from: "you", text: "Hey, how are you ?"},
 			{time: "2018-01-28T14:31:11.202Z", from: "paola", text: "Fine and you?"},
 			{time: "2018-01-28T14:31:11.202Z", from: "paola", text: "Do you come here often?"},
@@ -156,10 +156,12 @@ export class ChatPage extends React.Component {
 	getProfileMessages = id => this.props.messages[id];
 
 	onSendMessage = (message) => {
+			
 		alert(`chatPage/page:158: message: ${message}`);
 	};
 
 	render() {
+			console.log('truc :', this.props.chatProfile.id); //
 		const messages = this.getProfileMessages(this.props.chatProfile.id.toString());
 		return (
 			<div className="l-flex-container">
@@ -207,11 +209,15 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 const mapStateToProps = (state) => {
+	const matches = matchSelector(state.interactions, state.user.id),
+		  messages = messagesSelector(state.interactions, state.user.id, matches);
+
+	console.log('sending : ', messages);	
 	return {
 		notif: state.notif.notification,
-		matches: matchSelector(state.interactions, state.user.id),// mockMatch,
+		matches: matches, 	// mockMatch,
+		messages: messages, //mockMessages,
 		chatProfile: state.chat.chatProfile,
-		messages: mockMessages,
 	};
 };
 
