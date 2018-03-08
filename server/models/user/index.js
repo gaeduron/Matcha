@@ -19,6 +19,7 @@ const validateOccupation = require('./steps/validateOccupation');
 const validateBio = require('./steps/validateBio');
 const hashPassword = require('./steps/hashPassword');
 const create = require('./steps/create');
+const facebookCreate = require('./steps/facebookCreate');
 const addTags = require('./steps/tags/addTags');
 const getTags = require('./steps/tags/getTags');
 const likeMe = require('./steps/likeMe');
@@ -57,6 +58,7 @@ module.exports = {
 	validateOccupation,
 	hashPassword,
 	create,
+	facebookCreate,
 	addTags,
 	getTags,
 	likeMe,
