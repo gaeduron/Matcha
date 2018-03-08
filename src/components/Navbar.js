@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { startLogout } from '../actions/auth';
 import { history } from '../routers/AppRouter.js';
+import { newsBadgesSelector, messagesBadgesSelector } from '../selectors/interactions';
 
 const onSearch = () => history.push('/dashboard');
 const onProfile = (id) => history.push(`/profile/${id}`);
@@ -97,6 +98,9 @@ export const Navbar = ({ userID, search }) => {
 const mapStateToProps = (state) => ({
 	userID: state.user.nickname,
 	search: state.search,
+	newsBadges: newsBadgesSelector(state.interactions, state.user.id),
+	messagesBadges: messagesBadgesSelector(state.interactions, state.user.id)
+	
 });
 
 export default connect(mapStateToProps, undefined)(Navbar);

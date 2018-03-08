@@ -7,6 +7,7 @@ import Chat from './Chat';
 import UserDescription from './UserDescription2.js';
 import { updateChatProfile } from '../../actions/chat';
 import { matchSelector, messagesSelector } from '../../selectors/interactions';
+import { sendInteraction } from '../../actions/interactions';
 
 const mockMatch = [
     {
@@ -146,8 +147,11 @@ export class ChatPage extends React.Component {
 	onConversationChange = (profile) => this.props.updateChatProfile(profile);
 
 	componentWillMount = () => {
-		if (this.props.chatProfile.id === 0 && this.props.matches.length) {
-			this.props.updateChatProfile(this.props.matches[0]);
+		if (this.props.chatProfile.id === 0 ) {
+			if (this.props.matches.length)
+				this.props.updateChatProfile(this.props.matches[0]);
+			else
+				setTimeout(() => this.props.updateChatProfile(this.props.matches[0]), 2000);
 		} else {
 			this.onShowMenu();
 		}
@@ -156,14 +160,19 @@ export class ChatPage extends React.Component {
 	getProfileMessages = id => this.props.messages[id];
 
 	onSendMessage = (message) => {
-			
-		alert(`chatPage/page:158: message: ${message}`);
+		this.props.sendMessage(this.props.id, this.props.chatProfile.id, message);		
+		//alert(`chatPage/page:158: message: ${message}`);
 	};
 
 	render() {
-			console.log('truc :', this.props.chatProfile.id); //
+		//console.log('component rendering'); 
+		//console.log('Chat Profile Id :', this.props.chatProfile.id); 
+		//console.log('matches :', this.props.messages); 
+		//console.log('messages :', this.props.messages); 
 		const messages = this.getProfileMessages(this.props.chatProfile.id.toString());
-		return (
+
+		return  (
+
 			<div className="l-flex-container">
 				<div className="l-header">
 					<Header
@@ -204,13 +213,15 @@ export class ChatPage extends React.Component {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		updateChatProfile: (profile) => dispatch(updateChatProfile(profile))
+		updateChatProfile: (profile) =>  profile ? dispatch(updateChatProfile(profile)) : null,
+		sendMessage: (sender, receiver, message) => dispatch(sendInteraction('SERVER/ADD_MESSAGE', { sender, receiver, message }))
 	};	
 }
 
 const mapStateToProps = (state) => {
 	const matches = matchSelector(state.interactions, state.user.id),
-		  messages = messagesSelector(state.interactions, state.user.id, matches);
+		  messages = messagesSelector(state.interactions, state.user.id, matches);	
+
 
 	console.log('sending : ', messages);	
 	return {
@@ -218,6 +229,7 @@ const mapStateToProps = (state) => {
 		matches: matches, 	// mockMatch,
 		messages: messages, //mockMessages,
 		chatProfile: state.chat.chatProfile,
+		id: state.user.id
 	};
 };
 

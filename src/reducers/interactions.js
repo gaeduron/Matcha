@@ -1,6 +1,7 @@
 
 const defaultState = {
 	likes: [],
+	messages: [],
 	visits: []
 };
 

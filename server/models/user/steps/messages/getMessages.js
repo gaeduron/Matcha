@@ -30,7 +30,7 @@ const getMessages = async ({ id }) => {
 	try {
 		const res = await database.query(query, [id]);
 
-		if (!res.rows[0]) { return error.userNotFound(); }
+		if (!res.rows[0]) { return { messages: [] }}
 
 		return { messages: res.rows };
 	} catch (e) {

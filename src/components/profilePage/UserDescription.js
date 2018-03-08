@@ -11,6 +11,8 @@ import { Tags } from './Tags';
 import { history } from '../../routers/AppRouter';
 import { getProfileByID } from '../../actions/search';
 import { LikeButton, ReportButton, BlockButton } from './likeButton';
+import { isLikedSelector } from '../../selectors/interactions';
+import { sendInteraction } from '../../actions/interactions';
 
 // FOR TEST PURPOSE ONLY, TO MOVE IN ENV
 const GOOGLE_GEOLOCATION_API_KEY = 'AIzaSyC3VByoAFwfYTsXvC5GgS0F6mEiJuoku2Y';
@@ -37,7 +39,7 @@ export class UserDescription extends React.Component {
 
 		this.state = {
 			edit: 'false',
-			like: false,
+			like: isLikedSelector(this.props.likes, this.props.profile),
 			reported: false,
 			blocked: false,
 			squareHeight: 472,
@@ -46,7 +48,10 @@ export class UserDescription extends React.Component {
 
     onEdit = (id) => history.replace(`/edit-profile/${id}`);
 	onStopEdit = () => this.setState({ edit: false });
-	onLike = () => this.setState({ like: true });
+	onLike = () => { 
+		this.props.addLike(this.props.user.id, this.props.profile);		
+		this.setState({ like: true })
+	};
 	onUnlike = () => this.setState({ like: false });
 	onReport = () => this.setState({ reported: true });
 	onUnreport = () => this.setState({ reported: false });
@@ -218,12 +223,14 @@ export class UserDescription extends React.Component {
 
 const mapDispatchToProps = (dispatch) => ({
 	getProfileByID: (data) => dispatch(getProfileByID(data)),
+	addLike: (sender, receiver) => dispatch(sendInteraction('SERVER/ADD_LIKE', { sender, receiver }))
 });
 
 const mapStateToProps = (state) => {
 	return {
 		user: state.user,
 		fetchedProfile: state.search.profile,
+		likes: state.interactions.likes
 	};
 };
 

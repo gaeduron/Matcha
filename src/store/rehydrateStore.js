@@ -1,3 +1,4 @@
+import cookie from 'js-cookie';
 import { sendInteraction } from '../actions/interactions'; 
 import {
 	updateFname,	
@@ -41,14 +42,15 @@ export default function rehydrateStore(dispatch, user) {
 		updateTags(user.tags),
 		updateScore(user.score),
 		updateId(user.id),
-			
-	]);
 
+	]);
+	
 	/* Interactions */
 	dispatch(sendInteraction('SERVER/GET_VISITS', {}));
 	dispatch(sendInteraction('SERVER/GET_MESSAGES', {}));
 	dispatch(sendInteraction('SERVER/GET_LIKES', {}));
 	dispatch(sendInteraction('SERVER/GET_BLOCKS', {}));
+
 };
 
 

@@ -2,6 +2,16 @@ import age from 's-age';
 import ago from 's-ago';
 
 
+
+/* Like */
+
+export const isLikedSelector = (likes, profileId) => {
+	const like = likes.filter(x => x.receiver == profileId)
+	console.log('is Liked ? ', like);
+	return like.length > 0;
+};
+
+
 /* News selector */
 
 export const newsSelector = ({ visits, likes, onlineUsers }, id) => {
@@ -102,7 +112,7 @@ const formatMatch = (x, onlineUsers) => {
 		age: age(x.birthdate),
 		occupation: x.message ? x.message : `You and ${x.firstname} just matched`,
 		photo: JSON.parse(x.photos)[0], 
-		connected: onlineUsers.includes(x.sender),
+		connected: onlineUsers.includes(x.receiver),
 		clicked: x.clicked,
 		created_at: x.created_at
 	}); 
@@ -112,9 +122,11 @@ export const matchSelector = ({ likes, messages, onlineUsers }, id) => {
 
 	const matches = findMatches(likes, id)
 		.map(match => findLastMessage(match, likes, messages, id))
-		.map(match => formatMatch(match, onlineUsers));
+		.map(match => formatMatch(match, onlineUsers))
+		.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
 
 	console.log('matches', matches);
+	
 	return matches;
 };
 
@@ -159,6 +171,28 @@ export const messagesSelector = ({ messages }, id, matches) => {
 };
 
 //	{time: "2018-01-29T12:12:11.202Z", from: "you", text: "I just arrived my self last week."},
+
+
+
+/* News and Messages badges number selector */
+
+export const newsBadgesSelector = ({ likes, visits }, id, ) => {
+
+	const unseenLikes = likes.filter(x => x.receiver == id && x.seen == false);
+	const unseenVisits = visits.filter(x => x.receiver == id && x.seen == false);
+	
+	return unseenLikes.length + unseenVisits.length;
+};
+
+export const messagesBadgesSelector = ({ messages }, id, ) => {
+
+	const unseenMessages = messages.filter(x => x.receiver == id && x.seen == false);
+	
+	return unseenMessages.length;
+};
+
+
+
 
 
 
