@@ -1,5 +1,6 @@
 const Users = require('../../models/user');
 const logger = require('../../logs/logger');
+const facebookRegistration = require('../user/facebookRegistration');
 
 // 1 - Do user exist
 
@@ -14,7 +15,16 @@ const facebookLogin = async (user) => {
 	user.id = 0;
 
 	let response = await Users.find(user);
-	if (response.error) { return response; }
+	if (response.error) {
+		if (response.error[0] !== 'User not found') {
+			return response;
+		} else {
+			console.log('FB REGISTRATION');
+			let response2 = await facebookRegistration(user);
+			if (response2.error) { return response }
+			return facebookLogin(user);
+		}
+	}
 
 	user.id = response.user.id;
 	logger.info('User is valid');

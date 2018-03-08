@@ -36,4 +36,4 @@ const facebookRegistration = async (request) => {
 	return Users.facebookCreate(user);
 };
 
-module.exports = Registration;
+module.exports = facebookRegistration;
