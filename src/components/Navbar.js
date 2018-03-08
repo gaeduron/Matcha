@@ -80,6 +80,9 @@ export const Navbar = ({ userID, search }) => {
 				<i className={`material-icons material-icons--big-white ${iconActive('/news')}`}>
 				notifications_none
 				</i>
+				<div className="">
+					1
+				</div>
 			</div>
 			<h5 className="c-nav-item__text">news</h5>
 		</div>
