@@ -16,6 +16,7 @@ const create = async ({
 	first_name,
 	last_name,
 	gender,
+	photos,
 }) => {
 	const query = `
 	INSERT INTO users (
@@ -24,8 +25,9 @@ const create = async ({
 		firstname,
 		lastname,
 		sex,
-		password
-	) VALUES ($1, $2, $3, $4, $5, $6);`;
+		password,
+		photos
+	) VALUES ($1, $2, $3, $4, $5, $6, $7);`;
 
 	try {
 		await database.query(query, [
@@ -35,6 +37,7 @@ const create = async ({
 			last_name,
 			gender,
 			uuid(),
+			photos,
 		]);
 		logger.info('User Creation succesful !');
 		return {

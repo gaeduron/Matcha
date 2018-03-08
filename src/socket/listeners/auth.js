@@ -14,13 +14,12 @@ const authListener = (dispatch, socket) => {
 
 		console.log('response: ', uid);
 		saveCookie(uid);
+		rehydrateStore(dispatch, user);
 		dispatch({
 			type: 'LOGIN',
 			uid,
 			isOnboarding: onboarding
-		});
-		
-		rehydrateStore(dispatch, user);
+		})
 	});
 	
 	socket.on('logout', (res) => {
@@ -28,9 +27,7 @@ const authListener = (dispatch, socket) => {
 		dispatch({
 			type: 'LOGOUT'
 		});	
-	});
-
-	
+	});	
 };
 
 export default authListener;

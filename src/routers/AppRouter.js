@@ -23,7 +23,7 @@ const AppRouter = () => (
 		<Router history={history}>
 			<div>
 				<Switch>
-					<PrivateRoute path="/onboarding" component={() => <Onboarding/>} exact={true} />
+					<PrivateRoute path="/onboarding" component={Onboarding} exact={true} />
 					<PublicRoute path="/" component={LoginPage} exact={true} />
 					<PublicRoute path="/password-reset/:token" component={PasswordResetPage} />
 					<PublicRoute path="/auth/facebook/callback/:sessionToken" component={FacebookCallback} />

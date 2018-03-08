@@ -32,10 +32,10 @@ socket.on('loginWithCookie', (user) => {
 	const { uid, onboarding } = user;
 
 	cookie.set('sessionToken', uid);
-	store.dispatch(login(uid, onboarding));
-
 	if (uid)
 		rehydrateStore(store.dispatch, user);
+	store.dispatch(login(uid, onboarding));
+
 	renderApp();
 });
 
