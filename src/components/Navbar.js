@@ -29,7 +29,10 @@ const iconActive = (path, altPath = false) => {
 	return '';
 };
 
+const formatCount = (count) => count > 9 ? "9+" : count;
+
 export const Navbar = ({ userID, search }) => {
+	const notificationCount = formatCount(5);
 	let profile = false;
 	if ('profile' in search) {
 		profile = search.profile.id;		
