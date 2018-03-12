@@ -24,7 +24,7 @@ async function clicked({id, newsId = 0, type, sender}) {
 			await database.query(chatMessageQuery, [id, sender]);
 			await database.query(chatLikeQuery, [id, sender]);
 		}
-		return {};
+		return type;
 	} catch (e) {
 		return error.database(e);
 	}

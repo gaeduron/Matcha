@@ -7,8 +7,79 @@ import ago from 's-ago';
 
 export const isLikedSelector = (likes, profileId) => {
 	const like = likes.filter(x => x.receiver == profileId)
-	console.log('is Liked ? ', like);
-	return like.length > 0;
+	console.log('is Liked ? ', like, profileId, likes);
+
+	if (like.length == 0)
+		return false;
+
+	return like
+			.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())[0]
+			.unliked 
+		? false
+		: true;
+};
+
+
+/* Likes & visits selector */
+
+export const likesSelector = ({ likes, onlineUsers }, id) => {
+
+	const LIKE = 'liked your profile',
+		UNLIKE = 'unliked your profile',
+		VISIT = 'visited your profile';
+	let news = [];
+		
+	likes.forEach(x => { 
+		if (x.receiver == id)
+			news.push({
+				id: x.sender,
+				fname: x.firstname,
+				lname: x.lastname,
+				age: age(x.birthdate),
+				occupation: x.occupation,
+				photo: JSON.parse(x.photos)[0], 
+				connected: onlineUsers.includes(x.sender),
+				clicked: x.clicked,
+				type: x.unliked == true ? UNLIKE : LIKE ,
+				time: ago(new Date(x.created_at)),
+				created_at: new Date(x.created_at).getTime(),
+				content: false,
+			});
+	});
+
+	news.sort((a, b) => b.created_at - a.created_at);
+
+	return news;
+};
+
+export const visitsSelector = ({ visits, onlineUsers }, id) => {
+
+	const LIKE = 'liked your profile',
+		UNLIKE = 'unliked your profile',
+		VISIT = 'visited your profile';
+	let news = [];
+		
+	visits.forEach(x => { 
+		if (x.receiver == id)
+			news.push({
+				id: x.sender,
+				fname: x.firstname,
+				lname: x.lastname,
+				age: age(x.birthdate),
+				occupation: x.occupation,
+				photo: JSON.parse(x.photos)[0], 
+				connected: onlineUsers.includes(x.sender),
+				clicked: x.clicked,
+				type: VISIT,
+				time: ago(new Date(x.created_at)),
+				created_at: new Date(x.created_at).getTime(),
+				content: false,
+			});
+	});
+
+	news.sort((a, b) => b.created_at - a.created_at);
+
+	return news;
 };
 
 

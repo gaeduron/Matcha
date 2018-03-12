@@ -6,7 +6,7 @@ import Menu from './menu';
 import Chat from './Chat';
 import UserDescription from './UserDescription2.js';
 import { updateChatProfile } from '../../actions/chat';
-import { matchSelector, messagesSelector } from '../../selectors/interactions';
+import { matchSelector, messagesSelector, messagesBadgesSelector } from '../../selectors/interactions';
 import { sendInteraction } from '../../actions/interactions';
 
 const mockMatch = [
@@ -157,6 +157,12 @@ export class ChatPage extends React.Component {
 		}
 	}
 
+	componentDidMount() {
+		console.log('nb interactions: ', this.props.unseenCount);
+		if (this.props.unseenCount > 0)
+			this.props.seen('chat');
+	}
+
 	getProfileMessages = id => this.props.messages[id];
 
 	onSendMessage = (message) => {
@@ -214,7 +220,8 @@ export class ChatPage extends React.Component {
 const mapDispatchToProps = (dispatch) => {
 	return {
 		updateChatProfile: (profile) =>  profile ? dispatch(updateChatProfile(profile)) : null,
-		sendMessage: (sender, receiver, message) => dispatch(sendInteraction('SERVER/ADD_MESSAGE', { sender, receiver, message }))
+		sendMessage: (sender, receiver, message) => dispatch(sendInteraction('SERVER/ADD_MESSAGE', { sender, receiver, message })),
+		seen: (type) => dispatch(sendInteraction('SERVER/SEEN', { type }))
 	};	
 }
 
@@ -229,7 +236,8 @@ const mapStateToProps = (state) => {
 		matches: matches, 	// mockMatch,
 		messages: messages, //mockMessages,
 		chatProfile: state.chat.chatProfile,
-		id: state.user.id
+		id: state.user.id,
+		unseenCount: messagesBadgesSelector(state.interactions, state.user.id)
 	};
 };
 

@@ -4,7 +4,8 @@ import { history } from '../routers/AppRouter';
 import Navbar from './Navbar';
 import Notification from './NotificationList.js'
 import uuid from 'uuid';
-import { newsSelector } from '../selectors/interactions';
+import { newsSelector, newsBadgesSelector } from '../selectors/interactions';
+import { sendInteraction } from '../actions/interactions';
 
 
 export class NewsPage extends React.Component {
@@ -20,6 +21,12 @@ export class NewsPage extends React.Component {
 		} 	
 	};
 
+	componentDidMount() {
+		console.log('nb interactions: ', this.props.unseenCount);
+		if (this.props.unseenCount > 0)
+			this.props.seen('news');
+	}
+ee
 	render() {
 		
 		const news = this.props.notif;
@@ -50,13 +57,18 @@ export class NewsPage extends React.Component {
 	}
 }
 
+const mapDispatchToProps = (dispatch) => ({
+	seen: (type) => dispatch(sendInteraction('SERVER/SEEN', { type }))
+});
+
 const mapStateToProps = (state) => {
 	return {
 		notif: newsSelector(state.interactions, state.user.id),
+		unseenCount: newsBadgesSelector(state.interactions, state.user.id)
 	}
 };
 
-export default connect(mapStateToProps, undefined)(NewsPage);
+export default connect(mapStateToProps, mapDispatchToProps)(NewsPage);
 
 
 

@@ -39,7 +39,7 @@ export class UserDescription extends React.Component {
 
 		this.state = {
 			edit: 'false',
-			like: isLikedSelector(this.props.likes, this.props.profile),
+			like: isLikedSelector(this.props.likes, Number(this.props.profile)),
 			reported: false,
 			blocked: false,
 			squareHeight: 472,
@@ -49,10 +49,13 @@ export class UserDescription extends React.Component {
     onEdit = (id) => history.replace(`/edit-profile/${id}`);
 	onStopEdit = () => this.setState({ edit: false });
 	onLike = () => { 
-		this.props.addLike(this.props.user.id, this.props.profile);		
+		this.props.addLike(this.props.user.id, Number(this.props.profile));		
 		this.setState({ like: true })
 	};
-	onUnlike = () => this.setState({ like: false });
+	onUnlike = () => {
+		this.props.addUnlike(this.props.user.id, Number(this.props.profile));		
+		this.setState({ like: false })
+	};
 	onReport = () => this.setState({ reported: true });
 	onUnreport = () => this.setState({ reported: false });
 	onBlock = () => this.setState({ blocked: true });
@@ -81,6 +84,9 @@ export class UserDescription extends React.Component {
 		if (this.props.profile) {
 			this.props.getProfileByID(this.props.profile);
 		}
+
+		/* send visit */
+		this.props.addVisit(this.props.user.id, Number(this.props.profile));		
 	}	
 
 	componentWillUnmount = () => window.removeEventListener("resize", this.updateDimensions);
@@ -223,7 +229,9 @@ export class UserDescription extends React.Component {
 
 const mapDispatchToProps = (dispatch) => ({
 	getProfileByID: (data) => dispatch(getProfileByID(data)),
-	addLike: (sender, receiver) => dispatch(sendInteraction('SERVER/ADD_LIKE', { sender, receiver }))
+	addLike: (sender, receiver) => dispatch(sendInteraction('SERVER/ADD_LIKE', { sender, receiver })),
+	addUnlike: (sender, receiver) => dispatch(sendInteraction('SERVER/ADD_UNLIKE', { sender, receiver })),
+	addVisit: (sender, receiver) => dispatch(sendInteraction('SERVER/ADD_VISIT', { sender, receiver })),
 });
 
 const mapStateToProps = (state) => {

@@ -21,7 +21,7 @@ async function seen({id, type}) {
 			await database.query(visitsQuery, [id]);
 			await database.query(likesQuery, [id]);
 		}
-		return {};
+		return type;
 	} catch (e) {
 		return error.database(e);
 	}

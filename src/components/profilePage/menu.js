@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { history } from '../../routers/AppRouter';
 import UserStatus from './UserStatus';
+import { likesSelector, visitsSelector } from '../../selectors/interactions';
 
 const mockVisit = [
 	{
@@ -149,8 +150,8 @@ export class SearchMenu extends React.Component {
 
 const mapStateToProps = (state) => {
 	return {
-		likes: mockLike,
-		visites: mockVisit,
+		likes: likesSelector(state.interactions, state.user.id),
+		visites: visitsSelector(state.interactions, state.user.id),
 	};
 };
 

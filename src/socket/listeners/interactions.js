@@ -7,6 +7,15 @@ import {
 
 const interactionsListener = (dispatch, socket) => {
 
+	socket.on('SERVER/SEEN', (res) => {
+		if (res == 'news') {
+			dispatch(sendInteraction('SERVER/GET_LIKES', {}));
+			dispatch(sendInteraction('SERVER/GET_VISITS', {}));
+		}
+		if (res == 'chat')
+			dispatch(sendInteraction('SERVER/GET_MESSAGES', {}));
+	});
+
 	socket.on('SERVER/BLOCK', (res) => {
 		dispatch(sendInteraction('SERVER/GET_BLOCKS', {}));
 	});
