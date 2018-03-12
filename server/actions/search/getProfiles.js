@@ -10,9 +10,9 @@ const error = {
 };
 
 const getWantedGender = (orientation, gender) => {
-	if (orientation = 'straight') {
+	if (orientation == 'straight') {
 		return gender == 'woman' ? ['man', 'man'] : ['woman', 'woman'];
-	} else if (orientation = 'gay') {
+	} else if (orientation == 'gay') {
 		return gender == 'man' ? ['man', 'man'] : ['woman', 'woman'];	
 	} else {
 		return ['man' ,'woman'];

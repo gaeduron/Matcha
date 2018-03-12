@@ -1,4 +1,5 @@
 import { parse } from 'postgres-array';
+import moment from 'moment';
 import {
 	updateFname,	
 	updateLname,	
@@ -13,7 +14,14 @@ import {
 	updateLocation,
 	updateScore,
 } from '../actions/user';
+import { updateAge } from '../actions/search';
 
+const birthdateToAgeRange = (birthdate) => {
+	let age = moment().diff(birthdate, 'years');
+	const min = age - 5 < 18 ? 18 : age - 5;
+	const max = age + 5 > 100 ? 100 : age + 5;
+	return { min, max };
+}
 
 export default function rehydrateStore(dispatch, user) {
 
@@ -37,7 +45,8 @@ export default function rehydrateStore(dispatch, user) {
 			geolocationAllowed: user.geolocationAllowed 
 		}),
 		updateTags(user.tags),
-		updateScore(user.score)
+		updateScore(user.score),
+		updateAge(birthdateToAgeRange(user.birthdate)),
 	]);
 };
 

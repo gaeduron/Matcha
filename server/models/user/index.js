@@ -1,5 +1,6 @@
 // STEPS //
 const updateConnection = require('./steps/updateConnection');
+const updateLastConnection = require('./steps/updateLastConnection');
 const updatePassword = require('./steps/updatePassword');
 const updateSessionToken = require('./steps/updateSessionToken');
 const updatePasswordResetToken = require('./steps/updatePasswordResetToken');
@@ -39,6 +40,7 @@ const getProfilesCount = require('./paths/getProfilesCount');
 module.exports = {
 	// STEPS //
 	updateConnection,
+	updateLastConnection,
 	updatePassword,
 	updateSessionToken,
 	updatePasswordResetToken,

@@ -111,6 +111,7 @@ export class UserDescription extends React.Component {
 			score: profile.score,
 			orientation: _.capitalize(profile.orientation),
 			gender: _.capitalize(profile.gender),
+			status: 'connected',
 		};
 	}
 	
@@ -130,8 +131,9 @@ export class UserDescription extends React.Component {
 			score: profile.score,
 			orientation: this.formatOrientation(profile.sexualOrientation),
 			gender: _.capitalize(profile.sex),
-			status: 'connected',
+			status: 'disconnected',
 			likeYou: true,
+			lastConnection: 'Monday, January 29th',
 		};
 	}
 
@@ -182,7 +184,11 @@ export class UserDescription extends React.Component {
 						<p className="c-user-desc__info">{`${user.occupation}`}</p>
 						<p className="c-user-desc__info">{`${user.distance}`} km away</p>
 						<p className="c-user-desc__info">{`${user.orientation}, ${user.gender}`}</p>
-						<p className="c-user-desc__info">{`Status: ${user.status}`}</p>
+						{user.status === 'connected' ?
+							<p className="c-user-desc__info">{`${user.status}`}</p>
+							:
+							<p className="c-user-desc__info">{`Last visit: ${user.lastConnection}`}</p>
+						}
 					</div>
 						<p className="c-user-desc__text">{`${user.bio}`}</p>
 				</div>
