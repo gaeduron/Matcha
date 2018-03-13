@@ -133,7 +133,7 @@ export class UserDescription extends React.Component {
 			gender: _.capitalize(profile.sex),
 			status: 'disconnected',
 			likeYou: true,
-			lastConnection: 'Monday, January 29th',
+			lastConnection: profile.lastConnection == null ? 'Monday, January 28th' : moment(profile.lastConnection).format('dddd, MMMM Do'),
 		};
 	}
 
