@@ -20,8 +20,14 @@ const getProfileByID = async (data) => {
 		latitude: data.user.latitude
 	});
 	if (res2.error) { return error }
-
 	res.user.distance = res2.distance;
+	
+	const res3 = await Users.isBlocked({
+		to: data.profileID,
+		from: data.id,
+	});
+	if (res3.error) { return error }
+	res.user.blocked = !!res3.length;
 
 	return  { data:
 				{

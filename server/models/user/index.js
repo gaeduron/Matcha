@@ -21,6 +21,8 @@ const validateOccupation = require('./steps/validateOccupation');
 const validateBio = require('./steps/validateBio');
 const hashPassword = require('./steps/hashPassword');
 const create = require('./steps/create');
+const createBlock = require('./steps/createBlock');
+const deleteBlock = require('./steps/deleteBlock');
 const facebookCreate = require('./steps/facebookCreate');
 const addTags = require('./steps/tags/addTags');
 const getTags = require('./steps/tags/getTags');
@@ -31,6 +33,7 @@ const addVisit = require('./steps/visits/addVisit');
 const getVisits = require('./steps/visits/getVisits');
 const getOnlineUsers = require('./steps/online/getOnlineUsers');
 const getDistanceBetween = require('./steps/getDistanceBetween');
+const isBlocked = require('./steps/isBlocked');
 
 // PATHS //
 const find = require('./paths/find');
@@ -63,6 +66,8 @@ module.exports = {
 	validateOccupation,
 	hashPassword,
 	create,
+	createBlock,
+	deleteBlock,
 	facebookCreate,
 	addTags,
 	getTags,
@@ -73,6 +78,7 @@ module.exports = {
 	getVisits,
 	getOnlineUsers,
 	getDistanceBetween,
+	isBlocked,
 	// PATHS //
 	find,
 	newSession,

@@ -50,6 +50,16 @@ export const reportProfile = (data) => ({
 	data,
 });
 
+export const blockProfile = (data) => ({
+	type: 'SERVER/BLOCK_PROFILE',
+	data,
+});
+
+export const unblockProfile = (data) => ({
+	type: 'SERVER/UNBLOCK_PROFILE',
+	data,
+});
+
 export const updateProfile = profile => ({
 	type: 'GET_PROFILE',
 	profile,
