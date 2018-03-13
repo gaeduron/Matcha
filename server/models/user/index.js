@@ -5,6 +5,7 @@ const updatePassword = require('./steps/updatePassword');
 const updateSessionToken = require('./steps/updateSessionToken');
 const updatePasswordResetToken = require('./steps/updatePasswordResetToken');
 const updatePasswordResetExpireAt = require('./steps/updatePasswordResetExpireAt');
+const updateReport = require('./steps/updateReport');
 const validateEmail = require('./steps/validateEmail');
 const validateFirstname = require('./steps/validateFirstname');
 const validateLastname = require('./steps/validateLastname');
@@ -46,6 +47,7 @@ module.exports = {
 	updateSessionToken,
 	updatePasswordResetToken,
 	updatePasswordResetExpireAt,
+	updateReport,
 	validateEmail,
 	validateFirstname,
 	validateLastname,

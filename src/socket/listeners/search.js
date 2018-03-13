@@ -44,6 +44,8 @@ const searchListener = (dispatch, socket) => {
             updateProfile(profile),
         ]);
     });
+    socket.on('SERVER/REPORT_PROFILE', ({ profile }) => {
+    });
 };
 
 export default searchListener;

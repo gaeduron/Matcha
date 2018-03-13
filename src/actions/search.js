@@ -45,6 +45,11 @@ export const getProfileByID = (data) => ({
 	data,
 });
 
+export const reportProfile = (data) => ({
+	type: 'SERVER/REPORT_PROFILE',
+	data,
+});
+
 export const updateProfile = profile => ({
 	type: 'GET_PROFILE',
 	profile,

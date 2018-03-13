@@ -9,7 +9,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import MapWithAMarker from '../searchPage/map';
 import { Tags } from './Tags';
 import { history } from '../../routers/AppRouter';
-import { getProfileByID } from '../../actions/search';
+import { getProfileByID, reportProfile } from '../../actions/search';
 import { LikeButton, ReportButton, BlockButton } from './likeButton';
 
 // FOR TEST PURPOSE ONLY, TO MOVE IN ENV
@@ -48,8 +48,11 @@ export class UserDescription extends React.Component {
 	onStopEdit = () => this.setState({ edit: false });
 	onLike = () => this.setState({ like: true });
 	onUnlike = () => this.setState({ like: false });
-	onReport = () => this.setState({ reported: true });
-	onUnreport = () => this.setState({ reported: false });
+	onReport = () => {
+		this.setState({ reported: true });
+		this.props.reportProfile(this.props.profile);
+	}
+	onUnreport = () => this.setState({ reported: true });
 	onBlock = () => this.setState({ blocked: true });
 	onUnblock = () => this.setState({ blocked: false });
 
@@ -116,6 +119,9 @@ export class UserDescription extends React.Component {
 	}
 	
 	formatFetchedProfile = (profile) => {
+		if (profile.reported === true && this.state.reported === false) {
+			this.setState({ reported: true });
+		}
 		return {
 			lat: parseFloat(profile.latitude),
 			lon: parseFloat(profile.longitude),
@@ -232,6 +238,7 @@ export class UserDescription extends React.Component {
 
 const mapDispatchToProps = (dispatch) => ({
 	getProfileByID: (data) => dispatch(getProfileByID({ profileID: data })),
+	reportProfile: (id) => dispatch(reportProfile({ profileID: id })),
 });
 
 const mapStateToProps = (state) => {
