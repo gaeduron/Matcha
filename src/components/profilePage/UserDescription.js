@@ -111,6 +111,7 @@ export class UserDescription extends React.Component {
 			score: profile.score,
 			orientation: _.capitalize(profile.orientation),
 			gender: _.capitalize(profile.gender),
+			status: 'connected',
 		};
 	}
 	
@@ -130,6 +131,9 @@ export class UserDescription extends React.Component {
 			score: profile.score,
 			orientation: this.formatOrientation(profile.sexualOrientation),
 			gender: _.capitalize(profile.sex),
+			status: 'disconnected',
+			likeYou: true,
+			lastConnection: profile.lastConnection == null ? 'Monday, January 28th' : moment(profile.lastConnection).format('dddd, MMMM Do'),
 		};
 	}
 
@@ -168,6 +172,11 @@ export class UserDescription extends React.Component {
 						})
 					}
 				</Carousel>
+				<div className={`c-user-desc__like-box ${!user.likeYou && 'display-none'}`} >
+					<p className="c-user-desc__info c-user-desc__info--right">
+						{`${user.fname} likes you ! 😍`}
+					</p>
+				</div>
 				<div className="c-user-desc__text-container">
 					<h2 className="c-user-desc__name">{`${user.fname} ${user.lname},`}</h2>
 					<h2 className="c-user-desc__age">{`${user.age}`}</h2>
@@ -175,6 +184,11 @@ export class UserDescription extends React.Component {
 						<p className="c-user-desc__info">{`${user.occupation}`}</p>
 						<p className="c-user-desc__info">{`${user.distance}`} km away</p>
 						<p className="c-user-desc__info">{`${user.orientation}, ${user.gender}`}</p>
+						{user.status === 'connected' ?
+							<p className="c-user-desc__info">{`${user.status}`}</p>
+							:
+							<p className="c-user-desc__info">{`Last visit: ${user.lastConnection}`}</p>
+						}
 					</div>
 						<p className="c-user-desc__text">{`${user.bio}`}</p>
 				</div>
