@@ -9,8 +9,8 @@ const defaultState = {
 		max: 34
 	},
 	popularity: {
-		min: 50,
-		max: 400
+		min: 500,
+		max: 950
 	},
 	tags: [],
 	profiles: [],

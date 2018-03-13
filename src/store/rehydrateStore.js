@@ -1,5 +1,8 @@
 import cookie from 'js-cookie';
 import { sendInteraction } from '../actions/interactions'; 
+import { parse } from 'postgres-array';
+import moment from 'moment';
+
 import {
 	updateFname,	
 	updateLname,	
@@ -15,6 +18,14 @@ import {
 	updateScore,
 	updateId,
 } from '../actions/user';
+import { updateAge } from '../actions/search';
+
+const birthdateToAgeRange = (birthdate) => {
+	let age = moment().diff(birthdate, 'years');
+	const min = age - 5 < 18 ? 18 : age - 5;
+	const max = age + 5 > 100 ? 100 : age + 5;
+	return { min, max };
+}
 
 export default function rehydrateStore(dispatch, user) {
 
@@ -42,7 +53,7 @@ export default function rehydrateStore(dispatch, user) {
 		updateTags(user.tags),
 		updateScore(user.score),
 		updateId(user.id),
-
+		updateAge(birthdateToAgeRange(user.birthdate)),
 	]);
 	
 	/* Interactions */

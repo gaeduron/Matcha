@@ -1,0 +1,24 @@
+.c-news-pastille {
+    position: relative;
+    bottom: 58px;
+    left: 25px;
+    border-radius: 20px;
+    color: #FFF;
+    font-family: Avenir;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 1;
+    background-image: linear-gradient(-225deg, #FF5000 0%, #FF00A1 100%);
+    padding-top: 2px;
+    padding-bottom: 0px;
+    padding-left: 6px;
+    padding-right: 6px;
+    display: inline-block;
+}
+
+@media only screen and (max-width: 768px) {
+	.c-news-pastille {
+		bottom: 35px;
+		left: 10px;	
+	}
+}

@@ -1,11 +1,9 @@
-import FB from '../components/onboarding/FBData';
-
 const defaultState = {
-	fname: FB.firstname,
-	lname: FB.lastname,
-	gender: FB.gender,
-	tags: FB.likes,
-	photos: FB.photos,
+	fname: '',
+	lname: '',
+	gender: '',
+	tags: [],
+	photos: [],
 	orientation: 'bisexual',
 	birthDate: '',
 	occupation: '',

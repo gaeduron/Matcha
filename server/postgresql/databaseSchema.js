@@ -1,6 +1,7 @@
 const userSchema = `
 CREATE TABLE users (
 	  id SERIAL,
+	  facebook_id VARCHAR(64) NULL DEFAULT NULL,
 	  session_token VARCHAR(64) NULL DEFAULT NULL,
 	  password_reset_token VARCHAR(64) NULL DEFAULT NULL,
 	  password_reset_expire_at VARCHAR(64) NULL DEFAULT NULL,

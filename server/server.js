@@ -15,6 +15,7 @@ var io = socketIO(server);
 /* Better stack traces */
 process.on('unhandledRejection', r => console.log(r));
 
+const facebook = require('./facebook/connect')(app);
 app.use(express.static(publicPath));
 
 app.get('*', (req, res) => {

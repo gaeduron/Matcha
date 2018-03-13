@@ -12,6 +12,11 @@ import { socket, socketInit} from './socket/socket';
 import LoadingPage from './components/LoadingPage';
 import rehydrateStore from './store/rehydrateStore';
 
+if (process.env === 'production' || process.env === 'development') {
+	console.log = () => {};
+	console.error = () => {};
+	console.warn = () => {};
+}
 
 const store = configureStore();
 
@@ -32,10 +37,10 @@ socket.on('loginWithCookie', (user) => {
 	const { uid, onboarding } = user;
 
 	cookie.set('sessionToken', uid);
-	store.dispatch(login(uid, onboarding));
-
 	if (uid)
 		rehydrateStore(store.dispatch, user);
+	store.dispatch(login(uid, onboarding));
+
 	renderApp();
 });
 

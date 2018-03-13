@@ -9,6 +9,7 @@ import NotFoundPage from '../components/NotFoundPage';
 import LoginPage from '../components/LoginPage';
 import Onboarding from '../components/onboarding/Onboarding';
 import PasswordResetPage from '../components/PasswordResetPage';
+import FacebookCallback from '../components/facebookCallback';
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
 
@@ -22,9 +23,10 @@ const AppRouter = () => (
 		<Router history={history}>
 			<div>
 				<Switch>
-					<PrivateRoute path="/onboarding" component={() => <Onboarding FBData={FBData} />} exact={true} />
+					<PrivateRoute path="/onboarding" component={Onboarding} exact={true} />
 					<PublicRoute path="/" component={LoginPage} exact={true} />
 					<PublicRoute path="/password-reset/:token" component={PasswordResetPage} />
+					<PublicRoute path="/auth/facebook/callback/:sessionToken" component={FacebookCallback} />
 					<PrivateRoute path="/dashboard" component={DashboardPage} />
 					<PrivateRoute path="/profile/:uid" component={ProfilePage} />
 					<PrivateRoute path="/edit-profile/:uid" component={(props) => (<ProfilePage edit match={props.match} />)} />

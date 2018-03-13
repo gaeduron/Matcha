@@ -45,7 +45,6 @@ export class Onboarding extends React.Component {
 		this.props.saveUserData('SERVER/COMPLETE_ONBOARDING', {});
 	};
 	
-
 	render () {
 
 		const { step, isOnboarding } = this.props; 
@@ -73,7 +72,7 @@ export class Onboarding extends React.Component {
 
 					{step == 0 && 
 							<OnboardingProfile 
-								fname={fname}
+								fname={this.props.fname}
 								lname={lname}
 								nickname={nickname}
 								birthDate={birthDate ? new Date(birthDate) : ''}
@@ -128,8 +127,9 @@ const mapDispatchToProps = (dispatch) => ({
 	saveUserData: (emitMessage, profile) => dispatch(saveUserData(emitMessage, profile))
 });
 
-const mapStateToProps = (state, props) => ({
+const mapStateToProps = (state) => ({
 	profile: state.user,
+	fname: state.user.fname,
 	step: state.onboarding.step,
 	isOnboarding: state.auth.isOnboarding
 });
