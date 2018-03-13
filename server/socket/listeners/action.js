@@ -30,6 +30,7 @@ const startAction = async (action, socket, actionFunc, loggerContent) => {
 	/* Launch action */
 	action.data.socketID = socket.id;
 	action.data.id = auth.user.id;
+	action.data.user = auth.user;
 	const response = await actionFunc(action.data);
 
 

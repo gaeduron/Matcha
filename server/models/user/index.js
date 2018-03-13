@@ -29,6 +29,7 @@ const getLikes = require('./steps/likes/getLikes');
 const addVisit = require('./steps/visits/addVisit');
 const getVisits = require('./steps/visits/getVisits');
 const getOnlineUsers = require('./steps/online/getOnlineUsers');
+const getDistanceBetween = require('./steps/getDistanceBetween');
 
 // PATHS //
 const find = require('./paths/find');
@@ -69,6 +70,7 @@ module.exports = {
 	addVisit,
 	getVisits,
 	getOnlineUsers,
+	getDistanceBetween,
 	// PATHS //
 	find,
 	newSession,

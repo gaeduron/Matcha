@@ -125,7 +125,7 @@ export class UserDescription extends React.Component {
 			lname: _.capitalize(profile.lastname),
 			age: moment().diff(profile.birthdate, 'years'),
 			occupation: profile.occupation,
-			distance: 0,
+			distance: (profile.distance / 1000).toFixed(1),
 			bio: profile.bio,
 			tags: profile.tags,
 			score: profile.score,
@@ -231,7 +231,7 @@ export class UserDescription extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-	getProfileByID: (data) => dispatch(getProfileByID(data)),
+	getProfileByID: (data) => dispatch(getProfileByID({ profileID: data })),
 });
 
 const mapStateToProps = (state) => {
