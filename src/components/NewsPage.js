@@ -26,7 +26,7 @@ export class NewsPage extends React.Component {
 		if (this.props.unseenCount > 0)
 			this.props.seen('news');
 	}
-ee
+
 	render() {
 		
 		const news = this.props.notif;
@@ -48,6 +48,7 @@ ee
 								data={user}
 								key={uuid()}
 								onNewsClick={() => this.onNewsClick(user)}
+								clicked={(type, newsId, sender) => this.props.clicked(type, newsId, sender)}
 							/>
 						)}
 					</div>
@@ -58,7 +59,8 @@ ee
 }
 
 const mapDispatchToProps = (dispatch) => ({
-	seen: (type) => dispatch(sendInteraction('SERVER/SEEN', { type }))
+	seen: (type) => dispatch(sendInteraction('SERVER/SEEN', { type })),
+	clicked: (type, newsId, sender) => dispatch(sendInteraction('SERVER/CLICKED', { type, newsId, sender }))
 });
 
 const mapStateToProps = (state) => {

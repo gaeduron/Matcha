@@ -7,6 +7,14 @@ import {
 
 const interactionsListener = (dispatch, socket) => {
 
+	socket.on('SERVER/CLICKED', (res) => {
+		/* no need for res == 'visit', GET_VISITS is refreshed after a click on any notification */
+		if (res == 'like') 
+			dispatch(sendInteraction('SERVER/GET_LIKES', {}));
+		if (res == 'chat')
+			dispatch(sendInteraction('SERVER/GET_MESSAGES', {}));
+	});
+
 	socket.on('SERVER/SEEN', (res) => {
 		if (res == 'news') {
 			dispatch(sendInteraction('SERVER/GET_LIKES', {}));

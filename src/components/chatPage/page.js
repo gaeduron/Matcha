@@ -199,6 +199,7 @@ export class ChatPage extends React.Component {
 						showMenu={this.onShowMenu}
 						onConversationChange={this.onConversationChange}
 						focusedProfile={this.props.chatProfile}
+						clicked={this.props.clicked}
 					/>
 				</div>
 				<div className="l-main l-main__chat c-main c-main--white">
@@ -221,7 +222,8 @@ const mapDispatchToProps = (dispatch) => {
 	return {
 		updateChatProfile: (profile) =>  profile ? dispatch(updateChatProfile(profile)) : null,
 		sendMessage: (sender, receiver, message) => dispatch(sendInteraction('SERVER/ADD_MESSAGE', { sender, receiver, message })),
-		seen: (type) => dispatch(sendInteraction('SERVER/SEEN', { type }))
+		seen: (type) => dispatch(sendInteraction('SERVER/SEEN', { type })),
+		clicked: (type, newsId, sender) => dispatch(sendInteraction('SERVER/CLICKED', { type, newsId, sender }))
 	};	
 }
 

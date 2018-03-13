@@ -85,7 +85,7 @@ export const Navbar = ({ userID, search }) => {
 				notifications_none
 				</i>
 				<div className={`c-news-pastille ${notificationCount ? '' : 'display-none'}`}>
-					1
+					{notificationCount}
 				</div>
 			</div>
 			<h5 className="c-nav-item__text">news</h5>

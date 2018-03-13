@@ -5,10 +5,18 @@ export class Notification extends React.Component {
 		super(props);
 	};
 
+	onClick = () => {
+		const user = this.props.data;
+
+		if (user.clicked === false)
+			this.props.clicked(user.notifType, user.notifId, user.id);
+		this.props.onNewsClick();
+	};
+
 	render() {
 		const user = this.props.data;
 		return (
-			<div onClick={this.props.onNewsClick}>
+			<div onClick={this.onClick}>
 				<div className={`c-news ${!user.clicked && 'c-news--unseen'}`}>
 					<div className="c-news__image-container">
 						<img className="c-news__image" src={user.photo} alt="" />

@@ -11,7 +11,7 @@ import { Tags } from './Tags';
 import { history } from '../../routers/AppRouter';
 import { getProfileByID } from '../../actions/search';
 import { LikeButton, ReportButton, BlockButton } from './likeButton';
-import { isLikedSelector } from '../../selectors/interactions';
+import { isLikedSelector, likesMeSelector } from '../../selectors/interactions';
 import { sendInteraction } from '../../actions/interactions';
 
 // FOR TEST PURPOSE ONLY, TO MOVE IN ENV
@@ -40,6 +40,7 @@ export class UserDescription extends React.Component {
 		this.state = {
 			edit: 'false',
 			like: isLikedSelector(this.props.likes, Number(this.props.profile)),
+			likesMe: likesMeSelector(this.props.likes, Number(this.props.profile)),
 			reported: false,
 			blocked: false,
 			squareHeight: 472,
@@ -183,7 +184,7 @@ export class UserDescription extends React.Component {
 						})
 					}
 				</Carousel>
-				<div className={`c-user-desc__like-box ${!user.likeYou && 'display-none'}`} >
+				<div className={`c-user-desc__like-box ${!this.state.likesMe && 'display-none'}`} >
 					<p className="c-user-desc__info c-user-desc__info--right">
 						{`${user.fname} likes you ! 😍`}
 					</p>

@@ -5,6 +5,20 @@ import ago from 's-ago';
 
 /* Like */
 
+export const likesMeSelector = (likes, profileId) => {
+	const like = likes.filter(x => x.sender == profileId)
+	console.log('is Liked ? ', like, profileId, likes);
+
+	if (like.length == 0)
+		return false;
+
+	return like
+			.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())[0]
+			.unliked 
+		? false
+		: true;
+};
+
 export const isLikedSelector = (likes, profileId) => {
 	const like = likes.filter(x => x.receiver == profileId)
 	console.log('is Liked ? ', like, profileId, likes);
@@ -32,6 +46,8 @@ export const likesSelector = ({ likes, onlineUsers }, id) => {
 	likes.forEach(x => { 
 		if (x.receiver == id)
 			news.push({
+				notifType: 'like',
+				notifId: x.id,
 				id: x.sender,
 				fname: x.firstname,
 				lname: x.lastname,
@@ -62,6 +78,8 @@ export const visitsSelector = ({ visits, onlineUsers }, id) => {
 	visits.forEach(x => { 
 		if (x.receiver == id)
 			news.push({
+				notifType: 'visit',
+				notifId: x.id,
 				id: x.sender,
 				fname: x.firstname,
 				lname: x.lastname,
@@ -95,6 +113,8 @@ export const newsSelector = ({ visits, likes, onlineUsers }, id) => {
 	likes.forEach(x => { 
 		if (x.receiver == id)
 			news.push({
+				notifType: 'like',
+				notifId: x.id,
 				id: x.sender,
 				fname: x.firstname,
 				lname: x.lastname,
@@ -113,6 +133,8 @@ export const newsSelector = ({ visits, likes, onlineUsers }, id) => {
 	visits.forEach(x => { 
 		if (x.receiver == id)
 			news.push({
+				notifType: 'visit',
+				notifId: x.id,
 				id: x.sender,
 				fname: x.firstname,
 				lname: x.lastname,
@@ -174,9 +196,11 @@ const findLastMessage = (match, likes, messages, id) => {
 };
 
 
-const formatMatch = (x, onlineUsers) => {	
-		
+const formatMatch = (x, onlineUsers, id) => {	
+	
 	return ({ 
+		notifType: 'chat',
+		notifId: x.id,
 		id: x.match,
 		fname: x.firstname,
 		lname: x.lastname,
@@ -184,7 +208,7 @@ const formatMatch = (x, onlineUsers) => {
 		occupation: x.message ? x.message : `You and ${x.firstname} just matched`,
 		photo: JSON.parse(x.photos)[0], 
 		connected: onlineUsers.includes(x.receiver),
-		clicked: x.clicked,
+		clicked: x.sender == id ? true : x.clicked,
 		created_at: x.created_at
 	}); 
 };
@@ -193,7 +217,7 @@ export const matchSelector = ({ likes, messages, onlineUsers }, id) => {
 
 	const matches = findMatches(likes, id)
 		.map(match => findLastMessage(match, likes, messages, id))
-		.map(match => formatMatch(match, onlineUsers))
+		.map(match => formatMatch(match, onlineUsers, id))
 		.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
 
 	console.log('matches', matches);
