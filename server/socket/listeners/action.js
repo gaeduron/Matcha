@@ -11,6 +11,9 @@ const getBio = require('../../actions/onboarding/getBio');
 const getProfiles = require('../../actions/search/getProfiles');
 const getProfilesCount = require('../../actions/search/getProfilesCount');
 const getProfileByID = require('../../actions/search/getProfileByID');
+const reportProfile = require('../../actions/search/reportProfile');
+const blockProfile = require('../../actions/search/blockProfile');
+const unblockProfile = require('../../actions/search/unblockProfile');
 const editProfile = require('../../actions/edit/editProfile');
 const addLike = require('../../actions/interactions/addLike');
 const getLikes = require('../../actions/interactions/getLikes');
@@ -30,6 +33,7 @@ const startAction = async (action, socket, actionFunc, loggerContent) => {
 	/* Launch action */
 	action.data.socketID = socket.id;
 	action.data.id = auth.user.id;
+	action.data.user = auth.user;
 	const response = await actionFunc(action.data);
 
 
@@ -56,12 +60,24 @@ const startAction = async (action, socket, actionFunc, loggerContent) => {
 
 		/* Only if a notification message need to be sent */
 		switch (action.type) {
+			case 'SERVER/REPORT_PROFILE': 
+				socket.emit('notificationInfo', 'User has been reported.');
+				break;
+			case 'SERVER/BLOCK_PROFILE': 
+				socket.emit('notificationInfo', 'User has been blocked.');
+				break;
+			case 'SERVER/UNBLOCK_PROFILE': 
+				socket.emit('notificationInfo', 'User has been unblocked.');
+				break;
 			case 'SERVER/SAVE_LOCATION': 
 				socket.emit('notificationSuccess', 'Congratulations, welcome to Matcha !');
+				break;
 			case 'SERVER/EDIT_PROFILE': 
 				socket.emit('notificationSuccess', 'Profile updated');
+				break;
 			case 'SERVER/GET_PROFILES': 
 				socket.emit('SERVER/UPDATE_FILTERS', action.data);
+				break;
 		}
 
 		logger.succes(loggerContent);
@@ -101,6 +117,15 @@ const actionListeners = (socket) => {
 			case 'SERVER/GET_PROFILE_BY_ID':
 				startAction(action, socket, getProfileByID, 'Search: profile data fetched');
 				break;
+			case 'SERVER/REPORT_PROFILE':
+				startAction(action, socket, reportProfile, 'Search: report profile');
+				break;
+			case 'SERVER/BLOCK_PROFILE':
+				startAction(action, socket, blockProfile, 'Search: block profile');
+				break;
+			case 'SERVER/UNBLOCK_PROFILE':
+				startAction(action, socket, unblockProfile, 'Search: unblock profile');
+				break;
 			case 'SERVER/GET_PROFILES':
 				startAction(action, socket, getProfiles, 'Search: user profiles data fetched');
 				break;
@@ -114,7 +139,7 @@ const actionListeners = (socket) => {
 				startAction(action, socket, addLike, 'Adding new like to db');
 				break;
 			case 'SERVER/GET_LIKES':
-					startAction(action, socket, getLikes, 'Retrieving all user\'s likes from db');
+				startAction(action, socket, getLikes, 'Retrieving all user\'s likes from db');
 				break;
 			case 'SERVER/ADD_VISIT':
 				console.log('visit : ', action);

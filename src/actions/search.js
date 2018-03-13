@@ -45,6 +45,21 @@ export const getProfileByID = (data) => ({
 	data,
 });
 
+export const reportProfile = (data) => ({
+	type: 'SERVER/REPORT_PROFILE',
+	data,
+});
+
+export const blockProfile = (data) => ({
+	type: 'SERVER/BLOCK_PROFILE',
+	data,
+});
+
+export const unblockProfile = (data) => ({
+	type: 'SERVER/UNBLOCK_PROFILE',
+	data,
+});
+
 export const updateProfile = profile => ({
 	type: 'GET_PROFILE',
 	profile,
