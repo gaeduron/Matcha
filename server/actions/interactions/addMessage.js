@@ -9,13 +9,18 @@ const error = {
 	}),
 };
 
-const addLikeValidation = async ({sender, receiver, id}) => {
+const addMessageValidation = async ({sender, receiver, id, message}) => {
 	let errors = [];
 
 	const isValid = [
 		Number.isInteger(sender),
 		Number.isInteger(receiver),
-		id === sender
+		id === sender,
+		typeof message == 'string',
+		message.length <= 500,
+		//	Users.validateMatch()
+		/* IMPROVE MESSAGE VALIDATION */
+		// Do these users have matched ?  
 	].reduce((acc, cond) => acc && cond, true); 
 	
 
@@ -28,22 +33,22 @@ const addLikeValidation = async ({sender, receiver, id}) => {
 	return errors;
 };
 
-const addLike = async (data) => {
+const addMessage = async (data) => {
 
 
-	logger.info('validating like input...');
-	const response = await addLikeValidation(data);
+	logger.info('validating message input...');
+	const response = await addMessageValidation(data);
 
 	if (response.error.length) 
 		return response;
 	
-	logger.info('updating like in DB...');
+	logger.info('updating message in DB...');
 
-	const updateResponse = await Users.addLike(data);
+	const updateResponse = await Users.addMessage(data);
 	const receiver = await Users.find({ id: data.receiver });
 	data.sockets = receiver.error ? [] : [receiver.user.connected];
 
 	return (updateResponse.error ? updateResponse : data);
 };
 
-module.exports = addLike;
+module.exports = addMessage;

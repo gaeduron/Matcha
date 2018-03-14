@@ -1,5 +1,5 @@
 export default {
-	firstname: 'john',
+	firstname: 'pouet',
 	lastname: 'doe',
 	gender: 'man',
 	likes: ['harry potter', 'ramen', 'discipline'],

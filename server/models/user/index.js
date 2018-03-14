@@ -28,10 +28,17 @@ const addTags = require('./steps/tags/addTags');
 const getTags = require('./steps/tags/getTags');
 const likeMe = require('./steps/likeMe');
 const addLike = require('./steps/likes/addLike');
+const addUnlike = require('./steps/likes/addUnlike');
 const getLikes = require('./steps/likes/getLikes');
 const addVisit = require('./steps/visits/addVisit');
 const getVisits = require('./steps/visits/getVisits');
+const addMessage = require('./steps/messages/addMessage');
+const getMessages = require('./steps/messages/getMessages');
 const getOnlineUsers = require('./steps/online/getOnlineUsers');
+const seen = require('./steps/interactions/seen');
+const clicked = require('./steps/interactions/clicked');
+const block = require('./steps/interactions/block');
+const getBlocks = require('./steps/interactions/getBlocks');
 const getDistanceBetween = require('./steps/getDistanceBetween');
 const isBlocked = require('./steps/isBlocked');
 
@@ -73,12 +80,20 @@ module.exports = {
 	getTags,
 	likeMe,
 	addLike,
+	addUnlike,
 	getLikes,
 	addVisit,
 	getVisits,
+	addMessage,
+	getMessages,
 	getOnlineUsers,
+	seen,
+	clicked,
+	block,
+	getBlocks,
 	getDistanceBetween,
 	isBlocked,
+
 	// PATHS //
 	find,
 	newSession,

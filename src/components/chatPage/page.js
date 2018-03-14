@@ -6,6 +6,8 @@ import Menu from './menu';
 import Chat from './Chat';
 import UserDescription from './UserDescription2.js';
 import { updateChatProfile } from '../../actions/chat';
+import { matchSelector, messagesSelector, messagesBadgesSelector } from '../../selectors/interactions';
+import { sendInteraction } from '../../actions/interactions';
 
 const mockMatch = [
     {
@@ -23,7 +25,7 @@ const mockMatch = [
         fname: 'Charley',
         lname: 'Gleichner',
         age: 27,
-        occupation: 'Applications Programmers',
+        occupation: 'Yeah don\'t forget my favorite color is blue ciel',
         photo: 'https://res.cloudinary.com/matcha/image/upload/v1518691639/myh986grrkvm9g6wzqqk.jpg',
         connected: true,
         clicked: true,
@@ -42,7 +44,7 @@ const mockMatch = [
 
 const mockMessages = {
 	0: [{time: "2018-01-28T14:30:11.202Z", from: "you", text: "____________"}],
-	527: [
+	60: [
 			{time: "2018-01-28T14:30:11.202Z", from: "you", text: "Hey, how are you ?"},
 			{time: "2018-01-28T14:31:11.202Z", from: "paola", text: "Fine and you?"},
 			{time: "2018-01-28T14:31:11.202Z", from: "paola", text: "Do you come here often?"},
@@ -145,22 +147,40 @@ export class ChatPage extends React.Component {
 	onConversationChange = (profile) => this.props.updateChatProfile(profile);
 
 	componentWillMount = () => {
-		if (this.props.chatProfile.id === 0 && this.props.matches.length) {
-			this.props.updateChatProfile(this.props.matches[0]);
+		if (this.props.chatProfile.id === 0 ) {
+			if (this.props.matches.length)
+				this.props.updateChatProfile(this.props.matches[0]);
+			else
+				setTimeout(() => this.props.updateChatProfile(this.props.matches[0]), 2000);
 		} else {
 			this.onShowMenu();
 		}
 	}
 
+	componentDidMount() {
+		console.log('nb interactions: ', this.props.unseenCount);
+		if (this.props.unseenCount > 0)
+			this.props.seen('chat');
+	}
+
 	getProfileMessages = id => this.props.messages[id];
 
 	onSendMessage = (message) => {
-		alert(`chatPage/page:158: message: ${message}`);
+		const notificationData = this.props.notificationData;
+		notificationData.messsage = message;
+		this.props.sendMessage(this.props.id, this.props.chatProfile.id, this.props.notificationData, message);		
+		//alert(`chatPage/page:158: message: ${message}`);
 	};
 
 	render() {
+		//console.log('component rendering'); 
+		//console.log('Chat Profile Id :', this.props.chatProfile.id); 
+		//console.log('matches :', this.props.messages); 
+		//console.log('messages :', this.props.messages); 
 		const messages = this.getProfileMessages(this.props.chatProfile.id.toString());
-		return (
+
+		return  (
+
 			<div className="l-flex-container">
 				<div className="l-header">
 					<Header
@@ -181,6 +201,7 @@ export class ChatPage extends React.Component {
 						showMenu={this.onShowMenu}
 						onConversationChange={this.onConversationChange}
 						focusedProfile={this.props.chatProfile}
+						clicked={this.props.clicked}
 					/>
 				</div>
 				<div className="l-main l-main__chat c-main c-main--white">
@@ -201,16 +222,31 @@ export class ChatPage extends React.Component {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		updateChatProfile: (profile) => dispatch(updateChatProfile(profile))
+		updateChatProfile: (profile) =>  profile ? dispatch(updateChatProfile(profile)) : null,
+		sendMessage: (sender, receiver, notificationData, message) => dispatch(sendInteraction('SERVER/ADD_MESSAGE', { sender, receiver, notificationData, message })),
+		seen: (type) => dispatch(sendInteraction('SERVER/SEEN', { type })),
+		clicked: (type, newsId, sender) => dispatch(sendInteraction('SERVER/CLICKED', { type, newsId, sender }))
 	};	
 }
 
 const mapStateToProps = (state) => {
+	const matches = matchSelector(state.interactions, state.user.id),
+		  messages = messagesSelector(state.interactions, state.user.id, matches);	
+
+
+	console.log('sending : ', messages);	
 	return {
 		notif: state.notif.notification,
-		matches: mockMatch,
+		matches: matches, 	// mockMatch,
+		messages: messages, //mockMessages,
 		chatProfile: state.chat.chatProfile,
-		messages: mockMessages,
+		id: state.user.id,
+		unseenCount: messagesBadgesSelector(state.interactions, state.user.id),
+		notificationData: {
+			login: state.user.id, 
+			profilePicture: state.user.photos[0], 
+			firstname: state.user.fname
+		}
 	};
 };
 

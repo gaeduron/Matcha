@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { history } from '../../routers/AppRouter';
 import UserStatus from './UserStatus';
+import { likesSelector, visitsSelector } from '../../selectors/interactions';
+import { sendInteraction } from '../../actions/interactions';
 
 const mockVisit = [
 	{
@@ -112,6 +114,7 @@ export class SearchMenu extends React.Component {
 						<UserStatus
 							data={user}
 							showProfile={() => this.onUserClick(user.id)}
+							clicked={(type, newsId, sender) => this.props.clicked(type, newsId, sender)}
 							key={user.id}
 						/>
 					))}
@@ -138,6 +141,7 @@ export class SearchMenu extends React.Component {
 						<UserStatus
 							data={user}
 							showProfile={() => this.onUserClick(user.id)}
+							clicked={(type, newsId, sender) => this.props.clicked(type, newsId, sender)}
 							key={user.id}
 						/>
 					))}
@@ -147,11 +151,15 @@ export class SearchMenu extends React.Component {
 	}
 }
 
+const mapDispatchToProps = (dispatch) => ({
+	clicked: (type, newsId, sender) => dispatch(sendInteraction('SERVER/CLICKED', { type, newsId, sender }))
+});
+
 const mapStateToProps = (state) => {
 	return {
-		likes: mockLike,
-		visites: mockVisit,
+		likes: likesSelector(state.interactions, state.user.id),
+		visites: visitsSelector(state.interactions, state.user.id),
 	};
 };
 
-export default connect(mapStateToProps, undefined)(SearchMenu);
+export default connect(mapStateToProps, mapDispatchToProps)(SearchMenu);

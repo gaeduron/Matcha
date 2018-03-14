@@ -14,13 +14,13 @@ const error = {
 
 const getLikes = async ({ id }) => {
 	const query = `
-		SELECT likes.*, users.firstname, users.lastname, users.birthdate, users.occupation, users.photos, users.id 
+		SELECT likes.*, users.firstname, users.lastname, users.birthdate, users.occupation, users.photos, users.reported 
 			FROM likes 
 			INNER JOIN users 
 			ON users.id = likes.receiver 
 			WHERE sender = $1 
 		UNION
-		SELECT likes.*, users.firstname, users.lastname, users.birthdate, users.occupation, users.photos, users.id 
+		SELECT likes.*, users.firstname, users.lastname, users.birthdate, users.occupation, users.photos, users.reported
 			FROM likes INNER JOIN users 
 			ON users.id = likes.sender 
 			WHERE receiver = $1;
@@ -29,7 +29,7 @@ const getLikes = async ({ id }) => {
 	try {
 		const res = await database.query(query, [id]);
 
-		if (!res.rows[0]) { return error.userNotFound(); }
+		if (!res.rows[0]) { return { likes: [] }}
 
 		return { likes: res.rows };
 	} catch (e) {

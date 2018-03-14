@@ -4,7 +4,7 @@ const error = {
 	tooLong: myError.newFailure({
 		log: length => `User bio is too long (${length}) characters`,
 		message: length => `Your bio is too long (${length}), 
-		280 characters max.`,
+		599 characters max.`,
 	})
 };
 

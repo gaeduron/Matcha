@@ -59,6 +59,7 @@ export class SearchMenu extends React.Component {
 					<UserStatus
 						data={user}
 						showProfile={() => this.onClick(user)}
+						clicked={(type, newsId, sender) => this.props.clicked(type, newsId, sender)}
 						key={user.id}
 						focused={user.id == this.props.focusedProfile.id}
 					/>

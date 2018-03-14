@@ -9,7 +9,7 @@ const error = {
 	}),
 };
 
-const addLikeValidation = async ({sender, receiver, id}) => {
+const blockValidation = async ({sender, receiver, id}) => {
 	let errors = [];
 
 	const isValid = [
@@ -28,22 +28,22 @@ const addLikeValidation = async ({sender, receiver, id}) => {
 	return errors;
 };
 
-const addLike = async (data) => {
+const block = async (data) => {
 
 
-	logger.info('validating like input...');
-	const response = await addLikeValidation(data);
+	logger.info('validating block input...');
+	const response = await blockValidation(data);
 
 	if (response.error.length) 
 		return response;
 	
-	logger.info('updating like in DB...');
+	logger.info('updating block/unblock in DB...');
 
-	const updateResponse = await Users.addLike(data);
+	const updateResponse = await Users.block(data);
 	const receiver = await Users.find({ id: data.receiver });
 	data.sockets = receiver.error ? [] : [receiver.user.connected];
 
 	return (updateResponse.error ? updateResponse : data);
 };
 
-module.exports = addLike;
+module.exports = block;

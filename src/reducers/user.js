@@ -16,6 +16,11 @@ const defaultState = {
 
 export default (state = defaultState, action) => {
 	switch (action.type) {
+		case 'UPDATE_ID':
+			return {
+				...state,
+				id: action.id	
+			};
 		case 'UPDATE_FNAME':
 			return {
 				...state,

@@ -11,9 +11,20 @@ export const updateVisits = (visits) => ({
 	visits
 });
 
+export const updateMessages = (messages) => ({
+	type: 'UPDATE_MESSAGES',
+	messages
+});
+
 export const updateOnlineUsers = (onlineUsers) => ({
 	type: 'UPDATE_ONLINE_USERS',
 	onlineUsers
+});
+
+export const updateBlocks = (blocks, id) => ({
+	type: 'UPDATE_BLOCKS',
+	blocks,
+	id
 });
 
 export const sendInteraction = (emitMessage, data) => (dispatch, getState) => { 
@@ -23,3 +34,14 @@ export const sendInteraction = (emitMessage, data) => (dispatch, getState) => {
 		data
 	});
 };
+
+/*
+	sendInteraction('SERVER/SEEN', { type: 'chat | news' });
+
+	sendInteraction('SERVER/CLICKED', {
+		type: 'chat | like | visit',
+		sender, (sender id) 
+		newsId (only for like or visit)
+	});
+
+*/

@@ -15,10 +15,17 @@ const reportProfile = require('../../actions/search/reportProfile');
 const blockProfile = require('../../actions/search/blockProfile');
 const unblockProfile = require('../../actions/search/unblockProfile');
 const editProfile = require('../../actions/edit/editProfile');
+const addUnlike = require('../../actions/interactions/addUnlike');
 const addLike = require('../../actions/interactions/addLike');
 const getLikes = require('../../actions/interactions/getLikes');
 const addVisit = require('../../actions/interactions/addVisit');
 const getVisits = require('../../actions/interactions/getVisits');
+const addMessage = require('../../actions/interactions/addMessage');
+const getMessages = require('../../actions/interactions/getMessages');
+const seen = require('../../actions/interactions/seen');
+const clicked = require('../../actions/interactions/clicked');
+const block = require('../../actions/interactions/block');
+const getBlocks = require('../../actions/interactions/getBlocks');
 
 
 const startAction = async (action, socket, actionFunc, loggerContent) => {
@@ -26,11 +33,11 @@ const startAction = async (action, socket, actionFunc, loggerContent) => {
 	/* Verify that the user is authenticated */
 	const auth = await Users.find({ socketID: socket.id });
 	if (auth.error) {
-		socket.emit('notificationError', auth.error);
+		socket.emit('notificationError', "You must be authenticated");
 		return ;	
 	}	
 
-	/* Launch action */
+	//* Launch action */
 	action.data.socketID = socket.id;
 	action.data.id = auth.user.id;
 	action.data.user = auth.user;
@@ -47,7 +54,6 @@ const startAction = async (action, socket, actionFunc, loggerContent) => {
 				socket.to(ws).emit(action.type, {});						
 				console.log(`emitting to ${ws}...`);	
 			});
-			delete response.sockets;
 		}	
 
 		/* Send back either the initial data to client or the response output */	
@@ -78,9 +84,23 @@ const startAction = async (action, socket, actionFunc, loggerContent) => {
 			case 'SERVER/GET_PROFILES': 
 				socket.emit('SERVER/UPDATE_FILTERS', action.data);
 				break;
+			case 'SERVER/ADD_VISIT': 
+				socket.to(response.sockets[0]).emit('notificationVisit', response.notificationData);
+				break;
+			case 'SERVER/ADD_LIKE': 
+				socket.to(response.sockets[0]).emit('notificationLike', response.notificationData);
+				break;
+			case 'SERVER/ADD_UNLIKE': 
+				socket.to(response.sockets[0]).emit('notificationUnlike', response.notificationData);
+				break;
+			case 'SERVER/ADD_MESSAGE': 
+				response.notificationData.message = response.message;
+				socket.to(response.sockets[0]).emit('notificationChat', response.notificationData);
+				break;
 		}
 
 		logger.succes(loggerContent);
+		delete response.sockets;
 	}
 };
 
@@ -135,6 +155,9 @@ const actionListeners = (socket) => {
  
 
 			/* Interactions (likes & visits) */	
+			case 'SERVER/ADD_UNLIKE':
+				startAction(action, socket, addUnlike, 'Updating unlike to db');
+				break;
 			case 'SERVER/ADD_LIKE':
 				startAction(action, socket, addLike, 'Adding new like to db');
 				break;
@@ -147,6 +170,24 @@ const actionListeners = (socket) => {
 				break;
 			case 'SERVER/GET_VISITS':
 					startAction(action, socket, getVisits, 'Retrieving all user\'s visits from db');
+				break;
+			case 'SERVER/ADD_MESSAGE':
+				startAction(action, socket, addMessage, 'New message saved to DB');
+				break;
+			case 'SERVER/GET_MESSAGES':
+					startAction(action, socket, getMessages, 'Retrieving all user\'s messages from db');
+				break;
+			case 'SERVER/SEEN':
+					startAction(action, socket, seen, 'Updating user notifications status to SEEN');
+				break;
+			case 'SERVER/CLICKED':
+					startAction(action, socket, clicked, 'Updating user notifications status to CLICKED');
+				break;
+			case 'SERVER/BLOCK':
+				startAction(action, socket, block, 'Blocking / Unblocking user');
+				break;
+			case 'SERVER/GET_BLOCKS':
+				startAction(action, socket, getBlocks, 'Blocked users retrieved');
 				break;
 
 				

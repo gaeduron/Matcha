@@ -9,7 +9,7 @@ const error = {
 	}),
 };
 
-const addLikeValidation = async ({sender, receiver, id}) => {
+const addUnlikeValidation = async ({sender, receiver, id}) => {
 	let errors = [];
 
 	const isValid = [
@@ -28,22 +28,22 @@ const addLikeValidation = async ({sender, receiver, id}) => {
 	return errors;
 };
 
-const addLike = async (data) => {
+const addUnlike = async (data) => {
 
 
-	logger.info('validating like input...');
-	const response = await addLikeValidation(data);
+	logger.info('validating unlike input...');
+	const response = await addUnlikeValidation(data);
 
 	if (response.error.length) 
 		return response;
 	
-	logger.info('updating like in DB...');
+	logger.info('updating unlike in DB...');
 
-	const updateResponse = await Users.addLike(data);
+	const updateResponse = await Users.addUnlike(data);
 	const receiver = await Users.find({ id: data.receiver });
-	data.sockets = receiver.error ? [] : [receiver.user.connected];
+	data.sockets = [receiver.user.connected];
 
 	return (updateResponse.error ? updateResponse : data);
 };
 
-module.exports = addLike;
+module.exports = addUnlike;

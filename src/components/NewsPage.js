@@ -3,61 +3,10 @@ import { connect } from 'react-redux';
 import { history } from '../routers/AppRouter';
 import Navbar from './Navbar';
 import Notification from './NotificationList.js'
+import uuid from 'uuid';
+import { newsSelector, newsBadgesSelector } from '../selectors/interactions';
+import { sendInteraction } from '../actions/interactions';
 
-const mockNews = [
-	{
-		id: 528,
-		fname: 'Charley',
-		lname: 'Gleichner',
-		age: 27,
-		occupation: 'Application Programmers',
-		photo: 'https://res.cloudinary.com/matcha/image/upload/v1518691639/myh986grrkvm9g6wzqqk.jpg',
-		connected: true,
-		clicked: false,
-		type: 'unliked your profile',
-		time: '2 minutes ago',
-		content: false,
-	},
-	{
-		id: 529,
-		fname: 'Cristopher',
-		lname: 'Hessel',
-		age: 23,
-		occupation: 'Concreter',
-		photo: 'https://res.cloudinary.com/matcha/image/upload/v1518692094/nwqsdyxpp7k1wyw08ihm.jpg',
-		connected: false,
-		clicked: false,
-		type: 'sent you a message',
-		time: '5 minutes ago',
-		content: 'See you later, I have my yoga class !',
-	},
-	{
-		id: 529,
-		fname: 'Cristopher',
-		lname: 'Hessel',
-		age: 23,
-		occupation: 'Concreter',
-		photo: 'https://res.cloudinary.com/matcha/image/upload/v1518692094/nwqsdyxpp7k1wyw08ihm.jpg',
-		connected: false,
-		clicked: true,
-		type: 'liked your profile',
-		time: '2 hours ago',
-		content: false,
-	},
-	{
-		id: 529,
-		fname: 'Cristopher',
-		lname: 'Hessel',
-		age: 23,
-		occupation: 'Concreter',
-		photo: 'https://res.cloudinary.com/matcha/image/upload/v1518692094/nwqsdyxpp7k1wyw08ihm.jpg',
-		connected: false,
-		clicked: true,
-		type: 'visited your profile',
-		time: 'February 24, 16:37',
-		content: false,
-	},
-];
 
 export class NewsPage extends React.Component {
 	constructor(props) {
@@ -72,8 +21,17 @@ export class NewsPage extends React.Component {
 		} 	
 	};
 
+	componentDidMount() {
+		console.log('nb interactions: ', this.props.unseenCount);
+		if (this.props.unseenCount > 0)
+			this.props.seen('news');
+	}
+
 	render() {
-		const news = mockNews;
+		
+		const news = this.props.notif;
+		const unseenNewsCount = news.filter(x => !x.clicked).length;
+
 		return (
 			<div className="l-flex-container">
 				<div className="l-nav"><Navbar /></div>
@@ -81,15 +39,16 @@ export class NewsPage extends React.Component {
 					<div className="l-news">
 						<h3 className="o-little-title o-little-title--light l-news-title">
 							<p className="o-title-number l-news-title__number">
-							{mockNews.length}
+							{unseenNewsCount}
 							</p>
-							UNSEEN NOTIFICATION{mockNews.length > 1 && 'S'}
+							UNSEEN NOTIFICATION{news.length > 1 && 'S'}
 						</h3>
 						{news.map((user) => 
 							<Notification
 								data={user}
-								key={user.photo + user.time}
+								key={uuid()}
 								onNewsClick={() => this.onNewsClick(user)}
+								clicked={(type, newsId, sender) => this.props.clicked(type, newsId, sender)}
 							/>
 						)}
 					</div>
@@ -99,10 +58,36 @@ export class NewsPage extends React.Component {
 	}
 }
 
+const mapDispatchToProps = (dispatch) => ({
+	seen: (type) => dispatch(sendInteraction('SERVER/SEEN', { type })),
+	clicked: (type, newsId, sender) => dispatch(sendInteraction('SERVER/CLICKED', { type, newsId, sender }))
+});
+
 const mapStateToProps = (state) => {
 	return {
-		notif: state.notif.notification,
+		notif: newsSelector(state.interactions, state.user.id),
+		unseenCount: newsBadgesSelector(state.interactions, state.user.id)
 	}
 };
 
-export default connect(mapStateToProps, undefined)(NewsPage);
+export default connect(mapStateToProps, mapDispatchToProps)(NewsPage);
+
+
+
+/* Mock news format */
+
+//const mockNews = [
+//	{
+//		id: 528,
+//		fname: 'Charley',
+//		lname: 'Gleichner',
+//		age: 27,
+//		occupation: 'Application Programmers',
+//		photo: 'https://res.cloudinary.com/matcha/image/upload/v1518691639/myh986grrkvm9g6wzqqk.jpg',
+//		connected: true,
+//		clicked: false,
+//		type: 'unliked your profile',
+//		time: '2 minutes ago',
+//		content: false,
+//	},
+//];

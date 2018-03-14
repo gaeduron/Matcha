@@ -37,9 +37,9 @@ const error = (message) => {
 	});
 };
 
-const visit = ({ login, profilePicture }) => {
+const visit = ({ login, profilePicture, firstname }) => {
 	iziToast.show({
-		message: `${login} visited your profile !`,
+		message: `${firstname} visited your profile !`,
 		image: profilePicture,
 		theme: 'dark',
 		progressBarColor: '#E90F4D',
@@ -56,9 +56,9 @@ const visit = ({ login, profilePicture }) => {
 	});
 };
 
-const like = ({ login, profilePicture }) => {
+const like = ({ login, profilePicture, firstname }) => {
 	iziToast.show({
-		message: `${login} just liked you !`,
+		message: `${firstname} just liked you !`,
 		image: profilePicture,
 		theme: 'dark',
 		progressBarColor: '#E90F4D',
@@ -75,10 +75,10 @@ const like = ({ login, profilePicture }) => {
 	});
 };
 
-const unlike = ({ login, profilepicture }) => {
+const unlike = ({ login, profilePicture, firstname }) => {
 	iziToast.show({
-		message: `${login} unliked your profile !`,
-		image: profilepicture,
+		message: `${firstname} unliked your profile !`,
+		image: profilePicture,
 		theme: 'dark',
 		progressbarcolor: '#e90f4d',
 		timeout: 10000,
@@ -86,7 +86,7 @@ const unlike = ({ login, profilepicture }) => {
 		layout: 2,
 		messagelineheight: '22',
 		buttons: [
-			['<a>see profile</a>', (instance, toast) => {
+			['<a>See profile</a>', (instance, toast) => {
 				history.push(`/profile/${login}`);
 				instance.hide(toast, { transitionout: 'fadeoutright' });
 			}],
@@ -94,9 +94,9 @@ const unlike = ({ login, profilepicture }) => {
 	});
 };
 
-const match = ({ login, profilePicture }) => {
+const match = ({ login, profilePicture, firstname }) => {
 	iziToast.show({
-		message: `${login} matched with you !`,
+		message: `${firstname} matched with you !`,
 		image: profilePicture,
 		theme: 'dark',
 		progressBarColor: '#E90F4D',
@@ -117,9 +117,9 @@ const match = ({ login, profilePicture }) => {
 	});
 };
 
-const chat = ({ login, profilePicture, message }) => {
+const chat = ({ login, profilePicture, firstname, message }) => {
 	iziToast.show({
-		title: login,
+		title: firstname,
 		message,
 		image: profilePicture,
 		theme: 'dark',

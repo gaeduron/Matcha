@@ -12,30 +12,30 @@ const error = {
 	}),
 };
 
-const getVisits = async ({ id }) => {
+const getMessages = async ({ id }) => {
 	const query = `
-		SELECT visits.*, users.firstname, users.lastname, users.birthdate, users.occupation, users.photos 
-			FROM visits 
+		SELECT messages.*, users.firstname, users.lastname, users.birthdate, users.occupation, users.photos, users.reported 
+			FROM messages 
 			INNER JOIN users 
-			ON users.id = visits.receiver 
+			ON users.id = messages.receiver 
 			WHERE sender = $1 
 		UNION
-		SELECT visits.*, users.firstname, users.lastname, users.birthdate, users.occupation, users.photos
-			FROM visits INNER JOIN users 
-			ON users.id = visits.sender 
+		SELECT messages.*, users.firstname, users.lastname, users.birthdate, users.occupation, users.photos, users.reported 
+			FROM messages 
+			INNER JOIN users 
+			ON users.id = messages.sender 
 			WHERE receiver = $1;
 	`;
 
 	try {
 		const res = await database.query(query, [id]);
 
-		if (!res.rows[0]) { return { visits: [] }}
-		//if (!res.rows[0]) { return error.userNotFound(); }
+		if (!res.rows[0]) { return { messages: [] }}
 
-		return { visits: res.rows };
+		return { messages: res.rows };
 	} catch (e) {
 		return error.database(e);
 	}
 };
 
-module.exports = getVisits;
+module.exports = getMessages;

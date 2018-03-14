@@ -11,6 +11,8 @@ import { Tags } from './Tags';
 import { history } from '../../routers/AppRouter';
 import { getProfileByID, reportProfile, blockProfile, unblockProfile } from '../../actions/search';
 import { LikeButton, ReportButton, BlockButton } from './likeButton';
+import { isLikedSelector, likesMeSelector } from '../../selectors/interactions';
+import { sendInteraction } from '../../actions/interactions';
 
 // FOR TEST PURPOSE ONLY, TO MOVE IN ENV
 const GOOGLE_GEOLOCATION_API_KEY = 'AIzaSyC3VByoAFwfYTsXvC5GgS0F6mEiJuoku2Y';
@@ -37,7 +39,8 @@ export class UserDescription extends React.Component {
 
 		this.state = {
 			edit: 'false',
-			like: false,
+			like: isLikedSelector(this.props.likes, Number(this.props.profile)),
+			likesMe: likesMeSelector(this.props.likes, Number(this.props.profile)),
 			reported: false,
 			blocked: false,
 			squareHeight: 472,
@@ -46,8 +49,14 @@ export class UserDescription extends React.Component {
 
     onEdit = (id) => history.replace(`/edit-profile/${id}`);
 	onStopEdit = () => this.setState({ edit: false });
-	onLike = () => this.setState({ like: true });
-	onUnlike = () => this.setState({ like: false });
+	onLike = () => { 
+		this.props.addLike(this.props.user.id, Number(this.props.profile), this.props.notificationData);		
+		this.setState({ like: true })
+	};
+	onUnlike = () => {
+		this.props.addUnlike(this.props.user.id, Number(this.props.profile), this.props.notificationData);		
+		this.setState({ like: false })
+	};
 	onReport = () => {
 		this.setState({ reported: true });
 		this.props.reportProfile(this.props.profile);
@@ -85,6 +94,9 @@ export class UserDescription extends React.Component {
 		if (this.props.profile) {
 			this.props.getProfileByID(this.props.profile);
 		}
+
+		/* send visit */
+		this.props.addVisit(this.props.user.id, Number(this.props.profile), this.props.notificationData);		
 	}	
 
 	componentWillUnmount = () => window.removeEventListener("resize", this.updateDimensions);
@@ -187,7 +199,7 @@ export class UserDescription extends React.Component {
 						})
 					}
 				</Carousel>
-				<div className={`c-user-desc__like-box ${!user.likeYou && 'display-none'}`} >
+				<div className={`c-user-desc__like-box ${!this.state.likesMe && 'display-none'}`} >
 					<p className="c-user-desc__info c-user-desc__info--right">
 						{`${user.fname} likes you ! 😍`}
 					</p>
@@ -246,6 +258,9 @@ export class UserDescription extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
+	addLike: (sender, receiver, notificationData) => dispatch(sendInteraction('SERVER/ADD_LIKE', { sender, receiver, notificationData })),
+	addUnlike: (sender, receiver, notificationData) => dispatch(sendInteraction('SERVER/ADD_UNLIKE', { sender, receiver, notificationData })),
+	addVisit: (sender, receiver, notificationData) => dispatch(sendInteraction('SERVER/ADD_VISIT', { sender, receiver, notificationData })),
 	getProfileByID: (data) => dispatch(getProfileByID({ profileID: data })),
 	reportProfile: (id) => dispatch(reportProfile({ profileID: id })),
 	blockProfile: (id) => dispatch(blockProfile({ profileID: id })),
@@ -256,6 +271,12 @@ const mapStateToProps = (state) => {
 	return {
 		user: state.user,
 		fetchedProfile: state.search.profile,
+		likes: state.interactions.likes,
+		notificationData: {
+			login: state.user.id, 
+			profilePicture: state.user.photos[0], 
+			firstname: state.user.fname
+		}
 	};
 };
 
