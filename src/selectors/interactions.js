@@ -213,9 +213,31 @@ const formatMatch = (x, onlineUsers, id) => {
 	}); 
 };
 
+const findLastLikes = (likes) => {
+	
+	const groupedByLikes = likes
+		.reduce((acc, x) => {
+			const val = `${x.sender}to${x.receiver}`;
+			acc[val] = acc[val] || [];
+			acc[val].push(x);
+			return acc;
+		}, {});
+
+	const lastLikes = [];
+	for (let x in groupedByLikes) {
+		let lastLike = groupedByLikes[x].sort((a, b) => b.id - a.id)[0];
+		if (!lastLike.unliked)
+			lastLikes.push(lastLike);	
+	}
+
+	return lastLikes
+};
+
 export const matchSelector = ({ likes, messages, onlineUsers }, id) => {	
 
-	const matches = findMatches(likes, id)
+	const lastLikes = findLastLikes(likes);
+
+	const matches = findMatches(lastLikes, id)
 		.map(match => findLastMessage(match, likes, messages, id))
 		.map(match => formatMatch(match, onlineUsers, id))
 		.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());

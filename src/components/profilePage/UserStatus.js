@@ -14,8 +14,8 @@ export class UserStatus extends React.Component {
 	};
 
     render() {
+
 		const user = this.props.data;
-		console.log('user menu : ', user);
 		const focused = this.props.focused;
 		return (
 			<div
