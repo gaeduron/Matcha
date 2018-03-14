@@ -12,11 +12,11 @@ import { socket, socketInit} from './socket/socket';
 import LoadingPage from './components/LoadingPage';
 import rehydrateStore from './store/rehydrateStore';
 
-if (process.env === 'production' || process.env === 'development') {
-	console.log = () => {};
-	console.error = () => {};
-	console.warn = () => {};
-}
+//if (process.env === 'production' || process.env === 'development') {
+//	console.log = () => {};
+//	console.error = () => {};
+//	console.warn = () => {};
+//}
 
 const store = configureStore();
 

@@ -32,8 +32,9 @@ const iconActive = (path, altPath = false) => {
 
 const formatCount = (count) => count > 9 ? "9+" : count;
 
-export const Navbar = ({ userID, search }) => {
+export const Navbar = ({ userID, search, newsBadges, messagesBadges }) => {
 	const notificationCount = formatCount(5);
+
 	let profile = false;
 	if ('profile' in search) {
 		profile = search.profile.id;		
@@ -75,6 +76,9 @@ export const Navbar = ({ userID, search }) => {
 				<i className={`material-icons material-icons--big-white ${iconActive('/chat')}`}>
 				chat_bubble_outline
 				</i>
+				<div className={`c-news-pastille ${messagesBadges ? '' : 'display-none'}`}>
+					{formatCount(messagesBadges)}
+				</div>
 			</div>
 			<h5 className="c-nav-item__text">chat</h5>
 		</div>
@@ -84,8 +88,8 @@ export const Navbar = ({ userID, search }) => {
 				<i className={`material-icons material-icons--big-white ${iconActive('/news')}`}>
 				notifications_none
 				</i>
-				<div className={`c-news-pastille ${notificationCount ? '' : 'display-none'}`}>
-					{notificationCount}
+				<div className={`c-news-pastille ${newsBadges ? '' : 'display-none'}`}>
+					{formatCount(newsBadges)}
 				</div>
 			</div>
 			<h5 className="c-nav-item__text">news</h5>

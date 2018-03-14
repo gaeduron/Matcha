@@ -50,7 +50,6 @@ const startAction = async (action, socket, actionFunc, loggerContent) => {
 				socket.to(ws).emit(action.type, {});						
 				console.log(`emitting to ${ws}...`);	
 			});
-			delete response.sockets;
 		}	
 
 		/* Send back either the initial data to client or the response output */	
@@ -69,9 +68,23 @@ const startAction = async (action, socket, actionFunc, loggerContent) => {
 				socket.emit('notificationSuccess', 'Profile updated');
 			case 'SERVER/GET_PROFILES': 
 				socket.emit('SERVER/UPDATE_FILTERS', action.data);
+			case 'SERVER/ADD_VISIT': 
+				socket.to(response.sockets[0]).emit('notificationVisit', response.notificationData);
+				break;
+			case 'SERVER/ADD_LIKE': 
+				socket.to(response.sockets[0]).emit('notificationLike', response.notificationData);
+				break;
+			case 'SERVER/ADD_UNLIKE': 
+				socket.to(response.sockets[0]).emit('notificationUnlike', response.notificationData);
+				break;
+			case 'SERVER/ADD_MESSAGE': 
+				response.notificationData.message = response.message;
+				socket.to(response.sockets[0]).emit('notificationChat', response.notificationData);
+				break;
 		}
 
 		logger.succes(loggerContent);
+		delete response.sockets;
 	}
 };
 

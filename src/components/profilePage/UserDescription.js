@@ -50,11 +50,11 @@ export class UserDescription extends React.Component {
     onEdit = (id) => history.replace(`/edit-profile/${id}`);
 	onStopEdit = () => this.setState({ edit: false });
 	onLike = () => { 
-		this.props.addLike(this.props.user.id, Number(this.props.profile));		
+		this.props.addLike(this.props.user.id, Number(this.props.profile), this.props.notificationData);		
 		this.setState({ like: true })
 	};
 	onUnlike = () => {
-		this.props.addUnlike(this.props.user.id, Number(this.props.profile));		
+		this.props.addUnlike(this.props.user.id, Number(this.props.profile), this.props.notificationData);		
 		this.setState({ like: false })
 	};
 	onReport = () => this.setState({ reported: true });
@@ -87,7 +87,7 @@ export class UserDescription extends React.Component {
 		}
 
 		/* send visit */
-		this.props.addVisit(this.props.user.id, Number(this.props.profile));		
+		this.props.addVisit(this.props.user.id, Number(this.props.profile), this.props.notificationData);		
 	}	
 
 	componentWillUnmount = () => window.removeEventListener("resize", this.updateDimensions);
@@ -244,16 +244,21 @@ export class UserDescription extends React.Component {
 
 const mapDispatchToProps = (dispatch) => ({
 	getProfileByID: (data) => dispatch(getProfileByID(data)),
-	addLike: (sender, receiver) => dispatch(sendInteraction('SERVER/ADD_LIKE', { sender, receiver })),
-	addUnlike: (sender, receiver) => dispatch(sendInteraction('SERVER/ADD_UNLIKE', { sender, receiver })),
-	addVisit: (sender, receiver) => dispatch(sendInteraction('SERVER/ADD_VISIT', { sender, receiver })),
+	addLike: (sender, receiver, notificationData) => dispatch(sendInteraction('SERVER/ADD_LIKE', { sender, receiver, notificationData })),
+	addUnlike: (sender, receiver, notificationData) => dispatch(sendInteraction('SERVER/ADD_UNLIKE', { sender, receiver, notificationData })),
+	addVisit: (sender, receiver, notificationData) => dispatch(sendInteraction('SERVER/ADD_VISIT', { sender, receiver, notificationData })),
 });
 
 const mapStateToProps = (state) => {
 	return {
 		user: state.user,
 		fetchedProfile: state.search.profile,
-		likes: state.interactions.likes
+		likes: state.interactions.likes,
+		notificationData: {
+			login: state.user.id, 
+			profilePicture: state.user.photos[0], 
+			firstname: state.user.fname
+		}
 	};
 };
 

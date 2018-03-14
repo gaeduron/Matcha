@@ -166,7 +166,9 @@ export class ChatPage extends React.Component {
 	getProfileMessages = id => this.props.messages[id];
 
 	onSendMessage = (message) => {
-		this.props.sendMessage(this.props.id, this.props.chatProfile.id, message);		
+		const notificationData = this.props.notificationData;
+		notificationData.messsage = message;
+		this.props.sendMessage(this.props.id, this.props.chatProfile.id, this.props.notificationData, message);		
 		//alert(`chatPage/page:158: message: ${message}`);
 	};
 
@@ -221,7 +223,7 @@ export class ChatPage extends React.Component {
 const mapDispatchToProps = (dispatch) => {
 	return {
 		updateChatProfile: (profile) =>  profile ? dispatch(updateChatProfile(profile)) : null,
-		sendMessage: (sender, receiver, message) => dispatch(sendInteraction('SERVER/ADD_MESSAGE', { sender, receiver, message })),
+		sendMessage: (sender, receiver, notificationData, message) => dispatch(sendInteraction('SERVER/ADD_MESSAGE', { sender, receiver, notificationData, message })),
 		seen: (type) => dispatch(sendInteraction('SERVER/SEEN', { type })),
 		clicked: (type, newsId, sender) => dispatch(sendInteraction('SERVER/CLICKED', { type, newsId, sender }))
 	};	
@@ -239,7 +241,12 @@ const mapStateToProps = (state) => {
 		messages: messages, //mockMessages,
 		chatProfile: state.chat.chatProfile,
 		id: state.user.id,
-		unseenCount: messagesBadgesSelector(state.interactions, state.user.id)
+		unseenCount: messagesBadgesSelector(state.interactions, state.user.id),
+		notificationData: {
+			login: state.user.id, 
+			profilePicture: state.user.photos[0], 
+			firstname: state.user.fname
+		}
 	};
 };
 
