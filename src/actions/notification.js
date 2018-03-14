@@ -49,7 +49,7 @@ const visit = ({ login, profilePicture }) => {
 		messageLineHeight: '22',
 		buttons: [
 			['<a>See Profile</a>', (instance, toast) => {
-				history.push(`profile/${login}`);
+				history.push(`/profile/${login}`);
 				instance.hide(toast, { transitionOut: 'fadeOutRight' });
 			}],
 		],
@@ -68,7 +68,7 @@ const like = ({ login, profilePicture }) => {
 		messageLineHeight: '22',
 		buttons: [
 			['<a>See Profile</a>', (instance, toast) => {
-				history.push(`profile/${login}`);
+				history.push(`/profile/${login}`);
 				instance.hide(toast, { transitionOut: 'fadeOutRight' });
 			}],
 		],
@@ -87,7 +87,7 @@ const unlike = ({ login, profilepicture }) => {
 		messagelineheight: '22',
 		buttons: [
 			['<a>see profile</a>', (instance, toast) => {
-				history.push(`profile/${login}`);
+				history.push(`/profile/${login}`);
 				instance.hide(toast, { transitionout: 'fadeoutright' });
 			}],
 		],
@@ -106,11 +106,11 @@ const match = ({ login, profilePicture }) => {
 		messageLineHeight: '22',
 		buttons: [
 			['<a>Chat</a>', (instance, toast) => {
-				history.push(`chat/${login}`);
+				history.push(`/chat/${login}`);
 				instance.hide(toast, { transitionOut: 'fadeOutRight' });
 			}],
 			['<a>See Profile</a>', (instance, toast) => {
-				history.push(`profile/${login}`);
+				history.push(`/profile/${login}`);
 				instance.hide(toast, { transitionOut: 'fadeOutRight' });
 			}],
 		],
@@ -128,7 +128,7 @@ const chat = ({ login, profilePicture, message }) => {
 		layout: 2,
 		buttons: [
 			['<a>Respond</a>', (instance, toast) => {
-				history.push(`chat/${login}`);
+				history.push(`/chat/${login}`);
 				instance.hide(toast, { transitionOut: 'fadeOutRight' });
 			}],
 		],

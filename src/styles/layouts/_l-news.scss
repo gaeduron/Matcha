@@ -2,13 +2,18 @@
 	margin: 0px auto;
 	background: #FFFFFF;
 	width: 646px;
-	height: 100%;
+	flex: 1;
 }
 
 .l-news-main {
 	background: #F8F8F8;
 	margin-left: 100px;
 	flex-grow: 1;
+	overflow-y: scroll;
+	display: flex;
+    flex-direction: column;
+	position: relative;
+    height: 100%;
 }
 
 .l-news-title {
