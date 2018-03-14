@@ -106,7 +106,7 @@ const match = ({ login, profilePicture, firstname }) => {
 		messageLineHeight: '22',
 		buttons: [
 			['<a>Chat</a>', (instance, toast) => {
-				history.push(`chat/${login}`);
+				history.push(`/chat/${login}`);
 				instance.hide(toast, { transitionOut: 'fadeOutRight' });
 			}],
 			['<a>See Profile</a>', (instance, toast) => {

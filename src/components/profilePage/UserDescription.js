@@ -9,7 +9,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import MapWithAMarker from '../searchPage/map';
 import { Tags } from './Tags';
 import { history } from '../../routers/AppRouter';
-import { getProfileByID } from '../../actions/search';
+import { getProfileByID, reportProfile, blockProfile, unblockProfile } from '../../actions/search';
 import { LikeButton, ReportButton, BlockButton } from './likeButton';
 import { isLikedSelector, likesMeSelector } from '../../selectors/interactions';
 import { sendInteraction } from '../../actions/interactions';
@@ -57,10 +57,19 @@ export class UserDescription extends React.Component {
 		this.props.addUnlike(this.props.user.id, Number(this.props.profile), this.props.notificationData);		
 		this.setState({ like: false })
 	};
-	onReport = () => this.setState({ reported: true });
-	onUnreport = () => this.setState({ reported: false });
-	onBlock = () => this.setState({ blocked: true });
-	onUnblock = () => this.setState({ blocked: false });
+	onReport = () => {
+		this.setState({ reported: true });
+		this.props.reportProfile(this.props.profile);
+	}
+	onUnreport = () => this.setState({ reported: true });
+	onBlock = () => {
+		this.setState({ blocked: true });
+		this.props.blockProfile(this.props.profile);
+	}
+	onUnblock = () => {
+		this.setState({ blocked: false });
+		this.props.unblockProfile(this.props.profile);
+	}
 
   updateDimensions = () => {
     if(window.innerWidth <= 980 && window.innerWidth > 768) {
@@ -128,6 +137,12 @@ export class UserDescription extends React.Component {
 	}
 	
 	formatFetchedProfile = (profile) => {
+		if (profile.reported === true && this.state.reported === false) {
+			this.setState({ reported: true });
+		}
+		if (profile.blocked === true && this.state.blocked === false) {
+			this.setState({ blocked: true });
+		}
 		return {
 			lat: parseFloat(profile.latitude),
 			lon: parseFloat(profile.longitude),
@@ -137,7 +152,7 @@ export class UserDescription extends React.Component {
 			lname: _.capitalize(profile.lastname),
 			age: moment().diff(profile.birthdate, 'years'),
 			occupation: profile.occupation,
-			distance: 0,
+			distance: (profile.distance / 1000).toFixed(1),
 			bio: profile.bio,
 			tags: profile.tags,
 			score: profile.score,
@@ -243,10 +258,13 @@ export class UserDescription extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-	getProfileByID: (data) => dispatch(getProfileByID(data)),
 	addLike: (sender, receiver, notificationData) => dispatch(sendInteraction('SERVER/ADD_LIKE', { sender, receiver, notificationData })),
 	addUnlike: (sender, receiver, notificationData) => dispatch(sendInteraction('SERVER/ADD_UNLIKE', { sender, receiver, notificationData })),
 	addVisit: (sender, receiver, notificationData) => dispatch(sendInteraction('SERVER/ADD_VISIT', { sender, receiver, notificationData })),
+	getProfileByID: (data) => dispatch(getProfileByID({ profileID: data })),
+	reportProfile: (id) => dispatch(reportProfile({ profileID: id })),
+	blockProfile: (id) => dispatch(blockProfile({ profileID: id })),
+	unblockProfile: (id) => dispatch(unblockProfile({ profileID: id })),
 });
 
 const mapStateToProps = (state) => {

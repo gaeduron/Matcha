@@ -216,7 +216,7 @@ export class UserDescription extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-	getProfileByID: (data) => dispatch(getProfileByID(data)),
+	getProfileByID: (data) => dispatch(getProfileByID({ profileID: data })),
 });
 
 const mapStateToProps = (state) => {

@@ -5,6 +5,7 @@ const updatePassword = require('./steps/updatePassword');
 const updateSessionToken = require('./steps/updateSessionToken');
 const updatePasswordResetToken = require('./steps/updatePasswordResetToken');
 const updatePasswordResetExpireAt = require('./steps/updatePasswordResetExpireAt');
+const updateReport = require('./steps/updateReport');
 const validateEmail = require('./steps/validateEmail');
 const validateFirstname = require('./steps/validateFirstname');
 const validateLastname = require('./steps/validateLastname');
@@ -20,6 +21,8 @@ const validateOccupation = require('./steps/validateOccupation');
 const validateBio = require('./steps/validateBio');
 const hashPassword = require('./steps/hashPassword');
 const create = require('./steps/create');
+const createBlock = require('./steps/createBlock');
+const deleteBlock = require('./steps/deleteBlock');
 const facebookCreate = require('./steps/facebookCreate');
 const addTags = require('./steps/tags/addTags');
 const getTags = require('./steps/tags/getTags');
@@ -36,6 +39,8 @@ const seen = require('./steps/interactions/seen');
 const clicked = require('./steps/interactions/clicked');
 const block = require('./steps/interactions/block');
 const getBlocks = require('./steps/interactions/getBlocks');
+const getDistanceBetween = require('./steps/getDistanceBetween');
+const isBlocked = require('./steps/isBlocked');
 
 // PATHS //
 const find = require('./paths/find');
@@ -52,6 +57,7 @@ module.exports = {
 	updateSessionToken,
 	updatePasswordResetToken,
 	updatePasswordResetExpireAt,
+	updateReport,
 	validateEmail,
 	validateFirstname,
 	validateLastname,
@@ -67,6 +73,8 @@ module.exports = {
 	validateOccupation,
 	hashPassword,
 	create,
+	createBlock,
+	deleteBlock,
 	facebookCreate,
 	addTags,
 	getTags,
@@ -83,6 +91,9 @@ module.exports = {
 	clicked,
 	block,
 	getBlocks,
+	getDistanceBetween,
+	isBlocked,
+
 	// PATHS //
 	find,
 	newSession,

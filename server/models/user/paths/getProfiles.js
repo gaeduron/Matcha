@@ -62,6 +62,17 @@ const findProfilesWithFilters = async (
 			(sex = $9 OR sex = $10)
 		AND
 			users.id != $14
+		AND
+			exists(
+				SELECT
+					1
+				FROM
+					blocked
+				WHERE
+					blocked.sender = $14
+				AND
+					blocked.receiver = users.id
+			) = false
 		ORDER BY
 			${orderBy}
 		limit $11

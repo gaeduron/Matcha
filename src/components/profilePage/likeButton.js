@@ -32,7 +32,7 @@ export class ReportButton extends React.Component {
 					className="c-user-desc__report-block"
 					onClick={this.props.onUnreport}
 					>
-					<p className="o-little-title o-little-title--button">UNREPORT</p>
+					<p className="o-little-title o-little-title--button">REPORTED</p>
 				</div>
 			);
 		} else {
