@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import uuid from 'uuid';
 import { history } from '../../routers/AppRouter';
 import UserStatus from './UserStatus';
 import { likesSelector, visitsSelector } from '../../selectors/interactions';
@@ -115,7 +116,7 @@ export class SearchMenu extends React.Component {
 							data={user}
 							showProfile={() => this.onUserClick(user.id)}
 							clicked={(type, newsId, sender) => this.props.clicked(type, newsId, sender)}
-							key={user.id}
+							key={uuid()}
 						/>
 					))}
 				</div>
@@ -142,7 +143,7 @@ export class SearchMenu extends React.Component {
 							data={user}
 							showProfile={() => this.onUserClick(user.id)}
 							clicked={(type, newsId, sender) => this.props.clicked(type, newsId, sender)}
-							key={user.id}
+							key={uuid()}
 						/>
 					))}
 				</div>
