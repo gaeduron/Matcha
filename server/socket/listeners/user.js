@@ -18,6 +18,7 @@ const userListeners = (socket) => {
 			logger.succes('User registration');
 
 			user.emailOrLogin = user.email;
+			user.socketID = socket.id;
 			logger.info(`Login user with: ${JSON.stringify(user)}`);
 			const response = await login(user);
 			if (response.error) {
