@@ -30,7 +30,7 @@ function pickPhoto(photos) {
 
 function genUser({ occupations, okcupid, female, male }) {
 
-	const orientation = ["bi", "gay", "hetero", "hetero", "hetero"];
+	const orientation = ["bi", "gay", "straight", "straight", "straight"];
 	const P = { latitude: 48.861014, longitude: 2.341155 }; // Paris center
 	const R = 1000 * 30; // 1km * xkm
 
@@ -56,6 +56,7 @@ function genUser({ occupations, okcupid, female, male }) {
 		geolocationAllowed: true,
 		occupation:	occupations[Math.floor(Math.random() * occupations.length)],
 		onboarding: false,
+		lastConnection: faker.date.between('2018-01-01', '2018-03-03'),
 		tags: [pickRand(tags), pickRand(tags), pickRand(tags), pickRand(tags), pickRand(tags)]
 				.reduce((x, y) => x.includes(y) ? x : [...x, y], [])
 	};
