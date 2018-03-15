@@ -185,14 +185,14 @@ const findLastMessage = (match, likes, messages, id) => {
 		[0];
 
 	if (lastMessage)
-		return {...lastMessage, match};
+		return {...lastMessage, match, isMatch: false};
 
 	const lastMatch = likes
 		.filter(x => (x.receiver == match && x.sender == id) || (x.receiver == id && x.sender == match))
 		.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
 		[0];
 
-	return {...lastMatch, match};
+	return {...lastMatch, match, isMatch: true};
 };
 
 
@@ -208,7 +208,7 @@ const formatMatch = (x, onlineUsers, id) => {
 		occupation: x.message ? x.message : `You and ${x.firstname} just matched`,
 		photo: JSON.parse(x.photos)[0], 
 		connected: onlineUsers.includes(x.receiver),
-		clicked: x.sender == id ? true : x.clicked,
+		clicked: x.isMatch ? false : (x.sender == id ? true : x.clicked),
 		created_at: x.created_at
 	}); 
 };
