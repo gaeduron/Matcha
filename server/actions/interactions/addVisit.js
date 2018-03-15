@@ -44,6 +44,10 @@ const addVisit = async (data) => {
 
 	console.log('THETA response :', data);
 
+	logger.info(`Updating User { id: ${data.receiver} } score by 1`);
+	const res = Users.updateScore({ id: data.receiver, score: 1});
+	if (res.error) { return res }
+
 	return (updateResponse.error ? updateResponse : data);
 };
 

@@ -42,6 +42,11 @@ const addLike = async (data) => {
 	const updateResponse = await Users.addLike(data);
 	const receiver = await Users.find({ id: data.receiver });
 	data.sockets = receiver.error ? [] : [receiver.user.connected];
+	
+	logger.info(`Updating User { id: ${data.receiver} } score by 10`);
+	const res = Users.updateScore({ id: data.receiver, score: 10});
+	if (res.error) { return res }
+
 
 	return (updateResponse.error ? updateResponse : data);
 };
