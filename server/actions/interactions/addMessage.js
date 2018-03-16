@@ -46,7 +46,11 @@ const addMessage = async (data) => {
 
 	const updateResponse = await Users.addMessage(data);
 	const receiver = await Users.find({ id: data.receiver });
-	data.sockets = receiver.error ? [] : [receiver.user.connected];
+	const blocked = await Users.isBlocked({ from: data.receiver, to: data.sender });
+	if (blocked.error) { return blocked }
+	const isBlocked = !!blocked.length;	
+
+	data.sockets = receiver.error || isBlocked ? [] : [receiver.user.connected];
 
 	return (updateResponse.error ? updateResponse : data);
 };

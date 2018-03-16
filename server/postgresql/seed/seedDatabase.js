@@ -41,13 +41,14 @@ async function fillDB(user) {
 				photos,
 				geolocation_allowed,
 				occupation,
-				onboarding
-		) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16)
+				onboarding,
+				last_connection
+		) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17)
 			RETURNING id;
 	`;
 	
 	try {
-		const res = await database.query(query, Object.values(user).splice(0,16));
+		const res = await database.query(query, Object.values(user).splice(0,17));
 		return res;
 	} catch (e) {
 		return console.log(e);
