@@ -14,8 +14,11 @@ async function clicked({id, newsId = 0, type, sender}) {
 	const chatLikeQuery = `UPDATE likes SET clicked = true WHERE receiver = $1 AND sender = $2;`;
 	const visitsQuery = `UPDATE visits SET clicked = true WHERE id = $1 AND receiver = $2;`;
 	const likesQuery = `UPDATE likes SET clicked = true WHERE id = $1 AND receiver = $2;`;
+	const matchesQuery = `UPDATE matches SET clicked = true WHERE id = $1 AND receiver = $2;`;
 
 	try {
+		if (type == 'match') 
+			await database.query(matchesQuery, [newsId, id]);
 		if (type == 'like') 
 			await database.query(likesQuery, [newsId, id]);
 		if (type == 'visit') 

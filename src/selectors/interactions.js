@@ -36,7 +36,7 @@ export const isLikedSelector = (likes, profileId) => {
 
 /* Likes & visits selector */
 
-export const likesSelector = ({ likes, onlineUsers }, id) => {
+export const likesSelector = ({ likes, onlineUsers, blocked }, id) => {
 
 	const LIKE = 'liked your profile',
 		UNLIKE = 'unliked your profile',
@@ -63,7 +63,9 @@ export const likesSelector = ({ likes, onlineUsers }, id) => {
 			});
 	});
 
-	news.sort((a, b) => b.created_at - a.created_at);
+	news
+		.sort((a, b) => b.created_at - a.created_at);
+	//	.filter(x => blocked.includes(x));
 
 	return news;
 };
@@ -103,11 +105,12 @@ export const visitsSelector = ({ visits, onlineUsers }, id) => {
 
 /* News selector */
 
-export const newsSelector = ({ visits, likes, onlineUsers }, id) => {
+export const newsSelector = ({ visits, likes, matches, blocked, onlineUsers }, id) => {
 
 	const LIKE = 'liked your profile',
 		UNLIKE = 'unliked your profile',
-		VISIT = 'visited your profile';
+		VISIT = 'visited your profile',
+		MATCH = 'matched with you';
 	let news = [];
 		
 	likes.forEach(x => { 
@@ -150,9 +153,29 @@ export const newsSelector = ({ visits, likes, onlineUsers }, id) => {
 			});
 	});
 
-	news.sort((a, b) => b.created_at - a.created_at);
+	matches.forEach(x => { 
+		if (x.receiver == id)
+			news.push({
+				notifType: 'match',
+				notifId: x.id,
+				id: x.sender,
+				fname: x.firstname,
+				lname: x.lastname,
+				age: age(x.birthdate),
+				occupation: x.occupation,
+				photo: JSON.parse(x.photos)[0], 
+				connected: onlineUsers.includes(x.sender),
+				clicked: x.clicked,
+				type: MATCH,
+				time: ago(new Date(x.created_at)),
+				created_at: new Date(x.created_at).getTime() + 10000,
+				content: false,
+			});
+	});
 
-	return news;
+	return news
+		.filter(x => !blocked.includes(x.id))
+		.sort((a, b) => b.created_at - a.created_at);
 };
 
 
@@ -233,13 +256,14 @@ const findLastLikes = (likes) => {
 	return lastLikes
 };
 
-export const matchSelector = ({ likes, messages, onlineUsers }, id) => {	
+export const matchSelector = ({ likes, messages, onlineUsers, blocked }, id) => {	
 
 	const lastLikes = findLastLikes(likes);
 
 	const matches = findMatches(lastLikes, id)
 		.map(match => findLastMessage(match, likes, messages, id))
 		.map(match => formatMatch(match, onlineUsers, id))
+		.filter(x => !blocked.includes(x.id))
 		.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
 
 	console.log('matches', matches);
@@ -293,12 +317,13 @@ export const messagesSelector = ({ messages }, id, matches) => {
 
 /* News and Messages badges number selector */
 
-export const newsBadgesSelector = ({ likes, visits }, id, ) => {
+export const newsBadgesSelector = ({ likes, visits, matches }, id, ) => {
 
 	const unseenLikes = likes.filter(x => x.receiver == id && x.seen == false);
 	const unseenVisits = visits.filter(x => x.receiver == id && x.seen == false);
+	const unseenMatches = matches.filter(x => x.receiver == id && x.seen == false);
 	
-	return unseenLikes.length + unseenVisits.length;
+	return unseenLikes.length + unseenVisits.length + unseenMatches.length;
 };
 
 export const messagesBadgesSelector = ({ messages }, id, ) => {

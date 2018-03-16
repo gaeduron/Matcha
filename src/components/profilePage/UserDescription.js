@@ -49,8 +49,13 @@ export class UserDescription extends React.Component {
 
     onEdit = (id) => history.replace(`/edit-profile/${id}`);
 	onStopEdit = () => this.setState({ edit: false });
-	onLike = () => { 
-		this.props.addLike(this.props.user.id, Number(this.props.profile), this.props.notificationData);		
+	onLike = (user) => { 
+		const notificationDataUser = {
+			login: Number(this.props.profile), 
+			profilePicture: user.photos[0], 
+			firstname: user.fname
+		};
+		this.props.addLike(this.props.user.id, Number(this.props.profile), this.props.notificationData, notificationDataUser);		
 		this.setState({ like: true })
 	};
 	onUnlike = () => {
@@ -65,10 +70,12 @@ export class UserDescription extends React.Component {
 	onBlock = () => {
 		this.setState({ blocked: true });
 		this.props.blockProfile(this.props.profile);
+		this.props.getBlocks();
 	}
 	onUnblock = () => {
 		this.setState({ blocked: false });
 		this.props.unblockProfile(this.props.profile);
+		this.props.getBlocks();
 	}
 
   updateDimensions = () => {
@@ -176,6 +183,8 @@ export class UserDescription extends React.Component {
 	render() {
 		const focusedProfile = false;
 		const user = this.getUserProfile(this.props.user, this.props.fetchedProfile);
+		
+
 		return (
 			<div className="c-user-desc">
 				{!this.props.profile &&
@@ -186,7 +195,7 @@ export class UserDescription extends React.Component {
 					</button>
 				}
 				{this.props.profile &&
-					<LikeButton liked={this.state.like} onLike={this.onLike} onUnlike={this.onUnlike} />
+						<LikeButton liked={this.state.like} onLike={() => this.onLike(user)} onUnlike={this.onUnlike} />
 				}
 				<Carousel height={`${this.state.squareHeight}px`} trigger="click" interval="10000" arrow="always">
 					{
@@ -258,7 +267,8 @@ export class UserDescription extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-	addLike: (sender, receiver, notificationData) => dispatch(sendInteraction('SERVER/ADD_LIKE', { sender, receiver, notificationData })),
+	addLike: (sender, receiver, notificationData, notificationDataUser) => dispatch(sendInteraction('SERVER/ADD_LIKE', { sender, receiver, notificationData, notificationDataUser })),
+	getBlocks: () => dispatch(sendInteraction('SERVER/GET_BLOCKS', {})),
 	addUnlike: (sender, receiver, notificationData) => dispatch(sendInteraction('SERVER/ADD_UNLIKE', { sender, receiver, notificationData })),
 	addVisit: (sender, receiver, notificationData) => dispatch(sendInteraction('SERVER/ADD_VISIT', { sender, receiver, notificationData })),
 	getProfileByID: (data) => dispatch(getProfileByID({ profileID: data })),
@@ -276,7 +286,7 @@ const mapStateToProps = (state) => {
 			login: state.user.id, 
 			profilePicture: state.user.photos[0], 
 			firstname: state.user.fname
-		}
+		},
 	};
 };
 

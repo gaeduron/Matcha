@@ -2,7 +2,8 @@
 const defaultState = {
 	likes: [],
 	messages: [],
-	visits: []
+	visits: [],
+	matches: []
 };
 
 export default (state = defaultState, action) => {
@@ -11,6 +12,11 @@ export default (state = defaultState, action) => {
 			return {
 				...state,
 				likes: action.likes	
+			};
+		case 'UPDATE_MATCHES':
+			return {
+				...state,
+				matches: action.matches	
 			};
 		case 'UPDATE_VISITS':
 			return {

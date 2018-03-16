@@ -83,6 +83,11 @@ CREATE TABLE messages (
 	  PRIMARY KEY (id)
 );
 
+ALTER TABLE likes ALTER COLUMN created_at SET DEFAULT now();
+ALTER TABLE messages ALTER COLUMN created_at SET DEFAULT now();
+ALTER TABLE visits ALTER COLUMN created_at SET DEFAULT now();
+ALTER TABLE matches ALTER COLUMN created_at SET DEFAULT now();
+
 `;
 
 module.exports = userSchema;
