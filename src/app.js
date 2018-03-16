@@ -46,4 +46,6 @@ socket.on('loginWithCookie', (user) => {
 
 socketInit(store.dispatch, socket);
 
+export const dispatch = store.dispatch;
+
 ReactDOM.render(<LoadingPage />, document.getElementById('app'));

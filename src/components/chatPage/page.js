@@ -161,6 +161,11 @@ export class ChatPage extends React.Component {
 		if (this.props.unseenCount > 0)
 			this.props.seen('chat');
 	}
+	
+	componentDidUpdate() {
+		if (this.props.unseenCount > 0)
+			this.props.seen('chat');
+	}
 
 	getProfileMessages = id => this.props.messages[id];
 
@@ -186,7 +191,7 @@ export class ChatPage extends React.Component {
 						menu={this.state.menu}
 						showMenu={this.onShowMenu}
 						hideMenu={this.onHideMenu}
-						profile={this.props.chatProfile}
+						profile={this.props.matches.find(matche => matche.id == this.props.chatProfile.id)}
 					/>
 				</div>
 				<div className="l-nav"><Navbar /></div>

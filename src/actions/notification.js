@@ -1,6 +1,8 @@
 import { history } from '../routers/AppRouter';
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
+import { dispatch } from '../app';
+import { updateChatProfile } from './chat';
 
 iziToast.settings({
 	position: 'topRight',
@@ -106,7 +108,7 @@ const match = ({ login, profilePicture, firstname }) => {
 		messageLineHeight: '22',
 		buttons: [
 			['<a>Chat</a>', (instance, toast) => {
-				history.push(`/chat/${login}`);
+				history.push(`/chat`);
 				instance.hide(toast, { transitionOut: 'fadeOutRight' });
 			}],
 			['<a>See Profile</a>', (instance, toast) => {
@@ -118,21 +120,24 @@ const match = ({ login, profilePicture, firstname }) => {
 };
 
 const chat = ({ login, profilePicture, firstname, message }) => {
-	iziToast.show({
-		title: firstname,
-		message,
-		image: profilePicture,
-		theme: 'dark',
-		progressBarColor: '#E90F4D',
-		timeout: 10000,
-		layout: 2,
-		buttons: [
-			['<a>Respond</a>', (instance, toast) => {
-				history.push(`/chat/${login}`);
-				instance.hide(toast, { transitionOut: 'fadeOutRight' });
-			}],
-		],
-	});
+	if (history.location.pathname !== '/chat') {
+		iziToast.show({
+			title: firstname,
+			message,
+			image: profilePicture,
+			theme: 'dark',
+			progressBarColor: '#E90F4D',
+			timeout: 10000,
+			layout: 2,
+			buttons: [
+				['<a>Respond</a>', (instance, toast) => {
+					dispatch(updateChatProfile({id: login}));
+					history.push(`/chat`);
+					instance.hide(toast, { transitionOut: 'fadeOutRight' });
+				}],
+			],
+		});
+	}
 };
 
 export default {

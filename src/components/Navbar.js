@@ -76,7 +76,9 @@ export const Navbar = ({ userID, search, newsBadges, messagesBadges }) => {
 				<i className={`material-icons material-icons--big-white ${iconActive('/chat')}`}>
 				chat_bubble_outline
 				</i>
-				<div className={`c-news-pastille ${messagesBadges ? '' : 'display-none'}`}>
+				<div className={`c-news-pastille 
+					${messagesBadges && history.location.pathname !== '/chat' ? '' : 'display-none'}
+				`}>
 					{formatCount(messagesBadges)}
 				</div>
 			</div>
@@ -88,7 +90,9 @@ export const Navbar = ({ userID, search, newsBadges, messagesBadges }) => {
 				<i className={`material-icons material-icons--big-white ${iconActive('/news')}`}>
 				notifications_none
 				</i>
-				<div className={`c-news-pastille ${newsBadges ? '' : 'display-none'}`}>
+				<div className={`c-news-pastille 
+					${newsBadges && history.location.pathname !== '/news' ? '' : 'display-none'}
+				`}>
 					{formatCount(newsBadges)}
 				</div>
 			</div>

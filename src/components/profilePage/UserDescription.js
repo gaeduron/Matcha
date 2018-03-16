@@ -179,11 +179,19 @@ export class UserDescription extends React.Component {
 			return this.formatUser(profile);
 		}
 	}
-	
+
+	updateLikes = (likes, profileID) => {
+		this.setState({
+			like: isLikedSelector(likes, Number(profileID)),
+			likesMe: likesMeSelector(likes, Number(profileID)),
+		});
+	}
+
 	render() {
 		const focusedProfile = false;
 		const user = this.getUserProfile(this.props.user, this.props.fetchedProfile);
-		
+		const liked = isLikedSelector(this.props.likes, Number(this.props.profile));
+		const likesMe = likesMeSelector(this.props.likes, Number(this.props.profile));
 
 		return (
 			<div className="c-user-desc">
@@ -195,7 +203,7 @@ export class UserDescription extends React.Component {
 					</button>
 				}
 				{this.props.profile &&
-						<LikeButton liked={this.state.like} onLike={() => this.onLike(user)} onUnlike={this.onUnlike} />
+						<LikeButton liked={liked} onLike={() => this.onLike(user)} onUnlike={this.onUnlike} />
 				}
 				<Carousel height={`${this.state.squareHeight}px`} trigger="click" interval="10000" arrow="always">
 					{
@@ -208,7 +216,7 @@ export class UserDescription extends React.Component {
 						})
 					}
 				</Carousel>
-				<div className={`c-user-desc__like-box ${!this.state.likesMe && 'display-none'}`} >
+				<div className={`c-user-desc__like-box ${!likesMe && 'display-none'}`} >
 					<p className="c-user-desc__info c-user-desc__info--right">
 						{`${user.fname} likes you ! 😍`}
 					</p>

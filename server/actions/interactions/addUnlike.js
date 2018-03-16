@@ -41,7 +41,11 @@ const addUnlike = async (data) => {
 
 	const updateResponse = await Users.addUnlike(data);
 	const receiver = await Users.find({ id: data.receiver });
-	data.sockets = [receiver.user.connected];
+	const blocked = await Users.isBlocked({ from: data.receiver, to: data.sender });
+	if (blocked.error) { return blocked }
+	const isBlocked = !!blocked.length;	
+
+	data.sockets = receiver.error || isBlocked ? [] : [receiver.user.connected];
 
 	return (updateResponse.error ? updateResponse : data);
 };
