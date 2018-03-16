@@ -1,4 +1,4 @@
-import { sendInteraction, updateLikes, updateVisits, updateMessages, updateOnlineUsers, updateBlocks } from '../../actions/interactions'; 
+import { sendInteraction, updateLikes, updateMatches, updateVisits, updateMessages, updateOnlineUsers, updateBlocks } from '../../actions/interactions'; 
 import { Redirect } from 'react-router-dom';
 
 import {
@@ -13,6 +13,8 @@ const interactionsListener = (dispatch, socket) => {
 			dispatch(sendInteraction('SERVER/GET_LIKES', {}));
 		if (res == 'chat')
 			dispatch(sendInteraction('SERVER/GET_MESSAGES', {}));
+		if (res == 'match')
+			dispatch(sendInteraction('SERVER/GET_MATCHES', {}));
 	});
 
 	socket.on('SERVER/SEEN', (res) => {
@@ -34,6 +36,7 @@ const interactionsListener = (dispatch, socket) => {
 
 	socket.on('SERVER/ADD_LIKE', (res) => {
 		dispatch(sendInteraction('SERVER/GET_LIKES', {}));
+		dispatch(sendInteraction('SERVER/GET_MATCHES', {}));
 	});
 
 	socket.on('SERVER/ADD_UNLIKE', (res) => {
@@ -42,6 +45,10 @@ const interactionsListener = (dispatch, socket) => {
 
 	socket.on('SERVER/GET_LIKES', (res) => {
 		dispatch(updateLikes(res.likes));
+	});
+
+	socket.on('SERVER/GET_MATCHES', (res) => {
+		dispatch(updateMatches(res.matches));
 	});
 
 	socket.on('SERVER/ADD_VISIT', (res) => {
@@ -67,3 +74,7 @@ const interactionsListener = (dispatch, socket) => {
 };
 
 export default interactionsListener;
+
+
+1521205473974  
+1521205474048

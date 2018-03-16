@@ -57,10 +57,11 @@ export default function rehydrateStore(dispatch, user) {
 	]);
 	
 	/* Interactions */
+	dispatch(sendInteraction('SERVER/GET_BLOCKS', {}));
 	dispatch(sendInteraction('SERVER/GET_VISITS', {}));
 	dispatch(sendInteraction('SERVER/GET_MESSAGES', {}));
 	dispatch(sendInteraction('SERVER/GET_LIKES', {}));
-	dispatch(sendInteraction('SERVER/GET_BLOCKS', {}));
+	dispatch(sendInteraction('SERVER/GET_MATCHES', {}));
 
 };
 

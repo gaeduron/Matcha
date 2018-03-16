@@ -31,6 +31,7 @@ const likeMe = require('./steps/likeMe');
 const addLike = require('./steps/likes/addLike');
 const addUnlike = require('./steps/likes/addUnlike');
 const getLikes = require('./steps/likes/getLikes');
+const getMatches = require('./steps/likes/getMatches');
 const addVisit = require('./steps/visits/addVisit');
 const getVisits = require('./steps/visits/getVisits');
 const addMessage = require('./steps/messages/addMessage');
@@ -84,6 +85,7 @@ module.exports = {
 	addLike,
 	addUnlike,
 	getLikes,
+	getMatches,
 	addVisit,
 	getVisits,
 	addMessage,

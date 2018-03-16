@@ -158,7 +158,6 @@ export class ChatPage extends React.Component {
 	}
 
 	componentDidMount() {
-		console.log('nb interactions: ', this.props.unseenCount);
 		if (this.props.unseenCount > 0)
 			this.props.seen('chat');
 	}
@@ -239,7 +238,6 @@ const mapStateToProps = (state) => {
 		  messages = messagesSelector(state.interactions, state.user.id, matches);	
 
 
-	console.log('sending : ', messages);	
 	return {
 		notif: state.notif.notification,
 		matches: matches, 	// mockMatch,

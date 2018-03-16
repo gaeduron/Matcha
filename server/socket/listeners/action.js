@@ -18,6 +18,7 @@ const editProfile = require('../../actions/edit/editProfile');
 const addUnlike = require('../../actions/interactions/addUnlike');
 const addLike = require('../../actions/interactions/addLike');
 const getLikes = require('../../actions/interactions/getLikes');
+const getMatches = require('../../actions/interactions/getMatches');
 const addVisit = require('../../actions/interactions/addVisit');
 const getVisits = require('../../actions/interactions/getVisits');
 const addMessage = require('../../actions/interactions/addMessage');
@@ -88,7 +89,12 @@ const startAction = async (action, socket, actionFunc, loggerContent) => {
 				socket.to(response.sockets[0]).emit('notificationVisit', response.notificationData);
 				break;
 			case 'SERVER/ADD_LIKE': 
-				socket.to(response.sockets[0]).emit('notificationLike', response.notificationData);
+				if (response.matchNotification) {
+					console.log('Notifying match \n\n\n\n', response);
+					socket.emit('notificationMatch', response.notificationDataUser);
+					socket.to(response.sockets[0]).emit('notificationMatch', response.notificationData);
+				} else
+					socket.to(response.sockets[0]).emit('notificationLike', response.notificationData);
 				break;
 			case 'SERVER/ADD_UNLIKE': 
 				socket.to(response.sockets[0]).emit('notificationUnlike', response.notificationData);
@@ -163,6 +169,9 @@ const actionListeners = (socket) => {
 				break;
 			case 'SERVER/GET_LIKES':
 				startAction(action, socket, getLikes, 'Retrieving all user\'s likes from db');
+				break;
+			case 'SERVER/GET_MATCHES':
+				startAction(action, socket, getMatches, 'Retrieving all user\'s matches from db');
 				break;
 			case 'SERVER/ADD_VISIT':
 				console.log('visit : ', action);

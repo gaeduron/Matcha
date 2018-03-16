@@ -6,6 +6,11 @@ export const updateLikes = (likes) => ({
 	likes
 });
 
+export const updateMatches = (matches) => ({
+	type: 'UPDATE_MATCHES',
+	matches
+});
+
 export const updateVisits = (visits) => ({
 	type: 'UPDATE_VISITS',
 	visits

@@ -27,6 +27,16 @@ CREATE TABLE users (
 	  PRIMARY KEY (id)
 );
 
+CREATE TABLE matches (
+	id SERIAL,
+	sender INTEGER NULL DEFAULT NULL,
+	receiver INTEGER NULL DEFAULT NULL,
+	seen BOOLEAN DEFAULT FALSE,
+	clicked BOOLEAN DEFAULT FALSE,
+	created_at TIMESTAMPTZ DEFAULT NULL,
+	PRIMARY KEY (id)
+);
+
 CREATE TABLE tags (
 	  id SERIAL,
 	  tag VARCHAR(64) NOT NULL,
@@ -72,6 +82,11 @@ CREATE TABLE messages (
 	  message VARCHAR(500) DEFAULT NULL,
 	  PRIMARY KEY (id)
 );
+
+ALTER TABLE likes ALTER COLUMN created_at SET DEFAULT now();
+ALTER TABLE messages ALTER COLUMN created_at SET DEFAULT now();
+ALTER TABLE visits ALTER COLUMN created_at SET DEFAULT now();
+ALTER TABLE matches ALTER COLUMN created_at SET DEFAULT now();
 
 `;
 

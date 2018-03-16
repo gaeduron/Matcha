@@ -13,6 +13,7 @@ async function seen({id, type}) {
 	const chatQuery = `UPDATE messages SET seen = true WHERE receiver = $1;`;
 	const visitsQuery = `UPDATE visits SET seen = true WHERE receiver = $1;`;
 	const likesQuery = `UPDATE likes SET seen = true WHERE receiver = $1;`;
+	const matchesQuery = `UPDATE matches SET seen = true WHERE receiver = $1;`;
 
 	try {
 		if (type == 'chat')
@@ -20,6 +21,7 @@ async function seen({id, type}) {
 		if (type == 'news') {
 			await database.query(visitsQuery, [id]);
 			await database.query(likesQuery, [id]);
+			await database.query(matchesQuery, [id]);
 		}
 		return type;
 	} catch (e) {

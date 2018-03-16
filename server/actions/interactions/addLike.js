@@ -41,6 +41,7 @@ const addLike = async (data) => {
 
 	const updateResponse = await Users.addLike(data);
 	const receiver = await Users.find({ id: data.receiver });
+	data.matchNotification = updateResponse.matchNotification;
 	const blocked = await Users.isBlocked({ from: data.receiver, to: data.sender });
 	if (blocked.error) { return blocked }
 	const isBlocked = !!blocked.length;	
