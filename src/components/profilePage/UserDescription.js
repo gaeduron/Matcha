@@ -208,7 +208,7 @@ export class UserDescription extends React.Component {
 		}
 
 		return (
-			<div className="c-user-desc">
+			<div className="c-user-desc element-animation-bottom">
 				{!this.props.profile &&
 					<button
 						className="l-onb-nav__buttons-left c-button c-button--circle c-user-desc__edit"

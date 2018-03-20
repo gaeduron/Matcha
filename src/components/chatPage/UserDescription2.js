@@ -149,12 +149,16 @@ export class UserDescription extends React.Component {
 		if (this.props.profile) {
 			if (!this.props.fetchedProfile) {
 				return (
-					<LoadingPage/>
+					<div class="c-user-desc--chat" >
+						<LoadingPage/>
+					</div>
 				);
 			}
 			if (this.props.fetchedProfile.id != this.props.profile) {
 				return (
-					<LoadingPage/>
+					<div class="c-user-desc--chat" >
+						<LoadingPage/>
+					</div>
 				);
 			}
 		}

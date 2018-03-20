@@ -223,7 +223,7 @@ export class SearchMenu extends React.Component {
 								onRequestAdd={(tag) => this.handleAddtag(tag)}
 								onRequestDelete={(tag, index) => this.handleDeletetag(tag, index)}
 								underlineStyle={{ }}
-								hintText={'Add some tags (ex. Cool, Cat, ...)'}
+								hintText={'Add some tags (ex. cats, introvert, yoga, ...)'}
 								chipContainerStyle={{
 									backgroundColor: 'red'
 								}}

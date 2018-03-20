@@ -64,7 +64,10 @@ export class Chat extends React.Component {
 		this.scrollToBottom();
 	}
 
-	onSend = () => {	
+	onSend = (e) => {
+		if (e) {
+			e.preventDefault();
+		}
 		this.props.onSendMessage(this.state.newMessage);
 		this.setState({ newMessage: "" });
 	}
@@ -90,12 +93,16 @@ export class Chat extends React.Component {
 					</div>
 				</div>
 				<div className="c-chat__message-box-wrapper">
+					<form
+						onSubmit={this.onSend}
+					>
 					<input
 						className="c-chat__message-box"
 						placeholder="Type a message..."
 						value={this.state.newMessage}
 						onChange={this.handleChange}
 					/>
+					</form>
 					<i
 						className="material-icons c-chat__emoji"
 						onClick={this.onSend}
