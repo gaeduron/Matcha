@@ -21,6 +21,9 @@ import {
 import { updateAge } from '../actions/search';
 
 const birthdateToAgeRange = (birthdate) => {
+	if (birthdate === null) {
+		birthdate = '1990-04-05 22:00:00+00';
+	}
 	let age = moment().diff(birthdate, 'years');
 	const min = age - 5 < 18 ? 18 : age - 5;
 	const max = age + 5 > 100 ? 100 : age + 5;

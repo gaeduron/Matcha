@@ -11,6 +11,7 @@ import { Tags } from '../profilePage/Tags';
 import { history } from '../../routers/AppRouter';
 import { getProfileByID } from '../../actions/search';
 import { LikeButton, ReportButton, BlockButton } from '../profilePage/likeButton';
+import LoadingPage from '../LoadingPage';
 
 // FOR TEST PURPOSE ONLY, TO MOVE IN ENV
 const GOOGLE_GEOLOCATION_API_KEY = 'AIzaSyC3VByoAFwfYTsXvC5GgS0F6mEiJuoku2Y';
@@ -144,6 +145,20 @@ export class UserDescription extends React.Component {
 	render() {
 		const focusedProfile = false;
 		const user = this.getUserProfile(this.props.user, this.props.fetchedProfile);
+		
+		if (this.props.profile) {
+			if (!this.props.fetchedProfile) {
+				return (
+					<LoadingPage/>
+				);
+			}
+			if (this.props.fetchedProfile.id != this.props.profile) {
+				return (
+					<LoadingPage/>
+				);
+			}
+		}
+
 		return (
 			<div className={`c-user-desc--chat ${this.state.description == "hidden" ? "l-chat__hide-desc" : ""}`}>
 				{!this.props.profile &&

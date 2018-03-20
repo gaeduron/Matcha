@@ -176,6 +176,19 @@ export class ChatPage extends React.Component {
 		//alert(`chatPage/page:158: message: ${message}`);
 	};
 
+	headerProfile = (matches) => {
+		let profile = matches.find(matche => matche.id == this.props.chatProfile.id);
+		if (profile == null) {
+			profile = {
+				fname: '',
+				lname: '',
+				photo: '',
+				connected: '',	
+			};
+		}
+		return profile;
+	}
+
 	render() {
 		//console.log('component rendering'); 
 		//console.log('Chat Profile Id :', this.props.chatProfile.id); 
@@ -191,7 +204,7 @@ export class ChatPage extends React.Component {
 						menu={this.state.menu}
 						showMenu={this.onShowMenu}
 						hideMenu={this.onHideMenu}
-						profile={this.props.matches.find(matche => matche.id == this.props.chatProfile.id)}
+						profile={this.headerProfile(this.props.matches)}
 					/>
 				</div>
 				<div className="l-nav"><Navbar /></div>

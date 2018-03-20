@@ -13,6 +13,7 @@ import { getProfileByID, reportProfile, blockProfile, unblockProfile } from '../
 import { LikeButton, ReportButton, BlockButton } from './likeButton';
 import { isLikedSelector, likesMeSelector } from '../../selectors/interactions';
 import { sendInteraction } from '../../actions/interactions';
+import LoadingPage from '../LoadingPage';
 
 // FOR TEST PURPOSE ONLY, TO MOVE IN ENV
 const GOOGLE_GEOLOCATION_API_KEY = 'AIzaSyC3VByoAFwfYTsXvC5GgS0F6mEiJuoku2Y';
@@ -192,6 +193,19 @@ export class UserDescription extends React.Component {
 		const user = this.getUserProfile(this.props.user, this.props.fetchedProfile);
 		const liked = isLikedSelector(this.props.likes, Number(this.props.profile));
 		const likesMe = likesMeSelector(this.props.likes, Number(this.props.profile));
+
+		if (this.props.profile) {
+			if (!this.props.fetchedProfile) {
+				return (
+					<LoadingPage/>
+				);
+			}
+			if (this.props.fetchedProfile.id != this.props.profile) {
+				return (
+					<LoadingPage/>
+				);
+			}
+		}
 
 		return (
 			<div className="c-user-desc">
