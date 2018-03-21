@@ -42,7 +42,7 @@ const getLocation = async (location) => {
 		onboarding: false,
 		sessionToken
 	});
-	
+
 	return (updateResponse.error ? updateResponse : location);
 };
 

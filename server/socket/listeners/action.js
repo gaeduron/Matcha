@@ -27,7 +27,20 @@ const seen = require('../../actions/interactions/seen');
 const clicked = require('../../actions/interactions/clicked');
 const block = require('../../actions/interactions/block');
 const getBlocks = require('../../actions/interactions/getBlocks');
+const botGreetings = require('../../actions/bots/botGreetings');
 
+
+const emitTimed = async ({ event, data, socket, action, actionData }) => {	
+	if (action) {
+		const res = await action(actionData);
+		if (res.error) {
+			socket.emit('notificationError', response.error[0]);
+		}
+		socket.emit(event, res.data);
+	} else {
+		socket.emit(event, data)
+	}
+}
 
 const startAction = async (action, socket, actionFunc, loggerContent) => {
 
@@ -78,6 +91,13 @@ const startAction = async (action, socket, actionFunc, loggerContent) => {
 				break;
 			case 'SERVER/SAVE_LOCATION': 
 				socket.emit('notificationSuccess', 'Congratulations, welcome to Matcha !');
+				setTimeout(emitTimed, 45000, {
+					socket,
+					data: response.notificationData,
+					event: 'notificationVisit',
+					action: botGreetings,
+					actionData: action.data.user,
+				});
 				break;
 			case 'SERVER/EDIT_PROFILE': 
 				socket.emit('notificationSuccess', 'Profile updated');
