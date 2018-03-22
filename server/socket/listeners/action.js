@@ -28,6 +28,8 @@ const clicked = require('../../actions/interactions/clicked');
 const block = require('../../actions/interactions/block');
 const getBlocks = require('../../actions/interactions/getBlocks');
 const botGreetings = require('../../actions/bots/botGreetings');
+const botLike = require('../../actions/bots/botLike');
+const botMessage = require('../../actions/bots/botMessage');
 
 
 const emitTimed = async ({ event, data, socket, action, actionData }) => {	
@@ -35,8 +37,11 @@ const emitTimed = async ({ event, data, socket, action, actionData }) => {
 		const res = await action(actionData);
 		if (res.error) {
 			socket.emit('notificationError', response.error[0]);
+		} else if (res.notBot) {
+			return 0;	
+		} else {
+			socket.emit(event, res.data);
 		}
-		socket.emit(event, res.data);
 	} else {
 		socket.emit(event, data)
 	}
@@ -91,11 +96,18 @@ const startAction = async (action, socket, actionFunc, loggerContent) => {
 				break;
 			case 'SERVER/SAVE_LOCATION': 
 				socket.emit('notificationSuccess', 'Congratulations, welcome to Matcha !');
-				setTimeout(emitTimed, 45000, {
+				setTimeout(emitTimed, 5000, {
 					socket,
 					data: response.notificationData,
 					event: 'notificationVisit',
 					action: botGreetings,
+					actionData: action.data.user,
+				});
+				setTimeout(emitTimed, 5000, {
+					socket,
+					data: response.notificationData,
+					event: 'notificationLike',
+					action: botLike,
 					actionData: action.data.user,
 				});
 				break;
@@ -113,6 +125,25 @@ const startAction = async (action, socket, actionFunc, loggerContent) => {
 					console.log('Notifying match \n\n\n\n', response);
 					socket.emit('notificationMatch', response.notificationDataUser);
 					socket.to(response.sockets[0]).emit('notificationMatch', response.notificationData);
+					setTimeout(emitTimed, 5000, {
+						socket,
+						data: response.notificationData,
+						event: 'notificationChat',
+						action: botMessage,
+						actionData: {
+							sender: response.notificationData,
+							receiver: response.notificationDataUser,
+						},
+					});
+					setTimeout(emitTimed, 6000, {
+						socket,
+						data: response.notificationData,
+						event: 'SERVER/GET_MESSAGES',
+						action: getMessages,
+						actionData: {
+							id: response.notificationData.login
+						},
+					});
 				} else
 					socket.to(response.sockets[0]).emit('notificationLike', response.notificationData);
 				break;
@@ -122,6 +153,25 @@ const startAction = async (action, socket, actionFunc, loggerContent) => {
 			case 'SERVER/ADD_MESSAGE': 
 				response.notificationData.message = response.message;
 				socket.to(response.sockets[0]).emit('notificationChat', response.notificationData);
+				setTimeout(emitTimed, 5000, {
+					socket,
+					data: response.notificationData,
+					event: 'notificationChat',
+					action: botMessage,
+					actionData: {
+						sender: { login: action.data.id },
+						receiver: { login: action.data.receiver.user.id },
+					},
+				});
+				setTimeout(emitTimed, 6000, {
+					socket,
+					data: response.notificationData,
+					event: 'SERVER/GET_MESSAGES',
+					action: getMessages,
+					actionData: {
+						id: action.data.id
+					},
+				});
 				break;
 		}
 
