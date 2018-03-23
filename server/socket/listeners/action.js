@@ -66,7 +66,11 @@ const startAction = async (action, socket, actionFunc, loggerContent) => {
 
 
 	if (response.error) {
+		if (response.type == 'info') {
+		socket.emit('notificationInfo', response.error[0]);
+		} else {
 		socket.emit('notificationError', response.error[0]);
+		}
 	} else {
 
 		/* Only if a response need to be broadcasted to one or many users ws */

@@ -95,9 +95,12 @@ export class SearchMenu extends React.Component {
 	debouncedGet = _.debounce(this.getProfiles , 300);
 
 	componentDidUpdate = (prevProps, prevState) => {
+		if (JSON.stringify(prevState) != JSON.stringify(this.state)) {
+			this.props.onChangedFilters(0);
+		}
 		if 	(
 				(prevProps.focusedProfile == this.props.focusedProfile) &&
-				(prevState != this.state || prevProps.profiles != this.props.profiles)
+				(JSON.stringify(prevState) != JSON.stringify(this.state) || prevProps.profiles != this.props.profiles)
 			)
 		{
 			if (prevProps.profiles == this.props.profiles) {

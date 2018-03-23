@@ -32,7 +32,7 @@ export class SearchPage extends React.Component {
 	}
 	
 	onChangedFilters = (profilesCount) => {
-		this.setState({ profilesCount });
+		this.setState({ profilesCount, nextProfileIndex: 0 });
 	}
 
 	render() {
