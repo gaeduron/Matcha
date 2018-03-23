@@ -31,7 +31,6 @@ const botGreetings = require('../../actions/bots/botGreetings');
 const botLike = require('../../actions/bots/botLike');
 const botMessage = require('../../actions/bots/botMessage');
 
-
 const emitTimed = async ({ event, data, socket, action, actionData }) => {	
 	if (action) {
 		const res = await action(actionData);
@@ -41,7 +40,9 @@ const emitTimed = async ({ event, data, socket, action, actionData }) => {
 			return 0;	
 		} else {
 			socket.emit(event, res.data);
-			socket.emit('SERVER/GET_INTERACTIONS', {});
+			if (event != 'SERVER/GET_MESSAGES') {
+				socket.emit('SERVER/GET_INTERACTIONS', {});
+			}
 		}
 	} else {
 		socket.emit(event, data)

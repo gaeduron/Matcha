@@ -3,6 +3,7 @@ const passwordResetEmail = require('../../actions/user/passwordResetMail');
 const passwordReset = require('../../actions/user/passwordReset');
 const logger = require('../../logs/logger');
 const login = require('../../actions/authentication/login');
+const broadcastOnlineUsers = require('../../actions/interactions/broadcastOnlineUsers');
 
 const userListeners = (socket) => {
 	socket.on('createUser', async (user) => {
@@ -26,6 +27,7 @@ const userListeners = (socket) => {
 					socket.emit('notificationError', error);
 				});
 			} else {
+				broadcastOnlineUsers(socket);
 				socket.emit('login', response);
 				logger.succes('Login user');
 			}
