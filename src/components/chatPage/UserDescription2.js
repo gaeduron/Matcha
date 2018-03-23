@@ -87,9 +87,12 @@ export class UserDescription extends React.Component {
 	}
 
 	formatOrientation = (orientation) => {
-		if (orientation === 'hetero' || orientation === 'Hetero') {
+		return 'Gay';
+		if (orientation === 'hetero' || orientation === 'Hetero' ||
+			orientation === 'straight' || orientation === 'Straight') {
 			return 'Straight';
-		} else if (orientation === 'bi' || orientation === 'Bi') {
+		} else if (orientation === 'bi' || orientation === 'Bi' ||
+			orientation === 'bisexual' || orientation === 'Bisexual') {
 			return 'Bisexual';
 		}
 		return 'Gay';
@@ -124,7 +127,7 @@ export class UserDescription extends React.Component {
 			lname: _.capitalize(profile.lastname),
 			age: moment().diff(profile.birthdate, 'years'),
 			occupation: profile.occupation,
-			distance: 0,
+			distance: (profile.distance / 1000).toFixed(1),
 			bio: profile.bio,
 			tags: profile.tags,
 			score: profile.score,

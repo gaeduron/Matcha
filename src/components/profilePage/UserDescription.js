@@ -116,9 +116,11 @@ export class UserDescription extends React.Component {
 	}
 
 	formatOrientation = (orientation) => {
-		if (orientation === 'hetero' || orientation === 'Hetero') {
+		if (orientation === 'hetero' || orientation === 'Hetero' ||
+			orientation === 'straight' || orientation === 'Straight') {
 			return 'Straight';
-		} else if (orientation === 'bi' || orientation === 'Bi') {
+		} else if (orientation === 'bi' || orientation === 'Bi' ||
+			orientation === 'bisexual' || orientation === 'Bisexual') {
 			return 'Bisexual';
 		}
 		return 'Gay';
