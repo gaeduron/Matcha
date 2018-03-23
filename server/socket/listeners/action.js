@@ -96,14 +96,14 @@ const startAction = async (action, socket, actionFunc, loggerContent) => {
 				break;
 			case 'SERVER/SAVE_LOCATION': 
 				socket.emit('notificationSuccess', 'Congratulations, welcome to Matcha !');
-				setTimeout(emitTimed, 5000, {
+				setTimeout(emitTimed, 20000, {
 					socket,
 					data: response.notificationData,
 					event: 'notificationVisit',
 					action: botGreetings,
 					actionData: action.data.user,
 				});
-				setTimeout(emitTimed, 5000, {
+				setTimeout(emitTimed, 23000, {
 					socket,
 					data: response.notificationData,
 					event: 'notificationLike',
@@ -153,7 +153,7 @@ const startAction = async (action, socket, actionFunc, loggerContent) => {
 			case 'SERVER/ADD_MESSAGE': 
 				response.notificationData.message = response.message;
 				socket.to(response.sockets[0]).emit('notificationChat', response.notificationData);
-				setTimeout(emitTimed, 5000, {
+				setTimeout(emitTimed, 2000, {
 					socket,
 					data: response.notificationData,
 					event: 'notificationChat',
@@ -163,7 +163,7 @@ const startAction = async (action, socket, actionFunc, loggerContent) => {
 						receiver: { login: action.data.receiver.user.id },
 					},
 				});
-				setTimeout(emitTimed, 6000, {
+				setTimeout(emitTimed, 3000, {
 					socket,
 					data: response.notificationData,
 					event: 'SERVER/GET_MESSAGES',

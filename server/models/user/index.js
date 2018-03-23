@@ -36,6 +36,7 @@ const addVisit = require('./steps/visits/addVisit');
 const getVisits = require('./steps/visits/getVisits');
 const addMessage = require('./steps/messages/addMessage');
 const getMessages = require('./steps/messages/getMessages');
+const getConversation = require('./steps/messages/getConverstation');
 const getOnlineUsers = require('./steps/online/getOnlineUsers');
 const seen = require('./steps/interactions/seen');
 const clicked = require('./steps/interactions/clicked');
@@ -90,6 +91,7 @@ module.exports = {
 	getVisits,
 	addMessage,
 	getMessages,
+	getConversation,
 	getOnlineUsers,
 	seen,
 	clicked,
