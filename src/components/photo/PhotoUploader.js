@@ -11,6 +11,7 @@ import Modal from 'react-modal';
 import axios from 'axios';
 import AvatarEditor from 'react-avatar-editor';
 import MDSpinner from "react-md-spinner";
+import notification from '../../actions/notification';
 
 const customStyles = {
 	overlay : {
@@ -50,6 +51,25 @@ const spinnerStyle = {
 };
 
 
+function getMimetype(signature) {
+	switch (signature) {
+		case '89504E47':
+			return 'image/png'
+		case '47494638':
+			return 'image/gif'
+		case '25504446':
+			return 'application/pdf'
+		case 'FFD8FFDB':
+		case 'FFD8FFE0':
+		case 'FFD8FFE1':
+			return 'image/jpeg'
+		case '504B0304':
+			return 'application/zip'
+		default:
+			return 'Unknown filetype'
+	}
+}
+
 export default class PhotoUploader extends React.Component {
 
 	constructor(props) {
@@ -64,22 +84,55 @@ export default class PhotoUploader extends React.Component {
 		};
 	}
 
-	openModal = (e) => {
+	openModal = async (e) => {
 		const file = e.target.files[0];
 		console.log('image size', file.size);
 
-		if (this.validatePhoto(file)) {
+		if (await this.validatePhoto(file)) {
 			this.setState({ 
 				modalIsOpen: true,
 				file
 			});
 		}
-//		e.target.value = null;
+		//	e.target.value = null;
 	}
 
-	validatePhoto = (file) => {
-		return (file.size < 2500000) ? true : false; 
-		/* TO DO 1 */
+
+	validateMime = (file) => {
+		return new Promise((resolve, reject) => {
+
+			var fileReader = new FileReader();
+
+			fileReader.onload = function(evt) {
+				if (evt.target.readyState === FileReader.DONE) {
+					const uint = new Uint8Array(evt.target.result)
+					let bytes = []
+					uint.forEach((byte) => {
+						bytes.push(byte.toString(16))
+					})
+					const hex = bytes.join('').toUpperCase()
+					console.log('hex', hex, getMimetype(hex));
+					const mimeType = getMimetype(hex);
+			
+					return (mimeType == 'image/jpeg' || mimeType == 'image/png') 
+						? resolve(true) 
+						: resolve(false);
+				}
+			};
+			fileReader.readAsArrayBuffer(file.slice(0, 4));
+		});
+	} 
+
+	validatePhoto = async (file) => {
+		if (file.size > 2500000) {
+			notification.warning('Your file is too big, it must be < 2.5mo');
+			return false; 
+		} 
+		if (!await this.validateMime(file)) {
+			notification.warning('Your file is invalid');
+			return false;
+		}
+		return true;
 	}
 
 	closeModal = () => {
@@ -115,10 +168,16 @@ export default class PhotoUploader extends React.Component {
 	}
 
 	handleSave = data => {
-		const img = this.editor.getImage().toDataURL();
+		try {
+			const img = this.editor.getImage().toDataURL();
+			this.closeModal();
+			this.uploadPhoto(img);
+		} catch (e) {
+			console.log('petit malin !');
+			this.closeModal();
+			notification.warning('Petit malin !');
+		}
 
-		this.closeModal();
-		this.uploadPhoto(img);
 	}
 
 	uploadPhoto = (file) => {
