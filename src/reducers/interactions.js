@@ -3,7 +3,8 @@ const defaultState = {
 	likes: [],
 	messages: [],
 	visits: [],
-	matches: []
+	matches: [],
+	onlineUsers: [],
 };
 
 export default (state = defaultState, action) => {

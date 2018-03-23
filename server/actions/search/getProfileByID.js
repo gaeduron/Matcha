@@ -1,6 +1,7 @@
 const Users = require('../../models/user');
 const logger = require('../../logs/logger');
 const myError = require('../../errors');
+const _ = require('lodash');
 
 const error = {
 	loginNotUnique: myError.newFailure({
@@ -29,9 +30,30 @@ const getProfileByID = async (data) => {
 	if (res3.error) { return error }
 	res.user.blocked = !!res3.length;
 
+	const profile = _.pick(res.user, [
+		'id',
+		'connected',
+		'score',
+		'reported',
+		'firstname',
+		'lastname',
+		'sex',
+		'sexualOrientation',
+		'bio',
+		'longitude',
+		'latitude',
+		'lastConnection',
+		'birthdate',
+		'photos',
+		'occupation',
+		'tags',
+		'distance',
+		'blocked',
+	]);
+	
 	return  { data:
 				{
-					profile: res.user,
+					profile: profile,
 				}
 			};
 };

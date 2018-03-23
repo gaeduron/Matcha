@@ -51,6 +51,7 @@ const addMessage = async (data) => {
 	const isBlocked = !!blocked.length;	
 
 	data.sockets = receiver.error || isBlocked ? [] : [receiver.user.connected];
+	data.receiver = receiver;
 
 	return (updateResponse.error ? updateResponse : data);
 };
