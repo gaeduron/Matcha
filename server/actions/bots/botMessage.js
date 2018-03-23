@@ -10,15 +10,14 @@ const error = {
 };
 
 const botMessageList = [
-	'Hi there ! Cats or Dogs ?',
-	'Cats AND dogs, is the only good response ;)',
-	'I need to be honest with you... I am not a very good listener.',
-	'I will never answer any of your questions, it is in my nature.',
-	'I am like a bot, reading messages in an array',
-	'And it look like it is the last message in the array. I will keep sending this one for ever now',
-	'And it look like it is the last message in the array. I will keep sending this one for ever now',
-	'Hey you are still here 😇. Maybe you want me to talk about the guys who made this app ?',
-	'I think they are a really good team, eager to learn, patient, attentive to details... I wonder what will be their next project. I have heard that they are looking for an intership in Paris to dive deeper in software architecture. I give you their linkedin if you are interested: "linkedin.com/in/gduron/" and "linkedin.com/in/bduron/"',
+    'Hi there! Cats or Dogs?',
+    'Cats AND dogs, is the only good answer ;)',
+    'To be honest... I\'m not a very good listener.',
+    'And I won\'t answer any of your questions, because...',
+    '...I\'m a bot, reading messages from an array',
+    'And it looks like it\'s the last message in the array. I\'ll keep looping on this one from now on. (or do I?)',
+    'Hey you\'re still here 😇. Maybe you want me to tell you about the guys who wrote this app?',
+    'I think they make a good team, eager to learn, patient, pay attention to details... I wonder what will be their next project. I\'ve heard that they are looking for an internship to dive deeper in software architecture, scalability and performance. Here are their linkedin if you are interested: "linkedin.com/in/gduron/" and "linkedin.com/in/benjamin-duron/"',
 ];
 
 const botMessage = async ({ sender, receiver }) => {
@@ -33,8 +32,8 @@ const botMessage = async ({ sender, receiver }) => {
 	});
 	messageCount = messageCount.messages.length;
 	logger.info(`messageCount = ${JSON.stringify(messageCount)}`);
-	if (messageCount > 8) {
-		messageCount = 8;
+	if (messageCount > 7) {
+		messageCount = 7;
 	}
 
 	const botMessage = botMessageList[messageCount];

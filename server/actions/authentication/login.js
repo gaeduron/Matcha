@@ -6,8 +6,8 @@ const { pick } = require('ramda');
 
 const error = {
 	invalidePassword: myErrors.newFailure({
-		log: 'Invalide password',
-		message: 'Invalide password',
+		log: 'Invalid password',
+		message: 'Invalid password',
 	}),
 };
 

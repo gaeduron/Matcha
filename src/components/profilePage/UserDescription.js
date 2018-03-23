@@ -142,7 +142,7 @@ export class UserDescription extends React.Component {
 			score: profile.score,
 			orientation: _.capitalize(profile.orientation),
 			gender: _.capitalize(profile.gender),
-			status: 'connected',
+			status: 'Connected',
 		};
 	}
 
