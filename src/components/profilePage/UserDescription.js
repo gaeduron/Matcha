@@ -214,7 +214,7 @@ export class UserDescription extends React.Component {
 				{!this.props.profile &&
 					<button
 						className="l-onb-nav__buttons-left c-button c-button--circle c-user-desc__edit"
-						onClick={() => this.onEdit(this.props.user.nickname)}>
+						onClick={() => this.onEdit(this.props.user.id)}>
 						<i className="material-icons">mode_edit</i>
 					</button>
 				}

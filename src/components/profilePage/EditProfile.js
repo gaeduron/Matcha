@@ -127,7 +127,7 @@ export class EditProfile extends React.Component {
 				<div className="c-edit-menu">
 					<button
 						className="l-onb-nav__buttons-right c-button c-button--circle"
-						onClick={() => this.onPrev(this.props.user.nickname)}
+						onClick={() => this.onPrev(this.props.user.id)}
 					>
 						<i className="material-icons">chevron_left</i>
 					</button>
