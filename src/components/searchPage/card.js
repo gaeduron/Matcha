@@ -50,21 +50,25 @@ export class UserCard extends React.Component {
 			>
 				{this.props.profiles.map((user, i) => 
 					<div
-						className="l-card c-user-card element-animation"
-						key={user.firstname+i}
-						onMouseEnter={() => this.onProfileFocus(user)}
-						onClick={() => this.onClick(user)}
+							className="c-user-card-wrapper"
+							key={user.firstname+i}
 					>
-						<div className="c-user-card__gradient"/>
-						<div className="c-user-card__text">
-							<p className="c-user-card__title">
-								{`${user.firstname} ${user.lastname}, ${moment().diff(user.birthdate, 'years')}`}
-							</p>
-							<p className="c-user-card__date">
-								{`${user.occupation}`}	
-							</p>
+						<div
+							className="l-card c-user-card element-animation"
+							onMouseEnter={() => this.onProfileFocus(user)}
+							onClick={() => this.onClick(user)}
+						>
+							<div className="c-user-card__gradient"/>
+							<div className="c-user-card__text">
+								<p className="c-user-card__title">
+									{`${user.firstname} ${user.lastname}, ${moment().diff(user.birthdate, 'years')}`}
+								</p>
+								<p className="c-user-card__date">
+									{`${user.occupation}`}	
+								</p>
+							</div>
+							<img className="c-user-card__image" src={user.photos[0]} alt="" />
 						</div>
-						<img className="c-user-card__image" src={user.photos[0]} alt="" />
 					</div>
 				)}
 			</div>

@@ -1,3 +1,4 @@
+import moment from 'moment';
 import { step, completeOnboarding } from '../../actions/onboarding'; 
 import { Redirect } from 'react-router-dom';
 
@@ -14,6 +15,17 @@ import {
 	updateBio,	
 	updateLocation	
 } from '../../actions/user';
+import { updateAge } from '../../actions/search';
+
+const birthdateToAgeRange = (birthdate) => {
+    if (birthdate === null) {
+        birthdate = '1990-04-05 22:00:00+00';
+    }
+    let age = moment().diff(birthdate, 'years');
+    const min = age - 5 < 18 ? 18 : age - 5;
+    const max = age + 5 > 100 ? 100 : age + 5;
+    return { min, max };
+}
 
 const onboardingListener = (dispatch, socket) => {
 	socket.on('SERVER/SAVE_PROFILE', (res) => {
@@ -22,6 +34,7 @@ const onboardingListener = (dispatch, socket) => {
 			updateLname(res.lname),	
 			updateNickname(res.nickname),	
 			updateBirthDate(res.birthDate),
+			updateAge(birthdateToAgeRange(res.birthDate)),
 			step()
 		]);
 	});

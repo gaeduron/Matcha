@@ -25,7 +25,7 @@ export class Message extends React.Component {
 				}
 				<div
 					className={`c-message__wrapper
-						${this.props.from == "you" ? "c-message__wrapper--sent" : ""}
+						${this.props.from == "you" ? "c-message__wrapper--sent element-animation-slidein-right" : "element-animation-slidein-left"}
 					`}
 				>
 					<div

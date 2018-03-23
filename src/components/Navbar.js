@@ -18,7 +18,7 @@ const navItemActive = (path, altPath = false) => {
 
 const itemLogoActive = (path, altPath = false) => {
 	if (history.location.pathname === path || history.location.pathname === altPath) {
-		return ' c-nav-item__logo--active';
+		return ' c-nav-item__logo--active element-animation-colorize';
 	}
 	return '';
 };

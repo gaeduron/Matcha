@@ -42,7 +42,9 @@ export const likesSelector = ({ likes, onlineUsers, blocked }, id) => {
 		UNLIKE = 'unliked your profile',
 		VISIT = 'visited your profile';
 	let news = [];
-		
+	
+	likes = findLastLikes(likes);
+			
 	likes.forEach(x => { 
 		if (x.receiver == id)
 			news.push({

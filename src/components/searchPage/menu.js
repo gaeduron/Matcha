@@ -5,7 +5,9 @@ import ChipInput from 'material-ui-chip-input';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { Select } from 'antd';
 import _ from 'lodash';
+import moment from 'moment';
 import MapWithAMarker from './map';
+import { updateAge } from '../../actions/search';
 
 const Option = Select.Option;
 
@@ -106,7 +108,8 @@ export class SearchMenu extends React.Component {
 		}
 	}
 	
-	componentWillMount = () => {
+	componentWillMount =  () => {
+		this.props.updateAge(this.props.userProfile.birthdate);
 		this.getProfiles();
 	}
 	
@@ -220,7 +223,7 @@ export class SearchMenu extends React.Component {
 								onRequestAdd={(tag) => this.handleAddtag(tag)}
 								onRequestDelete={(tag, index) => this.handleDeletetag(tag, index)}
 								underlineStyle={{ }}
-								hintText={'Add some tags (ex. Cool, Cat, ...)'}
+								hintText={'Add some tags (ex. cats, introvert, yoga, ...)'}
 								chipContainerStyle={{
 									backgroundColor: 'red'
 								}}
@@ -248,7 +251,18 @@ export class SearchMenu extends React.Component {
 	}
 }
 
+const birthdateToAgeRange = (birthdate) => {
+    if (birthdate === null) {
+        birthdate = '1990-04-05 22:00:00+00';
+    }
+    let age = moment().diff(birthdate, 'years');
+    const min = age - 5 < 18 ? 18 : age - 5;
+    const max = age + 5 > 100 ? 100 : age + 5;
+    return { min, max };
+}
+
 const mapDispatchToProps = (dispatch) => ({
+	updateAge: (birthdate) => dispatch(updateAge(birthdateToAgeRange(birthdate))),
 	getProfiles: (data) => dispatch({
 		type: 'SERVER/GET_PROFILES',
 		data
