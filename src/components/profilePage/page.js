@@ -82,7 +82,7 @@ export class SearchPage extends React.Component {
 
 const mapStateToProps = (state) => {
 	return {
-		userID: state.user.nickname,
+		userID: state.user.id,
 	};
 };
 

@@ -3,6 +3,7 @@ const passwordResetEmail = require('../../actions/user/passwordResetMail');
 const passwordReset = require('../../actions/user/passwordReset');
 const logger = require('../../logs/logger');
 const login = require('../../actions/authentication/login');
+const broadcastOnlineUsers = require('../../actions/interactions/broadcastOnlineUsers');
 
 const userListeners = (socket) => {
 	socket.on('createUser', async (user) => {
@@ -26,6 +27,7 @@ const userListeners = (socket) => {
 					socket.emit('notificationError', error);
 				});
 			} else {
+				broadcastOnlineUsers(socket);
 				socket.emit('login', response);
 				logger.succes('Login user');
 			}
@@ -37,11 +39,15 @@ const userListeners = (socket) => {
 		const response = await passwordResetEmail(user);
 		if (response.error) {
 			response.error.forEach((error) => {
-				socket.emit('notificationError', error);
+				if (error.type == 'warning') {
+					socket.emit('notificationInfo', error.message);
+				} else {
+					socket.emit('notificationError', error);
+				}
 			});
 		} else {
 			socket.emit('passwordResetEmail', response);
-			socket.emit('notificationInfo', 'Please check your inbox.');
+			socket.emit('notificationSuccess', 'An email has been sent to your inbox.');
 			logger.succes('Password Reset email on his way...');
 		}
 	});

@@ -116,9 +116,11 @@ export class UserDescription extends React.Component {
 	}
 
 	formatOrientation = (orientation) => {
-		if (orientation === 'hetero' || orientation === 'Hetero') {
+		if (orientation === 'hetero' || orientation === 'Hetero' ||
+			orientation === 'straight' || orientation === 'Straight') {
 			return 'Straight';
-		} else if (orientation === 'bi' || orientation === 'Bi') {
+		} else if (orientation === 'bi' || orientation === 'Bi' ||
+			orientation === 'bisexual' || orientation === 'Bisexual') {
 			return 'Bisexual';
 		}
 		return 'Gay';
@@ -143,7 +145,7 @@ export class UserDescription extends React.Component {
 			status: 'connected',
 		};
 	}
-	
+
 	formatFetchedProfile = (profile) => {
 		if (profile.reported === true && this.state.reported === false) {
 			this.setState({ reported: true });
@@ -166,7 +168,7 @@ export class UserDescription extends React.Component {
 			score: profile.score,
 			orientation: this.formatOrientation(profile.sexualOrientation),
 			gender: _.capitalize(profile.sex),
-			status: 'disconnected',
+			status: this.props.onlineUsers.includes(profile.id) ? 'Connected' : 'disconnected',
 			likeYou: true,
 			lastConnection: profile.lastConnection == null ? 'Monday, January 28th' : moment(profile.lastConnection).format('dddd, MMMM Do'),
 		};
@@ -212,7 +214,7 @@ export class UserDescription extends React.Component {
 				{!this.props.profile &&
 					<button
 						className="l-onb-nav__buttons-left c-button c-button--circle c-user-desc__edit"
-						onClick={() => this.onEdit(this.props.user.nickname)}>
+						onClick={() => this.onEdit(this.props.user.id)}>
 						<i className="material-icons">mode_edit</i>
 					</button>
 				}
@@ -242,7 +244,7 @@ export class UserDescription extends React.Component {
 						<p className="c-user-desc__info">{`${user.occupation}`}</p>
 						<p className="c-user-desc__info">{`${user.distance}`} km away</p>
 						<p className="c-user-desc__info">{`${user.orientation}, ${user.gender}`}</p>
-						{user.status === 'connected' ?
+						{user.status === 'Connected' ?
 							<p className="c-user-desc__info">{`${user.status}`}</p>
 							:
 							<p className="c-user-desc__info">{`Last visit: ${user.lastConnection}`}</p>
@@ -309,6 +311,7 @@ const mapStateToProps = (state) => {
 			profilePicture: state.user.photos[0], 
 			firstname: state.user.fname
 		},
+		onlineUsers: state.interactions.onlineUsers,
 	};
 };
 

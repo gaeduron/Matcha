@@ -11,6 +11,7 @@ const error = {
 	userNotFound: myErrors.newFailure({
 		log: 'User not found',
 		message: 'No profiles found with thoses filters',
+		type: 'info',
 	}),
 };
 

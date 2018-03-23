@@ -110,7 +110,7 @@ export const Navbar = ({ userID, search, newsBadges, messagesBadges }) => {
 )};
 
 const mapStateToProps = (state) => ({
-	userID: state.user.nickname,
+	userID: state.user.id,
 	search: state.search,
 	newsBadges: newsBadgesSelector(state.interactions, state.user.id),
 	messagesBadges: messagesBadgesSelector(state.interactions, state.user.id)
