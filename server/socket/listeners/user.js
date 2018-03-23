@@ -39,11 +39,15 @@ const userListeners = (socket) => {
 		const response = await passwordResetEmail(user);
 		if (response.error) {
 			response.error.forEach((error) => {
-				socket.emit('notificationError', error);
+				if (error.type == 'warning') {
+					socket.emit('notificationInfo', error.message);
+				} else {
+					socket.emit('notificationError', error);
+				}
 			});
 		} else {
 			socket.emit('passwordResetEmail', response);
-			socket.emit('notificationInfo', 'Please check your inbox.');
+			socket.emit('notificationSuccess', 'An email has been sent to your inbox.');
 			logger.succes('Password Reset email on his way...');
 		}
 	});

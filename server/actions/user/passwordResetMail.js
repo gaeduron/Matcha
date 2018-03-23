@@ -13,7 +13,17 @@ const passwordResetEmail = async ({ emailOrLogin }) => {
 
 	logger.info('Searching a matching user...');
 	let response = await Users.find(user);
-	if (response.error) { return response; }
+	if (response.error) {
+		response.error[1] = {
+			type: 'warning',
+			message: 'Profile not found'
+		}
+		response.error[0] = {
+			type: 'warning',
+			message: 'Please, write your correct email or login in the input field'
+		}
+		return response;
+	}
 	user.email = response.user.email;
 	user.id = response.user.id;
 
