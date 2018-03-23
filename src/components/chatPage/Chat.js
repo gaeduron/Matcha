@@ -68,8 +68,10 @@ export class Chat extends React.Component {
 		if (e) {
 			e.preventDefault();
 		}
-		this.props.onSendMessage(this.state.newMessage);
-		this.setState({ newMessage: "" });
+		if (this.state.newMessage.length > 0) {
+			this.props.onSendMessage(this.state.newMessage);
+			this.setState({ newMessage: "" });
+		}
 	}
 
 	render() {
