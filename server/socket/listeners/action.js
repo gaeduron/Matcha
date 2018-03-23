@@ -41,6 +41,7 @@ const emitTimed = async ({ event, data, socket, action, actionData }) => {
 			return 0;	
 		} else {
 			socket.emit(event, res.data);
+			socket.emit('SERVER/GET_INTERACTIONS', {});
 		}
 	} else {
 		socket.emit(event, data)
