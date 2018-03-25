@@ -17,7 +17,8 @@ Writen by [@gduron](https://github.com/gaeduron) and [@bduron](https://github.co
 ## Subject 
 	This project is about creating a dating website. 
 	You will need to create an app allowing two potential lovers to meet, 
-	from the registration to the final encounter. 
+	from the registration to the final encounter.
+	
 	A user will then be able to register, connect, fill his/her profile, 
 	search and look into the profile of other users, like them, 
 	chat with those that “liked” back.
@@ -73,6 +74,8 @@ In hindsight we should have designed a standard RESTful API, as it would have be
 
 ### Code quality / linter
 For maintenability sake it would have been cleaner to use a linter and stick to a proven coding convention/standard.
+
+![5](https://resources-live.sketch.cloud/files/8811ed42-c902-4ee4-9cad-f23f5432d2b8.png?Expires=1522273496&Key-Pair-Id=APKAIZ4KEFPO7VL7CCPQ&Signature=FhD3fwUiQkBpaZG~iI0YJUj2ofAOeYMalm~i9YpSsYz7XesvaEB0q3xtetYtxw-MjkXWwhWWijxWCfwn1BeLkIubSOfkvPlsDYJsQC34wycL2PDwMpby~MeWFrU0~MeiTKcxXg21YmY1rtpx7K3NlXc5eRpnA3XfEqzpxp4KO3n3a~xUZgKa9taIep5-Xe0qdeBr~5QWg724Jz-hu102uHeNy2zxpcfnwWgw0S2K6cvV5JxY2NsmAurn0lqcQcnwOUEC47K9-sjhgbYQYYke~Tt1pcGCiUALjiYJIg5rXdwrFmSq0OKx9XSKBFa9lmhm3tqCqIZubemN3DGfMNmBWg__)
 
 ![1](https://preview.ibb.co/ka6X9n/Capture_d_e_cran_2018_03_25_a_21_54_37.png)
 
