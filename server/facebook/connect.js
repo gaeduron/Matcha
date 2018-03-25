@@ -8,12 +8,14 @@ module.exports = (app) => {
 	passport.serializeUser(function(user, done) {
 		done(null, user.id);
 	});
+
+	const url = process.env.ROOT_URL || 'http://localhost:8080/';
 	
 	passport.use(new FacebookStrategy(
 		{
 			clientID: '504347826627650',
 			clientSecret: process.env.FB_CLIENT_SECRET,
-			callbackURL: "http://localhost:8080/auth/facebook/callback",
+			callbackURL: `${url}auth/facebook/callback`,
 			profileFields: [
 				'id',
 				'emails',

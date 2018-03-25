@@ -1,6 +1,6 @@
 .l-wrapper__landing {
 	width: 100%;
-	margin: 210px auto 0px auto;
+	margin: 25vh auto 0px auto;
 	text-align: center;
 	position: relative;
 }
@@ -13,7 +13,7 @@
 
 .l-landing__buttons {
 	width: 310px;
-	margin: 300px auto 0px auto;
+	margin: 10vh auto 0px auto;
 }
 
 .l-landing__buttons-margin {
@@ -30,13 +30,18 @@
 @media only screen and (max-width: 425px) {
 	.l-wrapper__landing {
 		width: 312px;
-		margin: 200px auto 0px auto;
+		margin: 25vh auto 0px auto;
 		text-align: center;
 		position: relative;
 	}
 
 	.l-landing__buttons {
-		margin: 150px auto 0px auto;
+		margin: 10vh auto 0px auto;
 	}
 
+	.l-corner-button {
+		position:absolute;
+	    top:20px;
+		right:20px;
+	}
 }

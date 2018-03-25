@@ -6,8 +6,8 @@
   "license": "MIT",
   "scripts": {
     "build:dev": "webpack",
-    "build:prod": "webpack --env production",
-    "dev:front": "webpack --watch",
+    "build:prod": "webpack --env.production --env.NODE_ENV=production",
+    "dev:front": "webpack --env.development --watch",
     "dev:back": "nodemon server/server.js --watch server",
     "test": "cross-env NODE_ENV=test jest --config=jest.config.json",
     "start": "node server/server.js",
