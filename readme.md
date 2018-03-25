@@ -30,7 +30,8 @@ Writen by [@gduron](https://github.com/gaeduron) and [@bduron](https://github.co
 	* Advanced user registration and sign-in
 	* Real-time application
 	* Geolocation 
-	* Security / Data validation
+	* Security (OWASP 10, XSS, SQL injection, cookie session fixation...) 
+	* Data validation
 	* UX / UI Design 
 
 ## Our stack 
