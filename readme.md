@@ -1,7 +1,10 @@
 
 # Matcha
  Link to app: https://matcha-duron.herokuapp.com/.
- Writen by [@gduron](https://github.com/gaeduron) and [@bduron](https://github.com/bduron) 
+
+_(* the page can take some times to load because our free heroku server becomes idle after 30 mins of inactivity)_
+
+Writen by [@gduron](https://github.com/gaeduron) and [@bduron](https://github.com/bduron) 
 
 ![dashboard](https://preview.ibb.co/f36Dh7/Capture_d_e_cran_2018_03_25_a_22_13_13.png)
 
