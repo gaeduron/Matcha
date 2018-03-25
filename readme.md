@@ -9,13 +9,13 @@ Writen by [@gduron](https://github.com/gaeduron) and [@bduron](https://github.co
 ![dashboard](https://preview.ibb.co/f36Dh7/Capture_d_e_cran_2018_03_25_a_22_13_13.png)
 
 ## Install
-	`git clone https://github.com/gaeduron/Matcha.git`  
-	`yarn`  
-	`yarn dev:back`
-	`yarn dev:front`
+	git clone https://github.com/gaeduron/Matcha.git 
+	yarn  
+	yarn dev:back
+	yarn dev:front
 
 ## Subject 
-	`This project is about creating a dating website. You will need to create an app allowing two potential lovers to 	meet, from the registration to the final encounter. A user will then be able to register, connect, fill his/her profile, 	search and look into the profile of other users, like them 1 , chat with those that “liked” back.`
+	This project is about creating a dating website. You will need to create an app allowing two potential lovers to 	meet, from the registration to the final encounter. A user will then be able to register, connect, fill his/her profile, 	search and look into the profile of other users, like them 1 , chat with those that “liked” back.
 
 ## Key concepts 
 	* Single page application
