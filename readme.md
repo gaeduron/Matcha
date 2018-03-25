@@ -44,10 +44,10 @@ Writen by [@gduron](https://github.com/gaeduron) and [@bduron](https://github.co
 
 ## Project’s constraints 
 
-Mandatory tools: 
-	Relational database 
+	__Mandatory tools__ 
+		* Relational database 
 
-	Forbidden tools:
+	__Forbidden tools__
 		* ORM/ODM
 		* MVC framework
 		* Validators 
