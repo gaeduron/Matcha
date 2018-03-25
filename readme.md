@@ -47,11 +47,11 @@ Writen by [@gduron](https://github.com/gaeduron) and [@bduron](https://github.co
 Mandatory tools: 
 	Relational database 
 
-Forbidden tools:
-	ORM/ODM
-	MVC framework
-	Validators 
-	Registration /  Authentication library 
+	Forbidden tools:
+		* ORM/ODM
+		* MVC framework
+		* Validators 
+		* Registration / Authentication library 
 
 
 ## Key learnings  
