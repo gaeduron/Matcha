@@ -7,10 +7,16 @@ _(* the page can take some times to load because our free heroku server becomes 
 Writen by [@gduron](https://github.com/gaeduron) and [@bduron](https://github.com/bduron) 
 
 ![dashboard](https://preview.ibb.co/f36Dh7/Capture_d_e_cran_2018_03_25_a_22_13_13.png)
-
+[API](https://github.com/gaeduron/Matcha/wiki#api) section of the wiki
 ## Install
 	git clone https://github.com/gaeduron/Matcha.git 
 	yarn  
+
+You need to set up the differentes API (Postgres, facebook, sendgrid) 
+
+More info in the [API](https://github.com/gaeduron/Matcha/wiki#api) section of the wiki
+	
+### Run	
 	yarn dev:back
 	yarn dev:front
 
